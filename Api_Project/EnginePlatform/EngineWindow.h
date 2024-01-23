@@ -1,19 +1,31 @@
-#pragma once
+#include <Windows.h>
+#include <string>
+// 설명 :
 class EngineWindow
 {
 public:
 	// constrcuter destructer
-	EngineWindow(); // 디폴트 생성자
-	~EngineWindow(); // 디폴트 소멸자
+	EngineWindow();
+	~EngineWindow();
 
 	// delete Function
-	EngineWindow(const EngineWindow& _Other) = delete; // 디폴트 복사 생성자
-	EngineWindow(EngineWindow&& _Other) noexcept = delete; 
-	EngineWindow& operator=(const EngineWindow& _Other) = delete; // 디폴트 대입 연산자
+	EngineWindow(const EngineWindow& _Other) = delete;
+	EngineWindow(EngineWindow&& _Other) noexcept = delete;
+	EngineWindow& operator=(const EngineWindow& _Other) = delete;
 	EngineWindow& operator=(EngineWindow&& _Other) noexcept = delete;
+
+	void Open(std::string_view _Title = "Title");
+
+	static void Init(HINSTANCE _hInst);
+	static int WindowMessageLoop();
 
 protected:
 
 private:
-};
+	static bool WindowLive;
+	static HINSTANCE hInstance;
+	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
+	HWND hWnd = nullptr;
+	HDC hDC = nullptr;
+};
