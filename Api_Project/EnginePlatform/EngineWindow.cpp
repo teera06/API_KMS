@@ -69,9 +69,6 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 	// _Title.c_str(); => 자연스럽게 내부에서 
 	// const char* Test = &_Title[0]
 	// return Test;
-	// 
-	// const char*;
-	// 
 
 	hWnd = CreateWindowA("DefaultWindow", _Title.data(), WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
@@ -89,9 +86,9 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 
 }
 
-int EngineWindow::WindowMessageLoop()
+unsigned __int64 EngineWindow::WindowMessageLoop()
 {
-	MSG msg;
+	MSG msg = {};
 
 	while (WindowLive)
 	{
@@ -106,3 +103,5 @@ int EngineWindow::WindowMessageLoop()
 
 	return msg.wParam;
 }
+
+

@@ -1,3 +1,4 @@
+#pragma once
 #include <Windows.h>
 #include <string>
 // Ό³Έν :
@@ -17,7 +18,7 @@ public:
 	void Open(std::string_view _Title = "Title");
 
 	static void Init(HINSTANCE _hInst);
-	static int WindowMessageLoop();
+	static unsigned __int64 WindowMessageLoop();
 
 protected:
 
@@ -29,3 +30,4 @@ private:
 	HWND hWnd = nullptr;
 	HDC hDC = nullptr;
 };
+

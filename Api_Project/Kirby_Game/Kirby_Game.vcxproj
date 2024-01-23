@@ -30,7 +30,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game_Core.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Kirby_Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game_Core.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

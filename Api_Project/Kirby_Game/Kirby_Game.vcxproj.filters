@@ -2,5 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Kirby_Game.cpp" />
+    <ClCompile Include="Game_Core.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game_Core.h" />
   </ItemGroup>
 </Project>
