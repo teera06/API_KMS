@@ -1,26 +1,29 @@
 #include "EngineWindow.h"
 #include <EngineBase\EngineDebug.h>
 
-bool EngineWindow::WindowLive = true;
+// static 초기화 -> 객체지향에서의 전역변수 처럼 사용하기 위한 합리적 방법
+bool EngineWindow::WindowLive = true; 
 HINSTANCE EngineWindow::hInstance;
 
-
+// 안의 내용은 함수포인터식
 LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_PAINT:
+	case WM_PAINT: // 그리기 기능
 	{
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
 	}
 	break;
-	case WM_DESTROY:
+	case WM_DESTROY: // 닫기 기능
 		WindowLive = false;
 		// PostQuitMessage(123213);
 		break;
-	default:
+	default: 
+		// 아무것도 안했을 때의 리턴 값 -> 
+		// 일반적인 사용자가 정의할 수 없는 메시지는 나에게 넘기면 윈도우가 기본적으로 처리하는 방식으로  처리해 주겠다.
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
@@ -40,6 +43,7 @@ EngineWindow::~EngineWindow()
 {
 }
 
+// 윈도우 창 생성
 void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 {
 	// 간혹가다가 앞쪽이이나 뒤쪽에 W가 붙거나 A가 붙어있는 함수들을 보게 될겁니다.
@@ -73,19 +77,20 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 	hWnd = CreateWindowA("DefaultWindow", _Title.data(), WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-	if (!hWnd)
+	if (!hWnd) // 윈도우 핸들 기능인 hwnd가 false상태이면 윈도우 생성 실패
 	{
 		MsgBoxAssert("윈도우 생성에 실패했습니다.");
 		return;
 	}
 
-	hDC = GetDC(hWnd);
+	hDC = GetDC(hWnd); 
 
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
 
 }
 
+// 윈도우 창 유지
 unsigned __int64 EngineWindow::WindowMessageLoop()
 {
 	MSG msg = {};

@@ -1,10 +1,12 @@
 #pragma once
+// 엔진 담당 -> 절대 건들지 말기
+
 #include <Windows.h>
 #include <assert.h>
 
-#define LeakCheck _CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+#define LeakCheck _CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF); // 릭체크
 
-#define MsgBoxAssert(TEXT) MessageBoxA(nullptr, TEXT, "치명적 에러", MB_OK); assert(false);
+#define MsgBoxAssert(TEXT) MessageBoxA(nullptr, TEXT, "치명적 에러", MB_OK); assert(false); // 경고 메세지
 
 class EngineDebug
 {

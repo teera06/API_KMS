@@ -9,6 +9,7 @@ EngineCore::~EngineCore()
 {
 }
 
+// 한번만 실행
 void EngineCore::CoreInit(HINSTANCE _HINSTANCE)
 {
 	if (true == EngineInit)

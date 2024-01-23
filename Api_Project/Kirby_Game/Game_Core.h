@@ -1,4 +1,5 @@
 #pragma once
+// 콘텐츠 영역 -> 본인 개발 영역
 #include <EngineCore\EngineCore.h>
 
 class Game_Core :public EngineCore
@@ -15,6 +16,8 @@ public:
 	Game_Core& operator=(Game_Core&& _Other) noexcept = delete;
 
 protected:
+	
+	// 게임 진행 파트별로 개발 진행
 	void EngineStart() override;
 	void EngineUpdate() override;
 	void EngineEnd() override;

@@ -34,7 +34,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Kirby_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game_Core.h">
