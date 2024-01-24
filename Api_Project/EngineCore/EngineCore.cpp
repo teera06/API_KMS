@@ -53,9 +53,9 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore)
 	EngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
 }
 
-void EngineCore::CoreInit(HINSTANCE _HINSTANCE)
+void EngineCore::CoreInit(HINSTANCE _HINSTANCE) // 기능 : 프로그램핸들(HINSTANCE)을 주고 윈도우창 open
 {
-	if (true == EngineInit)
+	if (true == EngineInit) // // 윈도우창은 한번만 열리게 방어코드
 	{
 		return;
 	}
