@@ -4,7 +4,7 @@
 bool EngineWindow::WindowLive = true;
 HINSTANCE EngineWindow::hInstance;
 
-
+// 윈도우 창 변화에 따른 실행값
 LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -21,7 +21,7 @@ LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, L
 		// PostQuitMessage(123213);
 		break;
 	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
+		return DefWindowProc(hWnd, message, wParam, lParam); // 기본 유지값
 	}
 	return 0;
 }
@@ -40,6 +40,7 @@ EngineWindow::~EngineWindow()
 {
 }
 
+// 윈도우창 생성 및 열기
 void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 {
 	// 간혹가다가 앞쪽이이나 뒤쪽에 W가 붙거나 A가 붙어있는 함수들을 보게 될겁니다.
@@ -50,7 +51,7 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 	wcex.cbSize = sizeof(WNDCLASSEX);
 
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc = WndProc;
+	wcex.lpfnWndProc = WndProc; // 프로그래머와 윈도우의 콜백 서로에게 연락
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
@@ -70,6 +71,7 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 	// const char* Test = &_Title[0]
 	// return Test;
 
+	// ??? 프로그램의 ??? 윈도우 지정
 	hWnd = CreateWindowA("DefaultWindow", _Title.data(), WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
@@ -79,18 +81,18 @@ void EngineWindow::Open(std::string_view _Title /*= "Title"*/)
 		return;
 	}
 
-	hDC = GetDC(hWnd);
+	hDC = GetDC(hWnd); // ??? 윈도우의 그리기 기능 값을 받음
 
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-
 }
 
-unsigned __int64 EngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)())
+// 윈도우 창 유지
+unsigned __int64 EngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)()) //
 {
 	MSG msg = {};
 
-	while (WindowLive)
+	while (WindowLive) // 윈도우창이 유지 될때
 	{
 		// 기본 메시지 루프입니다:
 		// 10개가 들어있을 
