@@ -163,7 +163,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Acotr.h">
+    <ClInclude Include="Actor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -179,13 +179,13 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="UpdateObject.h">
+    <ClInclude Include="TickObject.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Acotr.cpp">
+    <ClCompile Include="Actor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -201,7 +201,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="UpdateObject.cpp">
+    <ClCompile Include="TickObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

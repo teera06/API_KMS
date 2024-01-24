@@ -15,7 +15,7 @@
     <ClCompile Include="EngineCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Acotr.cpp">
+    <ClCompile Include="Actor.cpp">
       <Filter>Object\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
@@ -24,7 +24,7 @@
     <ClCompile Include="NameObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="UpdateObject.cpp">
+    <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="EngineCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Acotr.h">
+    <ClInclude Include="Actor.h">
       <Filter>Object\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
@@ -41,7 +41,7 @@
     <ClInclude Include="NameObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateObject.h">
+    <ClInclude Include="TickObject.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
