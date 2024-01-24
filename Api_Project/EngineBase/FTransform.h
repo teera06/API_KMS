@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineMath.h"
 
-// 설명 :
+// 기능 : 오브젝트 (ex) 커비, 몬스터) 위치, 크기 설정
 class FTransform
 {
 public:
@@ -16,6 +16,7 @@ public:
 	//FTransform& operator=(FTransform&& _Other) noexcept = delete;
 
 public:
+	// (1) 크기 -> Get, Set
 	void SetScale(FVector _Value)
 	{
 		Scale = _Value;
@@ -24,6 +25,9 @@ public:
 	{
 		return Scale;
 	}
+	//-------------------------------------
+
+	// (2) // 위치 -> Get, Set
 	void SetPosition(FVector _Value)
 	{
 		Position = _Value;
@@ -32,7 +36,9 @@ public:
 	{
 		return Position;
 	}
+	//----------------------------------------
 
+	// float 위치 이동
 	float Left()
 	{
 		return Position.X - Scale.hX();
@@ -50,6 +56,7 @@ public:
 		return Position.Y + Scale.hY();
 	}
 
+	// float -> int 형변환 위치 이동 -> 실질적으로 사용할 것-> 이유 : 정수 사용을 선호
 	int iLeft()
 	{
 		return static_cast<int>(Left());
@@ -70,7 +77,7 @@ public:
 protected:
 
 private:
-	FVector Scale;
-	FVector Position;
+	FVector Scale; // 오브젝트 크기
+	FVector Position; // 오브젝트 위치
 };
 

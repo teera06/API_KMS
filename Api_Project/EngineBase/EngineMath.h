@@ -1,5 +1,6 @@
 #pragma once
 
+// 기능 : 기본 수학적 변수 -> 위치나 크기를 표현하기 위해 정의
 struct float4
 {
 public:
