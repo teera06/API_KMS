@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 
+// 전방선언
 class AActor;
 // 설명 : U는 그냥 엔진 속해있다는 것을 의미.
 class ULevel : public UNameObject
@@ -18,9 +19,12 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
+	//  가상함수
 	virtual void BeginPlay() {};
 	virtual void Tick(float _DeltaTime) {};
 
+
+	// 액터 생성 -> 동적할당 및 자료구조에 정리
 	template<typename ActorType>
 	ActorType* SpawnActor(int _Order = 0)
 	{
@@ -35,7 +39,7 @@ public:
 protected:
 
 private:
-	std::map<int, std::list<AActor*>> AllActor;
+	std::map<int, std::list<AActor*>> AllActor; // 엑터(ex) 플레이어, 몬스터) 관리
 
 	void ActorInit(AActor* _NewActor);
 

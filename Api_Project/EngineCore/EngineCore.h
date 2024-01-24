@@ -22,12 +22,17 @@ public:
 	// 코어가 윈도우를 가지고 있다.
 	EngineWindow MainWindow; // 코어(윈도우)
 
-	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore);  // 
+	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore);
+	// 엔진 실행 담당 -> Game_Core 즉 콘텐츠 부분의 코어를 기반으로 실행창 유지
 
-	void CoreInit(HINSTANCE _Init);
+	void CoreInit(HINSTANCE _Init); // 윈도우 창 생성 -> 하나의 프로그램을 배정받고 -> 그 안의 윈도우 배정
+	// 프로그램 핸들
+	// 윈도우 핸들
+	// 창 오픈
 
-	virtual void BeginPlay();
-	virtual void Tick(float _DeltaTime);
+	// 가상함수
+	virtual void BeginPlay(); // start
+	virtual void Tick(float _DeltaTime); // update
 	virtual void End();
 
 	// 엔진의 콘텐츠 부분 -> 레벨을 만들어주고 map에서 레벨 관리
@@ -46,7 +51,7 @@ public:
 		AllLevel.insert(std::pair<std::string, ULevel*>(UpperName, NewLevel));
 	}
 
-	void ChangeLevel(std::string_view _Name);
+	void ChangeLevel(std::string_view _Name); // 현재 레벨 기록
 
 protected:
 	// 여러곳에서 사용할수 있기에 방지

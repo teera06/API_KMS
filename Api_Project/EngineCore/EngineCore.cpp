@@ -91,7 +91,7 @@ void EngineCore::ChangeLevel(std::string_view _Name)
 	}
 
 	// 눈에 보여야할 레벨이죠?
-	CurLevel = AllLevel[UpperName];
+	CurLevel = AllLevel[UpperName]; // 현재 레벨 기록
 }
 
 void EngineCore::LevelInit(ULevel* _Level)
