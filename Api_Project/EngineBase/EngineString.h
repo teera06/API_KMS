@@ -1,19 +1,25 @@
 #pragma once
+// 전부다 std의 헤더뿐이다.
+#include <string>
+#include <string_view>
+
+// 설명 :
 class EngineString
 {
 public:
-	// constrcuter destructer
-	EngineString(); // 디폴트 생성자
-	~EngineString(); // 디폴트 소멸자
-
-	// delete Function
-	EngineString(const EngineString& _Other) = delete; // 디폴트 복사 생성자
-	EngineString(EngineString&& _Other) noexcept = delete; 
-	EngineString& operator=(const EngineString& _Other) = delete; // 디폴트 대입 연산자
-	EngineString& operator=(EngineString&& _Other) noexcept = delete;
+	static std::string ToUpper(std::string_view View);
 
 protected:
 
 private:
+	// constrcuter destructer
+	EngineString();
+	~EngineString();
+
+	// delete Function
+	EngineString(const EngineString& _Other) = delete;
+	EngineString(EngineString&& _Other) noexcept = delete;
+	EngineString& operator=(const EngineString& _Other) = delete;
+	EngineString& operator=(EngineString&& _Other) noexcept = delete;
 };
 
