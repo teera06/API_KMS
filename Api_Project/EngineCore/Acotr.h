@@ -1,4 +1,6 @@
 #pragma once
+#include <EngineBase/FTransform.h>
+
 class AAcotr
 {
 public:
@@ -12,8 +14,10 @@ public:
 	AAcotr& operator=(const AAcotr& _Other) = delete; // 디폴트 대입 연산자
 	AAcotr& operator=(AAcotr&& _Other) noexcept = delete;
 
+
 protected:
 
 private:
+	
 };
 
