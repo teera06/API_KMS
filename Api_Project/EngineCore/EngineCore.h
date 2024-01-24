@@ -1,13 +1,13 @@
 #pragma once
-// 엔진 영역 -> 절대 변경 금지
-#include <EnginePlatform\EngineWindow.h> // 값형으로 쓰기 위한 헤더 선언
+#include <EngineBase\EngineDebug.h>
+#include <EnginePlatform\EngineWindow.h>
+#include <map>
 
-// 설명 : 엔진과 콘텐츠의 중간다리 역할
+class ULevel;
+// 설명 :
 class EngineCore
 {
 public:
-	// constrcuter destructer
-	EngineCore();
 	~EngineCore();
 
 	// delete Function
@@ -17,37 +17,50 @@ public:
 	EngineCore& operator=(EngineCore&& _Other) noexcept = delete;
 
 	// 하나는 무조건 만들어지고 사라질일이 없을것이므ㅗ.
-	EngineWindow MainWindow; // 엔진 코어에서 윈도우창 생성
+	// 코어가 윈도우를 가지고
+	EngineWindow MainWindow;
+
+	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore);
 
 	void CoreInit(HINSTANCE _Init);
 
-	// 가상함수 -> 가상테이블 형태로 
-	virtual void EngineStart();
-	virtual void EngineUpdate();
-	virtual void EngineEnd();
+	virtual void Start();
+	virtual void Update();
+	virtual void End();
+
+	template<typename LevelType>
+	void CreateLevel(std::string_view _Name)
+	{
+		if (true == AllLevel.contains(_Name.data()))
+		{
+			MsgBoxAssert(std::string(_Name) + "이라는 이름의 Level을 또 만들려고 했습니다");
+		}
+
+		LevelType* NewLevel = new LevelType();
+		AllLevel.insert(std::pair<std::string, ULevel*>(_Name, NewLevel));
+	}
 
 protected:
+	EngineCore();
 
 private:
 	bool EngineInit = false;
+	std::map<std::string, ULevel*> AllLevel;
 
+	static void EngineUpdate();
+	static void EngineEnd();
 };
 
-// wWinMain을 유저들에게부터 숨기기 위해 #define 처리
+extern EngineCore* GEngine;
+
+
 #define ENGINESTART(USERCORE) \
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance, \
 	_In_opt_ HINSTANCE hPrevInstance, \
 	_In_ LPWSTR    lpCmdLine, \
 	_In_ int       nCmdShow) \
 { \
-	USERCORE NewUserCore; \
-	EngineCore* Ptr = &NewUserCore; \
-	Ptr->CoreInit(hInstance); \
-	Ptr->EngineStart(); \
-	EngineWindow::WindowMessageLoop(); \
+    LeakCheck; \
+	USERCORE NewUserCore = USERCORE(); \
+	EngineCore::EngineStart(hInstance, &NewUserCore); \
 }
-
-// 게임이 시작하면서 Game_Core를 가지고 들어옴
-// Game_Core가 생기고 업캐스팅을 통해
-// 부모인 EngineCore에게 Game_Core를 넘겨줌
-// EngineCore는 받은 Game_Core를 바탕으로 윈도우창 실행
