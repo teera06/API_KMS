@@ -1,9 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Game_Core.cpp" />
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>ContentsLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Core.cpp">
+      <Filter>GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1_Level.cpp">
+      <Filter>ContentsLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirby_Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game_Core.h" />
+    <ClInclude Include="TitleLevel.h">
+      <Filter>ContentsLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Core.h">
+      <Filter>GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1_Level.h">
+      <Filter>ContentsLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirby_Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ContentsLevel">
+      <UniqueIdentifier>{0ea31840-57a8-4ed5-a02f-e9beed96e214}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameCore">
+      <UniqueIdentifier>{a4888ff9-9db4-4026-b17b-d375642d4577}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

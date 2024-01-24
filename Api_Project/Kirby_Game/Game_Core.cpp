@@ -1,7 +1,7 @@
 #include "Game_Core.h"
-//#include "Player.h"
-//#include "TitleLevel.h"
-//#include "PlayLevel.h"
+#include "Kirby_Player.h"
+#include "TitleLevel.h"
+#include "Stage1_Level.h"
 
 Game_Core::Game_Core()
 	: EngineCore()
@@ -17,10 +17,10 @@ void Game_Core::BeginPlay()
 {
 	// "Title Level" + "을 만들다가 에러가 났습니다";
 
-	//CreateLevel<UTitleLevel>("TitleLevel");
-	//CreateLevel<UPlayLevel>("PlayLevel");
+	CreateLevel<UTitleLevel>("TitleLevel");
+	CreateLevel<UStage1_Level>("PlayLevel");
 
-	//ChangeLevel("PlayLevel");
+	ChangeLevel("PlayLevel");
 }
 
 void Game_Core::Tick(float _DeltaTime)
