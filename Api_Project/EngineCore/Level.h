@@ -34,7 +34,7 @@ public:
 		return NewActor;
 	}
 
-	void ActorTick(float _DeltaTime);
+	void ActorTick(float _DeltaTime); // Actor Update
 
 protected:
 
