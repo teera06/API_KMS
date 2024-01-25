@@ -21,29 +21,32 @@ public:
 	AActor& operator=(const AActor& _Other) = delete;
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
-	//----------------------------------------------------
-
-	FVector GetActorLocation() //Actor의 위치 Get
+	FVector GetActorLocation()
 	{
 		return Transform.GetPosition();
 	}
 
-	void SetActorLocation(FVector _Value) // Actor의 위치 Set
+	void SetActorLocation(FVector _Value)
 	{
 		Transform.SetPosition(_Value);
 	}
 
-	void SetActorScale(FVector _Value) // Actor의 크기 Set
+	void AddActorLocation(FVector _Value)
+	{
+		Transform.AddPosition(_Value);
+	}
+
+	void SetActorScale(FVector _Value)
 	{
 		Transform.SetScale(_Value);
 	}
 
-	FTransform GetTransform() // Actor의 크기 Get
+	FTransform GetTransform()
 	{
 		return Transform;
 	}
 
-	ULevel* GetWorld() // Level(World) Get
+	ULevel* GetWorld()
 	{
 		return World;
 	}
@@ -51,10 +54,10 @@ public:
 protected:
 
 private:
-	ULevel* World; // Actor는 Level 위에서 움직인다.
-	FTransform Transform; 
+	ULevel* World;
+	FTransform Transform;
 
-	void SetWorld(ULevel* _Value) // 해당 Actor의 Level Set
+	void SetWorld(ULevel* _Value)
 	{
 		World = _Value;
 	}

@@ -19,9 +19,10 @@ void Kirby_Player::Tick(float _DeltaTime)
 {
 	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
 
-	FVector Pos = GetActorLocation();
-	Pos.X += 1;
-	SetActorLocation(Pos);
+	if (0 != GetAsyncKeyState('D'))
+	{
+		AddActorLocation(FVector::Right);
+	}
 
 	FTransform Trans = GetTransform();
 

@@ -18,5 +18,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
+	int HP = 0;
+	int Att = 0;
 };
 
