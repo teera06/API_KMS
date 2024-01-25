@@ -1,6 +1,7 @@
 #include "Kirby_Player.h"
 #include <EngineCore\EngineCore.h>
 #include <EnginePlatform\EngineInput.h>
+#include <EngineBase\EngineTime.h>
 
 Kirby_Player::Kirby_Player()
 {
@@ -18,19 +19,32 @@ void Kirby_Player::BeginPlay()
 
 void Kirby_Player::Tick(float _DeltaTime)
 {
-	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
 
-	if (true == EngineInput::IsDown('A'))
+	if (true == EngineInput::IsPress('A'))
 	{
-		AddActorLocation(FVector::Left);
+		AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsDown('D'))
+	if (true == EngineInput::IsPress('D'))
 	{
-		AddActorLocation(FVector::Right);
+		AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
 	}
 
-	FTransform Trans = GetTransform();
+	if (true == EngineInput::IsPress('W'))
+	{
+		AddActorLocation(FVector::Up * 500.0f * _DeltaTime);
+	}
 
-	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom());
+
+	if (true == EngineInput::IsPress('S'))
+	{
+		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
+	}
+	HDC WindowDC = GEngine->MainWindow.GetWindowDC(); // 윈도우 그리기
+
+	
+
+	FTransform Trans = GetTransform(); // 위치, 크기 값 받아오고
+
+	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom()); // 그 정보에 맞게 그려주기
 }
