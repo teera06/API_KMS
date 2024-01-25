@@ -20,23 +20,23 @@ void Kirby_Player::BeginPlay()
 void Kirby_Player::Tick(float _DeltaTime)
 {
 
-	if (true == EngineInput::IsPress('A'))
+	if (true == EngineInput::IsPress(VK_LEFT))
 	{
 		AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress('D'))
+	if (true == EngineInput::IsPress(VK_RIGHT))
 	{
 		AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress('W'))
+	if (true == EngineInput::IsPress(VK_UP))
 	{
 		AddActorLocation(FVector::Up * 500.0f * _DeltaTime);
 	}
 
 
-	if (true == EngineInput::IsPress('S'))
+	if (true == EngineInput::IsPress(VK_DOWN))
 	{
 		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
 	}
