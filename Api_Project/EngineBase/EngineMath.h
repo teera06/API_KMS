@@ -1,5 +1,6 @@
 #pragma once
 
+// 기능 : 위치, 크기 기본 수학 변수 
 struct float4
 {
 	// F구조체의 

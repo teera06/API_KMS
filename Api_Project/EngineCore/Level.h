@@ -1,5 +1,5 @@
 #pragma once
-#include "NameObject.h"
+#include "NameObject.h" // »ó¼Ó
 #include <map>
 #include <list>
 

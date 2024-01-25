@@ -7,13 +7,13 @@ void EngineInput::EngineKey::KeyCheck()
 	// 이 키가 눌렸다는 거죠?
 	// if (0 != GetAsyncKeyState('A'))
 	// A키가 눌렸다면
-	if (0 != GetAsyncKeyState(Key))
+	if (0 != GetAsyncKeyState(Key)) // 키가 눌렸을때
 	{
-		if (true == Free)
+		if (true == Free) // 키가 처음 눌리거나 이전까지 눌리지 않았을 경우
 		{
 			// 이전까지 이 키는 눌리고 있지 않았다
-			Down = true;
-			Press = true;
+			Down = true; // 눌렀으므로 true
+			Press = true; // Down이 트루 이므로 트루
 			Up = false;
 			Free = false;
 		}
@@ -26,7 +26,7 @@ void EngineInput::EngineKey::KeyCheck()
 			Free = false;
 		}
 	}
-	else
+	else // 키가 눌리지 않았을 때
 	{
 		if (true == Press)
 		{
@@ -182,4 +182,5 @@ public:
 	}
 };
 
-InputInitCreator CreateValue = InputInitCreator();
+// 전역변수 -> 데이터 영역에서 실행
+InputInitCreator CreateValue = InputInitCreator(); // 외부에서 모르게 실행

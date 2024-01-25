@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineMath.h"
 
-// 설명 :
+// 기능 : EngineMath를 이용한 -> 최종 위치, 크기 설정
 class FTransform
 {
 public:
@@ -16,23 +16,23 @@ public:
 	//FTransform& operator=(FTransform&& _Other) noexcept = delete;
 
 public:
-	void SetScale(FVector _Value)
+	void SetScale(FVector _Value) // 크기 Set
 	{
 		Scale = _Value;
 	}
-	FVector GetScale()
+	FVector GetScale() // 크기 Get
 	{
 		return Scale;
 	}
-	void SetPosition(FVector _Value)
+	void SetPosition(FVector _Value) // 위치 Set
 	{
 		Position = _Value;
 	}
-	void AddPosition(FVector _Value)
+	void AddPosition(FVector _Value) // 위치 이동
 	{
 		Position += _Value;
 	}
-	FVector GetPosition()
+	FVector GetPosition() // 위치 Get
 	{
 		return Position;
 	}
@@ -74,7 +74,7 @@ public:
 protected:
 
 private:
-	FVector Scale;
-	FVector Position;
+	FVector Scale; // 크기
+	FVector Position; // 위치
 };
 

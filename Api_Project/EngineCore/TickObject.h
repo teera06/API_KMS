@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : 오브젝트(액터)의 상태
 class UTickObject
 {
 public:

@@ -2,7 +2,7 @@
 // #include <chrono> 최신 시간 재는 헤더 std.
 #include <Windows.h>
 
-// 설명 :
+// 기능 :
 class EngineTime
 {
 public:
@@ -20,14 +20,14 @@ public:
 	void TimeCheckStart();
 
 	// 지금까지 얼마 지났어?
-	float TimeCheck();
+	float TimeCheck(); // DeltaTime을 리턴해준다.
 
 protected:
 
 private:
-	LARGE_INTEGER Count;
-	LARGE_INTEGER PrevTime;
-	LARGE_INTEGER CurTime;
+	LARGE_INTEGER Count; // 초당 카운트 하는 수
+	LARGE_INTEGER PrevTime; // 이전의 카운트 한 수의 값
+	LARGE_INTEGER CurTime; // 현재의 카운트 한 수의 값
 	double dCount;
 	double DeltaTime;
 
