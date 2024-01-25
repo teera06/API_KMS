@@ -1,5 +1,6 @@
 #include "Kirby_Player.h"
 #include <EngineCore\EngineCore.h>
+#include <EnginePlatform\EngineInput.h>
 
 Kirby_Player::Kirby_Player()
 {
@@ -19,7 +20,12 @@ void Kirby_Player::Tick(float _DeltaTime)
 {
 	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
 
-	if (0 != GetAsyncKeyState('D'))
+	if (true == EngineInput::IsDown('A'))
+	{
+		AddActorLocation(FVector::Left);
+	}
+
+	if (true == EngineInput::IsDown('D'))
 	{
 		AddActorLocation(FVector::Right);
 	}

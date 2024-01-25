@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <assert.h>
+#include <string>
+#include <string_view>
 
 // 기능 : 릭체크 및 에러 경고
 namespace EngineDebug

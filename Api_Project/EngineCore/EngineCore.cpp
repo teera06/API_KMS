@@ -1,6 +1,7 @@
 #include "EngineCore.h"
 #include <Windows.h>
 #include "Level.h"
+#include "EnginePlatform\EngineInput.h"
 
 
 EngineCore* GEngine = nullptr;
@@ -16,10 +17,12 @@ EngineCore::~EngineCore()
 
 void EngineCore::EngineTick()
 {
+	EngineInput::KeyCheckTick(0.0f);
 	if (nullptr == GEngine->CurLevel)
 	{
 		MsgBoxAssert("엔진을 시작할 레벨이 지정되지 않았습니다 치명적인 오류입니다");
 	}
+
 	// 레벨이 먼저 틱을 돌리고
 	GEngine->CurLevel->Tick(0.0f);
 	GEngine->CurLevel->ActorTick(0.0f);
@@ -52,15 +55,17 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore)
 	EngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
 }
 
-void EngineCore::CoreInit(HINSTANCE _HINSTANCE) // 기능 : 프로그램핸들(HINSTANCE)을 주고 윈도우창 open
+void EngineCore::CoreInit(HINSTANCE _HINSTANCE)
 {
-	if (true == EngineInit) // // 윈도우창은 한번만 열리게 방어코드
+	if (true == EngineInit)
 	{
 		return;
 	}
 
 	EngineWindow::Init(_HINSTANCE);
 	MainWindow.Open();
+
+	this->AllLevel;
 
 	EngineInit = true;
 }
@@ -90,7 +95,7 @@ void EngineCore::ChangeLevel(std::string_view _Name)
 	}
 
 	// 눈에 보여야할 레벨이죠?
-	CurLevel = AllLevel[UpperName]; // 현재 레벨 기록
+	CurLevel = AllLevel[UpperName];
 }
 
 void EngineCore::LevelInit(ULevel* _Level)
