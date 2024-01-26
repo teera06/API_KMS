@@ -21,17 +21,17 @@ void Kirby_Player::BeginPlay()
 	// 하체? 100, 100 + 50 => Renderer
 
 
-	{
-		BodyRenderer = CreateImageRenderer(0);
-		BodyRenderer->SetPosition({ 0, 30 });
-		BodyRenderer->SetScale({ 80, 80 });
-	}
+	//{
+		//BodyRenderer = CreateImageRenderer(0);
+		//BodyRenderer->SetPosition({ 0, 30 });
+		//BodyRenderer->SetScale({ 80, 80 });
+	//}
 
 
 	{
-		HeadRenderer = CreateImageRenderer(0);
-		HeadRenderer->SetPosition({ 0, -25 });
-		HeadRenderer->SetScale({ 60, 60 });
+		KirbyRenderer = CreateImageRenderer(0);
+		KirbyRenderer->SetPosition({ 0, 0 });
+		KirbyRenderer->SetScale({ 60, 60 });
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
