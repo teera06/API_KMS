@@ -21,26 +21,38 @@ void Kirby_Player::BeginPlay()
 void Kirby_Player::Tick(float _DeltaTime)
 {
 
-	if (true == EngineInput::IsPress(VK_LEFT))
+	if (true == EngineInput::IsPress(VK_LEFT)) // ¿ÞÂÊ °È±â
 	{
-		AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
+		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress(VK_RIGHT))
+	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿ÞÂÊ ¶Ù±â
 	{
-		AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
+		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
+	{
+		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿À¸¥ÂÊ ¶Ù±â
+	{
+		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 	}
 
 	if (true == EngineInput::IsPress(VK_UP))
 	{
-		AddActorLocation(FVector::Up * 500.0f * _DeltaTime);
+		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
 	}
 
 
 	if (true == EngineInput::IsPress(VK_DOWN))
 	{
-		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
+		AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
 	}
+
+	
 
 
 	if (true == EngineInput::IsDown('Q'))
