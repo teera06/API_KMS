@@ -23,6 +23,7 @@ private:
 	float QSkillCool = 0.0f;
 	UImageRenderer* KirbyRenderer;
 
+	int RLpoint = 0; // 방향 체크
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
 };

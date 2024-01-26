@@ -17,6 +17,7 @@ void Kirby_Player::InputTick(float _DeltaTime)
 	if (true == EngineInput::IsPress(VK_LEFT)) // ¿ÞÂÊ °È±â
 	{
 		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
+		RLpoint = VK_LEFT;
 	}
 
 	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿ÞÂÊ ¶Ù±â
@@ -24,9 +25,11 @@ void Kirby_Player::InputTick(float _DeltaTime)
 		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 	}
 
+	//---------------------------------------------------------------------
 	if (true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
 	{
 		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
+		RLpoint = VK_RIGHT;
 	}
 
 	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿À¸¥ÂÊ ¶Ù±â
@@ -34,16 +37,20 @@ void Kirby_Player::InputTick(float _DeltaTime)
 		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 	}
 
+	//-------------------------------------------------------------------------
 	if (true == EngineInput::IsPress(VK_UP))
 	{
 		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
 	}
 
-
 	if (true == EngineInput::IsPress(VK_DOWN))
 	{
 		AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
 	}
+
+	//---------------------------------------------------------------------------
+
+
 
 
 
@@ -52,7 +59,14 @@ void Kirby_Player::InputTick(float _DeltaTime)
 	{
 		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
 		NewFire->SetActorLocation(GetActorLocation());
-		NewFire->SetDir(FVector::Right);
+
+		if (RLpoint == VK_LEFT)
+		{
+			NewFire->SetDir(FVector::Left);
+		}
+		else {
+			NewFire->SetDir(FVector::Right);
+		}
 	}
 }
 
