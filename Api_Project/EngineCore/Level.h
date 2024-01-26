@@ -3,9 +3,10 @@
 #include <map>
 #include <list>
 
-class AActor;
-class EngineCore;
-class UImageRenderer;
+// 전방 선언
+class AActor; // 엑터 관리
+class EngineCore; // 엔진 사용
+class UImageRenderer; // 이미지 관리 
 // 설명 : U는 그냥 엔진 속해있다는 것을 의미.
 class ULevel : public UNameObject
 {
@@ -26,6 +27,7 @@ public:
 	virtual void BeginPlay() {};
 	virtual void Tick(float _DeltaTime) {};
 
+	// Actor 관리
 	template<typename ActorType>
 	ActorType* SpawnActor(int _Order = 0)
 	{
@@ -40,13 +42,13 @@ public:
 protected:
 
 private:
-	std::map<int, std::list<AActor*>> AllActor;
+	std::map<int, std::list<AActor*>> AllActor; // 액터 관리
 
 	void ActorInit(AActor* _NewActor);
-	void LevelTick(float _DeltaTime);
+	void LevelTick(float _DeltaTime); // 
 	void LevelRender(float _DeltaTime);
 	void LevelRelease(float _DeltaTime);
 
-	std::map<int, std::list<UImageRenderer*>> Renderers;
+	std::map<int, std::list<UImageRenderer*>> Renderers; // 이미지 관리
 };
 

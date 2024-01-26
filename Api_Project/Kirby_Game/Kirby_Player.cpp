@@ -26,7 +26,10 @@ void Kirby_Player::BeginPlay()
 		//BodyRenderer->SetPosition({ 0, 30 });
 		//BodyRenderer->SetScale({ 80, 80 });
 	//}
-
+	// 
+	// Level에서의 위치와 크기
+	SetActorLocation({ 100, 100 });
+	//SetActorScale({ 100, 100 });
 
 	{
 		KirbyRenderer = CreateImageRenderer(0);
@@ -70,9 +73,7 @@ void Kirby_Player::BeginPlay()
 	//}
 
 
-
-	SetActorLocation({ 100, 100 });
-	SetActorScale({ 100, 100 });
+	
 }
 
 void Kirby_Player::Tick(float _DeltaTime)

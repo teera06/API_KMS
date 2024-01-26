@@ -25,7 +25,7 @@ UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)
 {
 	UImageRenderer* NewRenderer = new UImageRenderer();
 	UActorComponent* ActorCom = NewRenderer;
-	ActorCom->SetOwner(this);
+	ActorCom->SetOwner(this); // ¼ø¼­
 	ActorCom->SetOrder(Order);
 	ActorCom->BeginPlay();
 	Renderers.push_back(NewRenderer);

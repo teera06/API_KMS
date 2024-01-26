@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineBase\EngineDebug.h>
 
-// 설명 :
+// 설명 : 오브젝트의 On/Off, 
 class UTickObject
 {
 public:

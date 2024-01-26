@@ -16,6 +16,7 @@ public:
 	Game_Core& operator=(Game_Core&& _Other) noexcept = delete;
 
 protected:
+	// ºÎ¸ðÀÎ 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void End() override;

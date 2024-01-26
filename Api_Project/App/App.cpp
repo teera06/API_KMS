@@ -10,12 +10,13 @@
 
 //ENGINESTART(ContentsCore);
 
+// 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
 	LeakCheck;
-	Game_Core NewUserCore = Game_Core();
-	EngineCore::EngineStart(hInstance, &NewUserCore);
+	Game_Core NewUserCore = Game_Core(); // 객체화
+	EngineCore::EngineStart(hInstance, &NewUserCore); // 엔진 실행
 }

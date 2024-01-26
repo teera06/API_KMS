@@ -16,6 +16,9 @@
     <ClCompile Include="Fire.cpp">
       <Filter>ContentsObject</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Base.cpp">
+      <Filter>ContentsObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -31,6 +34,9 @@
       <Filter>ContentsObject</Filter>
     </ClInclude>
     <ClInclude Include="Fire.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Base.h">
       <Filter>ContentsObject</Filter>
     </ClInclude>
   </ItemGroup>

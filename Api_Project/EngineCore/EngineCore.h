@@ -7,7 +7,7 @@
 #include <EnginePlatform\EngineInput.h>
 #include <map>
 
-
+// 전방 선언 -> 언리얼식
 class ULevel;
 // 설명 :
 class EngineCore
@@ -23,17 +23,20 @@ public:
 
 	// 하나는 무조건 만들어지고 사라질일이 없을것이므ㅗ.
 	// 코어가 윈도우를 가지고
-	EngineWindow MainWindow;
-	EngineTime MainTimer;
+	EngineWindow MainWindow; // 윈도우 창
+	EngineTime MainTimer; // 시간체크
 
+	// (주요 부분)엔진 실행 ->  시간 체크 -> 윈도우창 생성 -> 레벨 생성 -> 루프를 통한 윈도우창 유지
 	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore);
-
 	void CoreInit(HINSTANCE _Init);
+	//-------------------------------------------------------------------
 
+	// 가상함수
 	virtual void BeginPlay();
 	virtual void Tick(float _DeltaTime);
 	virtual void End();
 
+	// Map을 통한 레벨 관리
 	template<typename LevelType>
 	void CreateLevel(std::string_view _Name)
 	{
@@ -49,8 +52,10 @@ public:
 		AllLevel.insert(std::pair<std::string, ULevel*>(UpperName, NewLevel));
 	}
 
+	// 현재 Level 위치 설정
 	void ChangeLevel(std::string_view _Name);
 
+	// 프레임 설정
 	void SetFrame(int _Frame)
 	{
 		Frame = _Frame;
@@ -58,20 +63,26 @@ public:
 	}
 
 protected:
+	// 엔진 코어를 여러곳에서 사용하는 것을 방지
 	EngineCore();
 
 private:
+	// 프레임 관련 맴버 변수
 	int Frame = -1;
 	float FrameTime = 0.0f;
 	float CurFrameTime = 0.0f;
 
-	bool EngineInit = false;
-	std::map<std::string, ULevel*> AllLevel;
-	ULevel* CurLevel = nullptr;
 
-	static void EngineTick();
-	void CoreTick();
-	static void EngineEnd();
+	bool EngineInit = false;
+	std::map<std::string, ULevel*> AllLevel; // 레벨 Map
+	ULevel* CurLevel = nullptr; // 현재 레벨
+
+	// 엔진 업데이트
+	static void EngineTick(); 
+	void CoreTick();  // Level 틱 관리(본인의 레벨, 레벨위의 액터, 랜더링, (Actor)릭 관리) 
+	// --------------------------------
+
+	static void EngineEnd(); // (Level) 릭관리
 
 	void LevelInit(ULevel* _Level);
 };

@@ -37,6 +37,7 @@ public:
 		return Position;
 	}
 
+	//--------------------------------
 	float Left()
 	{
 		return Position.X - Scale.hX();
@@ -54,6 +55,7 @@ public:
 		return Position.Y + Scale.hY();
 	}
 
+	//-------------------------------------
 	int iLeft()
 	{
 		return static_cast<int>(Left());
