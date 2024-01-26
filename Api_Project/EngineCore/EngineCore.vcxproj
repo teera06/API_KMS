@@ -167,7 +167,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ImageRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -176,6 +184,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="NameObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -189,7 +201,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ImageRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -198,6 +218,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="NameObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SceneComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>

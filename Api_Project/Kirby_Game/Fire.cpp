@@ -12,7 +12,7 @@ AFire::~AFire()
 
 void AFire::Tick(float _DeltaTime)
 {
-	AddActorLocation(Dir * Speed * _DeltaTime);
+	AddActorLocation(Dir*Speed*_DeltaTime);
 
 	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
 	FTransform Trans = GetTransform();

@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineBase\EngineDebug.h>
 
 // Ό³Έν :
 class UTickObject

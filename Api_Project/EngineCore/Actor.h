@@ -1,10 +1,12 @@
 #pragma once
-#include <EngineBase\FTransform.h>
+#include <EngineBase\Transform.h>
 #include "TickObject.h"
 #include "NameObject.h"
+#include "ImageRenderer.h"
 #include "Level.h"
 
 class ULevel;
+class UActorComponent;
 
 // 설명 : A가 붙은 오브젝트는 화면에 위치가 존재해야한다.
 // Level->SpawnActor를 통해서 만들면
@@ -54,12 +56,15 @@ public:
 		return World;
 	}
 
+	UImageRenderer* CreateImageRenderer();
+
 protected:
 
 private:
-	ULevel* World;
-	FTransform Transform;
+	std::list<UImageRenderer*> Renderers;
 
+	ULevel* World = nullptr;
+	FTransform Transform = FTransform();
 
 	void SetWorld(ULevel* _Value)
 	{
