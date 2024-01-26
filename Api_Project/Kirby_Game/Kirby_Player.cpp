@@ -12,6 +12,50 @@ Kirby_Player::~Kirby_Player()
 {
 }
 
+void Kirby_Player::InputTick(float _DeltaTime)
+{
+	if (true == EngineInput::IsPress(VK_LEFT)) // ¿ÞÂÊ °È±â
+	{
+		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿ÞÂÊ ¶Ù±â
+	{
+		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
+	{
+		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿À¸¥ÂÊ ¶Ù±â
+	{
+		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
+	}
+
+	if (true == EngineInput::IsPress(VK_UP))
+	{
+		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
+	}
+
+
+	if (true == EngineInput::IsPress(VK_DOWN))
+	{
+		AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
+	}
+
+
+
+
+	if (true == EngineInput::IsDown('Q'))
+	{
+		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
+		NewFire->SetActorLocation(GetActorLocation());
+		NewFire->SetDir(FVector::Right);
+	}
+}
+
 void Kirby_Player::BeginPlay()
 {
 	AActor::BeginPlay();
@@ -19,22 +63,21 @@ void Kirby_Player::BeginPlay()
 	// ÇÃ·¹ÀÌ¾î 100, 100 => Actor
 	// »óÃ¼? 100, 100 - 50 => Renderer
 	// ÇÏÃ¼? 100, 100 + 50 => Renderer
-
-
-	//{
-		//BodyRenderer = CreateImageRenderer(0);
-		//BodyRenderer->SetPosition({ 0, 30 });
-		//BodyRenderer->SetScale({ 80, 80 });
-	//}
-	// 
+	
 	// Level¿¡¼­ÀÇ À§Ä¡¿Í Å©±â
 	SetActorLocation({ 100, 100 });
 	//SetActorScale({ 100, 100 });
 
+	//{
+		//BodyRenderer = CreateImageRenderer(0);
+		//BodyRenderer->SetPosition({ 0, 30 });
+		//BodyRenderer->SetScale({ 8, 80 });
+	//}
+	
 	{
 		KirbyRenderer = CreateImageRenderer(0);
 		KirbyRenderer->SetPosition({ 0, 0 });
-		KirbyRenderer->SetScale({ 60, 60 });
+		KirbyRenderer->SetScale({ 50, 50 });
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// ÇÃ·¹ÀÌ¾î ±âÁØ
@@ -79,44 +122,5 @@ void Kirby_Player::BeginPlay()
 void Kirby_Player::Tick(float _DeltaTime)
 {
 
-	if (true == EngineInput::IsPress(VK_LEFT)) // ¿ÞÂÊ °È±â
-	{
-		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
-	}
-
-	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿ÞÂÊ ¶Ù±â
-	{
-		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
-	}
-
-	if (true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
-	{
-		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
-	}
-
-	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // ¿À¸¥ÂÊ ¶Ù±â
-	{
-		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
-	}
-
-	if (true == EngineInput::IsPress(VK_UP))
-	{
-		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
-	}
-
-
-	if (true == EngineInput::IsPress(VK_DOWN))
-	{
-		AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
-	}
-
-	
-
-
-	if (true == EngineInput::IsDown('Q'))
-	{
-		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-		NewFire->SetActorLocation(GetActorLocation());
-		NewFire->SetDir(FVector::Right);
-	}
+	InputTick(_DeltaTime);
 }

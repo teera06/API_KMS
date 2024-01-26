@@ -14,6 +14,8 @@ public:
 	Kirby_Player& operator=(const Kirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	Kirby_Player& operator=(Kirby_Player&& _Other) noexcept = delete;
 
+	void InputTick(float _DeltaTime);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
