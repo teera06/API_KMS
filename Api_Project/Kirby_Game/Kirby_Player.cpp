@@ -3,6 +3,7 @@
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineTime.h>
 
+#include "Fire.h"
 Kirby_Player::Kirby_Player()
 {
 }
@@ -40,6 +41,15 @@ void Kirby_Player::Tick(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
 	}
+
+
+	if (true == EngineInput::IsDown('Q'))
+	{
+		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
+		NewFire->SetActorLocation(GetActorLocation());
+		NewFire->SetDir(FVector::Right);
+	}
+
 	HDC WindowDC = GEngine->MainWindow.GetWindowDC(); // 윈도우 그리기
 
 	

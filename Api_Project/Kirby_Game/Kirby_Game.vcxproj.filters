@@ -13,6 +13,9 @@
     <ClCompile Include="Kirby_Player.cpp">
       <Filter>ContentsObject</Filter>
     </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>ContentsObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -25,6 +28,9 @@
       <Filter>ContentsLevel</Filter>
     </ClInclude>
     <ClInclude Include="Kirby_Player.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
       <Filter>ContentsObject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,6 +30,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Fire.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game_Core.cpp">
       <SubType>
       </SubType>
@@ -48,6 +52,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fire.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game_Core.h">
       <SubType>
       </SubType>
