@@ -16,7 +16,7 @@ Game_Core::~Game_Core()
 void Game_Core::BeginPlay()
 {
 	// "Title Level" + "을 만들다가 에러가 났습니다";
-
+	SetFrame(60);
 	CreateLevel<UTitleLevel>("TitleLevel");
 	CreateLevel<UStage1_Level>("PlayLevel");
 

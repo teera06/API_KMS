@@ -23,5 +23,5 @@ void AFire::BeginPlay()
 {
 	// SetActorLocation({ 100, 100 });
 	SetActorScale({ 50, 50 });
-	
+	Destroy(2.0f);
 }

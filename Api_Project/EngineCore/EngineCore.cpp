@@ -15,22 +15,57 @@ EngineCore::~EngineCore()
 {
 }
 
-void EngineCore::EngineTick()
+void EngineCore::CoreTick()
 {
+	float DeltaTime = MainTimer.TimeCheck();
+	double dDeltaTime = MainTimer.GetDeltaTime();
 
-	float DeltaTime = GEngine->MainTimer.TimeCheck();
 	EngineInput::KeyCheckTick(DeltaTime);
-	if (nullptr == GEngine->CurLevel)
+
+	if (1 <= Frame)
+	{
+		//               5.0f
+		CurFrameTime += DeltaTime;
+
+		//  0.00001        0.016666675
+		if (CurFrameTime <= FrameTime)
+		{
+			return;
+		}
+
+		//  0.0167         0.016666675
+		CurFrameTime -= FrameTime;
+		DeltaTime = FrameTime;
+	}
+
+	if (nullptr == CurLevel)
 	{
 		MsgBoxAssert("엔진을 시작할 레벨이 지정되지 않았습니다 치명적인 오류입니다");
 	}
 
 	// 레벨이 먼저 틱을 돌리고
-	GEngine->CurLevel->Tick(DeltaTime);
-	GEngine->CurLevel->ActorTick(DeltaTime);
+	CurLevel->Tick(DeltaTime);
+	// 액터와 부가적인 오브젝트들의 틱도 돌리고
+	CurLevel->LevelTick(DeltaTime);
+	// 정리한다.(죽어야할 오브젝트들은 다 파괴한다)
+	CurLevel->LevelRelease(DeltaTime);
+
 
 	//HDC WindowDC = GEngine->MainWindow.GetWindowDC();
 	//Rectangle(WindowDC, -200, -200, 3000, 3000);
+}
+
+void EngineCore::EngineTick()
+{
+
+	// 렉이라는 현상은 프레임사이에 한번에 많은 시간을 소모하는 함수를 호출하면
+	// 델타타임이 증가하는 현상을 말한다.
+	// EX) for문 1000만번 돌리는데 5초가 걸렸다.
+	//    5.0
+	//    => 한번에 5.0초 동안 가야할 양을 한프레임만에 이동해버리니까 순간이동하듯이 보이게 된다.
+
+	GEngine->CoreTick();
+
 }
 
 void EngineCore::EngineEnd()

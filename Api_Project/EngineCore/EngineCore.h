@@ -1,19 +1,15 @@
 #pragma once
-// Level1
 #include <EngineBase\EngineDebug.h>
 #include <EngineBase\EngineString.h>
 #include <EngineBase\EngineTime.h>
 
-// Level2
 #include <EnginePlatform\EngineWindow.h>
 #include <EnginePlatform\EngineInput.h>
-
 #include <map>
 
-// 같은 Level의 클래스는 전방 선언식으로 관리하는 듯
-class ULevel;
 
-// 설명 : 엔진 실행을 담당 -> 엔진 위 레벨을 관리 MAP
+class ULevel;
+// 설명 :
 class EngineCore
 {
 public:
@@ -25,23 +21,19 @@ public:
 	EngineCore& operator=(const EngineCore& _Other) = delete;
 	EngineCore& operator=(EngineCore&& _Other) noexcept = delete;
 
-	// -------------------------------------------------------------
-
 	// 하나는 무조건 만들어지고 사라질일이 없을것이므ㅗ.
 	// 코어가 윈도우를 가지고
-	EngineWindow MainWindow; // 윈도우를 가진다.
-	EngineTime MainTimer; // 엔진 시간을 가진다.
+	EngineWindow MainWindow;
+	EngineTime MainTimer;
 
-	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore); // 시간 체크와 윈도우 창 생성 및 루프 유지
+	static void EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore);
 
-	void CoreInit(HINSTANCE _Init); // 윈도우창 생성
+	void CoreInit(HINSTANCE _Init);
 
-	// 가상함수
 	virtual void BeginPlay();
 	virtual void Tick(float _DeltaTime);
 	virtual void End();
 
-	// 레벨(stage) 관리 : map
 	template<typename LevelType>
 	void CreateLevel(std::string_view _Name)
 	{
@@ -57,27 +49,34 @@ public:
 		AllLevel.insert(std::pair<std::string, ULevel*>(UpperName, NewLevel));
 	}
 
-	// 레벨(stage) 이동
 	void ChangeLevel(std::string_view _Name);
 
+	void SetFrame(int _Frame)
+	{
+		Frame = _Frame;
+		FrameTime = 1 / static_cast<float>(Frame);
+	}
+
 protected:
-	// 엔진코어는 누가 함부로 건들면 안된다.
 	EngineCore();
 
 private:
+	int Frame = -1;
+	float FrameTime = 0.0f;
+	float CurFrameTime = 0.0f;
+
 	bool EngineInit = false;
+	std::map<std::string, ULevel*> AllLevel;
+	ULevel* CurLevel = nullptr;
 
-	std::map<std::string, ULevel*> AllLevel; // Map을 이용한 레벨 관리
-	ULevel* CurLevel = nullptr; // 현재 레벨을 저장
-
-	static void EngineTick(); // 엔진속 Level을 관리 -> 여기서 부터 지정된 레벨을 실행
-	static void EngineEnd(); // 엔진 종료의 릭관리 -> 저장된 레벨 메모리들 정리
+	static void EngineTick();
+	void CoreTick();
+	static void EngineEnd();
 
 	void LevelInit(ULevel* _Level);
 };
 
-// 전역 변수-> GEngine을 줌으로써 Level3에서 ChangeLevel 사용 가능
-extern EngineCore* GEngine; // 언리얼식
+extern EngineCore* GEngine;
 
 
 #define ENGINESTART(USERCORE) \
