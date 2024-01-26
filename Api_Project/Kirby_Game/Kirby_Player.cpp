@@ -12,12 +12,13 @@ Kirby_Player::~Kirby_Player()
 {
 }
 
+// 입력 진행 모음집
 void Kirby_Player::InputTick(float _DeltaTime)
 {
 	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
 	{
 		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
-		RLpoint = VK_LEFT;
+		RLpoint = VK_LEFT; // 누른 키 값 저장
 	}
 
 	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // 왼쪽 뛰기
@@ -29,7 +30,7 @@ void Kirby_Player::InputTick(float _DeltaTime)
 	if (true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 걷기
 	{
 		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
-		RLpoint = VK_RIGHT;
+		RLpoint = VK_RIGHT; // 누른 키 값 저장
 	}
 
 	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // 오른쪽 뛰기
@@ -38,7 +39,13 @@ void Kirby_Player::InputTick(float _DeltaTime)
 	}
 
 	//-------------------------------------------------------------------------
-	if (true == EngineInput::IsPress(VK_UP))
+	// 지형과의 콜리전 필요
+	if ((true == EngineInput::IsPress(VK_SPACE) || true == EngineInput::IsDown(VK_SPACE))) // 점프키를 눌렀을때 값 저장 (Alt)
+	{
+		JumpKey = VK_SPACE; // Alt가 메뉴로 인시되서 우선 스페이스로
+	}
+
+	if (true == EngineInput::IsPress(VK_UP) && JumpKey==VK_SPACE) // 점프를 한 상태에서만 공중부양 가능
 	{
 		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
 	}
@@ -50,12 +57,7 @@ void Kirby_Player::InputTick(float _DeltaTime)
 
 	//---------------------------------------------------------------------------
 
-
-
-
-
-
-	if (true == EngineInput::IsDown('Q'))
+	if (true == EngineInput::IsDown('A'))
 	{
 		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
 		NewFire->SetActorLocation(GetActorLocation());
@@ -79,8 +81,8 @@ void Kirby_Player::BeginPlay()
 	// 하체? 100, 100 + 50 => Renderer
 	
 	// Level에서의 위치와 크기
-	SetActorLocation({ 100, 100 });
-	//SetActorScale({ 100, 100 });
+	SetActorLocation({ 100, 500 }); // Actor의 위치
+	//SetActorScale({ 100, 100 }); // Acotor 크기는 상관 없음 
 
 	//{
 		//BodyRenderer = CreateImageRenderer(0);
@@ -89,7 +91,8 @@ void Kirby_Player::BeginPlay()
 	//}
 	
 	{
-		KirbyRenderer = CreateImageRenderer(0);
+		// Actor에서의 위치와 크기, 이미지
+		KirbyRenderer = CreateImageRenderer(0); 
 		KirbyRenderer->SetPosition({ 0, 0 });
 		KirbyRenderer->SetScale({ 50, 50 });
 	}
@@ -133,6 +136,7 @@ void Kirby_Player::BeginPlay()
 	
 }
 
+// 커비 움직임 업데이트
 void Kirby_Player::Tick(float _DeltaTime)
 {
 
