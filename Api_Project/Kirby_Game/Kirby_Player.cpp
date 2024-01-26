@@ -14,6 +14,63 @@ Kirby_Player::~Kirby_Player()
 
 void Kirby_Player::BeginPlay()
 {
+	AActor::BeginPlay();
+
+	// 플레이어 100, 100 => Actor
+	// 상체? 100, 100 - 50 => Renderer
+	// 하체? 100, 100 + 50 => Renderer
+
+
+	{
+		BodyRenderer = CreateImageRenderer(0);
+		BodyRenderer->SetPosition({ 0, 30 });
+		BodyRenderer->SetScale({ 80, 80 });
+	}
+
+
+	{
+		HeadRenderer = CreateImageRenderer(0);
+		HeadRenderer->SetPosition({ 0, -25 });
+		HeadRenderer->SetScale({ 60, 60 });
+	}
+	// UImageRenderer* Ptr = CreateRenderer();
+	// 플레이어 기준
+	// Ptr->SetPosition({0.0, -50.0f}); // 500, 500
+	// Ptr->SetImage("AAAA.png"); // 500, 500
+	// Ptr->SetScale();
+	// Ptr->SetImageScaleSetting(); 
+
+
+	// CreateDefaultSubObject<UStaticMeshRenderer>();
+
+	// n장 랜더할수 있게 만들어야 한다.
+	// 상체와 하체로 나뉜다고 쳐보자.
+
+	//{
+	//	EngineTime NewTime;
+	//	NewTime.TimeCheckStart();
+	//	std::vector<int> NewInt;
+	//	for (int i = 0; i < 10000000; i++)
+	//	{
+	//		NewInt.push_back(i);
+	//	}
+	//	float Time = NewTime.TimeCheck();
+	//	int a = 0;
+	//}
+	//{
+	//	EngineTime NewTime;
+	//	NewTime.TimeCheckStart();
+	//	std::list<int> NewInt;
+	//	for (int i = 0; i < 10000000; i++)
+	//	{
+	//		NewInt.push_back(i);
+	//	}
+	//	float Time = NewTime.TimeCheck();
+	//	int a = 0;
+	//}
+
+
+
 	SetActorLocation({ 100, 100 });
 	SetActorScale({ 100, 100 });
 }
@@ -61,12 +118,4 @@ void Kirby_Player::Tick(float _DeltaTime)
 		NewFire->SetActorLocation(GetActorLocation());
 		NewFire->SetDir(FVector::Right);
 	}
-
-	HDC WindowDC = GEngine->MainWindow.GetWindowDC(); // 윈도우 그리기
-
-	
-
-	FTransform Trans = GetTransform(); // 위치, 크기 값 받아오고
-
-	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom()); // 그 정보에 맞게 그려주기
 }

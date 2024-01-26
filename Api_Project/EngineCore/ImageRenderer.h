@@ -15,9 +15,12 @@ public:
 	UImageRenderer& operator=(const UImageRenderer& _Other) = delete;
 	UImageRenderer& operator=(UImageRenderer&& _Other) noexcept = delete;
 
-	void Render();
+	void SetOrder(int _Order) override;
+
+	void Render(float _DeltaTime);
 
 protected:
+	void BeginPlay() override;
 
 private:
 

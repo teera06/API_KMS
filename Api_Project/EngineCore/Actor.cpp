@@ -21,11 +21,13 @@ AActor::~AActor()
 	Renderers.clear();
 }
 
-UImageRenderer* AActor::CreateImageRenderer()
+UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)
 {
 	UImageRenderer* NewRenderer = new UImageRenderer();
 	UActorComponent* ActorCom = NewRenderer;
 	ActorCom->SetOwner(this);
+	ActorCom->SetOrder(Order);
+	ActorCom->BeginPlay();
 	Renderers.push_back(NewRenderer);
 	return NewRenderer;
 }

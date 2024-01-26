@@ -7,6 +7,7 @@
 
 class ULevel;
 class UActorComponent;
+class UImageRenderer;
 
 // 설명 : A가 붙은 오브젝트는 화면에 위치가 존재해야한다.
 // Level->SpawnActor를 통해서 만들면
@@ -56,7 +57,7 @@ public:
 		return World;
 	}
 
-	UImageRenderer* CreateImageRenderer();
+	UImageRenderer* CreateImageRenderer(int Order = 0);
 
 protected:
 

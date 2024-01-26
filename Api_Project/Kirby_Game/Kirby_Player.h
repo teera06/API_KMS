@@ -19,6 +19,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 private:
 	float QSkillCool = 0.0f;
+	UImageRenderer* HeadRenderer;
+	UImageRenderer* BodyRenderer;
 
 	float WalkSpeed = 100.0f; // °È´Â ¼Óµµ
 	float RunSpeed = 200.0f; // ¶Ù´Â ¼Óµµ

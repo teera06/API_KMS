@@ -4,10 +4,13 @@
 #include <list>
 
 class AActor;
+class EngineCore;
+class UImageRenderer;
 // 설명 : U는 그냥 엔진 속해있다는 것을 의미.
 class ULevel : public UNameObject
 {
-	friend class EngineCore;
+	friend EngineCore;
+	friend UImageRenderer;
 
 public:
 	// constrcuter destructer
@@ -41,7 +44,9 @@ private:
 
 	void ActorInit(AActor* _NewActor);
 	void LevelTick(float _DeltaTime);
+	void LevelRender(float _DeltaTime);
 	void LevelRelease(float _DeltaTime);
 
+	std::map<int, std::list<UImageRenderer*>> Renderers;
 };
 
