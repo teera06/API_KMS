@@ -39,6 +39,9 @@
     <ClInclude Include="Monster_Base.h">
       <Filter>ContentsObject</Filter>
     </ClInclude>
+    <ClInclude Include="ModeEnum.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">

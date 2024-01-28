@@ -1,12 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
+#include "ModeEnum.h"
 
-enum class Mode
-{
-	Base,
-	Fire,
-
-};
 
 class Kirby_Player : public AActor
 {
@@ -17,11 +12,16 @@ public:
 
 	// delete Function
 	Kirby_Player(const Kirby_Player& _Other) = delete; // 디폴트 복사 생성자
-	Kirby_Player(Kirby_Player&& _Other) noexcept = delete; 
+	Kirby_Player(Kirby_Player&& _Other) noexcept = delete;
 	Kirby_Player& operator=(const Kirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	Kirby_Player& operator=(Kirby_Player&& _Other) noexcept = delete;
 
 	void InputTick(float _DeltaTime);
+
+	inline void SetMode(Mode _KirbyMode)
+	{
+		KirbyMode = _KirbyMode;
+	}
 
 protected:
 	void BeginPlay() override;

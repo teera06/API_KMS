@@ -68,6 +68,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ModeEnum.h" />
     <ClInclude Include="Monster_Base.h">
       <SubType>
       </SubType>
