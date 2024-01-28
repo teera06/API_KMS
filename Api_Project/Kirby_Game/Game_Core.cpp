@@ -16,7 +16,7 @@ Game_Core::~Game_Core()
 void Game_Core::BeginPlay() // 
 {
 	// "Title Level" + "을 만들다가 에러가 났습니다";
-	//SetFrame(60); -> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
+	SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 	CreateLevel<UTitleLevel>("TitleLevel");
 	CreateLevel<UStage1_Level>("Stage1_Level");
 

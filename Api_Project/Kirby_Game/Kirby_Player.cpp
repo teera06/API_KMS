@@ -57,19 +57,6 @@ void Kirby_Player::InputTick(float _DeltaTime)
 
 	//---------------------------------------------------------------------------
 
-	if (true == EngineInput::IsDown('A'))
-	{
-		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-		NewFire->SetActorLocation(GetActorLocation());
-
-		if (RLpoint == VK_LEFT)
-		{
-			NewFire->SetDir(FVector::Left);
-		}
-		else {
-			NewFire->SetDir(FVector::Right);
-		}
-	}
 }
 
 void Kirby_Player::BeginPlay()
@@ -141,4 +128,27 @@ void Kirby_Player::Tick(float _DeltaTime)
 {
 
 	InputTick(_DeltaTime);
+
+	switch (KirbyMode)
+	{
+	case Mode::Base:
+		if (true == EngineInput::IsDown('A'))
+		{
+			AFire* NewFire = GetWorld()->SpawnActor<AFire>();
+			NewFire->SetActorLocation(GetActorLocation());
+
+			if (RLpoint == VK_LEFT)
+			{
+				NewFire->SetDir(FVector::Left);
+			}
+			else {
+				NewFire->SetDir(FVector::Right);
+			}
+		}
+		break;
+	case Mode::Fire:
+		break;
+	default:
+		break;
+	}
 }

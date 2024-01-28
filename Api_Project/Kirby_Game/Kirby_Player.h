@@ -1,6 +1,13 @@
 #pragma once
 #include <EngineCore\Actor.h>
 
+enum class Mode
+{
+	Base,
+	Fire,
+
+};
+
 class Kirby_Player : public AActor
 {
 public:
@@ -27,5 +34,7 @@ private:
 	int JumpKey = 0; // 점프키를 눌렀을때 할수 있는것 -> 공중부양
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
+
+	Mode KirbyMode = Mode::Base;
 };
 
