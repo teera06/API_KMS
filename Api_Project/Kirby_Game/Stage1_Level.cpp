@@ -2,6 +2,11 @@
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
 
+#include <EngineCore\EngineResourcesManager.h>
+#include <EngineBase\EngineDirectory.h>
+#include <EngineBase\EngineFile.h>
+
+
 UStage1_Level::UStage1_Level()
 {
 }
@@ -12,6 +17,16 @@ UStage1_Level::~UStage1_Level()
 
 void UStage1_Level::BeginPlay()
 {
+
+	// 실행경로가 나와야 한다고 생각합니다.
+	UEngineDirectory NewPath;
+
+	NewPath.MoveParent();
+	// NewPath.Move("ContentsResources");
+
+	NewPath.Move("GameResources");
+	NewPath.Move("Texture");
+
 	SpawnActor<Kirby_Player>();
 	// SpawnActor<Player>();
 
