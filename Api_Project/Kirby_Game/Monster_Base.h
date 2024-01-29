@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore\Actor.h>
 #include "ModeEnum.h"
 
 class Monster_Base
