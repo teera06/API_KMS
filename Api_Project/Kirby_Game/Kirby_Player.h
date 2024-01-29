@@ -17,6 +17,8 @@ public:
 
 	void InputTick(float _DeltaTime);
 
+	void ModeInputTick(float _DeltaTime);
+
 	inline void SetMode(Mode _KirbyMode)
 	{
 		KirbyMode = _KirbyMode;
