@@ -5,5 +5,7 @@ enum class Mode
 {
 	Base,
 	Fire,
-
+	Mike,
+	Sword,
+	Hammer,
 };

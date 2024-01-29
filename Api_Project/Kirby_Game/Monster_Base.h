@@ -1,4 +1,6 @@
 #pragma once
+#include "ModeEnum.h"
+
 class Monster_Base
 {
 public:
@@ -15,5 +17,7 @@ public:
 protected:
 
 private:
+
+	Mode MonsterBase = Mode::Base;
 };
 

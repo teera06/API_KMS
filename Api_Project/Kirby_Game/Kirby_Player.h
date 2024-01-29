@@ -2,7 +2,6 @@
 #include <EngineCore\Actor.h>
 #include "ModeEnum.h"
 
-
 class Kirby_Player : public AActor
 {
 public:
@@ -35,6 +34,8 @@ private:
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
 
-	Mode KirbyMode = Mode::Base;
+	Mode KirbyMode = Mode::Base; // Kirby 모드 모음집
+
+	int Hp=100;
 };
 

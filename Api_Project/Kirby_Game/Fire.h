@@ -25,5 +25,6 @@ protected:
 private:
 	FVector Dir = FVector::Zero;
 	float Speed = 300.0f;
+	int Att = 10;
 };
 
