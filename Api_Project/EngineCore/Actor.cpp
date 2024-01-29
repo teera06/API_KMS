@@ -25,9 +25,20 @@ UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)
 {
 	UImageRenderer* NewRenderer = new UImageRenderer();
 	UActorComponent* ActorCom = NewRenderer;
-	ActorCom->SetOwner(this); // 순서
+	ActorCom->SetOwner(this);
 	ActorCom->SetOrder(Order);
 	ActorCom->BeginPlay();
 	Renderers.push_back(NewRenderer);
 	return NewRenderer;
+}
+
+void AActor::DestroyUpdate(float _DeltaTime)
+{
+	// 부모의 함수를 호출하는게 기본이다.
+	UTickObject::DestroyUpdate(_DeltaTime);
+
+	for (UImageRenderer* Renderer : Renderers)
+	{
+		Renderer->DestroyUpdate(_DeltaTime);
+	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineBase\EngineDebug.h>
 
-// 설명 : 오브젝트의 On/Off, 
+// 설명 :
 class UTickObject
 {
 public:
@@ -57,7 +57,7 @@ public:
 		Order = _Order;
 	}
 
-	void DestroyUpdate(float _DeltaTime)
+	virtual void DestroyUpdate(float _DeltaTime)
 	{
 		if (false == IsDestroyUpdate)
 		{
