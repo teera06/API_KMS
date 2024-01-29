@@ -80,6 +80,7 @@ void ULevel::LevelRelease(float _DeltaTime)
 	// 이건 정답이 없지만 선생님은 만든놈이 하자.
 	// new를 한 놈이 한다.
 
+
 	for (std::pair<const int, std::list<UImageRenderer*>>& OrderListPair : Renderers)
 	{
 		std::list<UImageRenderer*>& RendererList = OrderListPair.second;
@@ -89,14 +90,17 @@ void ULevel::LevelRelease(float _DeltaTime)
 
 		// 삭제는 절대로 Ranged for로 하면 안되다.
 		// for (UImageRenderer* Renderer : RendererList)
-		for (; StartIter != EndIter; ++StartIter)
+		for (; StartIter != EndIter; )
 		{
 			UImageRenderer* Renderer = StartIter.operator*();
 
 			if (false == Renderer->IsDestroy())
 			{
+				++StartIter;
 				continue;
 			}
+
+			StartIter = RendererList.erase(StartIter);
 		}
 	}
 
