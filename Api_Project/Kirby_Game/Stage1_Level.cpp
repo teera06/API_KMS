@@ -27,6 +27,12 @@ void UStage1_Level::BeginPlay()
 	NewPath.Move("GameResources");
 	NewPath.Move("Texture");
 
+	// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
+	std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
+
+	// CherryBomb_0.png
+	UEngineResourcesManager::GetInst().LoadImg("AAAA.png");
+
 	SpawnActor<Kirby_Player>();
 	// SpawnActor<Player>();
 
