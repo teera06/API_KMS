@@ -79,6 +79,19 @@ void Kirby_Player::ModeInputTick(float _DeltaTime)
 		}
 		break;
 	case Mode::Fire:
+		if (true == EngineInput::IsDown('A'))
+		{
+			AFire* NewFire = GetWorld()->SpawnActor<AFire>();
+			NewFire->SetActorLocation(GetActorLocation());
+
+			if (RLpoint == VK_LEFT)
+			{
+				NewFire->SetDir(FVector::Left);
+			}
+			else {
+				NewFire->SetDir(FVector::Right);
+			}
+		}
 		break;
 	case Mode::Mike:
 		break;

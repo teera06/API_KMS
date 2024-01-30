@@ -19,6 +19,9 @@
     <ClCompile Include="Monster_Base.cpp">
       <Filter>ContentsObject</Filter>
     </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>ContentsObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -40,6 +43,9 @@
       <Filter>ContentsObject</Filter>
     </ClInclude>
     <ClInclude Include="ModeEnum.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
       <Filter>ContentsObject</Filter>
     </ClInclude>
   </ItemGroup>
