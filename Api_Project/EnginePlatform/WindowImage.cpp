@@ -29,7 +29,24 @@ UWindowImage::~UWindowImage()
 
 }
 
-bool UWindowImage::Load(HDC _MainDC)
+FVector UWindowImage::GetScale()
+{
+	return FVector(BitMapInfo.bmWidth, BitMapInfo.bmHeight);
+}
+
+bool UWindowImage::Create(HDC _MainDC)
+{
+	ImageDC = _MainDC;
+
+	if (nullptr == ImageDC)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool UWindowImage::Load(UWindowImage* _Image)
 {
 	UEnginePath Path = GetEnginePath();
 
@@ -50,6 +67,7 @@ bool UWindowImage::Load(HDC _MainDC)
 		// 비트맵을 로드한다는 목적의 핸들이 다르다는 것입니다.
 		HANDLE ImageHandle = LoadImageA(nullptr, Path.GetFullPath().c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
+		ImageType = EWIndowImageType::IMG_BMP;
 	}
 	else if (".PNG" == UpperExt)
 	{
@@ -82,6 +100,8 @@ bool UWindowImage::Load(HDC _MainDC)
 		{
 			MsgBoxAssert("Png 형식 리소스 로드에 실패했습니다.");
 		}
+
+		ImageType = EWIndowImageType::IMG_PNG;
 	}
 
 	// 그릴수있고 이미지에 간섭할수 있는 권한이다.
@@ -90,9 +110,12 @@ bool UWindowImage::Load(HDC _MainDC)
 	// 당연히 하나뿐인 mainwindow의 DC를 넣어주면 됩니다.
 	// 그릴수 있는 권한이 자신이 뭘 그려야하는지를 알려줘야 합니다.
 	// ImageDC야 너는 BitMap그려야 해.
-	ImageDC = CreateCompatibleDC(_MainDC);
+	ImageDC = CreateCompatibleDC(_Image->ImageDC);
 	HBITMAP OldBitMap = (HBITMAP)SelectObject(ImageDC, hBitMap);
 	DeleteObject(OldBitMap);
+
+	// hBitMap에서 얻어오겠다.
+	GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
 
 	// ImageDC를 만들면 내부에서 1,1크기의 HBITMAP을 만든다.
 
@@ -102,4 +125,36 @@ bool UWindowImage::Load(HDC _MainDC)
 	// Png때와 bmp일대 로드하는 방식이 달라요.
 
 	return true;
+}
+
+void UWindowImage::BitCopy(UWindowImage* _CopyImage, FTransform _Trans)
+{
+	// 렉탱글이 아니고
+	// 이미지로 그려야합니다
+
+	// HDC hdc, // => 어떤 이미지에
+	// int x,   // => 이 크기로
+	// int y,   // 
+	// int cx,  // => 
+	// int cy,  
+	// HDC hdcSrc,  
+	// int x1,  
+	// int y1, 
+	// DWORD rop
+
+	// 윈도우
+	HDC hdc = ImageDC;
+	// 이미지
+	HDC hdcSrc = _CopyImage->ImageDC;
+	BitBlt(
+		hdc, 							  // HDC hdc, // 
+		_Trans.iLeft(), 				  // int x,   // 
+		_Trans.iTop(), 				  // int y,   // 
+		_Trans.GetScale().iX(), 		  // int cx,  // 
+		_Trans.GetScale().iY(),		  // int cy,  
+		hdcSrc,							// HDC hdcSrc, 
+		0,								// int x1,  
+		0,								// int y1, 
+		SRCCOPY							// DWORD rop => 이미지 그대로 고속 복사를 해라.
+	);
 }

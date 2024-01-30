@@ -137,7 +137,7 @@ void Kirby_Player::BeginPlay()
 		// Actor에서의 위치와 크기, 이미지
 		KirbyRenderer = CreateImageRenderer(0); 
 		KirbyRenderer->SetPosition({ 0, 0 });
-		KirbyRenderer->SetScale({ 50, 50 });
+		KirbyRenderer->SetImageToScale("test.png");
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
@@ -174,9 +174,6 @@ void Kirby_Player::BeginPlay()
 	//	float Time = NewTime.TimeCheck();
 	//	int a = 0;
 	//}
-
-
-	
 }
 
 // 커비 움직임 업데이트

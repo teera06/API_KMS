@@ -3,6 +3,7 @@
 #include <EngineBase\EngineString.h>
 #include <EngineBase\EngineDebug.h>
 #include "EngineCore.h"
+#include "EngineBase\EngineDebug.h"
 
 //UEngineResourcesManager UEngineResourcesManager::Inst;
 //UEngineResourcesManager* UEngineResourcesManager::pInst = nullptr;
@@ -45,7 +46,7 @@ UWindowImage* UEngineResourcesManager::LoadImg(std::string_view _Path, std::stri
 	UWindowImage* NewImage = new UWindowImage();
 	NewImage->SetName(UpperName);
 	NewImage->SetPath(_Path);
-	NewImage->Load(GEngine->MainWindow.GetWindowDC());
+	NewImage->Load(GEngine->MainWindow.GetWindowImage());
 
 	// .Png .bmp => 확장자만 바꾸면 png가 bmp가 된다고 생각했던 학생이 있었는데 아닙니다.
 	// 제대로 이미지 편집 프로그램에서 포맷을 변경하고 저장하셔야 합니다.
@@ -61,5 +62,13 @@ UWindowImage* UEngineResourcesManager::LoadImg(std::string_view _Path, std::stri
 
 UWindowImage* UEngineResourcesManager::FindImg(std::string_view _Name)
 {
-	return nullptr;
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (false == Images.contains(UpperName))
+	{
+		MsgBoxAssert("파일명 : " + std::string(_Name) + "은 존재하지 않는 이미지입니다");
+		return nullptr;
+	}
+
+	return Images[UpperName];
 }

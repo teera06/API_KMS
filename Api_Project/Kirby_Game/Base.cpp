@@ -12,16 +12,15 @@ ABase::~ABase()
 
 void ABase::Tick(float _DeltaTime)
 {
-	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
-	FTransform Trans = GetTransform();
-	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom());
+	
 }
 
 void ABase::BeginPlay()
 {
 	{
-		UImageRenderer* Renderer = CreateImageRenderer(0);
-		Renderer->SetPosition({50,0});
+		UImageRenderer* Renderer = CreateImageRenderer(-10);
+		Renderer->SetImageToScale("test.png");
+		Renderer->SetPosition(test*Dir);
 		Renderer->SetScale({ 70, 70 });
 	}
 

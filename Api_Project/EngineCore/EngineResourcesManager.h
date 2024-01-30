@@ -3,7 +3,6 @@
 #include <string_view>
 #include <map>
 
-
 // class Monster 싱글톤이라면 메모리적으로 
 // class Monster가 딱 1개만 만들어질수 있어야 한다.
 
