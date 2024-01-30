@@ -7,12 +7,26 @@
 // 헤더랑 다르게 라이브러리는 #pragma comment 통해서 추가 해야 한다.
 #pragma comment(lib, "Msimg32.lib")
 
+#include <objidl.h>
+#include <gdiplus.h>
+
+// Png를 로드하는 기능을 윈도우 기본 라이브러리만으로 지원해주지 않기 때문ㅇ
+// GDIPlus를 사용해야 한다.
+// GIDPlus는 윈도우가 초기 윈도우의 그래픽 시스템을 개선해서 추가한 라이브러리입니다.
+
+#pragma comment(lib, "Gdiplus.lib")
+
 UWindowImage::UWindowImage()
 {
 }
 
 UWindowImage::~UWindowImage()
 {
+	// 윈도우가 할당해준거지만
+	// 정리는 우리가 해주는게 좋습니다.
+	DeleteObject(hBitMap);
+	DeleteDC(ImageDC);
+
 }
 
 bool UWindowImage::Load(HDC _MainDC)
@@ -35,11 +49,39 @@ bool UWindowImage::Load(HDC _MainDC)
 		// 그린다는 목적을 가진 핸들과
 		// 비트맵을 로드한다는 목적의 핸들이 다르다는 것입니다.
 		HANDLE ImageHandle = LoadImageA(nullptr, Path.GetFullPath().c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-		BitMap = (HBITMAP)ImageHandle;
+		hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
 	}
 	else if (".PNG" == UpperExt)
 	{
-		MsgBoxAssert("아직 로드를 지원하지 않는 포맷입니다");
+		ULONG_PTR gdiplusToken = 0;
+		// Gdiplus헤더의 함수들은 전부다 Gdiplus 네임스페이스 안에 들어있어요.
+		// GDi를 사용하겠다는 시작 
+		// GDIPlus를 사용해본적이 거의 없는데 이번에 Png가 로드가 안되면 여러분들이 귀찮아 할것같아서
+		// 로드하는걸 알아봤는데.
+		// Png를 그대로 출력하는 함수도 있었는데. 
+		// 겁나게 느렸습니다.
+		// 게임을 못만들정도였다.
+		// 그건 포기
+		// 로드는 가능한데. png로 사용하면 안되기 때문에
+		// Png로 로드한 녀석을 Bmp로 바꾸면 무리없이 되서 그 방식으로 하기로 했습니다.
+		Gdiplus::GdiplusStartupInput gdistartupinput;
+		Gdiplus::GdiplusStartup(&gdiplusToken, &gdistartupinput, nullptr);
+
+		// 유니코드로 되었습니다.
+		// 그래서 멀티바이트 경로를 유니코드 경로로 변경하는 함수가 필요한데.
+		std::wstring wPath = UEngineString::AnsiToUniCode(Path.GetFullPath());
+
+		// 어떤 문자열에 기반해서 만들어졌는지 알수 없죠?
+		// 그냥 모든 문자열에 대비할 방법을 찾아야 합니다.
+		Gdiplus::Image* pImage = Gdiplus::Image::FromFile(wPath.c_str());
+		Gdiplus::Bitmap* pBitMap = reinterpret_cast<Gdiplus::Bitmap*>(pImage->Clone());
+
+		Gdiplus::Status stat = pBitMap->GetHBITMAP(Gdiplus::Color(0, 0, 0, 0), &hBitMap);
+
+		if (Gdiplus::Status::Ok != stat)
+		{
+			MsgBoxAssert("Png 형식 리소스 로드에 실패했습니다.");
+		}
 	}
 
 	// 그릴수있고 이미지에 간섭할수 있는 권한이다.
@@ -49,8 +91,7 @@ bool UWindowImage::Load(HDC _MainDC)
 	// 그릴수 있는 권한이 자신이 뭘 그려야하는지를 알려줘야 합니다.
 	// ImageDC야 너는 BitMap그려야 해.
 	ImageDC = CreateCompatibleDC(_MainDC);
-	HBITMAP OldBitMap = (HBITMAP)SelectObject(ImageDC, BitMap);
-	// 사용법이 정말 
+	HBITMAP OldBitMap = (HBITMAP)SelectObject(ImageDC, hBitMap);
 	DeleteObject(OldBitMap);
 
 	// ImageDC를 만들면 내부에서 1,1크기의 HBITMAP을 만든다.

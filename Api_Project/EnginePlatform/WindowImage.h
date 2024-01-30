@@ -22,8 +22,10 @@ public:
 protected:
 
 private:
-	HBITMAP BitMap;
-	HDC ImageDC;
-	BITMAP Info;
+	// 윈도우에서 지원해주는 H붙은 애들은 다 struct HBITMAP__{int unused;}; typedef struct HBITMAP__ *HBITMAP
+	// 포인터이면서 8바이트 정수입니다.
+	HBITMAP hBitMap = 0;
+	HDC ImageDC = 0;
+	BITMAP Info = BITMAP();
 };
 

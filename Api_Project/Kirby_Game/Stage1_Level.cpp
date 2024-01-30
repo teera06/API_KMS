@@ -37,11 +37,6 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath);
 	}
 
-	
-
-	// CherryBomb_0.png
-	UEngineResourcesManager::GetInst().LoadImg("test.png");
-
 	SpawnActor<Kirby_Player>();
 	// SpawnActor<Player>();
 
