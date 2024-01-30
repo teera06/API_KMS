@@ -32,7 +32,7 @@ public:
 	void MoveParent();
 	void Move(std::string_view _Path);
 
-	std::string GetFullPath()
+	std::string GetFullPath() // 전체 경로 Get
 	{
 		// 문자열을 std에서는 char* char[100]
 		// std::string을 지원해준다.

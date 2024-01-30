@@ -25,8 +25,8 @@ UEnginePath::~UEnginePath()
 
 std::string UEnginePath::GetExtension()
 {
-	std::filesystem::path Text = Path.extension();
-	return Text.string();
+	std::filesystem::path Text = Path.extension(); // 확장자 구분
+	return Text.string(); // 반환
 }
 
 std::string UEnginePath::GetFileName()

@@ -15,7 +15,7 @@ public:
 	UNameObject& operator=(const UNameObject& _Other) = delete;
 	UNameObject& operator=(UNameObject&& _Other) noexcept = delete;
 
-	void SetName(std::string_view _View)
+	void SetName(std::string_view _View) // ÆÄÀÏ¸í -> Set
 	{
 		Name = _View;
 	}
