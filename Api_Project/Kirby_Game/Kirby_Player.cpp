@@ -79,6 +79,10 @@ void Kirby_Player::ModeInputTick(float _DeltaTime)
 				NewBase->SetDir(FVector::Right);
 			}
 		}
+		if (true == EngineInput::IsDown('X'))
+		{
+			SetMode(Mode::Fire);
+		}
 		break;
 	case Mode::Fire:
 		if (true == EngineInput::IsDown('A'))
