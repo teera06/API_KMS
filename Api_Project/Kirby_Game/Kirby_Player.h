@@ -15,11 +15,13 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void InputTick(float _DeltaTime);
+	void InputTick(float _DeltaTime); // 기본 입력키
+	void ModeInputTick(); // 모드별 입력키
 
-	void ModeInputTick(float _DeltaTime);
+	void BaseKirby();
+	void FireKirby();
 
-	inline void SetMode(AMode _KirbyMode)
+	inline void SetMode(AMode _KirbyMode) // 커비 모드 체인지 할때 사용
 	{
 		KirbyMode = _KirbyMode;
 	}
@@ -37,7 +39,7 @@ private:
 	float RunSpeed = 200.0f; // 뛰는 속도
 
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
-	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f };
+	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f }; // 기본 커비가 사용
 	int Hp=100;
 };
 

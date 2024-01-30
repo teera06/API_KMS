@@ -62,49 +62,15 @@ void AKirby_Player::InputTick(float _DeltaTime)
 }
 
 
-void AKirby_Player::ModeInputTick(float _DeltaTime)
+void AKirby_Player::ModeInputTick()
 {
 	switch (KirbyMode)
 	{
 	case AMode::Base:
-		if (true == EngineInput::IsDown('A')) // 흡수 기능
-		{
-			ABase* NewBase = GetWorld()->SpawnActor<ABase>();
-	
-			if (RLpoint == VK_LEFT)
-			{
-				NewBase->SetActorLocation(GetActorLocation()- LRCheck);
-				NewBase->SetDir(FVector::Left);
-			}
-			else {
-				NewBase->SetActorLocation(GetActorLocation() + LRCheck);
-				NewBase->SetDir(FVector::Right);
-			}
-		}
-
-		if (true == EngineInput::IsDown('X')) // 모드 체인지
-		{
-			SetMode(AMode::Fire);
-		}
+		BaseKirby();
 		break;
 	case AMode::Fire:
-		if (true == EngineInput::IsDown('A'))
-		{
-			AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-			NewFire->SetActorLocation(GetActorLocation());
-
-			if (RLpoint == VK_LEFT)
-			{
-				NewFire->SetDir(FVector::Left);
-			}
-			else {
-				NewFire->SetDir(FVector::Right);
-			}
-		}
-		if (true == EngineInput::IsDown('X'))
-		{
-			SetMode(AMode::Base);
-		}
+		FireKirby();
 		break;
 	case AMode::Mike:
 		break;
@@ -114,6 +80,50 @@ void AKirby_Player::ModeInputTick(float _DeltaTime)
 		break;
 	default:
 		break;
+	}
+}
+
+void AKirby_Player::BaseKirby()
+{
+	if (true == EngineInput::IsDown('A')) // 흡수 기능
+	{
+		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
+
+		if (RLpoint == VK_LEFT)
+		{
+			NewBase->SetActorLocation(GetActorLocation() - LRCheck);
+			NewBase->SetDir(FVector::Left);
+		}
+		else {
+			NewBase->SetActorLocation(GetActorLocation() + LRCheck);
+			NewBase->SetDir(FVector::Right);
+		}
+	}
+
+	if (true == EngineInput::IsDown('X')) // 모드 체인지
+	{
+		SetMode(AMode::Fire);
+	}
+}
+
+void AKirby_Player::FireKirby()
+{
+	if (true == EngineInput::IsDown('A'))
+	{
+		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
+		NewFire->SetActorLocation(GetActorLocation());
+
+		if (RLpoint == VK_LEFT)
+		{
+			NewFire->SetDir(FVector::Left);
+		}
+		else {
+			NewFire->SetDir(FVector::Right);
+		}
+	}
+	if (true == EngineInput::IsDown('X'))
+	{
+		SetMode(AMode::Base);
 	}
 }
 
@@ -183,5 +193,5 @@ void AKirby_Player::Tick(float _DeltaTime)
 {
 
 	InputTick(_DeltaTime); // 커비 기본 입력키
-	ModeInputTick(_DeltaTime); // 커비 모드별 입력키
+	ModeInputTick(); // 커비 모드별 입력키
 }
