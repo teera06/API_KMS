@@ -21,7 +21,9 @@ void ABase::BeginPlay()
 {
 	{
 		UImageRenderer* Renderer = CreateImageRenderer(0);
-		Renderer->SetPosition({ 0,0 });
+		Renderer->SetPosition(Dir);
 		Renderer->SetScale({ 50, 50 });
 	}
+
+	Destroy(2.0f);
 }

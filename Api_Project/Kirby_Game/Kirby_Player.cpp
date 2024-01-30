@@ -4,6 +4,8 @@
 #include <EngineBase\EngineTime.h>
 
 #include "Fire.h"
+#include "Base.h"
+
 Kirby_Player::Kirby_Player()
 {
 }
@@ -66,15 +68,15 @@ void Kirby_Player::ModeInputTick(float _DeltaTime)
 	case Mode::Base:
 		if (true == EngineInput::IsDown('A'))
 		{
-			AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-			NewFire->SetActorLocation(GetActorLocation());
+			ABase* NewBase = GetWorld()->SpawnActor<ABase>();
+			NewBase->SetActorLocation(GetActorLocation());
 
 			if (RLpoint == VK_LEFT)
 			{
-				NewFire->SetDir(FVector::Left);
+				NewBase->SetDir(FVector::Left);
 			}
 			else {
-				NewFire->SetDir(FVector::Right);
+				NewBase->SetDir(FVector::Right);
 			}
 		}
 		break;
