@@ -37,7 +37,7 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath);
 	}
 
-	SpawnActor<Kirby_Player>();
+	SpawnActor<AKirby_Player>();
 	// SpawnActor<Player>();
 
 	// «“¿œ¿∫ 

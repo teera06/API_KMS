@@ -2,24 +2,24 @@
 #include <EngineCore\Actor.h>
 #include "ModeEnum.h"
 
-class Kirby_Player : public AActor
+class AKirby_Player : public AActor
 {
 public:
 	// constrcuter destructer
-	Kirby_Player(); // 디폴트 생성자
-	~Kirby_Player(); // 디폴트 소멸자
+	AKirby_Player(); // 디폴트 생성자
+	~AKirby_Player(); // 디폴트 소멸자
 
 	// delete Function
-	Kirby_Player(const Kirby_Player& _Other) = delete; // 디폴트 복사 생성자
-	Kirby_Player(Kirby_Player&& _Other) noexcept = delete;
-	Kirby_Player& operator=(const Kirby_Player& _Other) = delete; // 디폴트 대입 연산자
-	Kirby_Player& operator=(Kirby_Player&& _Other) noexcept = delete;
+	AKirby_Player(const AKirby_Player& _Other) = delete; // 디폴트 복사 생성자
+	AKirby_Player(AKirby_Player&& _Other) noexcept = delete;
+	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
+	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
 	void InputTick(float _DeltaTime);
 
 	void ModeInputTick(float _DeltaTime);
 
-	inline void SetMode(Mode _KirbyMode)
+	inline void SetMode(AMode _KirbyMode)
 	{
 		KirbyMode = _KirbyMode;
 	}
@@ -36,8 +36,8 @@ private:
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
 
-	Mode KirbyMode = Mode::Base; // Kirby 모드 모음집
-
+	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
+	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f };
 	int Hp=100;
 };
 

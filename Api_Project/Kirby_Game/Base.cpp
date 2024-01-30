@@ -19,9 +19,7 @@ void ABase::BeginPlay()
 {
 	{
 		UImageRenderer* Renderer = CreateImageRenderer(-10);
-		Renderer->SetImageToScale("test.png");
-		Renderer->SetPosition(test*Dir);
-		Renderer->SetScale({ 70, 70 });
+		Renderer->SetImageToScale("kirby.bmp");
 	}
 
 	Destroy(2.0f);

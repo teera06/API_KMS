@@ -6,16 +6,16 @@
 #include "Fire.h"
 #include "Base.h"
 
-Kirby_Player::Kirby_Player()
+AKirby_Player::AKirby_Player()
 {
 }
 
-Kirby_Player::~Kirby_Player()
+AKirby_Player::~AKirby_Player()
 {
 }
 
 // 입력 진행 모음집
-void Kirby_Player::InputTick(float _DeltaTime)
+void AKirby_Player::InputTick(float _DeltaTime)
 {
 	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
 	{
@@ -62,30 +62,32 @@ void Kirby_Player::InputTick(float _DeltaTime)
 }
 
 
-void Kirby_Player::ModeInputTick(float _DeltaTime)
+void AKirby_Player::ModeInputTick(float _DeltaTime)
 {
 	switch (KirbyMode)
 	{
-	case Mode::Base:
-		if (true == EngineInput::IsDown('A'))
+	case AMode::Base:
+		if (true == EngineInput::IsDown('A')) // 흡수 기능
 		{
 			ABase* NewBase = GetWorld()->SpawnActor<ABase>();
-			NewBase->SetActorLocation(GetActorLocation());
-
+	
 			if (RLpoint == VK_LEFT)
 			{
+				NewBase->SetActorLocation(GetActorLocation()- LRCheck);
 				NewBase->SetDir(FVector::Left);
 			}
 			else {
+				NewBase->SetActorLocation(GetActorLocation() + LRCheck);
 				NewBase->SetDir(FVector::Right);
 			}
 		}
-		if (true == EngineInput::IsDown('X'))
+
+		if (true == EngineInput::IsDown('X')) // 모드 체인지
 		{
-			SetMode(Mode::Fire);
+			SetMode(AMode::Fire);
 		}
 		break;
-	case Mode::Fire:
+	case AMode::Fire:
 		if (true == EngineInput::IsDown('A'))
 		{
 			AFire* NewFire = GetWorld()->SpawnActor<AFire>();
@@ -101,21 +103,21 @@ void Kirby_Player::ModeInputTick(float _DeltaTime)
 		}
 		if (true == EngineInput::IsDown('X'))
 		{
-			SetMode(Mode::Base);
+			SetMode(AMode::Base);
 		}
 		break;
-	case Mode::Mike:
+	case AMode::Mike:
 		break;
-	case Mode::Sword:
+	case AMode::Sword:
 		break;
-	case Mode::Hammer:
+	case AMode::Hammer:
 		break;
 	default:
 		break;
 	}
 }
 
-void Kirby_Player::BeginPlay()
+void AKirby_Player::BeginPlay()
 {
 	AActor::BeginPlay();
 
@@ -137,7 +139,7 @@ void Kirby_Player::BeginPlay()
 		// Actor에서의 위치와 크기, 이미지
 		KirbyRenderer = CreateImageRenderer(0); 
 		KirbyRenderer->SetPosition({ 0, 0 });
-		KirbyRenderer->SetImageToScale("test.png");
+		KirbyRenderer->SetImageToScale("kirby.bmp");
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
@@ -177,7 +179,7 @@ void Kirby_Player::BeginPlay()
 }
 
 // 커비 움직임 업데이트
-void Kirby_Player::Tick(float _DeltaTime)
+void AKirby_Player::Tick(float _DeltaTime)
 {
 
 	InputTick(_DeltaTime); // 커비 기본 입력키

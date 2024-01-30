@@ -24,6 +24,7 @@ protected:
 	void BeginPlay() override;
 private:
 	FVector Dir = FVector::Zero;
-	FVector test = { 50.0f,0.0f};
+	int speed = 5;
+	
 };
 

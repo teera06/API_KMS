@@ -19,7 +19,7 @@ void AFire::BeginPlay()
 {
 	{
 		UImageRenderer* Renderer = CreateImageRenderer(-10);
-		Renderer->SetImageToScale("test.png");
+		Renderer->SetImageToScale("kirby.bmp");
 	}
 	
 	Destroy(2.0f);

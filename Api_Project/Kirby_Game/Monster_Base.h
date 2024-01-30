@@ -2,23 +2,23 @@
 #include <EngineCore\Actor.h>
 #include "ModeEnum.h"
 
-class Monster_Base
+class AMonster_Base
 {
 public:
 	// constrcuter destructer
-	Monster_Base(); // 디폴트 생성자
-	~Monster_Base(); // 디폴트 소멸자
+	AMonster_Base(); // 디폴트 생성자
+	~AMonster_Base(); // 디폴트 소멸자
 
 	// delete Function
-	Monster_Base(const Monster_Base& _Other) = delete; // 디폴트 복사 생성자
-	Monster_Base(Monster_Base&& _Other) noexcept = delete; 
-	Monster_Base& operator=(const Monster_Base& _Other) = delete; // 디폴트 대입 연산자
-	Monster_Base& operator=(Monster_Base&& _Other) noexcept = delete;
+	AMonster_Base(const AMonster_Base& _Other) = delete; // 디폴트 복사 생성자
+	AMonster_Base(AMonster_Base&& _Other) noexcept = delete; 
+	AMonster_Base& operator=(const AMonster_Base& _Other) = delete; // 디폴트 대입 연산자
+	AMonster_Base& operator=(AMonster_Base&& _Other) noexcept = delete;
 
 protected:
 
 private:
 
-	Mode MonsterBase = Mode::Base;
+	AMode MonsterBase = AMode::Base;
 };
 
