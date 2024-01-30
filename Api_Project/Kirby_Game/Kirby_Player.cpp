@@ -61,6 +61,7 @@ void Kirby_Player::InputTick(float _DeltaTime)
 
 }
 
+
 void Kirby_Player::ModeInputTick(float _DeltaTime)
 {
 	switch (KirbyMode)
