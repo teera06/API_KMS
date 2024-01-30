@@ -30,9 +30,6 @@
     <ClCompile Include="Level.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="NameObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -48,9 +45,6 @@
     <ClCompile Include="EngineResourcesManager.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -60,9 +54,6 @@
       <Filter>Object\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="NameObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="TickObject.h">
@@ -78,9 +69,6 @@
       <Filter>Object\Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="EngineResourcesManager.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
       <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>

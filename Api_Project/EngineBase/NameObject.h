@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-// 설명 : 오브젝트(액터)의 이름
+// 설명 :
 class UNameObject
 {
 public:
