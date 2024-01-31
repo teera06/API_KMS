@@ -54,6 +54,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TitleAcotr.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
@@ -82,6 +86,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Stage1_Level.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleAcotr.h">
       <SubType>
       </SubType>
     </ClInclude>

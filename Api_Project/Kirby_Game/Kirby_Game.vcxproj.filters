@@ -22,6 +22,9 @@
     <ClCompile Include="Base.cpp">
       <Filter>Stage1_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="TitleAcotr.cpp">
+      <Filter>Title_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="Base.h">
       <Filter>Stage1_Actor</Filter>
     </ClInclude>
+    <ClInclude Include="TitleAcotr.h">
+      <Filter>Title_Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">
@@ -58,6 +64,9 @@
     </Filter>
     <Filter Include="Stage1_Actor">
       <UniqueIdentifier>{1c18503f-14a5-483b-b894-fd43af5a3acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Title_Actor">
+      <UniqueIdentifier>{4d0d2178-9d50-469f-bf41-2e74227f0c58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
