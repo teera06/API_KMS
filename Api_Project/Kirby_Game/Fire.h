@@ -19,12 +19,17 @@ public:
 		Dir = _Dir;
 	}
 
+	int GetKirbyFireAtt()
+	{
+		return Att;
+	}
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
 private:
 	FVector Dir = FVector::Zero;
 	float Speed = 300.0f;
-	int Att = 10;
+	int Att = 50;
 };
 

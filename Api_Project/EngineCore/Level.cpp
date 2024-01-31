@@ -140,7 +140,7 @@ void ULevel::LevelRelease(float _DeltaTime)
 void ULevel::ActorInit(AActor* _NewActor)
 {
 	// 생성자에서는 레벨이 세팅되지 않아서 Get
-	_NewActor->SetWorld(this);
+	_NewActor->SetWorld(this); // 엑터가 생성된 Level Set ex) Stage1_Level에서 커비 생성
 	_NewActor->BeginPlay();
 }
 

@@ -47,7 +47,7 @@ public:
 	// UWindowImage* _Copy 이 이미지를
 	// FTransform _Trans 이 위치와 크기로
 	// 나한테 카피해라.
-	void BitCopy(UWindowImage* _CopyImage, FTransform _Trans); // 이미지 복사
+	void BitCopy(UWindowImage* _CopyImage, FTransform _Trans); // 비트맵에 
 
 protected:
 

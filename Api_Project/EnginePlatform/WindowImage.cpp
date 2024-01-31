@@ -112,7 +112,7 @@ bool UWindowImage::Load(UWindowImage* _Image)
 	// 그릴수 있는 권한이 자신이 뭘 그려야하는지를 알려줘야 합니다.
 	// ImageDC야 너는 BitMap그려야 해.
 	ImageDC = CreateCompatibleDC(_Image->ImageDC);
-	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap)); // 동적할당을 한것과 같다.
+	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap)); 
 	DeleteObject(OldBitMap); // 그래서 삭제도 필수
 
 	// hBitMap에서 얻어오겠다.

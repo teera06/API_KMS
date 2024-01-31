@@ -11,8 +11,8 @@ UEngineDirectory::~UEngineDirectory()
 }
 
 void UEngineDirectory::AllFileRecursive(
-	const std::string_view _Path,
-	std::list<UEngineFile>& _Result,
+	const std::string_view _Path, // 현재 경로
+	std::list<UEngineFile>& _Result, //
 	std::vector<std::string> _Ext /*= std::vector<std::string>()*/,
 	bool _Recursive /*= false*/)
 {
@@ -34,20 +34,21 @@ void UEngineDirectory::AllFileRecursive(
 
 		// 특정 경로 안에 있는 또다른 폴더
 		// 폴더라는 거네
-		std::filesystem::path Path = Entry.path();
-		std::filesystem::path Ext = Entry.path().extension();
-		std::string UpperExt = UEngineString::ToUpper(Ext.string());
+		std::filesystem::path Path = Entry.path(); // 경로
+		std::filesystem::path Ext = Entry.path().extension(); // 확장명
+		std::string UpperExt = UEngineString::ToUpper(Ext.string()); // 확장명 대문자로 변환
 
+		// 재귀함수
 		if (true == Entry.is_directory())
 		{
-			if (true == _Recursive)
+			if (true == _Recursive) // 안에 또 다른 폴더가 있는 경우
 			{
-				AllFileRecursive(Path.string(), _Result, _Ext, _Recursive);
+				AllFileRecursive(Path.string(), _Result, _Ext, _Recursive); // 한번더 실행
 			}
 			continue;
 		}
 
-		if (0 == _Ext.size())
+		if (0 == _Ext.size()) // 확장자가 없는 경우도 값을 넣어준다.
 		{
 			_Result.push_back(UEngineFile(Path.string()));
 			continue;
@@ -63,7 +64,7 @@ void UEngineDirectory::AllFileRecursive(
 			}
 		}
 
-		if (true == Check)
+		if (true == Check)// 확장자가 존재할 경우
 		{
 			_Result.push_back(UEngineFile(Path.string()));
 		}
