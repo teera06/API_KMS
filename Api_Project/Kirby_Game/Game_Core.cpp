@@ -20,7 +20,7 @@ void Game_Core::BeginPlay() //
 	SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 	CreateLevel<UTitleLevel>("TitleLevel");
 	CreateLevel<UStage1_Level>("Stage1_Level");
-	ChangeLevel("");
+	ChangeLevel("Stage1_Level");
 	
 }
 

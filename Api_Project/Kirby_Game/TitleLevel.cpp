@@ -12,8 +12,5 @@ UTitleLevel::~UTitleLevel()
 
 void UTitleLevel::BeginPlay()
 {
-	if (true == EngineInput::IsPress(VK_LBUTTON))
-	{
-		GEngine->ChangeLevel("Stage1_Level");
-	}// ¿ŞÂÊ °È±â
+	
 }
