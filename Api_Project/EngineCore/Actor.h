@@ -5,7 +5,6 @@
 #include "ImageRenderer.h"
 #include "Level.h"
 
-// 전방선언
 class ULevel;
 class UActorComponent;
 class UImageRenderer;
@@ -15,7 +14,7 @@ class UImageRenderer;
 // 레벨이 자연스럽게 자신의 관리하에 두고 언제나 Tick을 실행해준다.
 class AActor : public UNameObject, public UTickObject
 {
-	friend ULevel; // Level에게 Actor의 Private까지 공개
+	friend ULevel;
 
 public:
 	// constrcuter destructer
@@ -28,7 +27,6 @@ public:
 	AActor& operator=(const AActor& _Other) = delete;
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
-	// Actor는 크기와 위치를 가진다.
 	FVector GetActorLocation()
 	{
 		return Transform.GetPosition();
@@ -42,11 +40,6 @@ public:
 	void AddActorLocation(FVector _Value)
 	{
 		Transform.AddPosition(_Value);
-	}
-
-	void SetActorScale(FVector _Value)
-	{
-		Transform.SetScale(_Value);
 	}
 
 	FTransform GetTransform()
@@ -65,14 +58,15 @@ public:
 	void DestroyUpdate(float _DeltaTime) override;
 
 protected:
+	void Tick(float _DeltaTime) override;
 
 private:
 	std::list<UImageRenderer*> Renderers;
 
-	ULevel* World = nullptr; // Actor가 생성된 Level
+	ULevel* World = nullptr;
 	FTransform Transform = FTransform();
 
-	void SetWorld(ULevel* _Value) // Level Set
+	void SetWorld(ULevel* _Value)
 	{
 		World = _Value;
 	}
