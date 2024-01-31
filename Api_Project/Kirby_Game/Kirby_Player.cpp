@@ -134,24 +134,23 @@ void AKirby_Player::BeginPlay()
 	// 상체? 100, 100 - 50 => Renderer
 	// 하체? 100, 100 + 50 => Renderer
 	
-	// Level에서의 위치와 크기
-	SetActorLocation({ 100, 500 }); // Actor의 위치
-	//SetActorScale({ 100, 100 }); // Acotor 크기는 상관 없음 
-
 	//{
 		//BodyRenderer = CreateImageRenderer(0);
 		//BodyRenderer->SetPosition({ 0, 30 });
 		//BodyRenderer->SetScale({ 8, 80 });
 	//}
 	
-	{
-		// Actor에서의 위치와 크기, 이미지
-		KirbyRenderer = CreateImageRenderer(0); 
-		KirbyRenderer->SetPosition({ 0, 0 });
-		KirbyRenderer->SetImage("kirby.bmp");
-		
-		KirbyRenderer->SetTransform({ {0,0}, {100, 100} });
-	}
+	
+	KirbyRenderer = CreateImageRenderer(1); // 이미지 랜더 생성
+	KirbyRenderer->SetImage("kirby.bmp"); // 이미지 Set
+	SetActorLocation({100, 500 }); // Level 위의 Actor 위치 설정 
+	KirbyRenderer->SetTransform({ {0,0}, {500, 500} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
+	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {649, 311} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
+	
+	
+	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
+	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
+	
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
 	// Ptr->SetPosition({0.0, -50.0f}); // 500, 500

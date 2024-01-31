@@ -13,26 +13,14 @@ ATitleActor::~ATitleActor()
 void ATitleActor::BeginPlay()
 {
 	AActor::BeginPlay();
-	SetActorLocation({ 500, 500 }); // Actor의 위치 -> 설정
-	//SetActorScale({ 100, 100 }); // Acotor 크기는 상관 없음 
-
-	//{
-		//BodyRenderer = CreateImageRenderer(0);
-		//BodyRenderer->SetPosition({ 0, 30 });
-		//BodyRenderer->SetScale({ 8, 80 });
-	//}
-	TitleRenderer = CreateImageRenderer(0);
-	TitleRenderer->SetImage("test.png"); 
-	//SetActorLocation({ 500, 500 }); // Actor의 위치 -> 설정
-	// Actor에서의 위치와 크기, 이미지
-	TitleRenderer->SetPosition({ 100, 100 });
-	//TitleRenderer->SetTransform({ {0,0}, {500, 500} });
-	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {300, 300} });
-	TitleRenderer->SetScale({ 100,100 });
 	
-		
-	
-
+	TitleRenderer = CreateImageRenderer(0); // 이미지 랜더 생성
+	TitleRenderer->SetImage("test.png"); // 이미지 Set
+	SetActorLocation({ 500, 500 }); // Level 위의 Actor 위치 설정 
+	TitleRenderer->SetTransform({ {0,0}, {500, 500} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
+	TitleRenderer->SetImageCuttingTransform({ {0,0}, {649, 311} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
+	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
+	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
 }
 
 void ATitleActor::Tick(float _DeltaTime)
