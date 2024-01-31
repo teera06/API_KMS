@@ -57,34 +57,34 @@ public:
 
 
 public:
-	int iX()
+	int iX() const
 	{
 		return static_cast<int>(X);
 	}
 
-	int iY()
+	int iY() const
 	{
 		return static_cast<int>(Y);
 	}
 
 
-	float hX()
+	float hX() const
 	{
 		return X * 0.5f;
 	}
 
-	float hY()
+	float hY() const
 	{
 		return Y * 0.5f;
 	}
 
 
-	int ihY()
+	int ihY() const
 	{
 		return static_cast<int>(hY());
 	}
 
-	int ihX()
+	int ihX() const
 	{
 		return static_cast<int>(hX());
 	}

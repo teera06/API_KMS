@@ -28,6 +28,7 @@ void ATitleActor::BeginPlay()
 		TitleRenderer->SetPosition({ 0, 0 });
 		TitleRenderer->SetImageToScale("test.png");
 	}
+
 }
 
 void ATitleActor::Tick(float _DeltaTime)
@@ -36,5 +37,6 @@ void ATitleActor::Tick(float _DeltaTime)
 	if (true == EngineInput::IsDown(VK_LBUTTON))
 	{
 		GEngine->ChangeLevel("Stage1_Level");
+		Destroy(0.0f);
 	}
 }
