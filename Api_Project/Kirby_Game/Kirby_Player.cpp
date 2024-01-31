@@ -1,7 +1,6 @@
 #include "Kirby_Player.h"
-
 #include <EnginePlatform\EngineInput.h>
-#include <EngineBase\EngineTime.h>
+
 
 #include "Fire.h"
 #include "Base.h"
