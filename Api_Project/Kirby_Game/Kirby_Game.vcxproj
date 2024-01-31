@@ -54,7 +54,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TitleAcotr.cpp">
+    <ClCompile Include="TitleActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -89,7 +89,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TitleAcotr.h">
+    <ClInclude Include="TitleActor.h">
       <SubType>
       </SubType>
     </ClInclude>

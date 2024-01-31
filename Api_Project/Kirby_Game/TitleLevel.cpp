@@ -1,7 +1,5 @@
 #include "TitleLevel.h"
-#include <EnginePlatform\EngineInput.h>
-#include "Stage1_Level.h"
-#include <EngineCore/EngineCore.h>
+#include "TitleActor.h"
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -37,6 +35,6 @@ void UTitleLevel::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 
-	//SpawnActor<>();
+	//SpawnActor<TitleActor>();
 	
 }
