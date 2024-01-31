@@ -28,9 +28,16 @@ public:
 		return WindowImage;
 	}
 
+	UWindowImage* GetBackBufferImage()
+	{
+		return BackBufferImage;
+	}
+
 	void SetWindowPosition(const FVector& _Pos);
 	void SetWindowScale(const FVector& _Scale);
-	// void SetWindowScale(const FVector& _Scale);
+
+	void ScreenClear();
+	void ScreenUpdate();
 
 protected:
 

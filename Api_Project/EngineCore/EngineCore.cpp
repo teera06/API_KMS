@@ -68,7 +68,9 @@ void UEngineCore::CoreTick()
 	// 액터와 부가적인 오브젝트들의 틱도 돌리고 => 행동하고
 	CurLevel->LevelTick(DeltaTime);
 	// 랜더러들의 랜더를 통해서 화면에 그림도 그린다 => 그리고
+	MainWindow.ScreenClear();
 	CurLevel->LevelRender(DeltaTime);
+	MainWindow.ScreenUpdate();
 	// 정리한다.(죽어야할 오브젝트들은 다 파괴한다)
 	CurLevel->LevelRelease(DeltaTime);
 

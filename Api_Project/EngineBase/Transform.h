@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineMath.h"
 
-// 기능 : EngineMath를 이용한 -> 최종 위치, 크기 설정
+// 설명 :
 class FTransform
 {
 public:
@@ -16,59 +16,57 @@ public:
 	//FTransform& operator=(FTransform&& _Other) noexcept = delete;
 
 public:
-	void SetScale(FVector _Value) // 크기 Set
+	void SetScale(FVector _Value)
 	{
 		Scale = _Value;
 	}
-	FVector GetScale() // 크기 Get
+	FVector GetScale() const
 	{
 		return Scale;
 	}
-	void SetPosition(FVector _Value) // 위치 Set
+	void SetPosition(FVector _Value)
 	{
 		Position = _Value;
 	}
-	void AddPosition(FVector _Value) // 위치 이동
+	void AddPosition(FVector _Value)
 	{
 		Position += _Value;
 	}
-	FVector GetPosition() // 위치 Get
+	FVector GetPosition()
 	{
 		return Position;
 	}
 
-	//--------------------------------
-	float Left()
+	float Left() const
 	{
 		return Position.X - Scale.hX();
 	}
-	float Right()
+	float Right() const
 	{
 		return Position.X + Scale.hX();
 	}
-	float Top()
+	float Top() const
 	{
 		return Position.Y - Scale.hY();
 	}
-	float Bottom()
+	float Bottom() const
 	{
 		return Position.Y + Scale.hY();
 	}
 
-	//-------------------------------------
-	int iLeft()
+	int iLeft() const
 	{
 		return static_cast<int>(Left());
 	}
-	int iRight()
+	int iRight() const
 	{
 		return static_cast<int>(Right());
 	}
-	int iTop()
+	int iTop() const
 	{
 		return static_cast<int>(Top());
 	}
-	int iBottom()
+	int iBottom() const
 	{
 		return static_cast<int>(Bottom());
 	}
@@ -76,7 +74,7 @@ public:
 protected:
 
 private:
-	FVector Scale; // 크기
-	FVector Position; // 위치
+	FVector Scale;
+	FVector Position;
 };
 

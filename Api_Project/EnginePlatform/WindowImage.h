@@ -36,7 +36,7 @@ public:
 	// bool을 리턴해서 false면 실패 true면 성공
 	bool Load(UWindowImage* _Image);
 
-	FVector GetScale(); // BITMAP X,Y -> 크기 반환
+	FVector GetScale();
 
 	// 윈도우 랜더링의 핵심 인터페이스중 하나인 HDC를 외부에 공개할 필요는 굳이 없어.
 	//HDC GetImageDC()
@@ -47,15 +47,17 @@ public:
 	// UWindowImage* _Copy 이 이미지를
 	// FTransform _Trans 이 위치와 크기로
 	// 나한테 카피해라.
-	void BitCopy(UWindowImage* _CopyImage, FTransform _Trans); // 비트맵에 
+	void BitCopy(UWindowImage* _CopyImage, const FTransform& _Trans);
+
+	bool Create(UWindowImage* _Image, const FVector& _Scale);
 
 protected:
 
 private:
 	// 윈도우에서 지원해주는 H붙은 애들은 다 struct HBITMAP__{int unused;}; typedef struct HBITMAP__ *HBITMAP
 	// 포인터이면서 8바이트 정수입니다.
-	HBITMAP hBitMap = 0; // 릭이 생김 -> 소멸자에서 제거
-	HDC ImageDC = 0; // 이미지를 그릴 권한, 릭이 생김 -> 소멸자에서 제거
+	HBITMAP hBitMap = 0;
+	HDC ImageDC = 0;
 	BITMAP BitMapInfo = BITMAP(); // 비트맵를 담는 구조체인데 이걸 얻어와야 합니다.
 
 	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE;

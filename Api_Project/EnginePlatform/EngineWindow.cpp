@@ -39,6 +39,12 @@ UEngineWindow::UEngineWindow()
 
 UEngineWindow::~UEngineWindow()
 {
+	if (nullptr != BackBufferImage)
+	{
+		delete BackBufferImage;
+		BackBufferImage = nullptr;
+	}
+
 	if (nullptr != WindowImage)
 	{
 		delete WindowImage;
@@ -162,6 +168,19 @@ void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
 	Scale = _Scale;
 
+
+	// window크기만한 이미지를 만들거라고 했는데.
+	// Load랑 다르다.
+
+	if (nullptr != BackBufferImage)
+	{
+		delete BackBufferImage;
+		BackBufferImage = nullptr;
+	}
+
+	BackBufferImage = new UWindowImage();
+	BackBufferImage->Create(WindowImage, Scale);
+
 	// 메뉴크기까지 포함 윈도우의 크기를 만들어줍니다.
 	// EX) 1000, 1000짜리 윈도우 만들어줘 => 1000 1100 이라는 수치를 내려줘
 	//     윈도우의 부가요소 크기까지 다 포함해서 내부크기가 1000 1000이 될수 있는 수치를 리턴해준다.
@@ -172,7 +191,24 @@ void UEngineWindow::SetWindowScale(const FVector& _Scale)
 
 	// SWP_NOMOVE 현재 위치를 유지합니다(X 및 Y 매개 변수 무시).
 	// 크기 조절기능 + 위치조절 다들어가 있다.
-	::SetWindowPos(hWnd, nullptr, 0, 0, _Scale.iX(), _Scale.iY(), SWP_NOZORDER | SWP_NOMOVE);
+	::SetWindowPos(hWnd, nullptr, 0, 0, Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER | SWP_NOMOVE);
+}
+
+void UEngineWindow::ScreenClear()
+{
+	// 1280 720
+	Rectangle(BackBufferImage->ImageDC, -1, -1, Scale.iX() + 1, Scale.iY() + 1);
+	// 1282 722
+	// Rectangle(BackBufferImage->ImageDC, -1, -1, 1281, 721);
+}
+
+void UEngineWindow::ScreenUpdate()
+{
+	FTransform CopyTrans;
+	CopyTrans.SetPosition({ Scale.ihX(), Scale.ihY() });
+	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
+
+	WindowImage->BitCopy(BackBufferImage, CopyTrans);
 }
 
 //void UEngineWindow::SetWindowScale(const FVector& _Scale)

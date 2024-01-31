@@ -11,10 +11,24 @@ public:
 	static const float4 Up;
 	static const float4 Down;
 
-	float X; // 2D
-	float Y; // 2D
-	float Z;
-	float W;
+	union
+	{
+		struct
+		{
+			float X; // 2D
+			float Y; // 2D
+			float Z;
+			float W;
+		};
+
+		struct
+		{
+			float R; // 2D
+			float G; // 2D
+			float B;
+			float A;
+		};
+	};
 
 	// 생성자를 한번 만들게 되면 리스트 이니셜라이저가 동작하지 않아서
 	// 내가 생성하는 방식을 다 정의해야 합니다.
@@ -163,6 +177,25 @@ public:
 };
 
 using FVector = float4;
+using FColor = float4;
+
+class Color8Bit
+{
+	// 현실에서의 색상은
+	// 물감으로 치면 다섞으면 어두운색
+	// 빛으로 치면 다섞으면 흰색
+	// 컴퓨터는 빛의 삼원색을 사용합니다.
+public:
+	static const Color8Bit Black;
+	static const Color8Bit Red;
+	static const Color8Bit Green;
+	static const Color8Bit Blue;
+
+	unsigned char R = 0;
+	unsigned char G = 0;
+	unsigned char B = 0;
+	unsigned char A = 1;
+};
 
 // 설명 :
 class EngineMath

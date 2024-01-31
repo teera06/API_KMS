@@ -1,5 +1,5 @@
 #include "WindowImage.h"
-#include <EngineBase\EngineString.h> // Level0 - 멀티바이트 -> 유니코드로 변환
+#include <EngineBase\EngineString.h>
 #include <Windows.h>
 #include <EngineBase\EngineDebug.h>
 
@@ -48,13 +48,12 @@ bool UWindowImage::Create(HDC _MainDC)
 
 bool UWindowImage::Load(UWindowImage* _Image)
 {
-	UEnginePath Path = GetEnginePath(); // 파일 경로를 받음
+	UEnginePath Path = GetEnginePath();
 
-	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension()); // 확장자 대문자 변환 
+	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension());
 
-	if (".BMP" == UpperExt) // .BMP 일때
+	if (".BMP" == UpperExt)
 	{
-		// -> LoAdImageA
 		//HINSTANCE hInst,  이 이미지를 사용할 프로그램을 알려달라는건데. nullptr넣어도 괜찮다.
 		//LPCSTR name, // 경로
 		//UINT type, // 이미지 타입
@@ -70,7 +69,7 @@ bool UWindowImage::Load(UWindowImage* _Image)
 		hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
 		ImageType = EWIndowImageType::IMG_BMP;
 	}
-	else if (".PNG" == UpperExt) // .PNG 일때
+	else if (".PNG" == UpperExt)
 	{
 		ULONG_PTR gdiplusToken = 0;
 		// Gdiplus헤더의 함수들은 전부다 Gdiplus 네임스페이스 안에 들어있어요.
@@ -88,11 +87,11 @@ bool UWindowImage::Load(UWindowImage* _Image)
 
 		// 유니코드로 되었습니다.
 		// 그래서 멀티바이트 경로를 유니코드 경로로 변경하는 함수가 필요한데.
-		std::wstring wPath = UEngineString::AnsiToUniCode(Path.GetFullPath()); // 전체 경로를 멀티바이트에서 유니코드로 변환
+		std::wstring wPath = UEngineString::AnsiToUniCode(Path.GetFullPath());
 
 		// 어떤 문자열에 기반해서 만들어졌는지 알수 없죠?
 		// 그냥 모든 문자열에 대비할 방법을 찾아야 합니다.
-		Gdiplus::Image* pImage = Gdiplus::Image::FromFile(wPath.c_str()); // 넣기 위해서는 유니코드가 필요
+		Gdiplus::Image* pImage = Gdiplus::Image::FromFile(wPath.c_str());
 		Gdiplus::Bitmap* pBitMap = reinterpret_cast<Gdiplus::Bitmap*>(pImage->Clone());
 
 		Gdiplus::Status stat = pBitMap->GetHBITMAP(Gdiplus::Color(0, 0, 0, 0), &hBitMap);
@@ -112,8 +111,15 @@ bool UWindowImage::Load(UWindowImage* _Image)
 	// 그릴수 있는 권한이 자신이 뭘 그려야하는지를 알려줘야 합니다.
 	// ImageDC야 너는 BitMap그려야 해.
 	ImageDC = CreateCompatibleDC(_Image->ImageDC);
-	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap)); 
-	DeleteObject(OldBitMap); // 그래서 삭제도 필수
+
+	if (nullptr == ImageDC)
+	{
+		MsgBoxAssert("이미지 생성에 실패했습니다");
+		return false;
+	}
+
+	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap));
+	DeleteObject(OldBitMap);
 
 	// hBitMap에서 얻어오겠다.
 	GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
@@ -128,7 +134,40 @@ bool UWindowImage::Load(UWindowImage* _Image)
 	return true;
 }
 
-void UWindowImage::BitCopy(UWindowImage* _CopyImage, FTransform _Trans)
+bool UWindowImage::Create(UWindowImage* _Image, const FVector& _Scale)
+{
+	// 시작이 먼저 이미지를 만든다.
+
+
+	// HBITMAP 비트맵 이미지의 메모리권한
+	HANDLE ImageHandle = CreateCompatibleBitmap(_Image->ImageDC, _Scale.iX(), _Scale.iY());
+
+	if (nullptr == ImageHandle)
+	{
+		MsgBoxAssert("이미지 생성에 실패했습니다");
+		return false;
+	}
+
+	hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
+
+	ImageDC = CreateCompatibleDC(_Image->ImageDC);
+
+	if (nullptr == ImageDC)
+	{
+		MsgBoxAssert("이미지 생성에 실패했습니다");
+		return false;
+	}
+
+	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap));
+	DeleteObject(OldBitMap);
+
+	// hBitMap에서 얻어오겠다.
+	GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
+
+	return true;
+}
+
+void UWindowImage::BitCopy(UWindowImage* _CopyImage, const FTransform& _Trans)
 {
 	// 렉탱글이 아니고
 	// 이미지로 그려야합니다
