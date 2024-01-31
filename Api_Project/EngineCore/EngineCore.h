@@ -34,17 +34,18 @@ public:
 	virtual void Tick(float _DeltaTime);
 	virtual void End();
 
+	// Level Create -> EngineCore에서 관리
 	template<typename LevelType>
 	void CreateLevel(std::string_view _Name)
 	{
-		std::string UpperName = UEngineString::ToUpper(_Name);
+		std::string UpperName = UEngineString::ToUpper(_Name); // Level 이름 대문자로 통일
 
-		if (true == AllLevel.contains(UpperName))
+		if (true == AllLevel.contains(UpperName)) // 이미 있는 레벨을 생성할려 할 경우 에러
 		{
 			MsgBoxAssert(std::string(_Name) + "이라는 이름의 Level을 또 만들려고 했습니다");
 		}
 
-		LevelType* NewLevel = new LevelType();
+		LevelType* NewLevel = new LevelType(); // 동적 할당
 		LevelInit(NewLevel);
 		AllLevel.insert(std::pair<std::string, ULevel*>(UpperName, NewLevel));
 	}
@@ -66,7 +67,7 @@ private:
 	float CurFrameTime = 0.0f;
 
 	bool EngineInit = false;
-	std::map<std::string, ULevel*> AllLevel;
+	std::map<std::string, ULevel*> AllLevel; // Map에서 Level 관리
 	ULevel* CurLevel = nullptr;
 
 	static void EngineTick();

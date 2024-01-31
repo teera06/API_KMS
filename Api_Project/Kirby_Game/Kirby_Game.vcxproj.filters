@@ -11,16 +11,16 @@
       <Filter>ContentsLevel</Filter>
     </ClCompile>
     <ClCompile Include="Kirby_Player.cpp">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Fire.cpp">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Base.cpp">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Base.cpp">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,19 +34,19 @@
       <Filter>ContentsLevel</Filter>
     </ClInclude>
     <ClInclude Include="Kirby_Player.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Fire.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Base.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClInclude>
     <ClInclude Include="ModeEnum.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>Stage1_Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +56,7 @@
     <Filter Include="GameCore">
       <UniqueIdentifier>{a4888ff9-9db4-4026-b17b-d375642d4577}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsObject">
+    <Filter Include="Stage1_Actor">
       <UniqueIdentifier>{1c18503f-14a5-483b-b894-fd43af5a3acb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
