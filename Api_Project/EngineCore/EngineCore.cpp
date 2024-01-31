@@ -110,11 +110,11 @@ void UEngineCore::EngineEnd()
 
 void UEngineCore::EngineStart(HINSTANCE _hInstance, UEngineCore* _UserCore)
 {
-	UEngineCore* Ptr = _UserCore; 
+	UEngineCore* Ptr = _UserCore;
 	GEngine = Ptr;
-	Ptr->MainTimer.TimeCheckStart();// 엔진을 시작하며 일정한 수 체크
-	Ptr->CoreInit(_hInstance); // 프로그램 핸들 설정과 윈도우창 오픈
-	Ptr->BeginPlay(); // 자식인 BeginPlay()도 실행 오버라이드
+	Ptr->MainTimer.TimeCheckStart();
+	Ptr->CoreInit(_hInstance);
+	Ptr->BeginPlay();
 	UEngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
 }
 

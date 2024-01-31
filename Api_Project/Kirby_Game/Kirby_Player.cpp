@@ -1,5 +1,5 @@
 #include "Kirby_Player.h"
-#include <EngineCore\EngineCore.h>
+
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineTime.h>
 

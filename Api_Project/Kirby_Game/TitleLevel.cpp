@@ -36,6 +36,6 @@ void UTitleLevel::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 
-	//SpawnActor<TitleActor>();
+	SpawnActor<ATitleActor>();
 	
 }

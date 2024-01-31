@@ -1,6 +1,5 @@
 #include "Fire.h"
 #include <Windows.h>
-#include <EngineCore\EngineCore.h>
 
 AFire::AFire()
 {
