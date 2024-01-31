@@ -25,8 +25,10 @@ void ATitleActor::BeginPlay()
 	{
 		// Actor에서의 위치와 크기, 이미지
 		TitleRenderer = CreateImageRenderer(0);
-		TitleRenderer->SetPosition({ 0, 0 });
-		TitleRenderer->SetImageToScale("test.png");
+		TitleRenderer->SetPosition({ 100, 100 });
+		TitleRenderer->SetImage("test.png");
+		TitleRenderer->SetTransform({ {0,0}, {500, 500} });
+		TitleRenderer->SetImageCuttingTransform({ {0,0}, {300, 300} });
 	}
 
 }

@@ -148,7 +148,9 @@ void AKirby_Player::BeginPlay()
 		// Actor에서의 위치와 크기, 이미지
 		KirbyRenderer = CreateImageRenderer(0); 
 		KirbyRenderer->SetPosition({ 0, 0 });
-		KirbyRenderer->SetImageToScale("kirby.bmp");
+		KirbyRenderer->SetImage("kirby.bmp");
+		
+		KirbyRenderer->SetTransform({ {0,0}, {100, 100} });
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준

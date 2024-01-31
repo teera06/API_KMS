@@ -20,7 +20,8 @@ void AFire::BeginPlay()
 	AActor::BeginPlay();
 	UImageRenderer* Renderer = CreateImageRenderer(-11);
 	Renderer->SetImage("Fire.png");
-	SetActorLocation({ 50,50 });
+	SetActorLocation({ 0, 0 });
+	Renderer->SetTransform({ {0,0}, {100, 100} });
 	Renderer->SetImageCuttingTransform({ {0,0}, {200, 200} });
 	
 	Destroy(2.0f);
