@@ -191,7 +191,7 @@ void AKirby_Player::BeginPlay()
 // 커비 움직임 업데이트
 void AKirby_Player::Tick(float _DeltaTime)
 {
-
+	AActor::Tick(_DeltaTime);
 	InputTick(_DeltaTime); // 커비 기본 입력키
 	ModeInputTick(); // 커비 모드별 입력키
 }
