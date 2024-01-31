@@ -21,15 +21,17 @@ void ATitleActor::BeginPlay()
 		//BodyRenderer->SetPosition({ 0, 30 });
 		//BodyRenderer->SetScale({ 8, 80 });
 	//}
-
-	{
-		// Actor에서의 위치와 크기, 이미지
-		TitleRenderer = CreateImageRenderer(0);
-		TitleRenderer->SetPosition({ 100, 100 });
-		TitleRenderer->SetImage("test.png");
-		TitleRenderer->SetTransform({ {0,0}, {500, 500} });
-		TitleRenderer->SetImageCuttingTransform({ {0,0}, {300, 300} });
-	}
+	TitleRenderer = CreateImageRenderer(0);
+	TitleRenderer->SetImage("test.png"); 
+	//SetActorLocation({ 500, 500 }); // Actor의 위치 -> 설정
+	// Actor에서의 위치와 크기, 이미지
+	TitleRenderer->SetPosition({ 100, 100 });
+	//TitleRenderer->SetTransform({ {0,0}, {500, 500} });
+	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {300, 300} });
+	TitleRenderer->SetScale({ 100,100 });
+	
+		
+	
 
 }
 
