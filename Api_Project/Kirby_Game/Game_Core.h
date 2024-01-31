@@ -2,18 +2,18 @@
 #include <EngineCore\EngineCore.h>
 
 // 설명 :
-class Game_Core : public EngineCore
+class UGame_Core : public UEngineCore
 {
 public:
 	// constrcuter destructer
-	Game_Core();
-	~Game_Core();
+	UGame_Core();
+	~UGame_Core();
 
 	// delete Function
-	Game_Core(const Game_Core& _Other) = delete;
-	Game_Core(Game_Core&& _Other) noexcept = delete;
-	Game_Core& operator=(const Game_Core& _Other) = delete;
-	Game_Core& operator=(Game_Core&& _Other) noexcept = delete;
+	UGame_Core(const UGame_Core& _Other) = delete;
+	UGame_Core(UGame_Core&& _Other) noexcept = delete;
+	UGame_Core& operator=(const UGame_Core& _Other) = delete;
+	UGame_Core& operator=(UGame_Core&& _Other) noexcept = delete;
 
 protected:
 	// 부모인 

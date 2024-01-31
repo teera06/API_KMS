@@ -8,4 +8,4 @@
 // 사용자가 하고 싶을일을 어떻게 어디에 정의하게 만들거냐?
 // 내가 윈도우 크기를 변경하고 싶어.
 
-ENGINESTART(Game_Core);
+ENGINESTART(UGame_Core);

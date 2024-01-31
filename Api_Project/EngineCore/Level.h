@@ -7,12 +7,12 @@
 // 역할 : Actor 생성 및 관리
 // 전방선언 : 이러이러한 클래스가 있을거다.
 class AActor;
-class EngineCore;
+class UEngineCore;
 class UImageRenderer;
 // 설명 : U는 그냥 엔진 속해있다는 것을 의미.
 class ULevel : public UNameObject
 {
-	friend EngineCore;
+	friend UEngineCore;
 	friend UImageRenderer;
 
 public:
