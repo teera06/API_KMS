@@ -15,6 +15,7 @@ UTitleLevel::~UTitleLevel()
 
 void UTitleLevel::BeginPlay()
 {
+	ULevel::BeginPlay();
 	// 실행경로가 나와야 한다고 생각합니다.
 	UEngineDirectory NewPath; // 현재 파일 경로
 
