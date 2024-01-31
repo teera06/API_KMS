@@ -21,7 +21,7 @@ void ABase::BeginPlay()
 	{
 		UImageRenderer* Renderer = CreateImageRenderer(-10);
 		Renderer->SetImageToScale("Fire.png");
-		Renderer->SetImageCuttingTransform({ {0,100}, {150, 100} });
+		Renderer->SetImageCuttingTransform({ {100,0}, {100, 100} });
 	}
 
 	Destroy(1.0f);
