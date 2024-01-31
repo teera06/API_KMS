@@ -190,11 +190,21 @@ public:
 	static const Color8Bit Red;
 	static const Color8Bit Green;
 	static const Color8Bit Blue;
+	static const Color8Bit White;
 
-	unsigned char R = 0;
-	unsigned char G = 0;
-	unsigned char B = 0;
-	unsigned char A = 1;
+	union
+	{
+		struct
+		{
+			unsigned char R;
+			unsigned char G;
+			unsigned char B;
+			unsigned char A;
+		};
+
+		unsigned char Arr1D[4] = { 0,0,0,255 };
+		unsigned int Color;
+	};
 };
 
 // Ό³Έν :

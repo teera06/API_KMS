@@ -7,6 +7,11 @@ class FTransform
 public:
 	// constrcuter destructer
 	FTransform();
+	FTransform(const FVector& _Pos, const FVector& _Scale)
+		: Position(_Pos), Scale(_Scale)
+	{
+
+	}
 	~FTransform();
 
 	// delete Function
@@ -32,7 +37,7 @@ public:
 	{
 		Position += _Value;
 	}
-	FVector GetPosition()
+	FVector GetPosition() const
 	{
 		return Position;
 	}

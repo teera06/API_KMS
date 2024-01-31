@@ -47,9 +47,12 @@ void UImageRenderer::Render(float _DeltaTime)
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans);
 
 	// 
-	GEngine->MainWindow.GetBackBufferImage()->BitCopy(Image, ThisTrans);
-
+	// GEngine->MainWindow.GetBackBufferImage()->BitCopy(Image, ThisTrans);
 	// Rectangle(WindowDC, ThisTrans.iLeft(), ThisTrans.iTop(), ThisTrans.iRight(), ThisTrans.iBottom());
+
+	// 1, 0, 0, 255
+	GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform);
+
 }
 
 void UImageRenderer::BeginPlay()
@@ -78,5 +81,8 @@ void UImageRenderer::SetImage(std::string_view _Name, bool _IsImageScale /*= fal
 	{
 		FVector Scale = Image->GetScale();
 		SetScale(Scale);
+
+		ImageCuttingTransform.SetPosition({ 0,0 });
+		ImageCuttingTransform.SetScale(Scale);
 	}
 }
