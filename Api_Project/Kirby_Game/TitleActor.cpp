@@ -1,6 +1,6 @@
 #include "TitleActor.h"
-#include <EnginePlatform\EngineInput.h>
-#include <EngineCore/EngineCore.h>
+#include <EnginePlatform\EngineInput.h> // 마우스 왼쪽 버튼 누를 경우 레벨 체인지
+#include <EngineCore/EngineCore.h> // Level change에 사용
 
 ATitleActor::ATitleActor()
 {
@@ -13,7 +13,7 @@ ATitleActor::~ATitleActor()
 void ATitleActor::BeginPlay()
 {
 	AActor::BeginPlay();
-	SetActorLocation({ 500, 500 }); // Actor의 위치
+	SetActorLocation({ 500, 500 }); // Actor의 위치 -> 설정
 	//SetActorScale({ 100, 100 }); // Acotor 크기는 상관 없음 
 
 	//{
