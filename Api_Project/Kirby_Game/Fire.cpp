@@ -18,10 +18,9 @@ void AFire::Tick(float _DeltaTime)
 void AFire::BeginPlay()
 {
 	AActor::BeginPlay();
-	{
-		UImageRenderer* Renderer = CreateImageRenderer(-10);
-		Renderer->SetImageToScale("kirby.bmp");
-	}
+	UImageRenderer* Renderer = CreateImageRenderer(-10);
+	Renderer->SetImageToScale("Fire.png");
+	Renderer->SetImageCuttingTransform({ {0,0}, {100, 100} });
 	
 	Destroy(2.0f);
 }

@@ -20,7 +20,8 @@ void ABase::BeginPlay()
 	AActor::BeginPlay();
 	{
 		UImageRenderer* Renderer = CreateImageRenderer(-10);
-		Renderer->SetImageToScale("kirby.bmp");
+		Renderer->SetImageToScale("Fire.png");
+		Renderer->SetImageCuttingTransform({ {0,100}, {150, 100} });
 	}
 
 	Destroy(1.0f);
