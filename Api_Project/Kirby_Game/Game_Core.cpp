@@ -17,7 +17,7 @@ UGame_Core::~UGame_Core()
 void UGame_Core::BeginPlay() // 
 {
 
-	MainWindow.SetWindowScale({ 1280,960 });
+	MainWindow.SetWindowScale({ 1080,810 });
 	UEngineCore::BeginPlay();
 	// "Title Level" + "을 만들다가 에러가 났습니다";
 

@@ -23,5 +23,5 @@ void ABase::BeginPlay()
 		Renderer->SetImageToScale("kirby.bmp");
 	}
 
-	Destroy(2.0f);
+	Destroy(1.0f);
 }
