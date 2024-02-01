@@ -112,11 +112,11 @@ void UEngineCore::EngineEnd()
 
 void UEngineCore::EngineStart(HINSTANCE _hInstance)
 {
-	GEngine = this;
-	MainTimer.TimeCheckStart();
-	CoreInit(_hInstance);
-	BeginPlay();
-	UEngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
+	GEngine = this; // Game_Core
+	MainTimer.TimeCheckStart(); // 
+	CoreInit(_hInstance); // Window OPen
+	BeginPlay(); // 엔진 플레이
+	UEngineWindow::WindowMessageLoop(EngineTick, EngineEnd); // 게임 실행
 }
 
 void UEngineCore::CoreInit(HINSTANCE _HINSTANCE)

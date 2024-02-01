@@ -23,12 +23,12 @@ public:
 
 	// 하나는 무조건 만들어지고 사라질일이 없을것이므ㅗ.
 	// 코어가 윈도우를 가지고
-	UEngineWindow MainWindow;
-	EngineTime MainTimer;
+	UEngineWindow MainWindow; // 윈도우창 
+	EngineTime MainTimer; // 시간
 
-	void EngineStart(HINSTANCE _hInstance);
+	void EngineStart(HINSTANCE _hInstance); // 엔진 시작
 
-	void CoreInit(HINSTANCE _Init);
+	void CoreInit(HINSTANCE _Init); // 
 
 	virtual void BeginPlay();
 	virtual void Tick(float _DeltaTime);

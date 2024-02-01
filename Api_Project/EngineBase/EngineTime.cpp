@@ -26,8 +26,8 @@ EngineTime::~EngineTime()
 void EngineTime::TimeCheckStart()
 {
 	// 초당 샐수 있는 양인데.
-	QueryPerformanceFrequency(&Count);
-	QueryPerformanceCounter(&PrevTime);
+	QueryPerformanceFrequency(&Count); // 초당 얼마 세는지
+	QueryPerformanceCounter(&PrevTime); // 엔진시작했을 때부터 일정 한 수 세기
 
 	dCount = static_cast<double>(Count.QuadPart);
 }
