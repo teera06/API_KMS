@@ -51,10 +51,10 @@ void AKirby_Player::InputTick(float _DeltaTime)
 		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress(VK_DOWN))
-	{
-		AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
-	}
+	//if (true == EngineInput::IsPress(VK_DOWN))
+	//{
+		//AddActorLocation(FVector::Down * WalkSpeed * _DeltaTime);
+	//}
 
 	//---------------------------------------------------------------------------
 
@@ -86,7 +86,6 @@ void AKirby_Player::BaseKirby()
 {
 	if (true == EngineInput::IsDown('A')) // Èí¼ö ±â´É
 	{
-		KirbyRenderer->ChangeAnimation("Attack");
 		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
 
 		if (RLpoint == VK_LEFT)
@@ -95,6 +94,7 @@ void AKirby_Player::BaseKirby()
 			NewBase->SetDir(FVector::Left);
 		}
 		else {
+			KirbyRenderer->ChangeAnimation("Attack");
 			NewBase->SetActorLocation(GetActorLocation() + LRCheck);
 			NewBase->SetDir(FVector::Right);
 		}
