@@ -24,5 +24,5 @@ void AFire::BeginPlay()
 	Renderer->SetTransform({ {0,0}, {150, 150} });
 	Renderer->SetImageCuttingTransform({ {0,0}, {100, 100} });
 	
-	Destroy(2.0f);
+	Destroy(1.0f);
 }

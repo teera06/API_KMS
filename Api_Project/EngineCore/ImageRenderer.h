@@ -1,12 +1,29 @@
 #pragma once
 #include "SceneComponent.h"
 #include <EnginePlatform\WindowImage.h>
+#include <map>
 
-// 전방 선언 -> 헤더 사용 최소화
+class UAnimationInfo
+{
+public:
+	// 애니메이션을 구성할때 이미지는 1장
+	UWindowImage* Image = nullptr;
+	int Start = -1;
+	int End = -1;
+	int CurFrame = 0;
+	float CurTime = 0.0f;
+	bool Loop = false;
+	std::vector<float> Times;
+	std::vector<int> Indexs;
+
+	int Update(float _DeltaTime);
+};
+
 class UWindowImage;
 // 설명 :
 class UImageRenderer : public USceneComponent
 {
+
 public:
 	// constrcuter destructer
 	UImageRenderer();
@@ -21,23 +38,44 @@ public:
 	void SetOrder(int _Order) override;
 	void Render(float _DeltaTime);
 	// 이미지를 세팅하는 역할만 하고
-	void SetImage(std::string_view _Name); // 이미지 Set
+	void SetImage(std::string_view _Name, int _InfoIndex = 0);
 
-	void SetTransform(const FTransform& _Value) // Actor 위 이미지의 위치, 크기 설정
+	void SetImageIndex(int _InfoIndex)
+	{
+		InfoIndex = _InfoIndex;
+	}
+
+	void SetTransform(const FTransform& _Value)
 	{
 		USceneComponent::SetTransform(_Value);
 	}
 
-	void SetImageCuttingTransform(const FTransform& _Value) // 버퍼에서 그리는 함수 -> 이미지 잘라서 표현
+	void SetImageCuttingTransform(const FTransform& _Value)
 	{
 		ImageCuttingTransform = _Value;
 	}
+
+	void CreateAnimation(
+		std::string_view _AnimationName,
+		std::string_view _ImageName,
+		int _Start,
+		int _End,
+		float _Inter,
+		bool Loop = true
+	);
+
+	void ChangeAnimation(std::string_view _AnimationName);
+	void AnimationReset();
 
 protected:
 	void BeginPlay() override;
 
 private:
-	UWindowImage* Image; // Level1 WindowImage
-	FTransform ImageCuttingTransform; // Level0 -> Transform
+	int InfoIndex = 0;
+	UWindowImage* Image;
+	FTransform ImageCuttingTransform;
+
+	std::map<std::string, UAnimationInfo> AnimationInfos;
+	UAnimationInfo* CurAnimation = nullptr;
 };
 

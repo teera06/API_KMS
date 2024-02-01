@@ -9,7 +9,7 @@
 // class UEngineResourcesManager 싱글톤이라면 메모리적으로 
 // class UEngineResourcesManager가 딱 1개만 만들어질수 있어야 한다.
 
-class UWindowImage; // Level2의 UWindowImage 전방 선언 
+class UWindowImage;
 // 설명 : 이미지 사운드 등등을 종합 관리할겁니다.
 //       게임에서 리소스라고 불리는 객체들을 전부다 이녀석이 관리할 예정.
 class UEngineResourcesManager
@@ -62,15 +62,20 @@ public:
 	// 인터페이스가 없으면 너무 추상적인 생각이다.
 	// 생각이 공상가식 프로그래밍.
 	// 하드디스크에 있는 이미지를 로드한다.
-
-	// 오버로딩
 	UWindowImage* LoadImg(std::string_view _Path);
 
 	UWindowImage* LoadImg(std::string_view _Path, std::string_view _Name);
 
-	UWindowImage* FindImg(std::string_view _Name); // Map(Images)에 중복되는 파일명이 없는경우 Map(Images)에서 찾아서 리턴
+	UWindowImage* FindImg(std::string_view _Name);
 
+	// 그 이미지가 없었는데 새롭게 만드는 기능.
+	UWindowImage* LoadFolder(std::string_view _Path);
 
+	// 그 이미지가 없었는데 새롭게 만드는 기능.
+	UWindowImage* LoadFolder(std::string_view _Path, std::string_view _Name);
+
+	// 기존에 이미 로드한 이미지를 커팅하는 기능
+	void CuttingImage(std::string_view _Name, int _X, int _Y);
 
 protected:
 
@@ -79,7 +84,7 @@ private:
 	UEngineResourcesManager();
 	~UEngineResourcesManager();
 
-	std::map<std::string, UWindowImage*> Images; // Map으로 이미지 관리
+	std::map<std::string, UWindowImage*> Images;
 
 	// C++에서는 이렇게 static으로 자기자신을 자기가 내부에서 만듭니다.
 	// 자기자신이 내부에서 여러개 만들면 만들수 있죠.

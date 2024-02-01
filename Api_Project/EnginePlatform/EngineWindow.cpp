@@ -116,7 +116,6 @@ void UEngineWindow::Open(std::string_view _Title /*= "Title"*/)
 
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-
 }
 
 unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)())
@@ -166,43 +165,38 @@ void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 
 void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
-	Scale = _Scale; // 크기값 받기
+	Scale = _Scale;
 
 
 	// window크기만한 이미지를 만들거라고 했는데.
 	// Load랑 다르다.
 
-	// 윈도우 크기를 변경할 수 있기에 방어코드
 	if (nullptr != BackBufferImage)
 	{
 		delete BackBufferImage;
 		BackBufferImage = nullptr;
 	}
 
-	BackBufferImage = new UWindowImage(); // 동적 할당
-	BackBufferImage->Create(WindowImage, Scale); // 다시 보기
+	BackBufferImage = new UWindowImage();
+	BackBufferImage->Create(WindowImage, Scale);
 
 	// 메뉴크기까지 포함 윈도우의 크기를 만들어줍니다.
 	// EX) 1000, 1000짜리 윈도우 만들어줘 => 1000 1100 이라는 수치를 내려줘
 	//     윈도우의 부가요소 크기까지 다 포함해서 내부크기가 1000 1000이 될수 있는 수치를 리턴해준다.
 
-	RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() }; // 윈도우 크기
+	RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
 
 	AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
-	// 윈도우 함수
 
 	// SWP_NOMOVE 현재 위치를 유지합니다(X 및 Y 매개 변수 무시).
 	// 크기 조절기능 + 위치조절 다들어가 있다.
-	::SetWindowPos(hWnd, nullptr, 0, 0, Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER | SWP_NOMOVE); // 윈도우 크기 Set
-	// :: 전역
-	// 윈도우 함수
+	::SetWindowPos(hWnd, nullptr, 0, 0, Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER | SWP_NOMOVE);
 }
 
 void UEngineWindow::ScreenClear()
 {
 	// 1280 720
 	Rectangle(BackBufferImage->ImageDC, -1, -1, Scale.iX() + 1, Scale.iY() + 1);
-	// 설정한 윈도우 창 크기에 맞게 화면 다시 리셋 -> 다시 그려줌
 	// 1282 722
 	// Rectangle(BackBufferImage->ImageDC, -1, -1, 1281, 721);
 }
