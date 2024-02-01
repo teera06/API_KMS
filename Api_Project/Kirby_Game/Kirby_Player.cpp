@@ -143,7 +143,7 @@ void AKirby_Player::BeginPlay()
 	
 	KirbyRenderer = CreateImageRenderer(1); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby.bmp"); // 이미지 Set
-	SetActorLocation({100, 500 }); // Level 위의 Actor 위치 설정 
+	//SetActorLocation({100, 500 }); // Level 위의 Actor 위치 설정 
 	KirbyRenderer->SetTransform({ {0,0}, {80, 80} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
 	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {97, 106} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	

@@ -38,7 +38,9 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
 
-	SpawnActor<AKirby_Player>();
+	SpawnActor<AKirby_Player>()->SetActorLocation({100,500});
+
+
 	// SpawnActor<Player>();
 
 	// 할일은 

@@ -202,7 +202,7 @@ void UEngineWindow::ScreenClear()
 {
 	// 1280 720
 	Rectangle(BackBufferImage->ImageDC, -1, -1, Scale.iX() + 1, Scale.iY() + 1);
-	// 설정한 윈도우 창 크기에 맞게 화면 다시 리셋
+	// 설정한 윈도우 창 크기에 맞게 화면 다시 리셋 -> 다시 그려줌
 	// 1282 722
 	// Rectangle(BackBufferImage->ImageDC, -1, -1, 1281, 721);
 }
