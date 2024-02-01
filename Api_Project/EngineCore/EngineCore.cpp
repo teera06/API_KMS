@@ -17,8 +17,8 @@ UEngineCore::~UEngineCore()
 
 void UEngineCore::CoreTick()
 {
-	float DeltaTime = MainTimer.TimeCheck();
-	double dDeltaTime = MainTimer.GetDeltaTime();
+	float DeltaTime = MainTimer.TimeCheck(); // 코어가 한 업데이트를 돌때까지의 일정한 수를 센다.
+	double dDeltaTime = MainTimer.GetDeltaTime(); // 1초에 100번 -> 0.01초에 1번
 
 
 	// 100프레임으로 실행되는 컴퓨터가 있다면
@@ -40,7 +40,8 @@ void UEngineCore::CoreTick()
 	// 0.0003000
 	// CurFrameTime -= FrameTime;
 
-	if (1 <= Frame)
+	// 프로그래머가 프레임을 고정(set) 했을때 고정한 프레임에 따른 고정 DeltaTime 제공
+	if (1 <= Frame) // 프레임이 0이 될수 없으니 1보다는 커야함
 	{
 		//               5.0f
 		CurFrameTime += DeltaTime;
@@ -56,9 +57,9 @@ void UEngineCore::CoreTick()
 		DeltaTime = FrameTime;
 	}
 
-	EngineInput::KeyCheckTick(DeltaTime);
+	EngineInput::KeyCheckTick(DeltaTime); // 키의 상태에 따른 키 체크
 
-	if (nullptr == CurLevel)
+	if (nullptr == CurLevel) // 레벨이 지정되지 않았을때의 에러
 	{
 		MsgBoxAssert("엔진을 시작할 레벨이 지정되지 않았습니다 치명적인 오류입니다");
 	}
@@ -151,15 +152,15 @@ void UEngineCore::End()
 
 void UEngineCore::ChangeLevel(std::string_view _Name)
 {
-	std::string UpperName = UEngineString::ToUpper(_Name);
+	std::string UpperName = UEngineString::ToUpper(_Name); // 대문자로 통일 변환
 
-	if (false == AllLevel.contains(UpperName))
+	if (false == AllLevel.contains(UpperName)) // AllLevel에 해당 Level이 없는 경우 에러
 	{
 		MsgBoxAssert(std::string(_Name) + "라는 존재하지 않는 레벨로 체인지 하려고 했습니다");
 	}
 
 	// 눈에 보여야할 레벨이죠?
-	CurLevel = AllLevel[UpperName];
+	CurLevel = AllLevel[UpperName]; // 현재 Level을 바꾼다.
 }
 
 void UEngineCore::LevelInit(ULevel* _Level)
