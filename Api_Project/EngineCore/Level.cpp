@@ -48,7 +48,7 @@ void ULevel::LevelTick(float _DeltaTime)
 // 여기서 이미지 랜더를 보여줌
 void ULevel::LevelRender(float _DeltaTime)
 {
-	for (std::pair<const int, std::list<UImageRenderer*>>& OrderListPair : Renderers)
+	for (std::pair<const int, std::list<UImageRenderer*>>& OrderListPair : Renderers) // list에서 관리하던 이미지를 보여줌
 	{
 		std::list<UImageRenderer*>& RendererList = OrderListPair.second;
 		for (UImageRenderer* Renderer : RendererList)
