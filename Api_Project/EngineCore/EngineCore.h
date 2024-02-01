@@ -26,7 +26,7 @@ public:
 	UEngineWindow MainWindow;
 	EngineTime MainTimer;
 
-	static void EngineStart(HINSTANCE _hInstance, UEngineCore* _UserCore);
+	void EngineStart(HINSTANCE _hInstance);
 
 	void CoreInit(HINSTANCE _Init);
 
@@ -87,5 +87,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, \
 { \
     LeakCheck; \
 	USERCORE NewUserCore = USERCORE(); \
-	UEngineCore::EngineStart(hInstance, &NewUserCore); \
+	NewUserCore.EngineStart(hInstance); \
 }

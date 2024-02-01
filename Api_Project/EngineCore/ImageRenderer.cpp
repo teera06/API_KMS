@@ -28,7 +28,6 @@ void UImageRenderer::SetOrder(int _Order)
 	Renderers[GetOrder()].push_back(this);
 }
 
-// ?
 void UImageRenderer::Render(float _DeltaTime)
 {
 	if (nullptr == Image)
@@ -37,14 +36,14 @@ void UImageRenderer::Render(float _DeltaTime)
 	}
 
 	// 위에서부터 읽어야 합니다.
-	FTransform ThisTrans = GetTransform();
+	FTransform RendererTrans = GetTransform();
 
 	// 액터인데 지금 의미가 없습니다.
-	FTransform OwnerTrans = GetOwner()->GetTransform();
+	FTransform ActorTrans = GetOwner()->GetTransform();
 
 	// 컴포넌트의 위치는 부모에게서 상대적이기 때문에.
 	// 부모의 위치를 더해줘야 한다.
-	ThisTrans.AddPosition(OwnerTrans.GetPosition());
+	RendererTrans.AddPosition(ActorTrans.GetPosition());
 
 
 	// 이려면 윈도우 이미지에 그리면 화면의 갱신이 산발적으로 일어나므로
@@ -58,7 +57,7 @@ void UImageRenderer::Render(float _DeltaTime)
 
 	// 여기입니다.
 
-	GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform);
+	GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, RendererTrans, ImageCuttingTransform);
 
 }
 
