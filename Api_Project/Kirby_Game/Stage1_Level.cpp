@@ -24,10 +24,8 @@ void UStage1_Level::BeginPlay()
 	NewPath.MoveParent(); // 현재 파일 경로의 상위 폴더로 이동
 
 	NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
-	NewPath.Move("kirby_resources"); // 
-	NewPath.Move("kirby_Fire"); // 
-
-
+	NewPath.Move("Stage1"); // 
+	
 	// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
 	std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
 
