@@ -1,5 +1,5 @@
 #include "Kirby_Player.h"
-#include <EnginePlatform\EngineInput.h>
+#include <EnginePlatform\EngineInput.h> // Level1
 
 
 #include "Fire.h"
@@ -41,12 +41,12 @@ void AKirby_Player::InputTick(float _DeltaTime)
 
 	//-------------------------------------------------------------------------
 	// 지형과의 콜리전 필요
-	if ((true == EngineInput::IsPress(VK_SPACE) || true == EngineInput::IsDown(VK_SPACE))) // 점프키를 눌렀을때 값 저장 (Alt)
+	if ((true == EngineInput::IsPress(VK_CONTROL) || true == EngineInput::IsDown(VK_CONTROL))) // 점프키를 눌렀을때 값 저장 (Alt)
 	{
-		JumpKey = VK_SPACE; // Alt가 메뉴로 인시되서 우선 스페이스로
+		JumpKey = VK_CONTROL; // Alt가 메뉴로 인시되서 우선 스페이스로
 	}
 
-	if (true == EngineInput::IsPress(VK_UP) && JumpKey==VK_SPACE) // 점프를 한 상태에서만 공중부양 가능
+	if (true == EngineInput::IsPress(VK_UP) && JumpKey==VK_CONTROL) // 점프를 한 상태에서만 공중부양 가능
 	{
 		AddActorLocation(FVector::Up * WalkSpeed * _DeltaTime);
 	}
