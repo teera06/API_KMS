@@ -9,6 +9,7 @@
 // DC라는게 외부로 드러나면 안됩니다.
 // DC를 통해서 그리는 모든 책임은 오로지 => UWindowImage가 모두 담당한다.
 
+// Enum 클래스
 enum class EWIndowImageType
 {
 	IMG_NONE,
@@ -16,11 +17,12 @@ enum class EWIndowImageType
 	IMG_PNG
 };
 
-class UEngineWindow;
+// 전방 선언
+class UEngineWindow; // Level1 EngineWindow 
 // 설명 :
 class UWindowImage : public UPathObject
 {
-	friend UEngineWindow;
+	friend UEngineWindow; // EngineWindow에게 본인 클래스의 private까지 공개
 
 public:
 	// constrcuter destructer
@@ -34,9 +36,9 @@ public:
 	UWindowImage& operator=(UWindowImage&& _Other) noexcept = delete;
 
 	// bool을 리턴해서 false면 실패 true면 성공
-	bool Load(UWindowImage* _Image);
+	bool Load(UWindowImage* _Image); // 이미지 로드
 
-	FVector GetScale();
+	FVector GetScale(); // 비트맵의 크기
 
 	// 윈도우 랜더링의 핵심 인터페이스중 하나인 HDC를 외부에 공개할 필요는 굳이 없어.
 	//HDC GetImageDC()
@@ -48,7 +50,7 @@ public:
 	// FTransform _Trans 이 위치와 크기로
 	// 나한테 카피해라.
 	// 이미지를 이미지 크기대로만 그릴수 있다.
-	void BitCopy(UWindowImage* _CopyImage, const FTransform& _Trans);
+	void BitCopy(UWindowImage* _CopyImage, const FTransform& _Trans); // 이미지 복사
 
 	// 이녀석은 이미지를 키울수도 있고 특정 색상을 안그릴수도 있다.
 	// EX) 검은색 화면에서 없애
@@ -61,8 +63,8 @@ protected:
 private:
 	// 윈도우에서 지원해주는 H붙은 애들은 다 struct HBITMAP__{int unused;}; typedef struct HBITMAP__ *HBITMAP
 	// 포인터이면서 8바이트 정수입니다.
-	HBITMAP hBitMap = 0;
-	HDC ImageDC = 0;
+	HBITMAP hBitMap = 0; // 
+	HDC ImageDC = 0; // 그리는 기능
 	BITMAP BitMapInfo = BITMAP(); // 비트맵를 담는 구조체인데 이걸 얻어와야 합니다.
 
 	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE;
