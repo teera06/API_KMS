@@ -86,6 +86,7 @@ void AKirby_Player::BaseKirby()
 {
 	if (true == EngineInput::IsDown('A')) // 흡수 기능
 	{
+		KirbyRenderer->ChangeAnimation("Attack");
 		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
 
 		if (RLpoint == VK_LEFT)
@@ -97,6 +98,11 @@ void AKirby_Player::BaseKirby()
 			NewBase->SetActorLocation(GetActorLocation() + LRCheck);
 			NewBase->SetDir(FVector::Right);
 		}
+	}
+
+	if (true == EngineInput::IsUp('A'))
+	{
+		KirbyRenderer->ChangeAnimation("Idle");
 	}
 
 	if (true == EngineInput::IsDown('X')) // 모드 체인지
@@ -142,11 +148,17 @@ void AKirby_Player::BeginPlay()
 	
 	
 	KirbyRenderer = CreateImageRenderer(1); // 이미지 랜더 생성
-	KirbyRenderer->SetImage("kirby.bmp"); // 이미지 Set
+	//KirbyRenderer->SetImage("kirby.bmp"); // 이미지 Set
 	//SetActorLocation({100, 500 }); // Level 위의 Actor 위치 설정 
-	KirbyRenderer->SetTransform({ {0,0}, {80, 80} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
-	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {97, 106} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
+	//KirbyRenderer->SetTransform({ {0,0}, {80, 80} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
+	//KirbyRenderer->SetImageCuttingTransform({ {0,0}, {97, 106} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	
+	KirbyRenderer->SetImage("Player_Right.png");
+	KirbyRenderer->SetTransform({ {0,0}, {100, 100} });
+	KirbyRenderer->SetImageCuttingTransform({ {64,64}, {32, 32} });
+	KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.5f, true);
+	KirbyRenderer->ChangeAnimation("Idle");
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
