@@ -18,7 +18,7 @@ void AKirby_Player::InputTick(float _DeltaTime)
 {
 	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
 	{
-		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
+		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime); // 위치 이동
 		RLpoint = VK_LEFT; // 누른 키 값 저장
 	}
 
