@@ -55,7 +55,7 @@ void UEngineCore::CoreTick()
 		//  0.0167         0.016666675
 		CurFrameTime -= FrameTime;
 		DeltaTime = FrameTime;
-	}
+	} 
 
 	EngineInput::KeyCheckTick(DeltaTime); // 키의 상태에 따른 키 체크
 
