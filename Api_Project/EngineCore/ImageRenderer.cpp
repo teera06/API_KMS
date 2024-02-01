@@ -28,6 +28,7 @@ void UImageRenderer::SetOrder(int _Order)
 	Renderers[GetOrder()].push_back(this);
 }
 
+// ?
 void UImageRenderer::Render(float _DeltaTime)
 {
 	if (nullptr == Image)

@@ -45,6 +45,7 @@ void ULevel::LevelTick(float _DeltaTime)
 	}
 }
 
+// 여기서 이미지 랜더를 보여줌
 void ULevel::LevelRender(float _DeltaTime)
 {
 	for (std::pair<const int, std::list<UImageRenderer*>>& OrderListPair : Renderers)

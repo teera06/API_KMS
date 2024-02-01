@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineBase\Transform.h>
+#include <EngineBase\Transform.h> // Level0
 #include "ActorComponent.h"
 
 // 설명 : 자신만의 위치까지 가지고 있어야 하는 컴포넌트
@@ -17,22 +17,24 @@ public:
 	USceneComponent& operator=(const USceneComponent& _Other) = delete;
 	USceneComponent& operator=(USceneComponent&& _Other) noexcept = delete;
 
-	void SetPosition(const FVector& _Value)
+
+	// Actor 위 랜더의 위치 및 크기 설정
+	void SetPosition(const FVector& _Value) // 위치
 	{
 		Transform.SetPosition(_Value);
 	}
 
-	void SetScale(const FVector& _Value)
+	void SetScale(const FVector& _Value) // 크기
 	{
-		Transform.SetScale(_Value);
+		Transform.SetScale(_Value); 
 	}
 
-	void SetTransform(const FTransform& _Value)
+	void SetTransform(const FTransform& _Value) // 위치, 크기 Set
 	{
 		Transform = _Value;
 	}
 
-	FTransform GetTransform()
+	FTransform GetTransform() // 위치, 크기 Get
 	{
 		return Transform;
 	}
@@ -42,7 +44,7 @@ protected:
 
 
 private:
-	FTransform Transform;
+	FTransform Transform; // Level0
 
 };
 
