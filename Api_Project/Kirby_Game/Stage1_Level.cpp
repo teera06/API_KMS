@@ -1,6 +1,8 @@
 #include "Stage1_Level.h"
+#include "Stage1_MAP.h"
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
+
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -35,8 +37,8 @@ void UStage1_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
-
-	SpawnActor<AKirby_Player>()->SetActorLocation({100,500});
+	SpawnActor<AStage1_MAP>()->SetActorLocation({ 540,405 });
+	SpawnActor<AKirby_Player>()->SetActorLocation({100,520});
 
 
 	// SpawnActor<Player>();

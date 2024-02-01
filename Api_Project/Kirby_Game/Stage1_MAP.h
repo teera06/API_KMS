@@ -15,7 +15,9 @@ public:
 	AStage1_MAP& operator=(AStage1_MAP&& _Other) noexcept = delete;
 
 protected:
-
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
+	UImageRenderer* MapRenderer = nullptr;
 };
 

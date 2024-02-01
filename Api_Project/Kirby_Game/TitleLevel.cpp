@@ -36,6 +36,6 @@ void UTitleLevel::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
 
-	SpawnActor<ATitleActor>()->SetActorLocation({ 500, 500 }); // Level 위의 Actor 위치 설정 ;
+	SpawnActor<ATitleActor>()->SetActorLocation({ 540,405 }); // Level 위의 Actor 위치 설정 ;
 	
 }
