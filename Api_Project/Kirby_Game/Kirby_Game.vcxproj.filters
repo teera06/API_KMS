@@ -25,6 +25,9 @@
     <ClCompile Include="TitleActor.cpp">
       <Filter>Title_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Stage1_MAP.cpp">
+      <Filter>Stage1_Actor\Stage1_Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="TitleActor.h">
       <Filter>Title_Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Stage1_MAP.h">
+      <Filter>Stage1_Actor\Stage1_Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">
@@ -67,6 +73,9 @@
     </Filter>
     <Filter Include="Title_Actor">
       <UniqueIdentifier>{4d0d2178-9d50-469f-bf41-2e74227f0c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage1_Actor\Stage1_Map">
+      <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

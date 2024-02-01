@@ -157,7 +157,7 @@ void AKirby_Player::BeginPlay()
 	KirbyRenderer->SetTransform({ {0,0}, {100, 100} });
 	KirbyRenderer->SetImageCuttingTransform({ {64,64}, {32, 32} });
 	KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true);
-	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true);
 	KirbyRenderer->ChangeAnimation("Idle");
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
