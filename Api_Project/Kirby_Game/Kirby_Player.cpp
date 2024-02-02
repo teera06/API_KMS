@@ -57,7 +57,8 @@ void AKirby_Player::InputTick(float _DeltaTime)
 			lRunanicheck = true;
 		}
 
-		if (true == lRunanicheck)
+		// run_Left 애니메이션을 실행했을때만 달리기 속도로 이동 이렇게 if문쓴 이유? : Shift키 + 이동키를 하면 걷는 모션에서 속도만 빨라짐 -> 반드시 run애니메이션을 걸치고 이동속도가 달라지게함
+		if (true == lRunanicheck) 
 		{
 			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 		}
@@ -77,7 +78,7 @@ void AKirby_Player::InputTick(float _DeltaTime)
 			//check = false;
 		//}
 
-		if (true== rRunanicheck)
+		if (true== rRunanicheck) // 달리기 애니메이션을 진행하고 나서 이동
 		{
 			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 		}
