@@ -156,10 +156,11 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	//KirbyRenderer->SetImageCuttingTransform({ {0,0}, {97, 106} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	
 	KirbyRenderer->SetImage("kirby_Right.png");
-	KirbyRenderer->SetTransform({ {0,0}, {200, 200} }); // 랜더의 위치 크기 
+	//KirbyRenderer->SetTransColor({ 255,255, 255, 255 });
+	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {128, 128} });
-	KirbyRenderer->CreateAnimation("Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); 
-	KirbyRenderer->CreateAnimation("Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 오른쪽 서있기
+	KirbyRenderer->CreateAnimation("Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
+	KirbyRenderer->CreateAnimation("Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
 	//KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); // 흡수
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 않기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 점프

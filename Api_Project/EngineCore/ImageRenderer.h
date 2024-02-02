@@ -72,6 +72,22 @@ public:
 		TransColor = _Color;
 	}
 
+	// 0~1.0f
+	void SetAlpha(float _Alpha)
+	{
+		if (0.0f >= _Alpha)
+		{
+			_Alpha = 0.0f;
+		}
+
+		if (1.0f <= _Alpha)
+		{
+			_Alpha = 1.0f;
+		}
+
+		TransColor.A = static_cast<char>(_Alpha * 255.0f);
+	}
+
 protected:
 	void BeginPlay() override;
 
