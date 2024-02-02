@@ -132,7 +132,7 @@ void AKirby_Player::FireKirby()
 	}
 }
 
-void AKirby_Player::BeginPlay()
+void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 {
 	AActor::BeginPlay();
 
@@ -154,7 +154,7 @@ void AKirby_Player::BeginPlay()
 	//KirbyRenderer->SetImageCuttingTransform({ {0,0}, {97, 106} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	
 	KirbyRenderer->SetImage("Player_Right.png");
-	KirbyRenderer->SetTransform({ {0,0}, {100, 100} });
+	KirbyRenderer->SetTransform({ {0,0}, {100, 100} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {64,64}, {32, 32} });
 	KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true);

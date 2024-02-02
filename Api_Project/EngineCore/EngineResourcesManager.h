@@ -84,7 +84,8 @@ private:
 	UEngineResourcesManager();
 	~UEngineResourcesManager();
 
-	std::map<std::string, UWindowImage*> Images;
+	std::map<std::string, UWindowImage*> Images; // 여기서 로드한 이미지 관리 
+	// Map -> UWindowImage
 
 	// C++에서는 이렇게 static으로 자기자신을 자기가 내부에서 만듭니다.
 	// 자기자신이 내부에서 여러개 만들면 만들수 있죠.

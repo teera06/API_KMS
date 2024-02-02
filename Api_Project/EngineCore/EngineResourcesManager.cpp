@@ -14,6 +14,7 @@ UEngineResourcesManager::UEngineResourcesManager()
 
 UEngineResourcesManager::~UEngineResourcesManager()
 {
+	// 소멸자 Map에서 관리하는 이미지 데이터 릭 제거
 	for (std::pair<const std::string, UWindowImage*>& Pair : Images)
 	{
 		delete Pair.second;
@@ -25,8 +26,8 @@ UEngineResourcesManager::~UEngineResourcesManager()
 
 UWindowImage* UEngineResourcesManager::LoadImg(std::string_view _Path)
 {
-	UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
-	std::string FileName = NewPath.GetFileName();
+	UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path)); // 파일 경로
+	std::string FileName = NewPath.GetFileName(); // 
 	return LoadImg(_Path, FileName);
 }
 
@@ -62,15 +63,15 @@ UWindowImage* UEngineResourcesManager::LoadImg(std::string_view _Path, std::stri
 
 UWindowImage* UEngineResourcesManager::FindImg(std::string_view _Name)
 {
-	std::string UpperName = UEngineString::ToUpper(_Name);
+	std::string UpperName = UEngineString::ToUpper(_Name); // 파일 경로 대문자 변환
 
-	if (false == Images.contains(UpperName))
+	if (false == Images.contains(UpperName)) // Map에서 관리하는 이미지가 없는 경우
 	{
 		MsgBoxAssert("파일명 : " + std::string(_Name) + "은 존재하지 않는 이미지입니다");
 		return nullptr;
 	}
 
-	return Images[UpperName];
+	return Images[UpperName]; // 이미지가 있는 경우 정보
 }
 
 void UEngineResourcesManager::CuttingImage(std::string_view _Name, int _X, int _Y)

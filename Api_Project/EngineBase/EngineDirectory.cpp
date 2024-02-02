@@ -17,10 +17,10 @@ UEngineDirectory::~UEngineDirectory()
 }
 
 void UEngineDirectory::AllFileRecursive(
-	const std::string_view _Path,
-	std::list<UEngineFile>& _Result,
-	std::vector<std::string> _Ext /*= std::vector<std::string>()*/,
-	bool _Recursive /*= false*/)
+	const std::string_view _Path, // 모든 경로
+	std::list<UEngineFile>& _Result, // 결과
+	std::vector<std::string> _Ext /*= std::vector<std::string>()*/, // -> 확장자
+	bool _Recursive /*= false*/) // 재귀 -> 안의 폴더가 더 있는 경우 거기도 탐색을 할거냐?
 {
 	std::filesystem::directory_iterator DirIter = std::filesystem::directory_iterator(_Path);
 
@@ -84,6 +84,7 @@ std::list<UEngineFile> UEngineDirectory::AllFile(
 {
 	std::list<UEngineFile> Result;
 
+	// 확장자 대문자 변환
 	for (size_t i = 0; i < _Ext.size(); i++)
 	{
 		_Ext[i] = UEngineString::ToUpper(_Ext[i]);

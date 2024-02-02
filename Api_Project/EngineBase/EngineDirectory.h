@@ -29,6 +29,7 @@ public:
 	/// <param name="_Rescursive">하위 폴더까지 다 뒤질꺼냐.</param>
 	/// <returns></returns>
 	std::list<UEngineFile> AllFile(std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
+	// 이미지 파일 관리
 
 protected:
 

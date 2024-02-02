@@ -31,6 +31,7 @@ void UGame_Core::BeginPlay() //
 	// NewPath.Move("ContentsResources");
 	NewPath.MoveParent(); // 현재 파일 경로의 상위 폴더로 이동
 
+	// 커비의 기본 움직임 이미지는 모든 스테이지에서 사용하므로 코어에서 로드
 	NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
 	NewPath.Move("kirby_resources"); // 
 	NewPath.Move("kirby_Base"); // 

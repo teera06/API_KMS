@@ -140,15 +140,15 @@ void UImageRenderer::SetImage(std::string_view _Name, int _InfoIndex /*= 0*/)
 }
 
 void UImageRenderer::CreateAnimation(
-	std::string_view _AnimationName,
-	std::string_view _ImageName,
-	int _Start,
+	std::string_view _AnimationName, // 애니메이션 이름
+	std::string_view _ImageName, // 애니메이션 이미지 이름
+	int _Start, // 
 	int _End,
 	float _Inter,
 	bool _Loop /*= true*/
 )
 {
-	UWindowImage* FindImage = UEngineResourcesManager::GetInst().FindImg(_ImageName);
+	UWindowImage* FindImage = UEngineResourcesManager::GetInst().FindImg(_ImageName); // 
 
 	if (nullptr == FindImage)
 	{
