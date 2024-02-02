@@ -16,28 +16,55 @@ AKirby_Player::~AKirby_Player()
 // 입력 진행 모음집
 void AKirby_Player::InputTick(float _DeltaTime)
 {
+
 	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
 	{
-		KirbyRenderer->ChangeAnimation("Idle_Left");
-		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime); // 위치 이동
+
+		if (true == EngineInput::IsDown(VK_LEFT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("walk_Left");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
+		
+		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
 		RLpoint = VK_LEFT; // 누른 키 값 저장
+	}
+	else if(true == EngineInput::IsUp(VK_LEFT)){
+		KirbyRenderer->ChangeAnimation("Idle_Left");
 	}
 
 	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // 왼쪽 뛰기
 	{
+		if (true == EngineInput::IsDown(VK_LEFT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("run_Left");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
 		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 	}
 
 	//---------------------------------------------------------------------
 	if (true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 걷기
 	{
-		KirbyRenderer->ChangeAnimation("Idle_Right");
+		if (true == EngineInput::IsDown(VK_RIGHT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("walk_Right");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
 		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
 		RLpoint = VK_RIGHT; // 누른 키 값 저장
+	}
+	else if (true == EngineInput::IsUp(VK_RIGHT)) {
+		KirbyRenderer->ChangeAnimation("Idle_Right");
 	}
 
 	if (true == EngineInput::IsPress(VK_RIGHT) && true == EngineInput::IsPress(VK_SHIFT)) // 오른쪽 뛰기
 	{
+		if (true == EngineInput::IsDown(VK_RIGHT) && RLpoint== VK_RIGHT) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("run_Right");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
 		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 	}
 
@@ -159,9 +186,17 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	//KirbyRenderer->SetTransColor({ 255,255, 255, 255 });
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {128, 128} });
+	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
 	KirbyRenderer->CreateAnimation("Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
-	//KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); // 흡수
+	
+	// 기본 걷는 모션 (오른쪽, 왼쪽)
+	KirbyRenderer->CreateAnimation("walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("walk_Left", "kirby_Left.png",10, 19, 0.1f, true); // 걷기
+
+	// 기본 뛰는 모션
+	KirbyRenderer->CreateAnimation("run_Right", "kirby_Right.png", 20, 27, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("run_Left", "kirby_Left.png", 20, 27, 0.1f, true); // 걷기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 않기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 점프
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 걷기

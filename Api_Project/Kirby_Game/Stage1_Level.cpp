@@ -40,7 +40,7 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 	SpawnActor<AStage1_MAP>()->SetActorLocation(windowScale.Half2D());
-	SpawnActor<AKirby_Player>()->SetActorLocation({140,530});
+	SpawnActor<AKirby_Player>()->SetActorLocation({140,550});
 
 
 	// SpawnActor<Player>();
