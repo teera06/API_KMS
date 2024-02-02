@@ -46,7 +46,7 @@ void UGame_Core::BeginPlay() //
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(File.GetFullPath()); // 로딩 -> Map(Iamges)
 	}
-	UEngineResourcesManager::GetInst().CuttingImage("Player_Right.png", 13, 8);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
 
 	SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 	CreateLevel<UTitleLevel>("TitleLevel");
