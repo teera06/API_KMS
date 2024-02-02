@@ -71,6 +71,11 @@ public:
 
 
 public:
+	float4 Half2D()
+	{
+		return { hX(), hY() };
+	}
+
 	int iX() const
 	{
 		return static_cast<int>(X);
@@ -205,6 +210,11 @@ public:
 		unsigned char Arr1D[4] = { 0,0,0,255 };
 		unsigned int Color;
 	};
+
+	Color8Bit ZeroAlphaColor() const
+	{
+		return Color8Bit{ R,G,B,0 };
+	}
 };
 
 // Ό³Έν :
