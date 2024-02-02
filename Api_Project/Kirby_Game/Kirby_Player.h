@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ModeEnum.h"
+#include <string>
+#include <string_view>
 
 class AKirby_Player : public AActor
 {
@@ -22,6 +24,16 @@ public:
 
 	void BaseKirby();
 	void FireKirby();
+
+	std::string_view GetNamechange()
+	{
+		return Namechange;
+	}
+
+	void SetNamechange(std::string_view _Namechange)
+	{
+		Namechange = _Namechange;
+	}
 
 	inline void SetMode(AMode _KirbyMode) // 커비 모드 체인지 할때 사용
 	{
@@ -48,6 +60,7 @@ private:
 	void ModeInputTick(); // 모드별 입력키
 
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
+	std::string Namechange = "Base_";
 	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f }; // 기본 커비가 사용
 	int Hp=100;
 };
