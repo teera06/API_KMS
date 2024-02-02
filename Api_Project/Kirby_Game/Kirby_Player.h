@@ -15,8 +15,10 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void InputTick(float _DeltaTime); // 기본 입력키
-	void ModeInputTick(); // 모드별 입력키
+	void Leftwalk(float _DeltaTime);
+	void Rightwalk(float _DeltaTime);
+	void RLrun(float _DeltaTime);
+
 
 	void BaseKirby();
 	void FireKirby();
@@ -40,6 +42,10 @@ private:
 	bool lRunanicheck = false;
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
+
+
+	void InputTick(float _DeltaTime); // 기본 입력키
+	void ModeInputTick(); // 모드별 입력키
 
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
 	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f }; // 기본 커비가 사용

@@ -17,77 +17,11 @@ AKirby_Player::~AKirby_Player()
 void AKirby_Player::InputTick(float _DeltaTime)
 {
 
-	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
-	{
-
-		if (true == EngineInput::IsDown(VK_LEFT)) // 오른쪽 걷기
-		{
-			KirbyRenderer->ChangeAnimation("walk_Left");
-			//KirbyRenderer->ChangeAnimation("Idle_Right");
-		}
-		
-		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
-		RLpoint = VK_LEFT; // 누른 키 값 저장
-	}
-	else if(true == EngineInput::IsUp(VK_LEFT) && RLpoint== VK_LEFT){ // 떼어진 키와 마지막으로 확인된 RLpoint가 같은 방향이야지 방향에 맞는 애니메이션으로 교체
-		KirbyRenderer->ChangeAnimation("Idle_Left");
-	}
-
-	//---------------------------------------------------------------------
-	if (true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 걷기
-	{
-		if (true == EngineInput::IsDown(VK_RIGHT)) // 오른쪽 걷기
-		{
-			KirbyRenderer->ChangeAnimation("walk_Right");
-			//KirbyRenderer->ChangeAnimation("Idle_Right");
-		}
-		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
-		RLpoint = VK_RIGHT; // 누른 키 값 저장
-	}
-	else if (true == EngineInput::IsUp(VK_RIGHT) && RLpoint== VK_RIGHT) {
-		KirbyRenderer->ChangeAnimation("Idle_Right");
-	}
-
-	if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 뛰기
-	{
-		if (true == EngineInput::IsDown(VK_SHIFT))
-		{
-			KirbyRenderer->ChangeAnimation("run_Left");
-			//KirbyRenderer->ChangeAnimation("Idle_Right");
-			lRunanicheck = true;
-		}
-
-		// run_Left 애니메이션을 실행했을때만 달리기 속도로 이동 이렇게 if문쓴 이유? : Shift키 + 이동키를 하면 걷는 모션에서 속도만 빨라짐 -> 반드시 run애니메이션을 걸치고 이동속도가 달라지게함
-		if (true == lRunanicheck) 
-		{
-			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
-		}
-		
-	}
-	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 뛰기
-	{
-
-		if (true == EngineInput::IsDown(VK_SHIFT)) // 오른쪽 걷기
-		{
-			KirbyRenderer->ChangeAnimation("run_Right");
-			//KirbyRenderer->ChangeAnimation("Idle_Right");
-			rRunanicheck = true;
-		}
-		
-		//if(true == EngineInput::IsUp(VK_SHIFT) || true == EngineInput::IsUp(VK_RIGHT)){
-			//check = false;
-		//}
-
-		if (true== rRunanicheck) // 달리기 애니메이션을 진행하고 나서 이동
-		{
-			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
-		}
-	}
-	else
-	{
-		rRunanicheck = false;
-		lRunanicheck = false;
-	}
+	Leftwalk(_DeltaTime);
+	Rightwalk(_DeltaTime);
+	RLrun(_DeltaTime);
+	
+	
 
 	//-------------------------------------------------------------------------
 	// 지형과의 콜리전 필요
@@ -129,6 +63,86 @@ void AKirby_Player::ModeInputTick()
 		break;
 	default:
 		break;
+	}
+}
+
+void AKirby_Player::Leftwalk(float _DeltaTime)
+{
+	if (true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 걷기
+	{
+
+		if (true == EngineInput::IsDown(VK_LEFT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("walk_Left");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
+
+		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
+		RLpoint = VK_LEFT; // 누른 키 값 저장
+	}
+	else if (true == EngineInput::IsUp(VK_LEFT) && RLpoint == VK_LEFT) { // 떼어진 키와 마지막으로 확인된 RLpoint가 같은 방향이야지 방향에 맞는 애니메이션으로 교체
+		KirbyRenderer->ChangeAnimation("Idle_Left");
+	}
+}
+
+void AKirby_Player::Rightwalk(float _DeltaTime)
+{
+	if (true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 걷기
+	{
+		if (true == EngineInput::IsDown(VK_RIGHT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("walk_Right");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
+		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
+		RLpoint = VK_RIGHT; // 누른 키 값 저장
+	}
+	else if (true == EngineInput::IsUp(VK_RIGHT) && RLpoint == VK_RIGHT) {
+		KirbyRenderer->ChangeAnimation("Idle_Right");
+	}
+}
+
+void AKirby_Player::RLrun(float _DeltaTime)
+{
+	if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 뛰기
+	{
+		if (true == EngineInput::IsDown(VK_SHIFT))
+		{
+			KirbyRenderer->ChangeAnimation("run_Left");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+			lRunanicheck = true;
+		}
+
+		// run_Left 애니메이션을 실행했을때만 달리기 속도로 이동 이렇게 if문쓴 이유? : Shift키 + 이동키를 하면 걷는 모션에서 속도만 빨라짐 -> 반드시 run애니메이션을 걸치고 이동속도가 달라지게함
+		if (true == lRunanicheck)
+		{
+			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
+		}
+
+	}
+	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 뛰기
+	{
+
+		if (true == EngineInput::IsDown(VK_SHIFT)) // 오른쪽 걷기
+		{
+			KirbyRenderer->ChangeAnimation("run_Right");
+			//KirbyRenderer->ChangeAnimation("Idle_Right");
+			rRunanicheck = true;
+		}
+
+		//if(true == EngineInput::IsUp(VK_SHIFT) || true == EngineInput::IsUp(VK_RIGHT)){
+			//check = false;
+		//}
+
+		if (true == rRunanicheck) // 달리기 애니메이션을 진행하고 나서 이동
+		{
+			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
+		}
+	}
+	else
+	{
+		rRunanicheck = false;
+		lRunanicheck = false;
 	}
 }
 
