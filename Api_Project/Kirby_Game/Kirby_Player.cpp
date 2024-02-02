@@ -29,16 +29,21 @@ void AKirby_Player::InputTick(float _DeltaTime)
 		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime);
 		RLpoint = VK_LEFT; // 누른 키 값 저장
 	}
-	else if(true == EngineInput::IsUp(VK_LEFT)){
+	else if(true == EngineInput::IsUp(VK_LEFT) && RLpoint== VK_LEFT){ // 떼어진 키와 마지막으로 확인된 RLpoint가 같은 방향이야지 방향에 맞는 애니메이션으로 교체
 		KirbyRenderer->ChangeAnimation("Idle_Left");
 	}
 
-	if (true == EngineInput::IsPress(VK_LEFT) && true == EngineInput::IsPress(VK_SHIFT)) // 왼쪽 뛰기
+	if (true == EngineInput::IsPress(VK_SHIFT) && RLpoint== VK_LEFT) // 왼쪽 뛰기
 	{
-		if (true == EngineInput::IsDown(VK_LEFT)) // 오른쪽 걷기
+		if (true == EngineInput::IsDown(VK_LEFT)) 
 		{
 			KirbyRenderer->ChangeAnimation("run_Left");
 			//KirbyRenderer->ChangeAnimation("Idle_Right");
+		}
+		
+		if (true == EngineInput::IsUp(VK_SHIFT) && true == EngineInput::IsDown(VK_LEFT))
+		{
+			KirbyRenderer->ChangeAnimation("walk_Left");
 		}
 		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 	}
@@ -54,7 +59,7 @@ void AKirby_Player::InputTick(float _DeltaTime)
 		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
 		RLpoint = VK_RIGHT; // 누른 키 값 저장
 	}
-	else if (true == EngineInput::IsUp(VK_RIGHT)) {
+	else if (true == EngineInput::IsUp(VK_RIGHT) && RLpoint== VK_RIGHT) {
 		KirbyRenderer->ChangeAnimation("Idle_Right");
 	}
 
