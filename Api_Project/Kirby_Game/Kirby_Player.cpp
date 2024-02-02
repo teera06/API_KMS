@@ -50,22 +50,42 @@ void AKirby_Player::InputTick(float _DeltaTime)
 
 	if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_LEFT)) // ¿ÞÂÊ ¶Ù±â
 	{
-		if (true == EngineInput::IsDown(VK_LEFT))
+		if (true == EngineInput::IsDown(VK_SHIFT))
 		{
 			KirbyRenderer->ChangeAnimation("run_Left");
 			//KirbyRenderer->ChangeAnimation("Idle_Right");
+			lRunanicheck = true;
 		}
 
-		AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
+		if (true == lRunanicheck)
+		{
+			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
+		}
+		
 	}
 	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ ¶Ù±â
 	{
-		if (true == EngineInput::IsDown(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
+
+		if (true == EngineInput::IsDown(VK_SHIFT)) // ¿À¸¥ÂÊ °È±â
 		{
 			KirbyRenderer->ChangeAnimation("run_Right");
 			//KirbyRenderer->ChangeAnimation("Idle_Right");
+			rRunanicheck = true;
 		}
-		AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
+		
+		//if(true == EngineInput::IsUp(VK_SHIFT) || true == EngineInput::IsUp(VK_RIGHT)){
+			//check = false;
+		//}
+
+		if (true== rRunanicheck)
+		{
+			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
+		}
+	}
+	else
+	{
+		rRunanicheck = false;
+		lRunanicheck = false;
 	}
 
 	//-------------------------------------------------------------------------
