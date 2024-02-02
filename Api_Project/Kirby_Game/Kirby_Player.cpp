@@ -156,8 +156,14 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->SetImage("Player_Right.png");
 	KirbyRenderer->SetTransform({ {0,0}, {100, 100} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {64,64}, {32, 32} });
-	KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true);
-	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); // 기본 서 있는 형태
+	KirbyRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); // 흡수
+	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 않기
+	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 점프
+	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 걷기
+	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 뛰기
+	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 공중
+
 	KirbyRenderer->ChangeAnimation("Idle");
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
