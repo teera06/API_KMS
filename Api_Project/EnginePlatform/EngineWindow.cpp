@@ -33,6 +33,7 @@ void UEngineWindow::Init(HINSTANCE _hInst)
 }
 
 
+
 UEngineWindow::UEngineWindow()
 {
 }
@@ -148,7 +149,14 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)(
 }
 
 
+FVector UEngineWindow::GetMousePosition()
+{
+	POINT MousePoint;
+	GetCursorPos(&MousePoint);
+	ScreenToClient(hWnd, &MousePoint);
 
+	return FVector(MousePoint.x, MousePoint.y);
+}
 
 void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 {

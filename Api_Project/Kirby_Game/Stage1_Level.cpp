@@ -7,6 +7,7 @@
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
+#include <EngineCore/EngineCore.h>
 
 UStage1_Level::UStage1_Level()
 {
@@ -21,6 +22,7 @@ void UStage1_Level::BeginPlay()
 	ULevel::BeginPlay();
 
 	UEngineDirectory NewPath; // 현재 파일 경로
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 
 	// NewPath.Move("ContentsResources");
 	NewPath.MoveParent(); // 현재 파일 경로의 상위 폴더로 이동
@@ -37,7 +39,7 @@ void UStage1_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
-	SpawnActor<AStage1_MAP>()->SetActorLocation({ 540,405 });
+	SpawnActor<AStage1_MAP>()->SetActorLocation(windowScale.Half2D());
 	SpawnActor<AKirby_Player>()->SetActorLocation({140,530});
 
 

@@ -44,6 +44,8 @@ public:
 		return Scale;
 	}
 
+	FVector GetMousePosition();
+
 protected:
 
 private:

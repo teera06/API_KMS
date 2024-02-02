@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 struct float4
 {
@@ -71,6 +72,11 @@ public:
 
 
 public:
+	std::string ToString()
+	{
+		return "[X : " + std::to_string(X) + " Y : " + std::to_string(Y) + " Z : " + std::to_string(Z) + " W : " + std::to_string(W) + "]";
+	}
+
 	float4 Half2D()
 	{
 		return { hX(), hY() };
