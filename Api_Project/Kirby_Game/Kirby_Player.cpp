@@ -19,6 +19,26 @@ void AKirby_Player::InputTick(float _DeltaTime)
 	Leftwalk(_DeltaTime); // 왼쪽 걷기
 	Rightwalk(_DeltaTime); // 오른쪽 걷기
 	RLrun(_DeltaTime); // 오른쪽, 왼쪽 뛰기
+
+	if (true == EngineInput::IsDown('S') && RLpoint==VK_LEFT)
+	{
+		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump_Left");
+		if (true == EngineInput::IsDown('S') && RLpoint == VK_LEFT)
+		{
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump2_Left");
+		}
+		
+	}
+	
+	if (true == EngineInput::IsDown('S') && RLpoint == VK_RIGHT)
+	{
+		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump_Right");
+		if (true == EngineInput::IsDown('S') && RLpoint == VK_RIGHT)
+		{
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump2_Right");
+		}
+	}
+	
 }
 
 
@@ -192,10 +212,14 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_walk_Left", "kirby_Left.png",10, 19, 0.1f, true); // 걷기
 
 	// 기본 뛰는 모션
-	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true); // 걷기
-	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true); // 걷기
-	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 않기
-	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 점프
+	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
+	
+	KirbyRenderer->CreateAnimation("Base_jump_Right", "kirby_Right.png", 38, 52, 0.1f, true); 
+	KirbyRenderer->CreateAnimation("Base_jump_Left", "kirby_Left.png",38, 52, 0.1f, true); 
+
+	KirbyRenderer->CreateAnimation("Base_jump2_Right", "kirby_Right.png", 53, 64, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 걷기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 뛰기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 공중
