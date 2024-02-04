@@ -112,7 +112,6 @@ void AKirby_Player::RLrun(float _DeltaTime)
 		{
 			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 		}
-
 	}
 	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ ¶Ù±â
 	{
@@ -127,11 +126,13 @@ void AKirby_Player::RLrun(float _DeltaTime)
 		{
 			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 		}
+		
 	}
 	else
 	{
 		rRunanicheck = false;
 		lRunanicheck = false;
+		
 	}
 }
 

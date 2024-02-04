@@ -1,9 +1,9 @@
 #pragma once
 #include "SceneComponent.h"
-#include <EnginePlatform\WindowImage.h>
+#include <EnginePlatform\WindowImage.h> // Levl1
 #include <map>
 
-class UAnimationInfo
+class UAnimationInfo // 애니메이션
 {
 public:
 	// 애니메이션을 구성할때 이미지는 1장
@@ -19,9 +19,10 @@ public:
 	int Update(float _DeltaTime);
 };
 
+// 전방 선언 -> Level1
 class UWindowImage;
 // 설명 :
-class UImageRenderer : public USceneComponent
+class UImageRenderer : public USceneComponent // 상속
 {
 
 public:
