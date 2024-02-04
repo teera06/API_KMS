@@ -68,9 +68,9 @@ bool UWindowImage::Load(UWindowImage* _Image)
 {
 	LoadType = EImageLoadType::IMG_Cutting;
 
-	UEnginePath Path = GetEnginePath();
+	UEnginePath Path = GetEnginePath(); // 전제 경로
 
-	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension());
+	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension()); // 확장자 대문자 변환
 
 	if (".BMP" == UpperExt)
 	{

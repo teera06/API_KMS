@@ -30,7 +30,7 @@ void AActor::Tick(float _DeltaTime)
 // 
 UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)
 {
-	UImageRenderer* NewRenderer = new UImageRenderer();
+	UImageRenderer* NewRenderer = new UImageRenderer(); // 동적 할당
 	UActorComponent* ActorCom = NewRenderer;
 	ActorCom->SetOwner(this);
 	ActorCom->SetOrder(Order);

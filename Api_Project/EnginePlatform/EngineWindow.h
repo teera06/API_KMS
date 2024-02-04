@@ -49,11 +49,11 @@ public:
 protected:
 
 private:
-	static bool WindowLive;
-	static HINSTANCE hInstance;
+	static bool WindowLive; // 게임 실행 true -> 실행, false -> 종료
+	static HINSTANCE hInstance; // 프로그램 핸들
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-	HWND hWnd = nullptr;
+	HWND hWnd = nullptr; // 윈도우 핸들
 	// HDC hDC = nullptr;
 	// 윈도우와 직접적으로 연결된 DC를 가지고 있는 최종 이미지
 	UWindowImage* WindowImage = nullptr;
@@ -64,8 +64,8 @@ private:
 	// 이미지를 1개 만들어요. => 윈도우 전체 크기만하게 => 단계를 할수가 없다.
 	UWindowImage* BackBufferImage = nullptr;
 	// 이미지가 2개다 이미지는 버퍼라는 개념으로도 부른다. => 더블버퍼링이라는 이름인 겁니다.
-	FVector Scale;
-	FVector Position;
+	FVector Scale; // 크기
+	FVector Position; // 위치
 
 };
 

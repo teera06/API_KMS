@@ -9,20 +9,20 @@
 // DC라는게 외부로 드러나면 안됩니다.
 // DC를 통해서 그리는 모든 책임은 오로지 => UWindowImage가 모두 담당한다.
 
-enum class EImageLoadType
+enum class EImageLoadType // 이미지 로드 종류
 {
-	IMG_Folder,
-	IMG_Cutting,
+	IMG_Folder, // 폴더 -> 이미지 하나씩 있는 경우
+	IMG_Cutting, // 한이미지에 다 있는 경우
 };
 
 enum class EWIndowImageType
 {
-	IMG_NONE,
-	IMG_BMP,
-	IMG_PNG
+	IMG_NONE, // nullptr
+	IMG_BMP, // bmp
+	IMG_PNG // png
 };
 
-class ImageInfo
+class ImageInfo // 이미지 관련 요소
 {
 public:
 	HBITMAP hBitMap;
@@ -31,6 +31,7 @@ public:
 	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE;
 };
 
+// 전방 선언
 class UEngineWindow;
 // 설명 :
 class UWindowImage : public UPathObject
@@ -77,7 +78,7 @@ public:
 
 	void Cutting(int _X, int _Y);
 
-	EWIndowImageType GetImageType()
+	EWIndowImageType GetImageType() // Get 이미지 종류
 	{
 		return ImageType;
 	}
@@ -89,12 +90,12 @@ private:
 
 	// 윈도우에서 지원해주는 H붙은 애들은 다 struct HBITMAP__{int unused;}; typedef struct HBITMAP__ *HBITMAP
 	// 포인터이면서 8바이트 정수입니다.
-	HBITMAP hBitMap = 0;
-	HDC ImageDC = 0;
+	HBITMAP hBitMap = 0; // 이미지의 메모리적 권한
+	HDC ImageDC = 0; // HBITMAP 편집 및 출력 권한
 	BITMAP BitMapInfo = BITMAP(); // 비트맵를 담는 구조체인데 이걸 얻어와야 합니다.
-	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE;
+	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE; // 이미지 종류
 
-	std::vector<ImageInfo> Infos;
+	std::vector<ImageInfo> Infos; // 이미지 -> 백터 관리
 
 	bool Create(HDC _MainDC);
 };

@@ -43,17 +43,17 @@ public:
 		Transform.AddPosition(_Value);
 	}
 
-	FTransform GetTransform() 
+	FTransform GetTransform() // Get
 	{
 		return Transform;
 	}
 
-	ULevel* GetWorld()
+	ULevel* GetWorld() // Get Level
 	{
 		return World;
 	}
 
-	UImageRenderer* CreateImageRenderer(int Order = 0);
+	UImageRenderer* CreateImageRenderer(int Order = 0); // 이미지 랜더 create 
 
 	void Destroy(float _DestroyTime /*= 0.0f*/) override;
 	void DestroyUpdate(float _DeltaTime) override;
