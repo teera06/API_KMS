@@ -44,7 +44,7 @@ public:
 			MsgBoxAssert(std::string(_Name) + "이라는 이름의 Level을 또 만들려고 했습니다");
 		}
 
-		LevelType* NewLevel = new LevelType();
+		LevelType* NewLevel = new LevelType(); // 동적 할당
 		LevelInit(NewLevel);
 		AllLevel.insert(std::pair<std::string, ULevel*>(UpperName, NewLevel));
 	}
@@ -66,9 +66,9 @@ private:
 	float CurFrameTime = 0.0f;
 
 	bool EngineInit = false;
-	std::map<std::string, ULevel*> AllLevel;
-	ULevel* CurLevel = nullptr;
-	ULevel* NextLevel = nullptr;
+	std::map<std::string, ULevel*> AllLevel; // Map에서 Level 관리
+	ULevel* CurLevel = nullptr; // 현재 레벨
+	ULevel* NextLevel = nullptr; // 다음 레벨
 
 	static void EngineTick();
 	void CoreTick();
