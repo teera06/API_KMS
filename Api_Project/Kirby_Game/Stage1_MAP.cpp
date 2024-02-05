@@ -1,4 +1,5 @@
 #include "Stage1_MAP.h"
+#include "ModeEnum.h"
 
 AStage1_MAP::AStage1_MAP()
 {
@@ -12,7 +13,7 @@ void AStage1_MAP::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	MapRenderer = CreateImageRenderer(-9); // 이미지 랜더 생성
+	MapRenderer = CreateImageRenderer(RenderOrder::Stage1_Map); // 이미지 랜더 생성
 	MapRenderer->SetImage("Stage1map.bmp"); // 이미지 Set
 	MapRenderer->SetTransColor({ 255,255, 255, 0 });
 	MapRenderer->SetTransform({ {0,0}, windowScale }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 

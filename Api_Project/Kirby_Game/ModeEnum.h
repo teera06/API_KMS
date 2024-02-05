@@ -9,3 +9,13 @@ enum class AMode
 	Sword,
 	Hammer,
 };
+
+enum RenderOrder
+{
+	TitleMap,
+	Stage1_Map,
+	Monster,
+	Base,
+	Fire,
+	kirby,
+};

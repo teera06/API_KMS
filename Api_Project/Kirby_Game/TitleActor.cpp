@@ -1,6 +1,7 @@
 #include "TitleActor.h"
 #include <EnginePlatform\EngineInput.h> // 마우스 왼쪽 버튼 누를 경우 레벨 체인지
 #include <EngineCore/EngineCore.h> // Level change에 사용
+#include "ModeEnum.h"
 
 ATitleActor::ATitleActor()
 {
@@ -15,7 +16,7 @@ void ATitleActor::BeginPlay()
 {
 	AActor::BeginPlay();
 	
-	TitleRenderer = CreateImageRenderer(-10); // 이미지 랜더 생성
+	TitleRenderer = CreateImageRenderer(RenderOrder::TitleMap); // 이미지 랜더 생성
 	TitleRenderer->SetImage("Log.bmp"); // 이미지 Set
 	TitleRenderer->SetTransColor({ 255,255,255,0 });
 	TitleRenderer->SetTransform({ {0,0}, windowScale }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 

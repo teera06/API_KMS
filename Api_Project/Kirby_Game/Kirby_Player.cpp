@@ -226,7 +226,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	//}
 	
 	
-	KirbyRenderer = CreateImageRenderer(10); // 이미지 랜더 생성
+	KirbyRenderer = CreateImageRenderer(RenderOrder::kirby); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {128, 128} });
