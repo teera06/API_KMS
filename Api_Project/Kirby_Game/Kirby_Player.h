@@ -46,7 +46,7 @@ protected:
 private:
 	//float QSkillCool = 0.0f;
 	UImageRenderer* KirbyRenderer=nullptr;
-
+	
 	int RLpoint = 0; // 방향(왼쪽, 오른쪽 방향 전환) 체크 -> 발사 방향 
 	int JumpKey = 0; // 점프키를 눌렀을때 할수 있는것 -> 공중부양
 

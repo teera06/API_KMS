@@ -211,6 +211,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {128, 128} });
+
 	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
 	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
@@ -232,7 +233,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 뛰기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 공중
 
-	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0,18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
 	
