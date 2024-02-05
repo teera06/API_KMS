@@ -1,9 +1,9 @@
 #pragma once
 #include "SceneComponent.h"
-#include <EnginePlatform\WindowImage.h> // Levl1
+#include <EnginePlatform\WindowImage.h>
 #include <map>
 
-class UAnimationInfo // 애니메이션
+class UAnimationInfo
 {
 public:
 	// 애니메이션을 구성할때 이미지는 1장
@@ -19,10 +19,9 @@ public:
 	int Update(float _DeltaTime);
 };
 
-// 전방 선언 -> Level1
 class UWindowImage;
 // 설명 :
-class UImageRenderer : public USceneComponent // 상속
+class UImageRenderer : public USceneComponent
 {
 
 public:
@@ -89,12 +88,17 @@ public:
 		TransColor.A = static_cast<char>(_Alpha * 255.0f);
 	}
 
+	UWindowImage* GetImage()
+	{
+		return Image;
+	}
+
 protected:
 	void BeginPlay() override;
 
 private:
 	int InfoIndex = 0;
-	UWindowImage* Image;
+	UWindowImage* Image = nullptr;
 	FTransform ImageCuttingTransform;
 	Color8Bit TransColor;
 

@@ -68,9 +68,9 @@ bool UWindowImage::Load(UWindowImage* _Image)
 {
 	LoadType = EImageLoadType::IMG_Cutting;
 
-	UEnginePath Path = GetEnginePath(); // 전제 경로
+	UEnginePath Path = GetEnginePath();
 
-	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension()); // 확장자 대문자 변환
+	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension());
 
 	if (".BMP" == UpperExt)
 	{
@@ -413,4 +413,13 @@ void UWindowImage::Cutting(int _X, int _Y)
 		CuttingPos.X = 0.0f;
 		CuttingPos.Y += CuttingScale.Y;
 	}
+}
+
+Color8Bit UWindowImage::GetColor(int _X, int _Y)
+{
+	Color8Bit Color;
+
+	Color.Color = ::GetPixel(ImageDC, _X, _Y);
+
+	return Color;
 }
