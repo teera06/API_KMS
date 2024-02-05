@@ -1,9 +1,11 @@
 #pragma once
 #include <EngineCore\Actor.h>
+#include<EngineCore/EngineCore.h>
 
 class ATitleActor : public AActor
 {
 public:
+
 	// constrcuter destructer
 	ATitleActor(); // 디폴트 생성자
 	~ATitleActor(); // 디폴트 소멸자
@@ -14,6 +16,7 @@ public:
 	ATitleActor& operator=(const ATitleActor& _Other) = delete; // 디폴트 대입 연산자
 	ATitleActor& operator=(ATitleActor&& _Other) noexcept = delete;
 
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

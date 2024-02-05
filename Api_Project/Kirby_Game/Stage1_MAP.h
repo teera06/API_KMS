@@ -1,9 +1,12 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include<EngineCore/EngineCore.h>
 
 class AStage1_MAP : public AActor
 {
 public:
+
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 	// constrcuter destructer
 	AStage1_MAP(); // 디폴트 생성자
 	~AStage1_MAP(); // 디폴트 소멸자
