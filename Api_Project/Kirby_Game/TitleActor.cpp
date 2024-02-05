@@ -8,6 +8,7 @@ ATitleActor::ATitleActor()
 
 ATitleActor::~ATitleActor()
 {
+	Destroy(0.0f);
 }
 
 void ATitleActor::BeginPlay()

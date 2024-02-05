@@ -10,6 +10,7 @@ AKirby_Player::AKirby_Player()
 
 AKirby_Player::~AKirby_Player()
 {
+	Destroy(0.0f);
 }
 
 // 입력 진행 모음집
