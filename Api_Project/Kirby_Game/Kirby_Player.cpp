@@ -39,6 +39,9 @@ void AKirby_Player::InputTick(float _DeltaTime)
 			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump2_Right");
 		}
 	}
+
+	//if (true == EngineInput::IsPress(VK_DOWN)
+	
 	
 }
 
@@ -104,15 +107,17 @@ void AKirby_Player::RLrun(float _DeltaTime)
 	{
 		if (true == EngineInput::IsDown(VK_SHIFT))
 		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"run_Left");
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "run_Left");
 			lRunanicheck = true;
 		}
+		
 
 		// run_Left 애니메이션을 실행했을때만 달리기 속도로 이동 이렇게 if문쓴 이유? : Shift키 + 이동키를 하면 걷는 모션에서 속도만 빨라짐 -> 반드시 run애니메이션을 걸치고 이동속도가 달라지게함
 		if (true == lRunanicheck)
 		{
 			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
 		}
+		
 	}
 	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 뛰기
 	{
@@ -122,42 +127,53 @@ void AKirby_Player::RLrun(float _DeltaTime)
 			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"run_Right");
 			rRunanicheck = true;
 		}
+	
 
 		if (true == rRunanicheck) // 달리기 애니메이션을 진행하고 나서 이동
 		{
 			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
 		}
 		
+		
 	}
 	else
 	{
 		rRunanicheck = false;
 		lRunanicheck = false;
+		//KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "walk_Right");
 		
 	}
 }
 
 void AKirby_Player::BaseKirby()
 {
-	if (true == EngineInput::IsPress('X')) // 흡수 기능
+	if (true == EngineInput::IsDown('X'))
 	{
-		//ABase* NewBase = GetWorld()->SpawnActor<ABase>();
-
-		if (true == EngineInput::IsDown('X'))
+		if (RLpoint == VK_LEFT)
 		{
-			if (RLpoint == VK_LEFT)
-			{
-				KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Left");
-				//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
-				//NewBase->SetDir(FVector::Left);
-			}
-			else {
-				KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Right");
-				//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
-				//NewBase->SetDir(FVector::Right);
-			}
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Left");
+			//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
+			//NewBase->SetDir(FVector::Left);
 		}
-		
+		else {
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Right");
+			//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
+			//NewBase->SetDir(FVector::Right);
+		}
+	}
+	else if (true == EngineInput::IsUp('X'))
+	{
+		if (RLpoint == VK_LEFT)
+		{
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Left");
+			//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
+			//NewBase->SetDir(FVector::Left);
+		}
+		else {
+			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
+			//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
+			//NewBase->SetDir(FVector::Right);
+		}
 	}
 
 	//if (true == EngineInput::IsUp('A'))
