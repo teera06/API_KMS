@@ -16,11 +16,12 @@ public:
 	ATitleActor& operator=(const ATitleActor& _Other) = delete; // 디폴트 대입 연산자
 	ATitleActor& operator=(ATitleActor&& _Other) noexcept = delete;
 
-	FVector windowScale = GEngine->MainWindow.GetWindowScale();
+	
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
 	UImageRenderer* TitleRenderer = nullptr;
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 };
 

@@ -42,3 +42,13 @@ void UTitleLevel::BeginPlay()
 	SpawnActor<ATitleActor>()->SetActorLocation(windowscale.Half2D()); // Level 위의 Actor 위치 설정 ;
 	
 }
+
+void UTitleLevel::Tick(float _DeltaTime)
+{
+	ULevel::Tick(_DeltaTime);
+
+	if (true == EngineInput::IsDown(VK_LBUTTON))
+	{
+		GEngine->ChangeLevel("Stage1_Level");
+	}
+}

@@ -3,11 +3,10 @@
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
 
-
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
-#include <EngineCore/EngineCore.h>
+
 
 UStage1_Level::UStage1_Level()
 {
@@ -22,8 +21,7 @@ void UStage1_Level::BeginPlay()
 	ULevel::BeginPlay();
 
 	UEngineDirectory NewPath; // 현재 파일 경로
-	FVector windowScale = GEngine->MainWindow.GetWindowScale();
-
+	
 	// NewPath.Move("ContentsResources");
 	NewPath.MoveParent(); // 현재 파일 경로의 상위 폴더로 이동
 
@@ -39,7 +37,12 @@ void UStage1_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
-	SpawnActor<AStage1_MAP>()->SetActorLocation(windowScale.Half2D());
+	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
+	Map->SetActorLocation(windowScale.Half2D());
+	//Map->SetMapImage("Stage1Map.bmp");
+	//Map->SetColMapImage("Colmap.bmp");
+	//Map->SwitchDebug();
+
 	SpawnActor<AKirby_Player>()->SetActorLocation({140,550});
 
 
@@ -50,4 +53,9 @@ void UStage1_Level::BeginPlay()
 	// 배경
 	// 몬스터
 	// 등등등을 코드로 여기서 다 만들어야 한다.
+}
+
+void UStage1_Level::Tick(float _DeltaTime)
+{
+	ULevel::Tick(_DeltaTime);
 }
