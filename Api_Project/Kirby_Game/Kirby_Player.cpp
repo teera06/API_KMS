@@ -139,20 +139,26 @@ void AKirby_Player::RLrun(float _DeltaTime)
 
 void AKirby_Player::BaseKirby()
 {
-	//if (true == EngineInput::IsDown('A')) // 흡수 기능
-	//{
+	if (true == EngineInput::IsPress('X')) // 흡수 기능
+	{
 		//ABase* NewBase = GetWorld()->SpawnActor<ABase>();
 
-		//if (RLpoint == VK_LEFT)
-		//{
-			//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
-			//NewBase->SetDir(FVector::Left);
-		//}
-		//else {
-			//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
-			//NewBase->SetDir(FVector::Right);
-		//}
-	//}
+		if (true == EngineInput::IsDown('X'))
+		{
+			if (RLpoint == VK_LEFT)
+			{
+				KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Left");
+				//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
+				//NewBase->SetDir(FVector::Left);
+			}
+			else {
+				KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Right");
+				//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
+				//NewBase->SetDir(FVector::Right);
+			}
+		}
+		
+	}
 
 	//if (true == EngineInput::IsUp('A'))
 	//{
@@ -226,6 +232,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 뛰기
 	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> 공중
 
+	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0,18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -237,5 +245,5 @@ void AKirby_Player::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	InputTick(_DeltaTime); // 커비 기본 입력키
-	//ModeInputTick(); // 커비 모드별 입력키
+	ModeInputTick(); // 커비 모드별 입력키
 }
