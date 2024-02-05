@@ -51,6 +51,7 @@ void AKirby_Player::ModeInputTick()
 	switch (KirbyMode)
 	{
 	case AMode::Base:
+		//SetNamechange("Base_");
 		BaseKirby();
 		break;
 	case AMode::Fire:
@@ -69,7 +70,7 @@ void AKirby_Player::ModeInputTick()
 
 void AKirby_Player::Leftwalk(float _DeltaTime)
 {
-	if (true == EngineInput::IsPress(VK_LEFT)) // ¿ŞÂÊ °È±â
+	if (true == EngineInput::IsPress(VK_LEFT) && false==AttMotion) // ¿ŞÂÊ °È±â
 	{
 
 		if (true == EngineInput::IsDown(VK_LEFT)) // ¿ŞÂÊ °È±â ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
@@ -87,7 +88,7 @@ void AKirby_Player::Leftwalk(float _DeltaTime)
 
 void AKirby_Player::Rightwalk(float _DeltaTime)
 {
-	if (true == EngineInput::IsPress(VK_RIGHT)) // ¿À¸¥ÂÊ °È±â
+	if (true == EngineInput::IsPress(VK_RIGHT) && false==AttMotion) // ¿À¸¥ÂÊ °È±â
 	{
 		if (true == EngineInput::IsDown(VK_RIGHT)) 
 		{
@@ -149,6 +150,7 @@ void AKirby_Player::BaseKirby()
 {
 	if (true == EngineInput::IsDown('X'))
 	{
+		AttMotion = true;
 		if (RLpoint == VK_LEFT)
 		{
 			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Left");
@@ -163,6 +165,7 @@ void AKirby_Player::BaseKirby()
 	}
 	else if (true == EngineInput::IsUp('X'))
 	{
+		AttMotion = false;
 		if (RLpoint == VK_LEFT)
 		{
 			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Left");
@@ -245,12 +248,12 @@ void AKirby_Player::BeginPlay() // ½ÇÇàÇßÀ»¶§ ÁØºñµÇ¾î¾ß ÇÒ°Íµé Set
 
 	KirbyRenderer->CreateAnimation("Base_jump2_Right", "kirby_Right.png", 53, 64, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
-	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> °È±â
-	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> ¶Ù±â
-	//KirbyRenderer->CreateAnimation("Idle", "Player_Right.png", 0, 12, 0.5f, true); -> °øÁß
-
+	
+	// ±âº» º£ÀÌ½º °ø°İ
 	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
+	
+	
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer

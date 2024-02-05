@@ -50,8 +50,14 @@ private:
 	int RLpoint = 0; // 방향(왼쪽, 오른쪽 방향 전환) 체크 -> 발사 방향 
 	int JumpKey = 0; // 점프키를 눌렀을때 할수 있는것 -> 공중부양
 
+	// 좌우 달리기 ani가 실행되기 위한 조건
 	bool rRunanicheck = false;
 	bool lRunanicheck = false;
+	bool AttMotion = false; // 공격 모션중 커비는 이동 불가
+	bool flyMotion = false; // 나는 모션 체크
+	bool SeetMotion = false;
+
+
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
 
@@ -60,7 +66,7 @@ private:
 	void ModeInputTick(); // 모드별 입력키
 
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
-	std::string Namechange = "Base_";
+	std::string Namechange = "Base_"; // 애니메이션 이름 변경해주기
 	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f }; // 기본 커비가 사용
 	int Hp=100;
 };
