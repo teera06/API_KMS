@@ -48,8 +48,8 @@ void UGame_Core::BeginPlay() //
 	}
 	UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
 	UEngineResourcesManager::GetInst().CuttingImage("kirby_Left.png", 10, 7);
-	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Right.png", 10, 6);
-	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Left.png", 10, 6);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Right.png", 10, 7);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Left.png", 10, 7);
 
 	SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 	CreateLevel<UTitleLevel>("TitleLevel");
