@@ -13,6 +13,15 @@ AKirby_Player::~AKirby_Player()
 	Destroy(0.0f);
 }
 
+void AKirby_Player::GravityCheck(float _DeltaTime)
+{
+	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY());
+	//if (Color != Color8Bit(255, 0, 255, 0))
+	//{
+		//AddActorLocation(FVector::Down * _DeltaTime * Gravity);
+	//}
+}
+
 // 입력 진행 모음집
 void AKirby_Player::InputTick(float _DeltaTime)
 {

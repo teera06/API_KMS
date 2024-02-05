@@ -4,6 +4,17 @@
 #include <string>
 #include <string_view>
 
+// 내일 강의로 체크하기 -> 리펙토링
+enum class PlayState
+{
+	Idle,
+	Move,
+	Jump,
+	Attack,
+
+};
+
+
 class AKirby_Player : public AActor
 {
 public:
@@ -61,6 +72,7 @@ private:
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 200.0f; // 뛰는 속도
 
+	void GravityCheck(float _DeltaTime);
 
 	void InputTick(float _DeltaTime); // 기본 입력키
 	void ModeInputTick(); // 모드별 입력키
