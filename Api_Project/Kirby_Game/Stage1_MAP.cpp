@@ -27,6 +27,10 @@ void AStage1_MAP::BeginPlay()
 
 void AStage1_MAP::Tick(float _DeltaTime)
 {
+	if (EngineInput::IsDown('O'))
+	{
+		SwitchDebug();
+	}
 }
 
 void AStage1_MAP::SetMapImage(std::string_view _MapImageName)

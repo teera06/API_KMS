@@ -198,6 +198,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 	
+	GetWorld()->SetCameraPos({ 200,350 });
 	
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
 	StateChange(ActorState::Idle);

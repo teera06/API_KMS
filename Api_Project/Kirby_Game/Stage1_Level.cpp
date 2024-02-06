@@ -43,7 +43,7 @@ void UStage1_Level::BeginPlay()
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
-	SpawnActor<AKirby_Player>()->SetActorLocation({500,100});
+	SpawnActor<AKirby_Player>()->SetActorLocation({500,800});
 
 
 	// SpawnActor<Player>();
