@@ -64,7 +64,6 @@ protected:
 	void JumpStart();
 	void RunStart();
 	
-	void RLrun(float _DeltaTime);
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck();
@@ -93,7 +92,6 @@ private:
 
 	void GravityCheck(float _DeltaTime);
 
-	void InputTick(float _DeltaTime); // 기본 입력키
 	void ModeInputTick(); // 모드별 입력키
 
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집

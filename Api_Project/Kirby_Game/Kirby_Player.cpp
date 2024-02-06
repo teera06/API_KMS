@@ -13,7 +13,7 @@ AKirby_Player::~AKirby_Player()
 	Destroy(0.0f);
 }
 
-void AKirby_Player::GravityCheck(float _DeltaTime)
+void AKirby_Player::GravityCheck(float _DeltaTime) // 중력 체크
 {
 	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY());
 	//if (Color != Color8Bit(255, 0, 255, 0))
@@ -22,39 +22,29 @@ void AKirby_Player::GravityCheck(float _DeltaTime)
 	//}
 }
 
-// 입력 진행 모음집
-void AKirby_Player::InputTick(float _DeltaTime)
+void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 {
-
-	
-	RLrun(_DeltaTime); // 오른쪽, 왼쪽 뛰기
-
-	if (true == EngineInput::IsDown('S') && RLpoint==VK_LEFT)
+	EActorDir Dir = DirState;
+	if (EngineInput::IsPress(VK_LEFT))
 	{
-		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump_Left");
-		if (true == EngineInput::IsDown('S') && RLpoint == VK_LEFT)
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump2_Left");
-		}
-		
+		Dir = EActorDir::Left;
 	}
-	
-	if (true == EngineInput::IsDown('S') && RLpoint == VK_RIGHT)
+	if (EngineInput::IsPress(VK_RIGHT))
 	{
-		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump_Right");
-		if (true == EngineInput::IsDown('S') && RLpoint == VK_RIGHT)
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "jump2_Right");
-		}
+		Dir = EActorDir::Right;
 	}
 
-	//if (true == EngineInput::IsPress(VK_DOWN)
-	
-	
+	if (Dir != DirState)
+	{
+		DirState = Dir;
+		std::string Name = GetAnimationName(CurAnimationName);
+		KirbyRenderer->ChangeAnimation(Name);
+	}
 }
 
 
-void AKirby_Player::ModeInputTick()
+
+void AKirby_Player::ModeInputTick() // 커비 속성 별 할 것들
 {
 	switch (KirbyMode)
 	{
@@ -78,71 +68,6 @@ void AKirby_Player::ModeInputTick()
 
 
 
-
-
-void AKirby_Player::RLrun(float _DeltaTime)
-{
-	if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_LEFT)) // 왼쪽 뛰기
-	{
-		if (true == EngineInput::IsDown(VK_SHIFT))
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "run_Left");
-			lRunanicheck = true;
-		}
-		
-
-		// run_Left 애니메이션을 실행했을때만 달리기 속도로 이동 이렇게 if문쓴 이유? : Shift키 + 이동키를 하면 걷는 모션에서 속도만 빨라짐 -> 반드시 run애니메이션을 걸치고 이동속도가 달라지게함
-		if (true == lRunanicheck)
-		{
-			AddActorLocation(FVector::Left * RunSpeed * _DeltaTime);
-		}
-		
-	}
-	else if (true == EngineInput::IsPress(VK_SHIFT) && true == EngineInput::IsPress(VK_RIGHT)) // 오른쪽 뛰기
-	{
-
-		if (true == EngineInput::IsDown(VK_SHIFT))
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"run_Right");
-			rRunanicheck = true;
-		}
-	
-
-		if (true == rRunanicheck) // 달리기 애니메이션을 진행하고 나서 이동
-		{
-			AddActorLocation(FVector::Right * RunSpeed * _DeltaTime);
-		}
-		
-		
-	}
-	else
-	{
-		rRunanicheck = false;
-		lRunanicheck = false;
-		//KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "walk_Right");
-		
-	}
-}
-
-void AKirby_Player::DirCheck()
-{
-	EActorDir Dir = DirState;
-	if (EngineInput::IsPress(VK_LEFT))
-	{
-		Dir = EActorDir::Left;
-	}
-	if (EngineInput::IsPress(VK_RIGHT))
-	{
-		Dir = EActorDir::Right;
-	}
-
-	if (Dir != DirState)
-	{
-		DirState = Dir;
-		std::string Name = GetAnimationName(CurAnimationName);
-		KirbyRenderer->ChangeAnimation(Name);
-	}
-}
 
 std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 {
@@ -284,7 +209,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 void AKirby_Player::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	//InputTick(_DeltaTime); // 커비 기본 입력키
 	//ModeInputTick(); // 커비 모드별 입력키
 	StateUpdate(_DeltaTime);
 }

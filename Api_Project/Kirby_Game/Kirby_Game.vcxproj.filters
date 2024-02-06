@@ -28,6 +28,7 @@
     <ClCompile Include="Stage1_MAP.cpp">
       <Filter>Stage1_Actor\Stage1_Map</Filter>
     </ClCompile>
+    <ClCompile Include="ActorControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -60,6 +61,7 @@
     <ClInclude Include="Stage1_MAP.h">
       <Filter>Stage1_Actor\Stage1_Map</Filter>
     </ClInclude>
+    <ClInclude Include="ActorControl.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">

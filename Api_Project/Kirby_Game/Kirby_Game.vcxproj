@@ -30,6 +30,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActorControl.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Base.cpp">
       <SubType>
       </SubType>
@@ -68,6 +72,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorControl.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Base.h">
       <SubType>
       </SubType>
