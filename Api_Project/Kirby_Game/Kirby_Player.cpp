@@ -1,6 +1,7 @@
 #include "Kirby_Player.h"
 #include <EnginePlatform\EngineInput.h> // Level1
 
+#include "ActorCommon.h"
 #include "Fire.h"
 #include "Base.h"
 
@@ -15,11 +16,11 @@ AKirby_Player::~AKirby_Player()
 
 void AKirby_Player::GravityCheck(float _DeltaTime) // 중력 체크
 {
-	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY());
-	//if (Color != Color8Bit(255, 0, 255, 0))
-	//{
-		//AddActorLocation(FVector::Down * _DeltaTime * Gravity);
-	//}
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color != Color8Bit(255, 0, 0, 0))
+	{
+		AddActorLocation(FVector::Down * _DeltaTime * Gravity);
+	}
 }
 
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
@@ -390,8 +391,8 @@ void AKirby_Player::Walk(float _DeltaTime)
 	{
 		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
 	}
-
-	if (EngineInput::IsPress(VK_RIGHT))
+	
+	if(EngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
 	}

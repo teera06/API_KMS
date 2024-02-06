@@ -1,5 +1,6 @@
 #include "Stage1_MAP.h"
 #include "ModeEnum.h"
+#include "ActorCommon.h"
 
 AStage1_MAP::AStage1_MAP()
 {
@@ -42,7 +43,7 @@ void AStage1_MAP::SetColMapImage(std::string_view _MapImageName)
 {
 	MapColRenderer->SetImage(_MapImageName);
 	UWindowImage* Image = MapColRenderer->GetImage();
-	//UContentsHelper::ColMapImage = Image;
+	ActorCommon::ColMapImage = Image;
 	FVector ImageScale = Image->GetScale();
 	MapColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }

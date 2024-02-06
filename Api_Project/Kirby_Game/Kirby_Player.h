@@ -1,13 +1,8 @@
 #pragma once
-#include <EngineCore\Actor.h>
+#include <EngineCore/Actor.h>
 #include "ModeEnum.h"
-#include <string>
-#include <string_view>
 
 // 내일 강의로 체크하기 -> 리펙토링
-
-
-
 class AKirby_Player : public AActor
 {
 public:
@@ -20,9 +15,6 @@ public:
 	AKirby_Player(AKirby_Player&& _Other) noexcept = delete;
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
-
-	
-
 
 	void BaseKirby();
 	void FireKirby();
@@ -97,6 +89,7 @@ private:
 	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
 	std::string Namechange = "Base_"; // 애니메이션 이름 변경해주기
 	FVector LRCheck = { 100.0f, 0.0f, 0.0f, 0.0f }; // 기본 커비가 사용
+	float Gravity = 500.0f;
 	int Hp=100;
 };
 

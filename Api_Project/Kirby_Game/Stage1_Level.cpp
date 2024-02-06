@@ -40,10 +40,10 @@ void UStage1_Level::BeginPlay()
 	}
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
-	//Map->SetColMapImage("Colmap.bmp");
-	//Map->SwitchDebug();
+	Map->SetColMapImage("cor_map.png");
+	Map->SwitchDebug();
 
-	SpawnActor<AKirby_Player>()->SetActorLocation({100,100});
+	SpawnActor<AKirby_Player>()->SetActorLocation({500,100});
 
 
 	// SpawnActor<Player>();
