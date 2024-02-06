@@ -264,6 +264,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	
 	
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
+	StateChange(ActorState::Idle);
 	
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
@@ -273,6 +274,217 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 void AKirby_Player::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	InputTick(_DeltaTime); // 커비 기본 입력키
-	ModeInputTick(); // 커비 모드별 입력키
+	//InputTick(_DeltaTime); // 커비 기본 입력키
+	//ModeInputTick(); // 커비 모드별 입력키
+	StateUpdate(_DeltaTime);
+}
+
+void AKirby_Player::StateChange(ActorState _State)
+{
+	// 이전상태와 지금 상태가 같지 않아
+	// 이전에는 move 지금은 Idle
+	if (State != _State)
+	{
+		switch (_State)
+		{
+		case ActorState::Idle:
+			IdleStart();
+			break;
+		case ActorState::Move:
+			MoveStart();
+			break;
+		case ActorState::Jump:
+			JumpStart();
+			break;
+		default:
+			break;
+		}
+	}
+
+	State = _State;
+}
+
+void AKirby_Player::StateUpdate(float _DeltaTime)
+{
+	switch (State)
+	{
+	case ActorState::CameraFreeMove:
+		CameraFreeMove(_DeltaTime);
+		break;
+	case ActorState::FreeMove:
+		FreeMove(_DeltaTime);
+		break;
+	case ActorState::Idle:
+		Idle(_DeltaTime);
+		break;
+	case ActorState::Move:
+		Move(_DeltaTime);
+		break;
+	case ActorState::Jump:
+		Jump(_DeltaTime);
+		break;
+	default:
+		break;
+	}
+}
+
+void AKirby_Player::CameraFreeMove(float _DeltaTime)
+{
+	if (EngineInput::IsPress(VK_LEFT))
+	{
+		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * 500.0f);
+		// AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
+	}
+
+	if (EngineInput::IsPress(VK_RIGHT))
+	{
+		GetWorld()->AddCameraPos(FVector::Right * _DeltaTime * 500.0f);
+	}
+
+	if (EngineInput::IsPress(VK_UP))
+	{
+		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * 500.0f);
+		// AddActorLocation(FVector::Up * _DeltaTime * 500.0f);
+	}
+
+	if (EngineInput::IsPress(VK_DOWN))
+	{
+		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * 500.0f);
+		// AddActorLocation(FVector::Down * _DeltaTime * 500.0f);
+	}
+
+	if (EngineInput::IsDown('2'))
+	{
+		StateChange(ActorState::Idle);
+	}
+}
+
+void AKirby_Player::FreeMove(float _DeltaTime)
+{
+	FVector MovePos;
+
+	if (EngineInput::IsPress(VK_LEFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
+	}
+
+	if (EngineInput::IsPress(VK_RIGHT))
+	{
+		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
+	}
+
+	if (EngineInput::IsPress(VK_UP))
+	{
+		MovePos += FVector::Up * _DeltaTime * WalkSpeed;
+	}
+
+	if (EngineInput::IsPress(VK_DOWN))
+	{
+		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
+	}
+
+	AddActorLocation(MovePos);
+	GetWorld()->AddCameraPos(MovePos);
+
+	if (EngineInput::IsDown('1'))
+	{
+		StateChange(ActorState::Idle);
+	}
+}
+
+void AKirby_Player::Idle(float _DeltaTime)
+{
+	// 왼쪽 오른쪽도 안되고 있고.
+	// 여기서는 정말
+	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
+	if (true == EngineInput::IsDown('1'))
+	{
+		StateChange(ActorState::FreeMove);
+		return;
+	}
+
+	if (true == EngineInput::IsDown('2'))
+	{
+		StateChange(ActorState::CameraFreeMove);
+		return;
+	}
+
+
+	if (
+		true == EngineInput::IsPress(VK_LEFT) ||
+		true == EngineInput::IsPress(VK_RIGHT)
+		)
+	{
+		StateChange(ActorState::Move);
+		return;
+	}
+
+	if (
+		true == EngineInput::IsDown(VK_SPACE)
+		)
+	{
+		StateChange(ActorState::Jump);
+		return;
+	}
+
+	GravityCheck(_DeltaTime);
+}
+
+void AKirby_Player::Jump(float _DeltaTime)
+{
+}
+
+void AKirby_Player::Move(float _DeltaTime)
+{
+	//DirCheck();
+	GravityCheck(_DeltaTime);
+
+	if (true == EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
+	{
+		StateChange(ActorState::Idle);
+		return;
+	}
+
+	FVector MovePos = FVector::Zero;
+	if (EngineInput::IsPress(VK_LEFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
+	}
+
+	if (EngineInput::IsPress(VK_RIGHT))
+	{
+		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
+	}
+
+	FVector CheckPos = GetActorLocation();
+	//switch (DirState)
+	//{
+	//case EActorDir::Left:
+		//CheckPos.X -= 30;
+		//break;
+	//case EActorDir::Right:
+		//CheckPos.X += 30;
+		//break;
+	//default:
+		//break;
+	//}
+	//CheckPos.Y -= 30;
+	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
+	//if (Color != Color8Bit(255, 0, 255, 0))
+	//{
+		//AddActorLocation(MovePos);
+		//GetWorld()->AddCameraPos(MovePos);
+	//}
+}
+
+void AKirby_Player::IdleStart()
+{
+}
+
+void AKirby_Player::MoveStart()
+{
+}
+
+void AKirby_Player::JumpStart()
+{
 }

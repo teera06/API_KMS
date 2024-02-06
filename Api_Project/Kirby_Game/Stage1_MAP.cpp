@@ -33,9 +33,8 @@ void AStage1_MAP::SetMapImage(std::string_view _MapImageName)
 	MapRenderer->SetImage(_MapImageName);
 	UWindowImage* Image = MapRenderer->GetImage();
 	FVector ImageScale = Image->GetScale();
-	MapRenderer->SetTransform({ {0,0}, ImageScale });
+	MapRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 	
-	//MapRenderer->SetImageCuttingTransform({ {0,0}, {0,0} });
 	
 }
 

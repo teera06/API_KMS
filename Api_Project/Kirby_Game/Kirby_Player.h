@@ -5,14 +5,7 @@
 #include <string_view>
 
 // 내일 강의로 체크하기 -> 리펙토링
-enum class PlayState
-{
-	Idle,
-	Move,
-	Jump,
-	Attack,
 
-};
 
 
 class AKirby_Player : public AActor
@@ -28,9 +21,7 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void Leftwalk(float _DeltaTime);
-	void Rightwalk(float _DeltaTime);
-	void RLrun(float _DeltaTime);
+	
 
 
 	void BaseKirby();
@@ -54,6 +45,29 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	// 상태 주요 업데이트
+	void StateChange(ActorState _State);
+	void StateUpdate(float _DeltaTime);
+
+	// 상태 함수들
+	void CameraFreeMove(float _DeltaTime);
+	void FreeMove(float _DeltaTime);
+	void Idle(float _DeltaTime);
+	void Jump(float _DeltaTime);
+	void Move(float _DeltaTime);
+
+	// 상태 시작 함수들
+	void IdleStart();
+	void MoveStart();
+	void JumpStart();
+
+	void Leftwalk(float _DeltaTime);
+	void Rightwalk(float _DeltaTime);
+	void RLrun(float _DeltaTime);
+
+	ActorState State = ActorState::None;
+	EActorDir DirState = EActorDir::Right;
 private:
 	//float QSkillCool = 0.0f;
 	UImageRenderer* KirbyRenderer=nullptr;

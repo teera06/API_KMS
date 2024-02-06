@@ -10,6 +10,23 @@ enum class AMode
 	Hammer,
 };
 
+enum class ActorState
+{
+	None,
+	Idle,
+	Move,
+	Jump,
+	Attack,
+	CameraFreeMove,
+	FreeMove,
+};
+
+enum class EActorDir
+{
+	Left,
+	Right,
+};
+
 enum RenderOrder
 {
 	TitleMap,

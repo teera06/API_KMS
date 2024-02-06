@@ -39,12 +39,11 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
-	//Map->SetActorLocation(windowScale.Half2D());
 	Map->SetMapImage("stage1_map.png");
 	//Map->SetColMapImage("Colmap.bmp");
 	//Map->SwitchDebug();
 
-	SpawnActor<AKirby_Player>()->SetActorLocation({140,550});
+	SpawnActor<AKirby_Player>()->SetActorLocation({140,400});
 
 
 	// SpawnActor<Player>();

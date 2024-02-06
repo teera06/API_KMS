@@ -392,10 +392,10 @@ void UWindowImage::AlphaCopy(UWindowImage* _CopyImage, const FTransform& _Trans,
 
 void UWindowImage::Cutting(int _X, int _Y)
 {
-	Infos.clear(); // 백터 size값 클리어
+	Infos.clear();
 
-	FVector CuttingScale = { GetScale().X / _X,  GetScale().Y / _Y }; // 이미지의 X,Y의 크기를 받은 인자값으로 나눈다.
-	FVector CuttingPos = { 0, 0 }; // 시작은 {0,0}에서 시작
+	FVector CuttingScale = { GetScale().X / _X,  GetScale().Y / _Y };
+	FVector CuttingPos = { 0, 0 };
 
 	for (int i = 0; i < _Y; i++)
 	{
@@ -413,12 +413,32 @@ void UWindowImage::Cutting(int _X, int _Y)
 		CuttingPos.X = 0.0f;
 		CuttingPos.Y += CuttingScale.Y;
 	}
-
-	// 인자값으로 얻은 X의 인덱스 값, Y의 인덱스값으로 이미지 크기를 나눠 한 사진에 애니메이션을 컷하면서 이동하게 만듬
 }
 
-Color8Bit UWindowImage::GetColor(int _X, int _Y)
+Color8Bit UWindowImage::GetColor(int _X, int _Y, Color8Bit _DefaultColor)
 {
+	// 이 함수가 완벽하지 않다.
+
+	if (0 > _X)
+	{
+		return _DefaultColor;
+	}
+
+	if (0 > _Y)
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iX() <= _X)
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iY() <= _Y)
+	{
+		return _DefaultColor;
+	}
+
 	Color8Bit Color;
 
 	Color.Color = ::GetPixel(ImageDC, _X, _Y);
