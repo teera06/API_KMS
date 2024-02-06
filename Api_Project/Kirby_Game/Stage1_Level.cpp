@@ -7,6 +7,7 @@
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
 
+#include <EngineCore/EngineCore.h>
 
 UStage1_Level::UStage1_Level()
 {
@@ -38,8 +39,8 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
-	Map->SetActorLocation(windowScale.Half2D());
-	//Map->SetMapImage("Stage1Map.bmp");
+	//Map->SetActorLocation(windowScale.Half2D());
+	Map->SetMapImage("stage1_map.png");
 	//Map->SetColMapImage("Colmap.bmp");
 	//Map->SwitchDebug();
 
@@ -57,5 +58,6 @@ void UStage1_Level::BeginPlay()
 
 void UStage1_Level::Tick(float _DeltaTime)
 {
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 	ULevel::Tick(_DeltaTime);
 }
