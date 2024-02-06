@@ -14,7 +14,8 @@ enum class ActorState
 {
 	None,
 	Idle,
-	Move,
+	Walk,
+	Run,
 	Jump,
 	Attack,
 	CameraFreeMove,

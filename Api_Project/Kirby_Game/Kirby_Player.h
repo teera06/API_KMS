@@ -55,17 +55,22 @@ protected:
 	void FreeMove(float _DeltaTime);
 	void Idle(float _DeltaTime);
 	void Jump(float _DeltaTime);
-	void Move(float _DeltaTime);
+	void Walk(float _DeltaTime);
+	void Run(float _DeltaTime);
 
 	// 상태 시작 함수들
 	void IdleStart();
-	void MoveStart();
+	void WalkStart();
 	void JumpStart();
-
-	void Leftwalk(float _DeltaTime);
-	void Rightwalk(float _DeltaTime);
+	void RunStart();
+	
 	void RLrun(float _DeltaTime);
 
+	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
+	void DirCheck();
+
+	std::string GetAnimationName(std::string_view _Name);
+	std::string CurAnimationName = "None";
 	ActorState State = ActorState::None;
 	EActorDir DirState = EActorDir::Right;
 private:

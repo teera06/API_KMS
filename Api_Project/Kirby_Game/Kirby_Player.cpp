@@ -26,8 +26,7 @@ void AKirby_Player::GravityCheck(float _DeltaTime)
 void AKirby_Player::InputTick(float _DeltaTime)
 {
 
-	Leftwalk(_DeltaTime); // 왼쪽 걷기
-	Rightwalk(_DeltaTime); // 오른쪽 걷기
+	
 	RLrun(_DeltaTime); // 오른쪽, 왼쪽 뛰기
 
 	if (true == EngineInput::IsDown('S') && RLpoint==VK_LEFT)
@@ -77,39 +76,9 @@ void AKirby_Player::ModeInputTick()
 	}
 }
 
-void AKirby_Player::Leftwalk(float _DeltaTime)
-{
-	if (true == EngineInput::IsPress(VK_LEFT) && false==AttMotion) // 왼쪽 걷기
-	{
 
-		if (true == EngineInput::IsDown(VK_LEFT)) // 왼쪽 걷기 애니메이션 실행
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"walk_Left");
-		}
 
-		AddActorLocation(FVector::Left * WalkSpeed * _DeltaTime); // 이동
-		RLpoint = VK_LEFT; // 누른 키 값 저장
-	}
-	else if (true == EngineInput::IsUp(VK_LEFT) && RLpoint == VK_LEFT) { // 떼어진 키와 마지막으로 확인된 RLpoint가 같은 방향이야지 방향에 맞는 애니메이션으로 교체
-		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"Idle_Left");
-	}
-}
 
-void AKirby_Player::Rightwalk(float _DeltaTime)
-{
-	if (true == EngineInput::IsPress(VK_RIGHT) && false==AttMotion) // 오른쪽 걷기
-	{
-		if (true == EngineInput::IsDown(VK_RIGHT)) 
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"walk_Right");
-		}
-		AddActorLocation(FVector::Right * WalkSpeed * _DeltaTime);
-		RLpoint = VK_RIGHT; 
-	}
-	else if (true == EngineInput::IsUp(VK_RIGHT) && RLpoint == VK_RIGHT) {
-		KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) +"Idle_Right");
-	}
-}
 
 void AKirby_Player::RLrun(float _DeltaTime)
 {
@@ -153,6 +122,47 @@ void AKirby_Player::RLrun(float _DeltaTime)
 		//KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "walk_Right");
 		
 	}
+}
+
+void AKirby_Player::DirCheck()
+{
+	EActorDir Dir = DirState;
+	if (EngineInput::IsPress(VK_LEFT))
+	{
+		Dir = EActorDir::Left;
+	}
+	if (EngineInput::IsPress(VK_RIGHT))
+	{
+		Dir = EActorDir::Right;
+	}
+
+	if (Dir != DirState)
+	{
+		DirState = Dir;
+		std::string Name = GetAnimationName(CurAnimationName);
+		KirbyRenderer->ChangeAnimation(Name);
+	}
+}
+
+std::string AKirby_Player::GetAnimationName(std::string_view _Name)
+{
+	std::string DirName = "";
+
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		DirName = "_Left";
+		break;
+	case EActorDir::Right:
+		DirName = "_Right";
+		break;
+	default:
+		break;
+	}
+
+	CurAnimationName = _Name;
+
+	return std::string(GetNamechange()) +std::string(_Name) + DirName;
 }
 
 void AKirby_Player::BaseKirby()
@@ -245,8 +255,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
 	
 	// 기본 걷는 모션 (오른쪽, 왼쪽)
-	KirbyRenderer->CreateAnimation("Base_walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
-	KirbyRenderer->CreateAnimation("Base_walk_Left", "kirby_Left.png",10, 19, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Base_Walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Base_Walk_Left", "kirby_Left.png",10, 19, 0.1f, true); // 걷기
 
 	// 기본 뛰는 모션
 	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true);
@@ -290,11 +300,14 @@ void AKirby_Player::StateChange(ActorState _State)
 		case ActorState::Idle:
 			IdleStart();
 			break;
-		case ActorState::Move:
-			MoveStart();
+		case ActorState::Walk:
+			WalkStart();
 			break;
 		case ActorState::Jump:
 			JumpStart();
+			break;
+		case ActorState::Run:
+			RunStart();
 			break;
 		default:
 			break;
@@ -317,11 +330,14 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 	case ActorState::Idle:
 		Idle(_DeltaTime);
 		break;
-	case ActorState::Move:
-		Move(_DeltaTime);
+	case ActorState::Walk:
+		Walk(_DeltaTime);
 		break;
 	case ActorState::Jump:
 		Jump(_DeltaTime);
+		break;
+	case ActorState::Run:
+		Run(_DeltaTime);
 		break;
 	default:
 		break;
@@ -415,7 +431,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == EngineInput::IsPress(VK_RIGHT)
 		)
 	{
-		StateChange(ActorState::Move);
+		StateChange(ActorState::Walk);
 		return;
 	}
 
@@ -434,7 +450,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 {
 }
 
-void AKirby_Player::Move(float _DeltaTime)
+void AKirby_Player::Walk(float _DeltaTime)
 {
 	//DirCheck();
 	GravityCheck(_DeltaTime);
@@ -456,19 +472,28 @@ void AKirby_Player::Move(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
 	}
 
+	if (EngineInput::IsPress(VK_SHIFT))
+	{
+		StateChange(ActorState::Run);
+		return;
+	}
+
 	FVector CheckPos = GetActorLocation();
-	//switch (DirState)
-	//{
-	//case EActorDir::Left:
-		//CheckPos.X -= 30;
-		//break;
-	//case EActorDir::Right:
-		//CheckPos.X += 30;
-		//break;
-	//default:
-		//break;
-	//}
-	//CheckPos.Y -= 30;
+	
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= 30;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 30;
+		break;
+	default:
+		break;
+	}
+	AddActorLocation(MovePos);
+	CheckPos.Y -= 30;
+
 	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
 	//if (Color != Color8Bit(255, 0, 255, 0))
 	//{
@@ -477,14 +502,64 @@ void AKirby_Player::Move(float _DeltaTime)
 	//}
 }
 
-void AKirby_Player::IdleStart()
+void AKirby_Player::Run(float _DeltaTime)
 {
+	//DirCheck();
+	GravityCheck(_DeltaTime);
+
+	if (EngineInput::IsFree(VK_SHIFT))
+	{
+		StateChange(ActorState::Walk);
+		return;
+	}
+
+	FVector MovePos = FVector::Zero;
+	if (EngineInput::IsPress(VK_LEFT) && EngineInput::IsPress(VK_SHIFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * RunSpeed;
+	}
+
+	if (EngineInput::IsPress(VK_RIGHT) && EngineInput::IsPress(VK_SHIFT))
+	{
+		MovePos += FVector::Right * _DeltaTime * RunSpeed;
+	}
+
+	FVector CheckPos = GetActorLocation();
+
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= 30;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 30;
+		break;
+	default:
+		break;
+	}
+	AddActorLocation(MovePos);
 }
 
-void AKirby_Player::MoveStart()
+void AKirby_Player::IdleStart()
 {
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Idle"));
+	DirCheck();
+}
+
+void AKirby_Player::WalkStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
+	DirCheck();
 }
 
 void AKirby_Player::JumpStart()
 {
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Move"));
+	DirCheck();
+}
+
+void AKirby_Player::RunStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Run"));
+	DirCheck();
 }
