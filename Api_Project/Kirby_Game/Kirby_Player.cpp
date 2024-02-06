@@ -417,15 +417,14 @@ void AKirby_Player::Walk(float _DeltaTime)
 	default:
 		break;
 	}
-	AddActorLocation(MovePos);
 	CheckPos.Y -= 30;
 
-	//Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
-	//if (Color != Color8Bit(255, 0, 255, 0))
-	//{
-		//AddActorLocation(MovePos);
-		//GetWorld()->AddCameraPos(MovePos);
-	//}
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	if (Color != Color8Bit(255, 0, 0, 0))
+	{
+		AddActorLocation(MovePos);
+		GetWorld()->AddCameraPos(MovePos);
+	}
 }
 
 void AKirby_Player::Run(float _DeltaTime)
