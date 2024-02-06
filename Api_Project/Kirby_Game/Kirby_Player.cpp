@@ -198,7 +198,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 	
-	GetWorld()->SetCameraPos({ 200,350 });
+	GetWorld()->SetCameraPos({ 210,350 });
 	
 	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
 	StateChange(ActorState::Idle);
@@ -462,7 +462,13 @@ void AKirby_Player::Run(float _DeltaTime)
 	default:
 		break;
 	}
-	AddActorLocation(MovePos);
+	CheckPos.Y -= 30;
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	if (Color != Color8Bit(255, 0, 0, 0))
+	{
+		AddActorLocation(MovePos);
+		GetWorld()->AddCameraPos(MovePos);
+	}
 }
 
 void AKirby_Player::IdleStart()
