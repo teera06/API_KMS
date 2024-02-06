@@ -66,7 +66,7 @@ protected:
 	EActorDir DirState = EActorDir::Right;
 private:
 	//float QSkillCool = 0.0f;
-	UImageRenderer* KirbyRenderer=nullptr;
+	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더
 	
 	int RLpoint = 0; // 방향(왼쪽, 오른쪽 방향 전환) 체크 -> 발사 방향 
 	int JumpKey = 0; // 점프키를 눌렀을때 할수 있는것 -> 공중부양
@@ -80,7 +80,7 @@ private:
 
 
 	float WalkSpeed = 100.0f; // 걷는 속도
-	float RunSpeed = 200.0f; // 뛰는 속도
+	float RunSpeed = 250.0f; // 뛰는 속도
 
 	void GravityCheck(float _DeltaTime);
 

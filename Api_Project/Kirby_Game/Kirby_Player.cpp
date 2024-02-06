@@ -378,7 +378,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 void AKirby_Player::Walk(float _DeltaTime)
 {
-	//DirCheck();
+	DirCheck();
 	GravityCheck(_DeltaTime);
 
 	if (true == EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
@@ -429,7 +429,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 void AKirby_Player::Run(float _DeltaTime)
 {
-	//DirCheck();
+	DirCheck();
 	GravityCheck(_DeltaTime);
 
 	if (EngineInput::IsFree(VK_SHIFT))
