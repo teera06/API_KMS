@@ -1,6 +1,7 @@
 #include "ActorCommon.h"
 
 UWindowImage* ActorCommon::ColMapImage = nullptr;
+
 ActorCommon::ActorCommon()
 {
 }
@@ -9,23 +10,17 @@ ActorCommon::~ActorCommon()
 {
 }
 
-std::string ActorCommon::GetAnimationName(std::string_view _Name)
+FVector ActorCommon::GetGravity(int _X, int _Y, float _DeltaTime)
 {
-	std::string DirName = "";
-
-	switch (DirState)
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(_X, _Y, Color8Bit::RedA);
+	if (Color != Color8Bit(255, 0, 0, 0))
 	{
-	case EActorDir::Left:
-		DirName = "_Left";
-		break;
-	case EActorDir::Right:
-		DirName = "_Right";
-		break;
-	default:
-		break;
+		GravityValue = FVector::Down * _DeltaTime * Gravity;
+	}
+	else {
+		GravityValue = FVector::Zero;
 	}
 
-	CurAnimationName = _Name;
-
-	return std::string(GetNamechange()) + std::string(_Name) + DirName;
+	return GravityValue;
 }
+

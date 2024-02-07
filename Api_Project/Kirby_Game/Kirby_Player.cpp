@@ -1,7 +1,6 @@
 #include "Kirby_Player.h"
 #include <EnginePlatform\EngineInput.h> // Level1
 
-#include "ActorCommon.h"
 #include "Fire.h"
 #include "Base.h"
 
@@ -14,14 +13,7 @@ AKirby_Player::~AKirby_Player()
 	Destroy(0.0f);
 }
 
-void AKirby_Player::GravityCheck(float _DeltaTime) // 중력 체크
-{
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color != Color8Bit(255, 0, 0, 0))
-	{
-		AddActorLocation(FVector::Down * _DeltaTime * Gravity);
-	}
-}
+
 
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 {
@@ -93,67 +85,12 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 void AKirby_Player::BaseKirby()
 {
-	if (true == EngineInput::IsDown('X'))
-	{
-		AttMotion = true;
-		if (RLpoint == VK_LEFT)
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Left");
-			//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
-			//NewBase->SetDir(FVector::Left);
-		}
-		else {
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Attack_Right");
-			//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
-			//NewBase->SetDir(FVector::Right);
-		}
-	}
-	else if (true == EngineInput::IsUp('X'))
-	{
-		AttMotion = false;
-		if (RLpoint == VK_LEFT)
-		{
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Left");
-			//NewBase->SetActorLocation(GetActorLocation() - LRCheck);
-			//NewBase->SetDir(FVector::Left);
-		}
-		else {
-			KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
-			//NewBase->SetActorLocation(GetActorLocation() + LRCheck);
-			//NewBase->SetDir(FVector::Right);
-		}
-	}
-
-	//if (true == EngineInput::IsUp('A'))
-	//{
-		//KirbyRenderer->ChangeAnimation("Idle");
-	//}
-
-	//if (true == EngineInput::IsDown('X')) // 모드 체인지
-	//{
-		//SetMode(AMode::Fire);
-	//}
+	
 }
 
 void AKirby_Player::FireKirby()
 {
-	if (true == EngineInput::IsDown('A'))
-	{
-		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-		NewFire->SetActorLocation(GetActorLocation());
-
-		if (RLpoint == VK_LEFT)
-		{
-			NewFire->SetDir(FVector::Left);
-		}
-		else {
-			NewFire->SetDir(FVector::Right);
-		}
-	}
-	if (true == EngineInput::IsDown('X'))
-	{
-		SetMode(AMode::Base);
-	}
+	
 }
 
 void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
@@ -369,7 +306,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
-	GravityCheck(_DeltaTime);
+	GravityCheck=GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
 }
 
 void AKirby_Player::Jump(float _DeltaTime)
@@ -379,7 +317,8 @@ void AKirby_Player::Jump(float _DeltaTime)
 void AKirby_Player::Walk(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck(_DeltaTime);
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
 
 	if (true == EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
 	{
@@ -430,7 +369,8 @@ void AKirby_Player::Walk(float _DeltaTime)
 void AKirby_Player::Run(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck(_DeltaTime);
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
 
 	if (EngineInput::IsFree(VK_SHIFT))
 	{
