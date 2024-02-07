@@ -13,6 +13,62 @@ AKirby_Player::~AKirby_Player()
 	Destroy(0.0f);
 }
 
+void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
+{
+	AActor::BeginPlay();
+
+	// 플레이어 100, 100 => Actor
+	// 상체? 100, 100 - 50 => Renderer
+	// 하체? 100, 100 + 50 => Renderer
+
+	//{
+		//BodyRenderer = CreateImageRenderer(0);
+		//BodyRenderer->SetPosition({ 0, 30 });
+		//BodyRenderer->SetScale({ 8, 80 });
+	//}
+
+	KirbyRenderer = CreateImageRenderer(RenderOrder::kirby); // 이미지 랜더 생성
+	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
+	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
+
+	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
+	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
+	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
+
+	// 기본 걷는 모션 (오른쪽, 왼쪽)
+	KirbyRenderer->CreateAnimation("Base_Walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Base_Walk_Left", "kirby_Left.png", 10, 19, 0.1f, true); // 걷기
+
+	// 기본 뛰는 모션
+	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
+
+	KirbyRenderer->CreateAnimation("Base_jump_Right", "kirby_Right.png", 38, 52, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_jump_Left", "kirby_Left.png", 38, 52, 0.1f, true);
+
+	KirbyRenderer->CreateAnimation("Base_jump2_Right", "kirby_Right.png", 53, 64, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
+
+	// 기본 베이스 공격
+	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
+
+	GetWorld()->SetCameraPos({ 210,350 });
+
+	KirbyRenderer->ChangeAnimation(std::string(GetAniNamechange()) + "Idle_Right");
+	StateChange(ActorState::Idle);
+
+	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
+	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
+}
+
+// 커비 움직임 업데이트
+void AKirby_Player::Tick(float _DeltaTime)
+{
+	AActor::Tick(_DeltaTime);
+	//ModeInputTick(); // 커비 모드별 입력키
+	StateUpdate(_DeltaTime);
+}
 
 
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
@@ -35,33 +91,6 @@ void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 	}
 }
 
-
-
-void AKirby_Player::ModeInputTick() // 커비 속성 별 할 것들
-{
-	switch (KirbyMode)
-	{
-	case AMode::Base:
-		//SetNamechange("Base_");
-		BaseKirby();
-		break;
-	case AMode::Fire:
-		FireKirby();
-		break;
-	case AMode::Mike:
-		break;
-	case AMode::Sword:
-		break;
-	case AMode::Hammer:
-		break;
-	default:
-		break;
-	}
-}
-
-
-
-
 std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 {
 	std::string DirName = "";
@@ -80,77 +109,10 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 	CurAnimationName = _Name;
 
-	return std::string(GetNamechange()) +std::string(_Name) + DirName;
+	return std::string(GetAniNamechange()) + std::string(_Name) + DirName;
 }
 
-void AKirby_Player::BaseKirby()
-{
-	
-}
 
-void AKirby_Player::FireKirby()
-{
-	
-}
-
-void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
-{
-	AActor::BeginPlay();
-
-	// 플레이어 100, 100 => Actor
-	// 상체? 100, 100 - 50 => Renderer
-	// 하체? 100, 100 + 50 => Renderer
-	
-	//{
-		//BodyRenderer = CreateImageRenderer(0);
-		//BodyRenderer->SetPosition({ 0, 30 });
-		//BodyRenderer->SetScale({ 8, 80 });
-	//}
-	
-	
-	KirbyRenderer = CreateImageRenderer(RenderOrder::kirby); // 이미지 랜더 생성
-	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
-	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
-	KirbyRenderer->SetImageCuttingTransform({ {0,0}, {128, 128} });
-
-	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
-	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
-	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
-	
-	// 기본 걷는 모션 (오른쪽, 왼쪽)
-	KirbyRenderer->CreateAnimation("Base_Walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
-	KirbyRenderer->CreateAnimation("Base_Walk_Left", "kirby_Left.png",10, 19, 0.1f, true); // 걷기
-
-	// 기본 뛰는 모션
-	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
-	
-	KirbyRenderer->CreateAnimation("Base_jump_Right", "kirby_Right.png", 38, 52, 0.1f, true); 
-	KirbyRenderer->CreateAnimation("Base_jump_Left", "kirby_Left.png",38, 52, 0.1f, true); 
-
-	KirbyRenderer->CreateAnimation("Base_jump2_Right", "kirby_Right.png", 53, 64, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
-	
-	// 기본 베이스 공격
-	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
-	
-	GetWorld()->SetCameraPos({ 210,350 });
-	
-	KirbyRenderer->ChangeAnimation(std::string(GetNamechange()) + "Idle_Right");
-	StateChange(ActorState::Idle);
-	
-	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
-	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
-}
-
-// 커비 움직임 업데이트
-void AKirby_Player::Tick(float _DeltaTime)
-{
-	AActor::Tick(_DeltaTime);
-	//ModeInputTick(); // 커비 모드별 입력키
-	StateUpdate(_DeltaTime);
-}
 
 void AKirby_Player::StateChange(ActorState _State)
 {
@@ -206,6 +168,7 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	}
 }
+
 
 void AKirby_Player::CameraFreeMove(float _DeltaTime)
 {
@@ -411,6 +374,10 @@ void AKirby_Player::Run(float _DeltaTime)
 	}
 }
 
+void AKirby_Player::Absorption(float _DeltaTime)
+{
+}
+
 void AKirby_Player::IdleStart()
 {
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Idle"));
@@ -433,4 +400,37 @@ void AKirby_Player::RunStart()
 {
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Run"));
 	DirCheck();
+}
+
+
+void AKirby_Player::ModeInputTick() // 커비 속성 별 할 것들
+{
+	switch (KirbyMode)
+	{
+	case AMode::Base:
+		//SetNamechange("Base_");
+		BaseKirby();
+		break;
+	case AMode::Fire:
+		FireKirby();
+		break;
+	case AMode::Mike:
+		break;
+	case AMode::Sword:
+		break;
+	case AMode::Hammer:
+		break;
+	default:
+		break;
+	}
+}
+
+void AKirby_Player::BaseKirby()
+{
+
+}
+
+void AKirby_Player::FireKirby()
+{
+
 }

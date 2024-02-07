@@ -3,7 +3,7 @@
 #include "ModeEnum.h"
 #include "ActorCommon.h"
 // 내일 강의로 체크하기 -> 리펙토링
-class AKirby_Player : public AActor, public ActorCommon
+class AKirby_Player : public AActor, public ActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer
@@ -16,17 +16,17 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void BaseKirby();
-	void FireKirby();
+	void BaseKirby(); // 기본 커비 
+	void FireKirby(); // 불 커비
 
-	std::string_view GetNamechange()
+	std::string_view GetAniNamechange() // Get 이름체인지
 	{
-		return Namechange;
+		return AniNamechange;
 	}
 
-	void SetNamechange(std::string_view _Namechange)
+	void SetNamechange(std::string_view _AniNamechange) // Set 이름 체인지
 	{
-		Namechange = _Namechange;
+		AniNamechange = _AniNamechange;
 	}
 
 	inline void SetMode(AMode _KirbyMode) // 커비 모드 체인지 할때 사용
@@ -39,7 +39,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-
+	// 몬스터, 커비 등 같이 사용하는 공통점이 생길수 있으니 우선 추후 생각
+	//--------------------------------------------------
 	// 상태 주요 업데이트
 	void StateChange(ActorState _State);
 	void StateUpdate(float _DeltaTime);
@@ -48,9 +49,12 @@ protected:
 	void CameraFreeMove(float _DeltaTime);
 	void FreeMove(float _DeltaTime);
 	void Idle(float _DeltaTime);
-	void Jump(float _DeltaTime);
 	void Walk(float _DeltaTime);
+	void Jump(float _DeltaTime);
+
+	// 커비만 가능 한 상태 
 	void Run(float _DeltaTime);
+	void Absorption(float _DeltaTime); // 흡수
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -66,6 +70,7 @@ protected:
 	std::string CurAnimationName = "None";
 	ActorState State = ActorState::None;
 	EActorDir DirState = EActorDir::Right;
+	//---------------------------------------------------
 private:
 	//float QSkillCool = 0.0f;
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
@@ -77,10 +82,10 @@ private:
 
 	void ModeInputTick(); // 모드별 입력키
 
-	FVector GravityCheck = FVector::Zero;
-	AMode KirbyMode = AMode::Base; // Kirby 모드 모음집
-	std::string Namechange = "Base_"; // 애니메이션 이름 변경해주기
+	FVector GravityCheck = FVector::Zero; // 중력값 받기
+	AMode KirbyMode = AMode::Base; // Kirby 모드
+	std::string AniNamechange = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 	
-	int Hp=100;
+	//int Hp=100;
 };
 
