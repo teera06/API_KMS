@@ -269,7 +269,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == EngineInput::IsDown(VK_SPACE)
+		true == EngineInput::IsDown('S')
 		)
 	{
 		StateChange(ActorState::Jump);
@@ -334,7 +334,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 	default:
 		break;
 	}
-	CheckPos.Y -= 30;
+	CheckPos.Y -= 50;
 
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	if (Color != Color8Bit(255, 0, 0, 0))
@@ -410,7 +410,7 @@ void AKirby_Player::WalkStart()
 
 void AKirby_Player::JumpStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Move"));
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
 	DirCheck();
 }
 

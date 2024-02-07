@@ -27,6 +27,8 @@ void AStage1_MAP::BeginPlay()
 
 void AStage1_MAP::Tick(float _DeltaTime)
 {
+	AActor::Tick(_DeltaTime);
+
 	if (EngineInput::IsDown('O'))
 	{
 		SwitchDebug();

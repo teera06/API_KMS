@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore\ImageRenderer.h>
+#include "ModeEnum.h"
 
+// 몬스터, 커비는 사용, 맵은 사용X 
 class ActorCommon
 {
 public:
@@ -14,15 +16,37 @@ public:
 	ActorCommon& operator=(const ActorCommon& _Other) = delete; // 디폴트 대입 연산자
 	ActorCommon& operator=(ActorCommon&& _Other) noexcept = delete;
 
-
-
-	static UWindowImage* ColMapImage;
+	static UWindowImage* ColMapImage; // 우선 맵만 사용
 
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
+	void SetAtt(int _Att)
+	{
+		Att = _Att;
+	}
+
+	void SetHp(int _Hp)
+	{
+		Hp = _Hp;
+	}
+
+	inline int GetAtt()
+	{
+		return Att;
+	}
+
+	inline int GetHp()
+	{
+		return Hp;
+	}
+
 private:
 	float Gravity = 500.0f;
 	FVector GravityValue = FVector::Zero;
+
+	// 커비, 몬스터 공통 변수
+	int Hp = 0;
+	int Att = 0;
 };
 
