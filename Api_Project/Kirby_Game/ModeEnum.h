@@ -17,9 +17,10 @@ enum class ActorState
 	Walk,
 	Run,
 	Jump,
-	Attack,
+	Absorption,
 	CameraFreeMove,
 	FreeMove,
+
 };
 
 enum class EActorDir

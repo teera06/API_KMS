@@ -16,7 +16,7 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void BaseKirby(); // 기본 커비 
+	void BaseKirby(float _DeltaTime); // 기본 커비 
 	void FireKirby(); // 불 커비
 
 	std::string_view GetAniNamechange() // Get 이름체인지
@@ -61,6 +61,7 @@ protected:
 	void WalkStart();
 	void JumpStart();
 	void RunStart();
+	void AbsorptionStart();
 	
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
@@ -80,7 +81,7 @@ private:
 	float RunSpeed = 250.0f; // 뛰는 속도
 	
 
-	void ModeInputTick(); // 모드별 입력키
+	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 
 	FVector GravityCheck = FVector::Zero; // 중력값 받기
 	AMode KirbyMode = AMode::Base; // Kirby 모드

@@ -50,8 +50,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
 
 	// 기본 베이스 공격
-	KirbyRenderer->CreateAnimation("Base_Attack_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Base_Attack_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 
 	GetWorld()->SetCameraPos({ 210,350 });
 
@@ -70,6 +70,7 @@ void AKirby_Player::Tick(float _DeltaTime)
 	StateUpdate(_DeltaTime);
 }
 
+//----------------------------------------------------------------------------------------------------
 
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 {
@@ -112,7 +113,7 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 	return std::string(GetAniNamechange()) + std::string(_Name) + DirName;
 }
 
-
+//-------------------------------------------------------------------------------
 
 void AKirby_Player::StateChange(ActorState _State)
 {
@@ -133,6 +134,9 @@ void AKirby_Player::StateChange(ActorState _State)
 			break;
 		case ActorState::Run:
 			RunStart();
+			break;
+		case ActorState::Absorption:
+			AbsorptionStart();
 			break;
 		default:
 			break;
@@ -163,6 +167,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case ActorState::Run:
 		Run(_DeltaTime);
+		break;
+	case ActorState::Absorption:
+		ModeInputTick(_DeltaTime);
 		break;
 	default:
 		break;
@@ -266,6 +273,14 @@ void AKirby_Player::Idle(float _DeltaTime)
 		)
 	{
 		StateChange(ActorState::Jump);
+		return;
+	}
+
+	if (
+		true == EngineInput::IsPress('X')
+		)
+	{
+		StateChange(ActorState::Absorption);
 		return;
 	}
 
@@ -376,6 +391,9 @@ void AKirby_Player::Run(float _DeltaTime)
 
 void AKirby_Player::Absorption(float _DeltaTime)
 {
+	
+	StateChange(ActorState::Absorption);
+	return;
 }
 
 void AKirby_Player::IdleStart()
@@ -402,14 +420,21 @@ void AKirby_Player::RunStart()
 	DirCheck();
 }
 
+void AKirby_Player::AbsorptionStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
+	DirCheck();
+}
 
-void AKirby_Player::ModeInputTick() // 커비 속성 별 할 것들
+//------------------------------------------------------------------------------
+
+void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 {
 	switch (KirbyMode)
 	{
 	case AMode::Base:
 		//SetNamechange("Base_");
-		BaseKirby();
+		BaseKirby(_DeltaTime);
 		break;
 	case AMode::Fire:
 		FireKirby();
@@ -425,9 +450,26 @@ void AKirby_Player::ModeInputTick() // 커비 속성 별 할 것들
 	}
 }
 
-void AKirby_Player::BaseKirby()
+void AKirby_Player::BaseKirby(float _DeltaTime)
 {
+	DirCheck();
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
 
+	if (true == EngineInput::IsFree('X'))
+	{
+		StateChange(ActorState::Idle);
+		return;
+	}
+
+
+	if (EngineInput::IsPress('X'))
+	{
+		Absorption(_DeltaTime);
+	}
+
+	
+	
 }
 
 void AKirby_Player::FireKirby()
