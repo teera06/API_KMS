@@ -81,6 +81,7 @@ private:
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	
 	// 행동별 속도 정리
+	float checkSpeed = 0.0f;
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
 	float camSpeed = 500.0f; // 카메라 속도

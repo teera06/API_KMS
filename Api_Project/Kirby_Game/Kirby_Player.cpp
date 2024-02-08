@@ -151,10 +151,12 @@ void AKirby_Player::StateChange(ActorState _State)
 		case ActorState::Walk:
 			if (false == EatState)
 			{
+				checkSpeed = WalkSpeed;
 				WalkStart();;
 			}
 			else
 			{
+				checkSpeed = HeavySpeed;
 				HeavyMoveStart();
 			}
 			break;
@@ -162,7 +164,10 @@ void AKirby_Player::StateChange(ActorState _State)
 			JumpStart();
 			break;
 		case ActorState::Run:
-			RunStart();
+			if (false == EatState)
+			{
+				RunStart();
+			}
 			break;
 		case ActorState::Absorption:
 			AbsorptionStart();
@@ -368,12 +373,12 @@ void AKirby_Player::Walk(float _DeltaTime)
 	FVector MovePos = FVector::Zero;
 	if (EngineInput::IsPress(VK_LEFT))
 	{
-		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
+		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 	
 	if(EngineInput::IsPress(VK_RIGHT))
 	{
-		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
+		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
 	if (EngineInput::IsPress(VK_SHIFT))
