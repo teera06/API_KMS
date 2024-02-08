@@ -16,7 +16,7 @@ public:
 	UPathObject& operator=(const UPathObject& _Other) = delete;
 	UPathObject& operator=(UPathObject&& _Other) noexcept = delete;
 
-	void SetPath(std::string_view _View) // 파일 경로 -> Set
+	void SetPath(std::string_view _View)
 	{
 		Path = _View;
 	}
@@ -26,7 +26,7 @@ public:
 		return Path;
 	}
 
-	UEnginePath GetEnginePath() // 파일 경로 Get
+	UEnginePath GetEnginePath()
 	{
 		return UEnginePath(std::filesystem::path(Path));
 	}

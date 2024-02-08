@@ -2,7 +2,7 @@
 // #include <chrono> 최신 시간 재는 헤더 std.
 #include <Windows.h>
 
-// 기능 : ex) 1초에 100번 움직인다. -> (0.01초)에 한번 실행 -> (DeltaTime)0.01초를 구해주는 기능
+// 설명 :
 class EngineTime
 {
 public:
@@ -24,12 +24,13 @@ public:
 
 	double GetDeltaTime()
 	{
-		return DeltaTime; 
+		return DeltaTime;
 	}
 
 protected:
 
 private:
+	__int64 Count64;
 	LARGE_INTEGER Count;
 	LARGE_INTEGER PrevTime;
 	LARGE_INTEGER CurTime;

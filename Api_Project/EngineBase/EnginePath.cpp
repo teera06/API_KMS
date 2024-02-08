@@ -31,7 +31,7 @@ std::string UEnginePath::GetExtension() const
 
 std::string UEnginePath::GetFileName() const
 {
-	std::filesystem::path Text = Path.filename(); // 파일 경로 이름
+	std::filesystem::path Text = Path.filename();
 	return Text.string();
 }
 

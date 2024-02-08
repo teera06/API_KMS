@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "EngineString.h"
 
 // 설명 :
 class UNameObject
@@ -15,9 +16,9 @@ public:
 	UNameObject& operator=(const UNameObject& _Other) = delete;
 	UNameObject& operator=(UNameObject&& _Other) noexcept = delete;
 
-	void SetName(std::string_view _View) // 파일명 -> Set
+	void SetName(std::string_view _View)
 	{
-		Name = _View;
+		Name = UEngineString::ToUpper(_View);
 	}
 
 	std::string GetName()
