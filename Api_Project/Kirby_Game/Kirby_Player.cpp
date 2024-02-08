@@ -94,11 +94,11 @@ void AKirby_Player::AniCreate()
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 {
 	EActorDir Dir = DirState;
-	if (EngineInput::IsPress(VK_LEFT))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		Dir = EActorDir::Left;
 	}
-	if (EngineInput::IsPress(VK_RIGHT))
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		Dir = EActorDir::Right;
 	}
@@ -229,30 +229,30 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 
 void AKirby_Player::CameraFreeMove(float _DeltaTime)
 {
-	if (EngineInput::IsPress(VK_LEFT))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
 	}
 
-	if (EngineInput::IsPress(VK_RIGHT))
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		GetWorld()->AddCameraPos(FVector::Right * _DeltaTime * camSpeed);
 	}
 
-	if (EngineInput::IsPress(VK_UP))
+	if (UEngineInput::IsPress(VK_UP))
 	{
 		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Up * _DeltaTime * 500.0f);
 	}
 
-	if (EngineInput::IsPress(VK_DOWN))
+	if (UEngineInput::IsPress(VK_DOWN))
 	{
 		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Down * _DeltaTime * 500.0f);
 	}
 
-	if (EngineInput::IsDown('2'))
+	if (UEngineInput::IsDown('2'))
 	{
 		StateChange(ActorState::Idle);
 	}
@@ -262,22 +262,22 @@ void AKirby_Player::FreeMove(float _DeltaTime)
 {
 	FVector MovePos;
 
-	if (EngineInput::IsPress(VK_LEFT))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
 	}
 
-	if (EngineInput::IsPress(VK_RIGHT))
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
 	}
 
-	if (EngineInput::IsPress(VK_UP))
+	if (UEngineInput::IsPress(VK_UP))
 	{
 		MovePos += FVector::Up * _DeltaTime * WalkSpeed;
 	}
 
-	if (EngineInput::IsPress(VK_DOWN))
+	if (UEngineInput::IsPress(VK_DOWN))
 	{
 		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
 	}
@@ -285,7 +285,7 @@ void AKirby_Player::FreeMove(float _DeltaTime)
 	AddActorLocation(MovePos);
 	GetWorld()->AddCameraPos(MovePos);
 
-	if (EngineInput::IsDown('1'))
+	if (UEngineInput::IsDown('1'))
 	{
 		StateChange(ActorState::Idle);
 	}
@@ -296,13 +296,13 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
-	if (true == EngineInput::IsDown('1'))
+	if (true == UEngineInput::IsDown('1'))
 	{
 		StateChange(ActorState::FreeMove);
 		return;
 	}
 
-	if (true == EngineInput::IsDown('2'))
+	if (true == UEngineInput::IsDown('2'))
 	{
 		StateChange(ActorState::CameraFreeMove);
 		return;
@@ -310,8 +310,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 
 	if (
-		true == EngineInput::IsPress(VK_LEFT) ||
-		true == EngineInput::IsPress(VK_RIGHT)
+		true == UEngineInput::IsPress(VK_LEFT) ||
+		true == UEngineInput::IsPress(VK_RIGHT)
 		)
 	{
 		StateChange(ActorState::Walk);
@@ -319,7 +319,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == EngineInput::IsDown('S')
+		true == UEngineInput::IsDown('S')
 		)
 	{
 		StateChange(ActorState::Jump);
@@ -327,7 +327,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == EngineInput::IsPress(VK_DOWN)
+		true == UEngineInput::IsPress(VK_DOWN)
 		)
 	{
 		StateChange(ActorState::HeadDown);
@@ -336,7 +336,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 
 	if (
-		true == EngineInput::IsDown('X') && false == EatState
+		true == UEngineInput::IsDown('X') && false == EatState
 		)
 	{
 		StateChange(ActorState::Absorption);
@@ -344,7 +344,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == EngineInput::IsDown('A') && true==EatState
+		true == UEngineInput::IsDown('A') && true==EatState
 		)
 	{
 		StateChange(ActorState::All_Attack);
@@ -368,7 +368,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
 
-	if (true == EngineInput::IsFree(VK_DOWN))
+	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
 		StateChange(ActorState::Idle);
 		return;
@@ -381,24 +381,24 @@ void AKirby_Player::Walk(float _DeltaTime)
 	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
 
-	if (true == EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
+	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		StateChange(ActorState::Idle);
 		return;
 	}
 
 	FVector MovePos = FVector::Zero;
-	if (EngineInput::IsPress(VK_LEFT))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 	
-	if(EngineInput::IsPress(VK_RIGHT))
+	if(UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
-	if (EngineInput::IsPress(VK_SHIFT))
+	if (UEngineInput::IsPress(VK_SHIFT))
 	{
 		StateChange(ActorState::Run);
 		return;
@@ -433,24 +433,24 @@ void AKirby_Player::Run(float _DeltaTime)
 	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
 
-	if (EngineInput::IsFree(VK_SHIFT))
+	if (UEngineInput::IsFree(VK_SHIFT))
 	{
 		StateChange(ActorState::Walk);
 		return;
 	}
-	else if (EngineInput::IsFree(VK_SHIFT) && EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
+	else if (UEngineInput::IsFree(VK_SHIFT) && UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		StateChange(ActorState::Idle);
 		return;
 	}
 
 	FVector MovePos = FVector::Zero;
-	if (EngineInput::IsPress(VK_LEFT) && EngineInput::IsPress(VK_SHIFT))
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SHIFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * RunSpeed;
 	}
 
-	if (EngineInput::IsPress(VK_RIGHT) && EngineInput::IsPress(VK_SHIFT))
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SHIFT))
 	{
 		MovePos += FVector::Right * _DeltaTime * RunSpeed;
 	}
@@ -486,13 +486,13 @@ void AKirby_Player::Absorption(float _DeltaTime)
 
 void AKirby_Player::All_Attack(float _DeltaTime)
 {
-	if (true == EngineInput::IsFree('A'))
+	if (true == UEngineInput::IsFree('A'))
 	{
 		StateChange(ActorState::Idle);
 		return;
 	}
 	
-	if (true == EngineInput::IsPress('A'))
+	if (true == UEngineInput::IsPress('A'))
 	{
 		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
 		NewFire->SetActorLocation(this->GetActorLocation());
@@ -589,13 +589,13 @@ void AKirby_Player::BaseKirby(float _DeltaTime)
 	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
 
-	if (true == EngineInput::IsFree('X'))
+	if (true == UEngineInput::IsFree('X'))
 	{
 		StateChange(ActorState::Idle);
 		return;
 	}
 
-	if (EngineInput::IsPress('X') && false==EatState)
+	if (UEngineInput::IsPress('X') && false==EatState)
 	{
 		Absorption(_DeltaTime);
 		EatState = true;
