@@ -31,6 +31,27 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 
+	AniCreate();
+
+	GetWorld()->SetCameraPos({ 210,350 });
+
+	KirbyRenderer->ChangeAnimation(std::string(GetAniNamechange()) + "Idle_Right");
+	StateChange(ActorState::Idle);
+
+	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
+	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
+}
+
+// 커비 움직임 업데이트
+void AKirby_Player::Tick(float _DeltaTime)
+{
+	AActor::Tick(_DeltaTime);
+	//ModeInputTick(); // 커비 모드별 입력키
+	StateUpdate(_DeltaTime);
+}
+
+void AKirby_Player::AniCreate()
+{
 	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
 	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
@@ -53,24 +74,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 
-	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.08f, true);
-
-	GetWorld()->SetCameraPos({ 210,350 });
-
-	KirbyRenderer->ChangeAnimation(std::string(GetAniNamechange()) + "Idle_Right");
-	StateChange(ActorState::Idle);
-
-	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
-	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
-}
-
-// 커비 움직임 업데이트
-void AKirby_Player::Tick(float _DeltaTime)
-{
-	AActor::Tick(_DeltaTime);
-	//ModeInputTick(); // 커비 모드별 입력키
-	StateUpdate(_DeltaTime);
+	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 }
 
 //----------------------------------------------------------------------------------------------------
