@@ -20,14 +20,14 @@ public:
 	void BaseKirby(float _DeltaTime); // 기본 커비 
 	void FireKirby(); // 불 커비
 
-	std::string_view GetAniNamechange() // Get 이름체인지
+	std::string_view GetModeName() // Get 이름체인지
 	{
-		return AniNamechange;
+		return ModeName;
 	}
 
-	void SetNamechange(std::string_view _AniNamechange) // Set 이름 체인지
+	void SetModeName(std::string_view _ModeName) // Set 이름 체인지
 	{
-		AniNamechange = _AniNamechange;
+		ModeName = _ModeName;
 	}
 
 	inline void SetMode(AMode _KirbyMode) // 커비 모드 체인지 할때 사용
@@ -43,7 +43,7 @@ protected:
 	// 몬스터, 커비 등 같이 사용하는 공통점이 생길수 있으니 우선 추후 생각
 	//--------------------------------------------------
 	// 상태 주요 업데이트
-	void StateChange(ActorState _State);
+	void StateAniChange(ActorState _State);
 	void StateUpdate(float _DeltaTime);
 
 	// 상태 함수들
@@ -69,7 +69,7 @@ protected:
 	void RunStart();
 	void AbsorptionStart();
 	void HeadDownStart();
-	void AttackStart();
+	void AllAttackStart();
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck();
@@ -88,8 +88,9 @@ private:
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
 	float camSpeed = 500.0f; // 카메라 속도
-	float HeavySpeed = 80.0f; // EatState일때 스피드
-	
+	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
+	float HeavyRunSpeed = 100.0f;
+
 	bool EatState = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
@@ -97,6 +98,6 @@ private:
 
 	FVector GravityCheck = FVector::Zero; // 중력값 받기
 	AMode KirbyMode = AMode::Base; // Kirby 모드
-	std::string AniNamechange = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
+	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 };
 

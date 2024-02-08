@@ -32,12 +32,11 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 
-	AniCreate();
+	AniCreate(); // 애니메이션 종합 관리
 
-	GetWorld()->SetCameraPos({ 210,350 });
+	GetWorld()->SetCameraPos({ 210,350 }); // 카메라 위치
 
-	KirbyRenderer->ChangeAnimation(std::string(GetAniNamechange()) + "Idle_Right");
-	StateChange(ActorState::Idle);
+	StateAniChange(ActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
@@ -53,11 +52,13 @@ void AKirby_Player::Tick(float _DeltaTime)
 
 void AKirby_Player::AniCreate()
 {
-	// 기본 서있는 애니메이션 (오른쪽, 왼쪽)
+	// (오른쪽, 왼쪽)
+	// (1) Base
+	// 기본 서있는 모션
 	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
 
-	// 기본 걷는 모션 (오른쪽, 왼쪽)
+	// 기본 걷는 모션
 	KirbyRenderer->CreateAnimation("Base_Walk_Right", "kirby_Right.png", 10, 19, 0.1f, true); // 걷기
 	KirbyRenderer->CreateAnimation("Base_Walk_Left", "kirby_Left.png", 10, 19, 0.1f, true); // 걷기
 
@@ -65,28 +66,38 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
 
+	// 기본 점프 모션
 	KirbyRenderer->CreateAnimation("Base_jump_Right", "kirby_Right.png", 38, 52, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_jump_Left", "kirby_Left.png", 38, 52, 0.1f, true);
 
-	KirbyRenderer->CreateAnimation("Base_jump2_Right", "kirby_Right.png", 53, 64, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_jump2_Left", "kirby_Left.png", 53, 64, 0.1f, true);
+	// 기본 나는 모션
+	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 53, 64, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 53, 64, 0.1f, true);
 
-	// 기본 베이스 공격
-	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
-
-	// 숙이기 
+	// 기본 숙이기 
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
+	// ---기본에서만 가능한 모션들----
+	// Heavy 모드 Idle
 	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Right", "kirby2_Right.png", 19, 20, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Left", "kirby2_Left.png", 19, 20, 0.5f, true);
 
+	// Heavy모드 Move
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
+	
+	// 기본 흡수 
+	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
+	
+	// 모든 커비모드에서 사용 가능한 애니메이션
+	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.1f, true);
+	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.1f, true);
 
-	KirbyRenderer->CreateAnimation("Base_AllAttack_Right", "kirby2_Right.png", 42, 53, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_AllAttack_Left", "kirby2_Left.png", 42, 53, 0.1f, true);
+	
+
+	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -129,12 +140,16 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 	CurAnimationName = _Name;
 
-	return std::string(GetAniNamechange()) + std::string(_Name) + DirName;
+	if (std::string(_Name) == "AllAttack") // AllAttack은 모든 커비모드에서 사용 가능하기에
+	{// 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
+		return std::string(_Name) + DirName;
+	}
+	return std::string(GetModeName()) + std::string(_Name) + DirName;
 }
 
 //-------------------------------------------------------------------------------
 
-void AKirby_Player::StateChange(ActorState _State)
+void AKirby_Player::StateAniChange(ActorState _State)
 {
 	// 이전상태와 지금 상태가 같지 않아
 	// 이전에는 move 지금은 Idle
@@ -143,33 +158,39 @@ void AKirby_Player::StateChange(ActorState _State)
 		switch (_State)
 		{
 		case ActorState::Idle:
-			if (false == EatState && KirbyMode== AMode::Base)
+			if (true == EatState && KirbyMode== AMode::Base) // Eat상태 (먹은상태) 는 커비가 기본 모드일때만 체크후 변경한다.
+			{
+				HeavyIdleStart(); // Heavy는 기본 형태의 커비에서만 가능한 애니메이션
+			}
+			else
 			{
 				IdleStart();
 			}
-			else
-			{
-				HeavyIdleStart();
-			}
 			break;
 		case ActorState::Walk:
-			if (false == EatState && KirbyMode == AMode::Base)
+			if (true == EatState && KirbyMode == AMode::Base) // 동일
+			{
+				checkSpeed = HeavyWalkSpeed;
+				HeavyMoveStart();
+			}
+			else
 			{
 				checkSpeed = WalkSpeed;
 				WalkStart();;
-			}
-			else
-			{
-				checkSpeed = HeavySpeed;
-				HeavyMoveStart();
 			}
 			break;
 		case ActorState::Jump:
 			JumpStart();
 			break;
 		case ActorState::Run:
-			if (false == EatState)
+			if (true == EatState && KirbyMode == AMode::Base) // 동일
 			{
+				checkSpeed = HeavyRunSpeed;
+				HeavyMoveStart();
+			}
+			else
+			{
+				checkSpeed = RunSpeed;
 				RunStart();
 			}
 			break;
@@ -180,7 +201,7 @@ void AKirby_Player::StateChange(ActorState _State)
 			HeadDownStart();
 			break;
 		case ActorState::All_Attack:
-			AttackStart();
+			AllAttackStart();
 			break;
 		default:
 			break;
@@ -192,33 +213,33 @@ void AKirby_Player::StateChange(ActorState _State)
 
 void AKirby_Player::StateUpdate(float _DeltaTime)
 {
-	switch (State)
+	switch (State) // 현재 상태별 진행해야하는 형태
 	{
-	case ActorState::CameraFreeMove:
+	case ActorState::CameraFreeMove: // 카메라 움직임 -> 테스트용
 		CameraFreeMove(_DeltaTime);
 		break;
-	case ActorState::FreeMove:
+	case ActorState::FreeMove: // 카메라, 캐릭터 자유롭게 이동 -> 테스트용
 		FreeMove(_DeltaTime);
 		break;
-	case ActorState::Idle:
+	case ActorState::Idle: // 서있기
 		Idle(_DeltaTime);
 		break;
-	case ActorState::Walk:
+	case ActorState::Walk: // 걷기
 		Walk(_DeltaTime);
 		break;
-	case ActorState::Jump:
+	case ActorState::Jump: // 점프
 		Jump(_DeltaTime);
 		break;
-	case ActorState::Run:
+	case ActorState::Run: // 달리기
 		Run(_DeltaTime);
 		break;
-	case ActorState::Absorption:
+	case ActorState::Absorption: // 흡수
 		ModeInputTick(_DeltaTime);
 		break;
-	case ActorState::HeadDown:
+	case ActorState::HeadDown: // 숙이기
 		HeadDown(_DeltaTime);
 		break;
-	case ActorState::All_Attack:
+	case ActorState::All_Attack: // 흡수 후 가능 -> 별 공격
 		All_Attack(_DeltaTime);
 		break;
 	default:
@@ -254,7 +275,7 @@ void AKirby_Player::CameraFreeMove(float _DeltaTime)
 
 	if (UEngineInput::IsDown('2'))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 	}
 }
 
@@ -287,7 +308,7 @@ void AKirby_Player::FreeMove(float _DeltaTime)
 
 	if (UEngineInput::IsDown('1'))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 	}
 }
 
@@ -298,13 +319,13 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	if (true == UEngineInput::IsDown('1'))
 	{
-		StateChange(ActorState::FreeMove);
+		StateAniChange(ActorState::FreeMove);
 		return;
 	}
 
 	if (true == UEngineInput::IsDown('2'))
 	{
-		StateChange(ActorState::CameraFreeMove);
+		StateAniChange(ActorState::CameraFreeMove);
 		return;
 	}
 
@@ -314,7 +335,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress(VK_RIGHT)
 		)
 	{
-		StateChange(ActorState::Walk);
+		StateAniChange(ActorState::Walk);
 		return;
 	}
 
@@ -322,7 +343,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('S')
 		)
 	{
-		StateChange(ActorState::Jump);
+		StateAniChange(ActorState::Jump);
 		return;
 	}
 
@@ -330,7 +351,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress(VK_DOWN)
 		)
 	{
-		StateChange(ActorState::HeadDown);
+		StateAniChange(ActorState::HeadDown);
 		return;
 	}
 
@@ -339,7 +360,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && false == EatState
 		)
 	{
-		StateChange(ActorState::Absorption);
+		StateAniChange(ActorState::Absorption);
 		return;
 	}
 
@@ -347,7 +368,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('A') && true==EatState
 		)
 	{
-		StateChange(ActorState::All_Attack);
+		StateAniChange(ActorState::All_Attack);
 		return;
 	}
 
@@ -370,7 +391,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 		return;
 	}
 }
@@ -383,7 +404,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 		return;
 	}
 
@@ -400,7 +421,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_SHIFT))
 	{
-		StateChange(ActorState::Run);
+		StateAniChange(ActorState::Run);
 		return;
 	}
 
@@ -435,24 +456,24 @@ void AKirby_Player::Run(float _DeltaTime)
 
 	if (UEngineInput::IsFree(VK_SHIFT))
 	{
-		StateChange(ActorState::Walk);
+		StateAniChange(ActorState::Walk);
 		return;
 	}
 	else if (UEngineInput::IsFree(VK_SHIFT) && UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 		return;
 	}
 
 	FVector MovePos = FVector::Zero;
 	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SHIFT))
 	{
-		MovePos += FVector::Left * _DeltaTime * RunSpeed;
+		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SHIFT))
 	{
-		MovePos += FVector::Right * _DeltaTime * RunSpeed;
+		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
 	FVector CheckPos = GetActorLocation();
@@ -480,7 +501,7 @@ void AKirby_Player::Run(float _DeltaTime)
 void AKirby_Player::Absorption(float _DeltaTime)
 {
 	
-	StateChange(ActorState::Absorption);
+	StateAniChange(ActorState::Absorption);
 	return;
 }
 
@@ -488,7 +509,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 {
 	if (true == UEngineInput::IsFree('A'))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 		return;
 	}
 	
@@ -498,65 +519,65 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 		NewFire->SetActorLocation(this->GetActorLocation());
 		NewFire->SetDir(FVector::Right);
 		EatState = false;
-		StateChange(ActorState::All_Attack);
+		StateAniChange(ActorState::All_Attack);
 	}
 }
 
 void AKirby_Player::IdleStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Idle"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Idle"));
 }
 
 void AKirby_Player::HeavyIdleStart()
 {
-
-	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyIdle"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyIdle"));
 }
 
 void AKirby_Player::WalkStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
 }
 
 void AKirby_Player::HeavyMoveStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyMove"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyMove"));
+	
 }
 
 void AKirby_Player::JumpStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
 }
 
 void AKirby_Player::RunStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Run"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Run"));
+	
 }
 
 void AKirby_Player::AbsorptionStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
+	
 }
-
-
 
 void AKirby_Player::HeadDownStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("HeadDown"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeadDown"));
 }
 
-void AKirby_Player::AttackStart()
+void AKirby_Player::AllAttackStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("AllAttack"));
 	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("AllAttack"));
 }
 
 //------------------------------------------------------------------------------
@@ -591,7 +612,7 @@ void AKirby_Player::BaseKirby(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree('X'))
 	{
-		StateChange(ActorState::Idle);
+		StateAniChange(ActorState::Idle);
 		return;
 	}
 
