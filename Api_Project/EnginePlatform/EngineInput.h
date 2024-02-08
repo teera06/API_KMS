@@ -6,10 +6,10 @@
 #include <EngineBase\EngineDebug.h>
 
 // AllStateClass
-// 기능 : 입력키의 Map을 통한 자료구조 정리 및 입력키의 상태 관리
+// 설명 :
 class EngineInput
 {
-	friend class InputInitCreator; //InputInitCreator클래스에게 private:인것도 제공
+	friend class InputInitCreator;
 
 private:
 	class /*EngineInput::*/EngineKey
@@ -17,17 +17,16 @@ private:
 		friend EngineInput;
 
 	public:
-		// 입력 상태
 		bool Down = false; // 누른 순간
 		bool Press = false; // 계속 누르면
 		bool Up = false; // 떼어진 순간
-		bool Free = true; // 눌리지 않으면
+		bool Free = true; // 누리지 않으면
 
-		float PressTime = 0.0f; // 미정
+		float PressTime = 0.0f;
 
-		int Key = -1; // VK_LBUTTON // 기본 키값
+		int Key = -1; // VK_LBUTTON
 
-		void KeyCheck(); // 현재 키 입력 상태에 따른 위의 입력 상태 변화
+		void KeyCheck();
 
 		EngineKey()
 		{
@@ -35,7 +34,7 @@ private:
 		}
 
 		EngineKey(int _Key)
-			: Key(_Key) // 생성자에서 키값을 받아옴
+			: Key(_Key)
 		{
 
 		}
@@ -52,7 +51,7 @@ public:
 	EngineInput& operator=(const EngineInput& _Other) = delete;
 	EngineInput& operator=(EngineInput&& _Other) noexcept = delete;
 
-	static bool IsDown(int _Key) // 키값을 통해
+	static bool IsDown(int _Key)
 	{
 		if (false == AllKeys.contains(_Key))
 		{
@@ -92,11 +91,33 @@ public:
 		return AllKeys[_Key].Free;
 	}
 
+	static bool IsAnykeyDown()
+	{
+		return AnykeyDown;
+	}
+	static bool IsAnykeyPress()
+	{
+		return AnykeyPress;
+	}
+	static bool IsAnykeyUp()
+	{
+		return AnykeyUp;
+	}
+	static bool IsAnykeyFree()
+	{
+		return AnykeyFree;
+	}
+
 	static void KeyCheckTick(float _DeltaTime);
 
 protected:
 	//              'A'  상태가 어때?
-	static std::map<int, EngineKey> AllKeys; // Key의 목록을 map으로 관리
+	static std::map<int, EngineKey> AllKeys;
+
+	static bool AnykeyDown;
+	static bool AnykeyPress;
+	static bool AnykeyUp;
+	static bool AnykeyFree;
 
 	int Value;
 

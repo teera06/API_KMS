@@ -38,15 +38,15 @@ UEngineWindow::UEngineWindow()
 {
 }
 
-UEngineWindow::~UEngineWindow() // 소멸자
+UEngineWindow::~UEngineWindow()
 {
-	if (nullptr != BackBufferImage) // 백버퍼이미지 delete -> 여기서 이미지를 그리고 
+	if (nullptr != BackBufferImage)
 	{
 		delete BackBufferImage;
 		BackBufferImage = nullptr;
 	}
 
-	if (nullptr != WindowImage) // 윈도우 이미지 delete -> 그 이미지를 Windowiamge로 그리고 화면에 보여줌
+	if (nullptr != WindowImage)
 	{
 		delete WindowImage;
 		WindowImage = nullptr;

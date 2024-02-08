@@ -2,18 +2,23 @@
 
 std::map<int, EngineInput::EngineKey> EngineInput::AllKeys;
 
+bool EngineInput::AnykeyDown = false;
+bool EngineInput::AnykeyPress = false;
+bool EngineInput::AnykeyUp = false;
+bool EngineInput::AnykeyFree = true;
+
 void EngineInput::EngineKey::KeyCheck()
 {
 	// 이 키가 눌렸다는 거죠?
 	// if (0 != GetAsyncKeyState('A'))
 	// A키가 눌렸다면
-	if (0 != GetAsyncKeyState(Key)) // 키가 눌렸을때
+	if (0 != GetAsyncKeyState(Key))
 	{
-		if (true == Free) // 키가 처음 눌리거나 이전까지 눌리지 않았을 경우
+		if (true == Free)
 		{
 			// 이전까지 이 키는 눌리고 있지 않았다
-			Down = true; // 눌렀으므로 true
-			Press = true; // Down이 트루 이므로 트루
+			Down = true;
+			Press = true;
 			Up = false;
 			Free = false;
 		}
@@ -26,7 +31,7 @@ void EngineInput::EngineKey::KeyCheck()
 			Free = false;
 		}
 	}
-	else // 키가 눌리지 않았을 때
+	else
 	{
 		if (true == Press)
 		{
@@ -72,9 +77,9 @@ void EngineInput::InputInit()
 	AllKeys[VK_MENU] = EngineKey(VK_MENU);
 	AllKeys[VK_PAUSE] = EngineKey(VK_PAUSE);
 	AllKeys[VK_CAPITAL] = EngineKey(VK_CAPITAL);
-	AllKeys[VK_KANA] = EngineKey(VK_KANA);
-	AllKeys[VK_HANGEUL] = EngineKey(VK_HANGEUL);
-	AllKeys[VK_HANGUL] = EngineKey(VK_HANGUL);
+	// AllKeys[VK_KANA] = EngineKey(VK_KANA);
+	//AllKeys[VK_HANGEUL] = EngineKey(VK_HANGEUL);
+	//AllKeys[VK_HANGUL] = EngineKey(VK_HANGUL);
 	AllKeys[VK_IME_ON] = EngineKey(VK_IME_ON);
 	AllKeys[VK_JUNJA] = EngineKey(VK_JUNJA);
 	AllKeys[VK_FINAL] = EngineKey(VK_FINAL);
@@ -165,11 +170,58 @@ void EngineInput::InputInit()
 
 void EngineInput::KeyCheckTick(float _DeltaTime)
 {
+	bool KeyCheck = false;
+
 	for (std::pair<const int, EngineKey>& Key : AllKeys)
 	{
 		EngineKey& CurKey = Key.second;
-
 		CurKey.KeyCheck();
+
+		if (true == CurKey.Press)
+		{
+			KeyCheck = true;
+		}
+	}
+
+	// 어떤키든 눌렸다는 이야기
+	if (true == KeyCheck)
+	{
+		if (true == AnykeyFree)
+		{
+			// 이전까지 이 키는 눌리고 있지 않았다
+			AnykeyDown = true;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
+		}
+		else if (true == AnykeyDown)
+		{
+			// 이전까지 이 키는 눌리고 있었다.
+			AnykeyDown = false;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
+		}
+	}
+	else
+	{
+		if (true == AnykeyPress)
+		{
+			// 이전까지 이 키는 눌리고 있었다.
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = true;
+			AnykeyFree = false;
+		}
+		else if (true == AnykeyUp)
+		{
+			// 이전까지 이 키는 안눌리고 있었고 앞으로도 안눌릴거다.
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = false;
+			AnykeyFree = true;
+		}
+
 	}
 }
 
@@ -182,5 +234,4 @@ public:
 	}
 };
 
-// 전역변수 -> 데이터 영역에서 실행
-InputInitCreator CreateValue = InputInitCreator(); // 외부에서 모르게 실행
+InputInitCreator CreateValue = InputInitCreator();
