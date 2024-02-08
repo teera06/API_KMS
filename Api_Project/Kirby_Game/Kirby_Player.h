@@ -17,7 +17,6 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void BaseKirby(float _DeltaTime); // 기본 커비 
 	void FireKirby(); // 불 커비
 
 	std::string_view GetModeName() // Get 이름체인지

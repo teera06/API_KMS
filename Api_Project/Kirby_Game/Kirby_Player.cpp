@@ -413,8 +413,8 @@ void AKirby_Player::Walk(float _DeltaTime)
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
-	
-	if(UEngineInput::IsPress(VK_RIGHT))
+
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
@@ -459,7 +459,7 @@ void AKirby_Player::Run(float _DeltaTime)
 		StateAniChange(ActorState::Walk);
 		return;
 	}
-	else if (UEngineInput::IsFree(VK_SHIFT) && UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
+	else if (UEngineInput::IsPress(VK_SHIFT) && UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		StateAniChange(ActorState::Idle);
 		return;
@@ -501,8 +501,20 @@ void AKirby_Player::Run(float _DeltaTime)
 void AKirby_Player::Absorption(float _DeltaTime)
 {
 	
-	StateAniChange(ActorState::Absorption);
-	return;
+	DirCheck();
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
+
+	if (true == UEngineInput::IsFree('X'))
+	{
+		StateAniChange(ActorState::Idle);
+		return;
+	}
+
+	if (UEngineInput::IsPress('X') && false == EatState)
+	{
+		EatState = true;
+	}
 }
 
 void AKirby_Player::All_Attack(float _DeltaTime)
@@ -587,7 +599,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	{
 	case AMode::Base:
 		//SetNamechange("Base_");
-		BaseKirby(_DeltaTime);
+		Absorption(_DeltaTime);
 		break;
 	case AMode::Fire:
 		FireKirby();
@@ -601,26 +613,6 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	default:
 		break;
 	}
-}
-
-void AKirby_Player::BaseKirby(float _DeltaTime)
-{
-	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
-
-	if (true == UEngineInput::IsFree('X'))
-	{
-		StateAniChange(ActorState::Idle);
-		return;
-	}
-
-	if (UEngineInput::IsPress('X') && false==EatState)
-	{
-		Absorption(_DeltaTime);
-		EatState = true;
-	}
-	
 }
 
 void AKirby_Player::FireKirby()
