@@ -519,6 +519,10 @@ void AKirby_Player::Absorption(float _DeltaTime)
 
 void AKirby_Player::All_Attack(float _DeltaTime)
 {
+	DirCheck();
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
+
 	if (true == UEngineInput::IsFree('A'))
 	{
 		StateAniChange(ActorState::Idle);

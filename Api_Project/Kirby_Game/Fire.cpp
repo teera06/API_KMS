@@ -23,6 +23,7 @@ void AFire::BeginPlay()
 	UImageRenderer* FireRenderer = CreateImageRenderer(RenderOrder::Base);
 	FireRenderer->SetImage("Fire.png");
 	FireRenderer->SetTransform({ {0,0}, {100, 100} });
+	FireRenderer->SetActive(true, 0.3f);
 	//FireRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); -> บา 
 
 	
