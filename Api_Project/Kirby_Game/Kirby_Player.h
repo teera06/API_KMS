@@ -83,6 +83,8 @@ private:
 	float RunSpeed = 250.0f; // 뛰는 속도
 	float HeavySpeed = 80.0f;
 	
+	bool EatState = false;
+
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate();
 
