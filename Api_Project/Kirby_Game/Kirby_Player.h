@@ -2,8 +2,9 @@
 #include <EngineCore/Actor.h>
 #include "ModeEnum.h"
 #include "ActorCommon.h"
+#include <EngineCore/Level.h>
 // 내일 강의로 체크하기 -> 리펙토링
-class AKirby_Player : public AActor, public ActorCommon // ActorCommon(중력)
+class AKirby_Player : public AActor, public ULevel,public ActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer
@@ -55,6 +56,7 @@ protected:
 	// 커비만 가능 한 상태 
 	void Run(float _DeltaTime);
 	void Absorption(float _DeltaTime); // 흡수
+	void All_Attack(float _DeltaTime); // 공격
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -67,6 +69,7 @@ protected:
 	void RunStart();
 	void AbsorptionStart();
 	void HeadDownStart();
+	void AttackStart();
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck();

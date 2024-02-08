@@ -1,5 +1,6 @@
 #include "Kirby_Player.h"
 #include <EnginePlatform\EngineInput.h> // Level1
+#include <EngineCore/EngineCore.h>
 
 #include "Fire.h"
 #include "Base.h"
@@ -175,6 +176,9 @@ void AKirby_Player::StateChange(ActorState _State)
 		case ActorState::HeadDown:
 			HeadDownStart();
 			break;
+		case ActorState::All_Attack:
+			AttackStart();
+			break;
 		default:
 			break;
 		}
@@ -210,6 +214,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case ActorState::HeadDown:
 		HeadDown(_DeltaTime);
+		break;
+	case ActorState::All_Attack:
+		All_Attack(_DeltaTime);
 		break;
 	default:
 		break;
@@ -326,13 +333,20 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 
 	if (
-		true == EngineInput::IsPress('X')
+		true == EngineInput::IsPress('X') && false == EatState
 		)
 	{
 		StateChange(ActorState::Absorption);
 		return;
 	}
 
+	if (
+		true == EngineInput::IsPress('A') && true==EatState
+		)
+	{
+		StateChange(ActorState::All_Attack);
+		return;
+	}
 
 
 	GravityCheck=GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
@@ -467,6 +481,23 @@ void AKirby_Player::Absorption(float _DeltaTime)
 	return;
 }
 
+void AKirby_Player::All_Attack(float _DeltaTime)
+{
+	if (true == EngineInput::IsFree('A'))
+	{
+		StateChange(ActorState::Idle);
+		return;
+	}
+	
+	if (true == EngineInput::IsPress('A'))
+	{
+		StateChange(ActorState::All_Attack);
+		AFire* NewFire = SpawnActor<AFire>();
+		NewFire->SetActorLocation(this->GetActorLocation());
+		EatState = false;
+	}
+}
+
 void AKirby_Player::IdleStart()
 {
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Idle"));
@@ -518,6 +549,12 @@ void AKirby_Player::HeadDownStart()
 	DirCheck();
 }
 
+void AKirby_Player::AttackStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeadDown"));
+	DirCheck();
+}
+
 //------------------------------------------------------------------------------
 
 void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
@@ -554,16 +591,11 @@ void AKirby_Player::BaseKirby(float _DeltaTime)
 		return;
 	}
 
-
-	if (EngineInput::IsPress('X'))
+	if (EngineInput::IsPress('X') && false==EatState)
 	{
 		Absorption(_DeltaTime);
 		EatState = true;
 	}
-
-	
-
-	
 	
 }
 

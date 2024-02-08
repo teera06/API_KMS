@@ -18,6 +18,7 @@ enum class ActorState
 	Run,
 	Jump,
 	Absorption,
+	All_Attack,
 	HeadDown,
 	CameraFreeMove,
 	FreeMove,
