@@ -84,6 +84,9 @@ void AKirby_Player::AniCreate()
 
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
+
+	KirbyRenderer->CreateAnimation("Base_AllAttack_Right", "kirby2_Right.png", 42, 45, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Base_AllAttack_Left", "kirby2_Left.png", 42, 45, 0.5f, true);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -552,7 +555,7 @@ void AKirby_Player::HeadDownStart()
 
 void AKirby_Player::AttackStart()
 {
-	KirbyRenderer->ChangeAnimation(GetAnimationName("HeadDown"));
+	KirbyRenderer->ChangeAnimation(GetAnimationName("AllAttack"));
 	DirCheck();
 }
 
