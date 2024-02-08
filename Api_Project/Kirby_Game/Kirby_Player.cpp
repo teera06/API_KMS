@@ -74,8 +74,15 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 
+	// ¼÷ÀÌ±â 
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
+
+	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Right", "kirby2_Right.png", 19, 20, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Left", "kirby2_Left.png", 19, 20, 0.5f, true);
+
+	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -132,10 +139,24 @@ void AKirby_Player::StateChange(ActorState _State)
 		switch (_State)
 		{
 		case ActorState::Idle:
-			IdleStart();
+			if (false == EatState)
+			{
+				IdleStart();
+			}
+			else
+			{
+				HeavyIdleStart();
+			}
 			break;
 		case ActorState::Walk:
-			WalkStart();
+			if (false == EatState)
+			{
+				WalkStart();;
+			}
+			else
+			{
+				HeavyMoveStart();
+			}
 			break;
 		case ActorState::Jump:
 			JumpStart();
@@ -148,8 +169,6 @@ void AKirby_Player::StateChange(ActorState _State)
 			break;
 		case ActorState::HeadDown:
 			HeadDownStart();
-			break;
-		case ActorState::HeavyMove://
 			break;
 		default:
 			break;
@@ -197,24 +216,24 @@ void AKirby_Player::CameraFreeMove(float _DeltaTime)
 {
 	if (EngineInput::IsPress(VK_LEFT))
 	{
-		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * 500.0f);
+		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
 	}
 
 	if (EngineInput::IsPress(VK_RIGHT))
 	{
-		GetWorld()->AddCameraPos(FVector::Right * _DeltaTime * 500.0f);
+		GetWorld()->AddCameraPos(FVector::Right * _DeltaTime * camSpeed);
 	}
 
 	if (EngineInput::IsPress(VK_UP))
 	{
-		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * 500.0f);
+		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Up * _DeltaTime * 500.0f);
 	}
 
 	if (EngineInput::IsPress(VK_DOWN))
 	{
-		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * 500.0f);
+		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * camSpeed);
 		// AddActorLocation(FVector::Down * _DeltaTime * 500.0f);
 	}
 
@@ -319,9 +338,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 {
 }
 
-void AKirby_Player::HeavyMove(float _DeltaTime)
-{
-}
+
 
 void AKirby_Player::HeadDown(float _DeltaTime)
 {
@@ -399,6 +416,11 @@ void AKirby_Player::Run(float _DeltaTime)
 		StateChange(ActorState::Walk);
 		return;
 	}
+	else if (EngineInput::IsFree(VK_SHIFT) && EngineInput::IsFree(VK_LEFT) && EngineInput::IsFree(VK_RIGHT))
+	{
+		StateChange(ActorState::Idle);
+		return;
+	}
 
 	FVector MovePos = FVector::Zero;
 	if (EngineInput::IsPress(VK_LEFT) && EngineInput::IsPress(VK_SHIFT))
@@ -446,9 +468,22 @@ void AKirby_Player::IdleStart()
 	DirCheck();
 }
 
+void AKirby_Player::HeavyIdleStart()
+{
+
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyIdle"));
+	DirCheck();
+}
+
 void AKirby_Player::WalkStart()
 {
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
+	DirCheck();
+}
+
+void AKirby_Player::HeavyMoveStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyMove"));
 	DirCheck();
 }
 
@@ -470,10 +505,7 @@ void AKirby_Player::AbsorptionStart()
 	DirCheck();
 }
 
-void AKirby_Player::HeavyMoveStart()
-{
-	
-}
+
 
 void AKirby_Player::HeadDownStart()
 {
@@ -521,7 +553,10 @@ void AKirby_Player::BaseKirby(float _DeltaTime)
 	if (EngineInput::IsPress('X'))
 	{
 		Absorption(_DeltaTime);
+		EatState = true;
 	}
+
+	
 
 	
 	

@@ -19,7 +19,6 @@ enum class ActorState
 	Jump,
 	Absorption,
 	HeadDown,
-	HeavyMove,
 	CameraFreeMove,
 	FreeMove,
 

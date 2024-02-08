@@ -51,7 +51,6 @@ protected:
 	void Idle(float _DeltaTime);
 	void Walk(float _DeltaTime);
 	void Jump(float _DeltaTime);
-	void HeavyMove(float _DeltaTime); // 먹었을 때 움직임
 	void HeadDown(float _DeltaTime);
 	// 커비만 가능 한 상태 
 	void Run(float _DeltaTime);
@@ -59,11 +58,14 @@ protected:
 
 	// 상태 시작 함수들
 	void IdleStart();
+	void HeavyIdleStart();
+
 	void WalkStart();
+	void HeavyMoveStart();
+
 	void JumpStart();
 	void RunStart();
 	void AbsorptionStart();
-	void HeavyMoveStart();
 	void HeadDownStart();
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
@@ -81,7 +83,8 @@ private:
 	// 행동별 속도 정리
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
-	float HeavySpeed = 80.0f;
+	float camSpeed = 500.0f; // 카메라 속도
+	float HeavySpeed = 80.0f; // EatState일때 스피드
 	
 	bool EatState = false;
 
