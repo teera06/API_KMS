@@ -88,12 +88,12 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
 	
 	// 기본 흡수 
-	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, false);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, false);
 	
 	// 모든 커비모드에서 사용 가능한 애니메이션
-	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.1f, true);
-	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.1f, true);
+	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.1f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.1f, false);
 
 	
 
@@ -565,7 +565,6 @@ void AKirby_Player::AbsorptionStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
-	
 }
 
 void AKirby_Player::HeadDownStart()
