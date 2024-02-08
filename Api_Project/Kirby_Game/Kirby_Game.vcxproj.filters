@@ -49,9 +49,6 @@
     <ClInclude Include="Monster_Base.h">
       <Filter>Stage1_Actor</Filter>
     </ClInclude>
-    <ClInclude Include="ModeEnum.h">
-      <Filter>Stage1_Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>Stage1_Actor</Filter>
     </ClInclude>
@@ -62,6 +59,7 @@
       <Filter>Stage1_Actor\Stage1_Map</Filter>
     </ClInclude>
     <ClInclude Include="ActorCommon.h" />
+    <ClInclude Include="ModeEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">

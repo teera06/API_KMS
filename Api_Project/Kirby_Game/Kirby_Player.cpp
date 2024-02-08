@@ -529,5 +529,5 @@ void AKirby_Player::BaseKirby(float _DeltaTime)
 
 void AKirby_Player::FireKirby()
 {
-
+	
 }
