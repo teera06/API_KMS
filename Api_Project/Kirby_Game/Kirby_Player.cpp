@@ -491,10 +491,11 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	
 	if (true == EngineInput::IsPress('A'))
 	{
-		StateChange(ActorState::All_Attack);
-		AFire* NewFire = SpawnActor<AFire>();
+		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
 		NewFire->SetActorLocation(this->GetActorLocation());
+		NewFire->SetDir(FVector::Right);
 		EatState = false;
+		StateChange(ActorState::All_Attack);
 	}
 }
 

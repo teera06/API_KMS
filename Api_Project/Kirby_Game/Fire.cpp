@@ -22,9 +22,9 @@ void AFire::BeginPlay()
 	AActor::BeginPlay();
 	UImageRenderer* FireRenderer = CreateImageRenderer(RenderOrder::Base);
 	FireRenderer->SetImage("Fire.png");
-	FireRenderer->SetTransform({ {0,0}, {1000, 1000} });
+	FireRenderer->SetTransform({ {0,0}, {100, 100} });
 	//FireRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); -> บา 
 
 	
-	Destroy(10.0f);
+	Destroy(1.0f);
 }
