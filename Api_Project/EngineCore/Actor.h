@@ -5,17 +5,16 @@
 #include "ImageRenderer.h"
 #include "Level.h"
 
-// 전방 선언
-class ULevel; // Level2
-class UActorComponent; // Level2
-class UImageRenderer; // Level2
+class ULevel;
+class UActorComponent;
+class UImageRenderer;
 
 // 설명 : A가 붙은 오브젝트는 화면에 위치가 존재해야한다.
 // Level->SpawnActor를 통해서 만들면
 // 레벨이 자연스럽게 자신의 관리하에 두고 언제나 Tick을 실행해준다.
 class AActor : public UNameObject, public UTickObject
 {
-	friend ULevel; // Level에게 본인 private까지 제공
+	friend ULevel;
 
 public:
 	// constrcuter destructer
@@ -28,35 +27,37 @@ public:
 	AActor& operator=(const AActor& _Other) = delete;
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
-	FVector GetActorLocation() // Get Actor 위치
+	FVector GetActorLocation()
 	{
 		return Transform.GetPosition();
 	}
 
-	void SetActorLocation(FVector _Value) // Set Actor 위치
+	void SetActorLocation(FVector _Value)
 	{
 		Transform.SetPosition(_Value);
 	}
 
-	void AddActorLocation(FVector _Value) // Add Actor 위치 -> 이동
+	void AddActorLocation(FVector _Value)
 	{
 		Transform.AddPosition(_Value);
 	}
 
-	FTransform GetTransform() // Get
+	FTransform GetTransform()
 	{
 		return Transform;
 	}
 
-	ULevel* GetWorld() // Get Level
+	ULevel* GetWorld()
 	{
 		return World;
 	}
 
-	UImageRenderer* CreateImageRenderer(int Order = 0); // 이미지 랜더 create 
+	UImageRenderer* CreateImageRenderer(int Order = 0);
 
 	void Destroy(float _DestroyTime /*= 0.0f*/) override;
 	void DestroyUpdate(float _DeltaTime) override;
+
+	void ActiveUpdate(float _DeltaTime) override;
 
 protected:
 	void Tick(float _DeltaTime) override;

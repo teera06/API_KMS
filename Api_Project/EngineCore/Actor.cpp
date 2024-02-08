@@ -24,13 +24,11 @@ AActor::~AActor()
 void AActor::Tick(float _DeltaTime)
 {
 	UTickObject::Tick(_DeltaTime);
-	DestroyUpdate(_DeltaTime);
 }
 
-// 
 UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)
 {
-	UImageRenderer* NewRenderer = new UImageRenderer(); // 동적 할당
+	UImageRenderer* NewRenderer = new UImageRenderer();
 	UActorComponent* ActorCom = NewRenderer;
 	ActorCom->SetOwner(this);
 	ActorCom->SetOrder(Order);
@@ -59,5 +57,16 @@ void AActor::DestroyUpdate(float _DeltaTime)
 	for (UImageRenderer* Renderer : Renderers)
 	{
 		Renderer->DestroyUpdate(_DeltaTime);
+	}
+}
+
+void AActor::ActiveUpdate(float _DeltaTime)
+{
+	// 부모의 함수를 호출하는게 기본이다.
+	UTickObject::ActiveUpdate(_DeltaTime);
+
+	for (UImageRenderer* Renderer : Renderers)
+	{
+		Renderer->ActiveUpdate(_DeltaTime);
 	}
 }
