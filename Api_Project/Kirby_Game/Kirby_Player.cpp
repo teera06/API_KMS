@@ -85,8 +85,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
 
-	KirbyRenderer->CreateAnimation("Base_AllAttack_Right", "kirby2_Right.png", 42, 45, 0.5f, true);
-	KirbyRenderer->CreateAnimation("Base_AllAttack_Left", "kirby2_Left.png", 42, 45, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Base_AllAttack_Right", "kirby2_Right.png", 42, 45, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_AllAttack_Left", "kirby2_Left.png", 42, 45, 0.1f, true);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ void AKirby_Player::StateChange(ActorState _State)
 		switch (_State)
 		{
 		case ActorState::Idle:
-			if (false == EatState)
+			if (false == EatState && KirbyMode== AMode::Base)
 			{
 				IdleStart();
 			}
@@ -153,7 +153,7 @@ void AKirby_Player::StateChange(ActorState _State)
 			}
 			break;
 		case ActorState::Walk:
-			if (false == EatState)
+			if (false == EatState && KirbyMode == AMode::Base)
 			{
 				checkSpeed = WalkSpeed;
 				WalkStart();;
@@ -336,7 +336,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 
 	if (
-		true == EngineInput::IsPress('X') && false == EatState
+		true == EngineInput::IsDown('X') && false == EatState
 		)
 	{
 		StateChange(ActorState::Absorption);
@@ -344,7 +344,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == EngineInput::IsPress('A') && true==EatState
+		true == EngineInput::IsDown('A') && true==EatState
 		)
 	{
 		StateChange(ActorState::All_Attack);
