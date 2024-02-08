@@ -334,7 +334,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 	default:
 		break;
 	}
-	CheckPos.Y -= 50;
+	CheckPos.Y -= 30;
 
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	if (Color != Color8Bit(255, 0, 0, 0))
