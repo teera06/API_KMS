@@ -53,6 +53,9 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 18, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 18, 0.08f, true);
 
+	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.08f, true);
+
 	GetWorld()->SetCameraPos({ 210,350 });
 
 	KirbyRenderer->ChangeAnimation(std::string(GetAniNamechange()) + "Idle_Right");
@@ -138,6 +141,11 @@ void AKirby_Player::StateChange(ActorState _State)
 		case ActorState::Absorption:
 			AbsorptionStart();
 			break;
+		case ActorState::HeadDown:
+			HeadDownStart();
+			break;
+		case ActorState::HeavyMove://
+			break;
 		default:
 			break;
 		}
@@ -170,6 +178,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case ActorState::Absorption:
 		ModeInputTick(_DeltaTime);
+		break;
+	case ActorState::HeadDown:
+		HeadDown(_DeltaTime);
 		break;
 	default:
 		break;
@@ -277,6 +288,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
+		true == EngineInput::IsPress(VK_DOWN)
+		)
+	{
+		StateChange(ActorState::HeadDown);
+		return;
+	}
+
+
+	if (
 		true == EngineInput::IsPress('X')
 		)
 	{
@@ -284,12 +304,31 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
+
+
 	GravityCheck=GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
 }
 
 void AKirby_Player::Jump(float _DeltaTime)
 {
+}
+
+void AKirby_Player::HeavyMove(float _DeltaTime)
+{
+}
+
+void AKirby_Player::HeadDown(float _DeltaTime)
+{
+	DirCheck();
+	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	AddActorLocation(GravityCheck);
+
+	if (true == EngineInput::IsFree(VK_DOWN))
+	{
+		StateChange(ActorState::Idle);
+		return;
+	}
 }
 
 void AKirby_Player::Walk(float _DeltaTime)
@@ -423,6 +462,17 @@ void AKirby_Player::RunStart()
 void AKirby_Player::AbsorptionStart()
 {
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
+	DirCheck();
+}
+
+void AKirby_Player::HeavyMoveStart()
+{
+	
+}
+
+void AKirby_Player::HeadDownStart()
+{
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeadDown"));
 	DirCheck();
 }
 
