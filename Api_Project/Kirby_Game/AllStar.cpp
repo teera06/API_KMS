@@ -19,8 +19,13 @@ void AAllStar::BeginPlay()
 {
 	AActor::BeginPlay();
 	AllStarRenderer = CreateImageRenderer(RenderOrder::Base);
-	AllStarRenderer->SetImage("Fire.png");
-	AllStarRenderer->SetTransform({ {0,0}, {100, 100} });
-	AllStarRenderer->SetActive(true, 0.3f);
-	//FireRenderer->CreateAnimation("Attack", "Player_Right.png", 26, 32, 0.1f, true); -> บา 
+	AllStarRenderer->SetImage("kirby2_Right.png");
+	AllStarRenderer->SetTransform({ {0,0}, {200, 200} });
+	AllStarRenderer->SetActive(true, 0.2f);
+	
+	AllStarRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 54, 57, 0.1f, true);
+	
+	AllStarRenderer->ChangeAnimation("AllAttack_Right");
+
+	Destroy(1.0f);
 }
