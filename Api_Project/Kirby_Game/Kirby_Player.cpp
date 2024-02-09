@@ -97,8 +97,6 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.1f, false);
 
 	
-
-	
 }
 
 //----------------------------------------------------------------------------------------------------

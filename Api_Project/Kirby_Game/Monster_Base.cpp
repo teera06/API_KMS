@@ -25,7 +25,6 @@ void AMonster_Base::BeginPlay()
 	MonsterRenderer = CreateImageRenderer(RenderOrder::Monster); // 이미지 랜더 생성
 	MonsterRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	MonsterRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
-
 }
 
 void AMonster_Base::Tick(float _DeltaTime)
