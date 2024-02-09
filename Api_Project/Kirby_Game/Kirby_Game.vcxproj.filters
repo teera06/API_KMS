@@ -11,24 +11,27 @@
       <Filter>ContentsLevel</Filter>
     </ClCompile>
     <ClCompile Include="Kirby_Player.cpp">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Fire.cpp">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Base.cpp">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Base.cpp">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClCompile>
     <ClCompile Include="TitleActor.cpp">
       <Filter>Title_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Stage1_MAP.cpp">
-      <Filter>Stage1_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage1_Map</Filter>
     </ClCompile>
     <ClCompile Include="ActorCommon.cpp" />
+    <ClCompile Include="AllStar.cpp">
+      <Filter>Stage_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -41,25 +44,28 @@
       <Filter>ContentsLevel</Filter>
     </ClInclude>
     <ClInclude Include="Kirby_Player.h">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Fire.h">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Base.h">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
-      <Filter>Stage1_Actor</Filter>
+      <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="TitleActor.h">
       <Filter>Title_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Stage1_MAP.h">
-      <Filter>Stage1_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage1_Map</Filter>
     </ClInclude>
     <ClInclude Include="ActorCommon.h" />
     <ClInclude Include="ModeEnum.h" />
+    <ClInclude Include="AllStar.h">
+      <Filter>Stage_Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">
@@ -68,13 +74,13 @@
     <Filter Include="GameCore">
       <UniqueIdentifier>{a4888ff9-9db4-4026-b17b-d375642d4577}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage1_Actor">
-      <UniqueIdentifier>{1c18503f-14a5-483b-b894-fd43af5a3acb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Title_Actor">
       <UniqueIdentifier>{4d0d2178-9d50-469f-bf41-2e74227f0c58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage1_Actor\Stage1_Map">
+    <Filter Include="Stage_Actor">
+      <UniqueIdentifier>{1c18503f-14a5-483b-b894-fd43af5a3acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Stage1_Map">
       <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

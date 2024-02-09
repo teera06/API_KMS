@@ -2,6 +2,7 @@
 #include <EnginePlatform\EngineInput.h> // Level1
 #include <EngineCore/EngineCore.h>
 
+#include "AllStar.h"
 #include "Fire.h"
 #include "Base.h"
 
@@ -531,9 +532,16 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	
 	if (true == UEngineInput::IsPress('A'))
 	{
-		AFire* NewFire = GetWorld()->SpawnActor<AFire>();
-		NewFire->SetActorLocation(this->GetActorLocation());
-		NewFire->SetDir(FVector::Right);
+		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
+		NewStar->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewStar->SetDir(FVector::Left);
+		}
+		else {
+			NewStar->SetDir(FVector::Right);
+		}
 		EatState = false;
 		StateAniChange(ActorState::All_Attack);
 	}
