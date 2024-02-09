@@ -18,6 +18,16 @@ public:
 
 	static UWindowImage* ColMapImage; // 우선 맵만 사용
 
+	void SetDir(const FVector& _Dir)
+	{
+		Dir = _Dir;
+	}
+
+	FVector GetDir()
+	{
+		return Dir;
+	}
+
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
@@ -44,6 +54,7 @@ protected:
 private:
 	float Gravity = 500.0f;
 	FVector GravityValue = FVector::Zero;
+	FVector Dir = FVector::Zero;
 
 	// 커비, 몬스터 공통 변수
 	int Hp = 0;

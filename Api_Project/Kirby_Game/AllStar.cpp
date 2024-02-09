@@ -12,7 +12,7 @@ AAllStar::~AAllStar()
 void AAllStar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	AddActorLocation(Dir * Speed * _DeltaTime);
+	AddActorLocation(GetDir() * Speed * _DeltaTime);
 }
 
 void AAllStar::BeginPlay()

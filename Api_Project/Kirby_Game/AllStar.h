@@ -1,7 +1,8 @@
 #pragma once
 #include <EngineCore\Actor.h>
+#include "ActorCommon.h"
 
-class AAllStar : public AActor
+class AAllStar : public AActor, public ActorCommon
 {
 public:
 	// constrcuter destructer
@@ -14,16 +15,11 @@ public:
 	AAllStar& operator=(const AAllStar& _Other) = delete; // 디폴트 대입 연산자
 	AAllStar& operator=(AAllStar&& _Other) noexcept = delete;
 
-	void SetDir(const FVector& _Dir)
-	{
-		Dir = _Dir;
-	}
-
+	
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
 private:
-	FVector Dir = FVector::Zero;
 	float Speed = 300.0f;
 	UImageRenderer* AllStarRenderer = nullptr;
 };
