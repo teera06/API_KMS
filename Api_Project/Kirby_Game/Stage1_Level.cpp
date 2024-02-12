@@ -44,7 +44,13 @@ void UStage1_Level::BeginPlay()
 	Map->SwitchDebug();
 
 	SpawnActor<AKirby_Player>()->SetActorLocation({500,800});
-	SpawnActor<AMonster_Base>()->SetActorLocation({ 800,800 });
+	//SpawnActor<AMonster_Base>()->SetActorLocation({ 800,800 });
+	
+	for (int i = 1; i <= 3; i++)
+	{
+		AMonster_Base* NewMonster = SpawnActor<AMonster_Base>();
+		NewMonster->SetActorLocation({ 800 + i * 100,800 });
+	}
 }
 
 void UStage1_Level::Tick(float _DeltaTime)
