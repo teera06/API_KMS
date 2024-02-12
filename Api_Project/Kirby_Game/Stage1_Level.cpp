@@ -23,7 +23,6 @@ void UStage1_Level::BeginPlay()
 
 	UEngineDirectory NewPath; // 현재 파일 경로
 	
-	// NewPath.Move("ContentsResources");
 	NewPath.MoveParent(); // 현재 파일 경로의 상위 폴더로 이동
 
 	NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
@@ -46,18 +45,9 @@ void UStage1_Level::BeginPlay()
 
 	SpawnActor<AKirby_Player>()->SetActorLocation({500,800});
 	SpawnActor<AMonster_Base>()->SetActorLocation({ 800,800 });
-
-	// SpawnActor<Player>();
-
-	// 할일은 
-	// 플레이어
-	// 배경
-	// 몬스터
-	// 등등등을 코드로 여기서 다 만들어야 한다.
 }
 
 void UStage1_Level::Tick(float _DeltaTime)
 {
-	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 	ULevel::Tick(_DeltaTime);
 }

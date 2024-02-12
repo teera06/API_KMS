@@ -19,8 +19,8 @@ void ATitleActor::BeginPlay()
 	TitleRenderer->SetImage("Log.bmp"); // 이미지 Set
 	TitleRenderer->SetTransColor({ 255,255,255,0 });
 	TitleRenderer->SetTransform({ {0,0}, windowScale }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
-	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	
+	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
 }

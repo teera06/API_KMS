@@ -1,6 +1,5 @@
 #pragma once
 #include <EngineCore\Level.h>
-#include <EngineCore/EngineCore.h>
 
 class UStage1_Level:public ULevel
 {
@@ -19,6 +18,5 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
-	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 };
 
