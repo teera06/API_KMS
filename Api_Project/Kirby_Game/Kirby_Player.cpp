@@ -534,10 +534,10 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	
 	if (true == UEngineInput::IsDown('A'))
 	{
+		EatState = false;
 
 		if (KirbyRenderer->IsCurAnimationEnd())
 		{
-			EatState = false;
 			
 			AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
 			NewStar->SetActorLocation(this->GetActorLocation());
