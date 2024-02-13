@@ -103,6 +103,7 @@ private:
 	void AniCreate();
 
 	FVector GravityCheck = FVector::Zero; // 중력값 받기
+	FVector Start = FVector::Zero;
 	AMode KirbyMode = AMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 

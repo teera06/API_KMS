@@ -35,8 +35,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	AniCreate(); // 애니메이션 종합 관리
 
 	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치
-
-
+	Start = GetWorld()->GetCameraPos();
 	StateAniChange(ActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -498,6 +497,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 
 	FVector MovePos = FVector::Zero;
+	FVector CarMovePos = FVector::Zero;
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
@@ -514,26 +514,36 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
+	CarMovePos = MovePos;
 	FVector CheckPos = GetActorLocation();
-	
+	FVector CarCheckPos = GetWorld()->GetCameraPos();
 	switch (DirState)
 	{
 	case EActorDir::Left:
 		CheckPos.X -= checkposvalue;
+		CarCheckPos.X -= 20;
 		break;
 	case EActorDir::Right:
 		CheckPos.X += checkposvalue;
+		CarCheckPos.X += 20;
 		break;
 	default:
 		break;
 	}
 	CheckPos.Y -= checkposvalue;
-
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	if (Color != Color8Bit(255, 0, 0, 0))
+	CarCheckPos.Y -= checkposvalue;
+	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	if (Color1 != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
+	}
+
+	if (Color2 != Color8Bit(0, 255, 0, 0))
+	{
+		
 		GetWorld()->AddCameraPos(MovePos);
+		
 	}
 }
 
