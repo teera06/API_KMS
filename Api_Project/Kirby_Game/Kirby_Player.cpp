@@ -70,8 +70,10 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 52, 0.05f, true);
 
 	// 기본 나는 모션
-	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 53, 64, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 53, 64, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_FlyReady_Right", "kirby_Right.png", 53, 57, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_FlyReady_Left", "kirby_Left.png", 53, 57, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 58, 65, 0.1f, true);
 
 	// 기본 숙이기 
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
@@ -179,7 +181,11 @@ void AKirby_Player::StateAniChange(ActorState _State)
 		case ActorState::Jump:
 			JumpStart();
 			break;
+		case ActorState::FlyRead:
+			FlyReadyStart();
+			break;
 		case ActorState::Fly:
+			FlyStart();
 			break;
 		case ActorState::Run:
 			if (true == EatState && KirbyMode == AMode::Base) // 동일
@@ -228,6 +234,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case ActorState::Jump: // 점프
 		Jump(_DeltaTime);
+		break;
+	case ActorState::Fly: // 날기
+		Fly(_DeltaTime);
 		break;
 	case ActorState::Run: // 달리기
 		Run(_DeltaTime);
@@ -399,8 +408,43 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	if (true == UEngineInput::IsPress('S'))
 	{
+		StateAniChange(ActorState::Fly);
 
 	}
+}
+
+void AKirby_Player::Fly(float _DeltaTime)
+{
+	DirCheck();
+	FVector MovePos;
+
+	if (UEngineInput::IsFree('S'))
+	{
+		StateAniChange(ActorState::Idle);
+	}
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
+	}
+
+	if (UEngineInput::IsPress(VK_UP))
+	{
+		MovePos += FVector::Up * _DeltaTime * WalkSpeed;
+	}
+
+	if (UEngineInput::IsPress(VK_DOWN))
+	{
+		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
+	}
+
+	AddActorLocation(MovePos);
+	//GetWorld()->AddCameraPos(MovePos);
 }
 
 
@@ -583,7 +627,19 @@ void AKirby_Player::HeavyMoveStart()
 void AKirby_Player::JumpStart()
 {
 	DirCheck();
-	KirbyRenderer->ChangeAnimation(GetAnimationName("jump"));
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Jump"));
+}
+
+void AKirby_Player::FlyReadyStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("FlyReady"));
+}
+
+void AKirby_Player::FlyStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Fly"));
 }
 
 void AKirby_Player::RunStart()

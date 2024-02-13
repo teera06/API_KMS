@@ -53,7 +53,9 @@ protected:
 	void Idle(float _DeltaTime);
 	void Walk(float _DeltaTime);
 	void Jump(float _DeltaTime);
+	void Fly(float _DeltaTime);
 	void HeadDown(float _DeltaTime);
+	
 	// 커비만 가능 한 상태 
 	void Run(float _DeltaTime);
 	void Absorption(float _DeltaTime); // 흡수
@@ -67,6 +69,8 @@ protected:
 	void HeavyMoveStart();
 
 	void JumpStart();
+	void FlyReadyStart();
+	void FlyStart();
 	void RunStart();
 	void AbsorptionStart();
 	void HeadDownStart();

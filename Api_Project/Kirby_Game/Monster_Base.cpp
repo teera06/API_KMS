@@ -24,14 +24,10 @@ void AMonster_Base::BeginPlay()
 
 	MonsterRenderer = CreateImageRenderer(RenderOrder::Monster); // 이미지 랜더 생성
 	MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
-	MonsterRenderer->SetTransform({ {0,0}, {310, 310} }); // 랜더의 위치 크기 
+	MonsterRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
 
 	AniCreate();
 
-	for (int i = 0; i < 10; i++)
-	{
-		MonsterRenderer->ChangeAnimation("Monster_RIght");
-	}
 	MonsterRenderer->ChangeAnimation("Monster_Left");
 }
 
@@ -44,10 +40,18 @@ void AMonster_Base::Tick(float _DeltaTime)
 	FVector MonsterPos = GetActorLocation();
 
 	FVector MonsterDir = PlayerPos - MonsterPos;
-	MonsterDir.Y = 0.0f;
 	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
 
-	AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
+	if (MonsterDirNormal.X >= -1.0f)
+	{
+		MonsterRenderer->ChangeAnimation("Monster_Right");
+		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
+	}
+	else {
+		MonsterRenderer->ChangeAnimation("Monster_Left");
+		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
+	}
+
 }
 
 void AMonster_Base::AniCreate()
