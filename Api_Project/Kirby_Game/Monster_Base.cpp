@@ -39,6 +39,15 @@ void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
+
+	FVector PlayerPos = Player->GetActorLocation();
+	FVector MonsterPos = GetActorLocation();
+
+	FVector MonsterDir = PlayerPos - MonsterPos;
+	MonsterDir.Y = 0.0f;
+	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
+
+	AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
 }
 
 void AMonster_Base::AniCreate()

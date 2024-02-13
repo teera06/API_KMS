@@ -19,6 +19,8 @@ public:
 
 	void FireKirby(); // 불 커비
 
+	static AKirby_Player* GetMainPlayer();
+
 	std::string_view GetModeName() // Get 이름체인지
 	{
 		return ModeName;

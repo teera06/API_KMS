@@ -8,6 +8,11 @@
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
+AKirby_Player* AKirby_Player::GetMainPlayer()
+{
+	return MainPlayer;
+}
+
 AKirby_Player::AKirby_Player()
 {
 }
@@ -634,3 +639,5 @@ void AKirby_Player::FireKirby()
 {
 	
 }
+
+

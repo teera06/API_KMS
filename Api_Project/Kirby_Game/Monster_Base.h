@@ -4,7 +4,7 @@
 #include "ActorCommon.h"
 #include "ModeEnum.h"
 
-class AKirby_Player;
+#include "Kirby_Player.h"
 
 class AMonster_Base : public AActor, public ActorCommon
 {
@@ -30,7 +30,7 @@ private:
 	float MoveSpeed = 150.0f;
 	AMode MonsterBase = AMode::Base;
 
-	AKirby_Player* Player = nullptr;
+	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
 	void AniCreate();
 };
