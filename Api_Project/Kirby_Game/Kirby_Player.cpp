@@ -61,8 +61,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
 
 	// 기본 점프 모션
-	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 52, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 52, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 52, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 52, 0.05f, true);
 
 	// 기본 나는 모션
 	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 53, 64, 0.1f, true);
@@ -385,7 +385,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck();
 
-	AddActorLocation(FVector::Up * _DeltaTime * 150);
+	AddActorLocation(FVector::Up * _DeltaTime * 250);
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
