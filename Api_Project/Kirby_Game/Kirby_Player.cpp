@@ -188,7 +188,7 @@ void AKirby_Player::StateAniChange(ActorState _State)
 				HeavyMoveStart();
 			}
 			else
-			{
+			{	
 				checkSpeed = RunSpeed;
 				RunStart();
 			}
@@ -429,15 +429,15 @@ void AKirby_Player::Walk(float _DeltaTime)
 	switch (DirState)
 	{
 	case EActorDir::Left:
-		CheckPos.X -= 30;
+		CheckPos.X -= checkposvalue;
 		break;
 	case EActorDir::Right:
-		CheckPos.X += 30;
+		CheckPos.X += checkposvalue;
 		break;
 	default:
 		break;
 	}
-	CheckPos.Y -= 30;
+	CheckPos.Y -= checkposvalue;
 
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	if (Color != Color8Bit(255, 0, 0, 0))
@@ -480,15 +480,15 @@ void AKirby_Player::Run(float _DeltaTime)
 	switch (DirState)
 	{
 	case EActorDir::Left:
-		CheckPos.X -= 30;
+		CheckPos.X -= checkposvalue;
 		break;
 	case EActorDir::Right:
-		CheckPos.X += 30;
+		CheckPos.X += checkposvalue;
 		break;
 	default:
 		break;
 	}
-	CheckPos.Y -= 30;
+	CheckPos.Y -= checkposvalue;
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	if (Color != Color8Bit(255, 0, 0, 0))
 	{
