@@ -448,9 +448,26 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
 	}
+	FVector CheckPos = GetActorLocation();
 
-	AddActorLocation(MovePos);
-	//GetWorld()->AddCameraPos(MovePos);
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -=10;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 10;
+		break;
+	default:
+		break;
+	}
+	CheckPos.Y -= 5;
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	if (Color != Color8Bit(255, 0, 0, 0))
+	{
+		AddActorLocation(MovePos);
+		GetWorld()->AddCameraPos(MovePos);
+	}
 }
 
 

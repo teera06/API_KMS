@@ -42,13 +42,13 @@ void AMonster_Base::Tick(float _DeltaTime)
 	FVector MonsterDir = PlayerPos - MonsterPos;
 	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
 
-	if (MonsterDirNormal.X >= -1.0f)
+	if (MonsterDirNormal.iX() == -1)
 	{
-		MonsterRenderer->ChangeAnimation("Monster_Right");
+		MonsterRenderer->ChangeAnimation("Monster_Left");
 		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
 	}
 	else {
-		MonsterRenderer->ChangeAnimation("Monster_Left");
+		MonsterRenderer->ChangeAnimation("Monster_Right");
 		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
 	}
 
