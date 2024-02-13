@@ -369,6 +369,16 @@ void AKirby_Player::Idle(float _DeltaTime)
 	{
 		
 		StateAniChange(ActorState::All_Attack);
+		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
+		NewStar->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewStar->SetDir(FVector::Left);
+		}
+		else {
+			NewStar->SetDir(FVector::Right);
+		}
 		return;
 	}
 
@@ -532,27 +542,26 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 		//return;
 	//}
 	
-	if (true == UEngineInput::IsDown('A'))
+	if (true == UEngineInput::IsPress('A'))
 	{
 		EatState = false;
 
 		if (true==KirbyRenderer->IsCurAnimationEnd())
 		{
 			
-			AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
-			NewStar->SetActorLocation(this->GetActorLocation());
+			//AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
+			//NewStar->SetActorLocation(this->GetActorLocation());
 
-			if (DirState == EActorDir::Left)
-			{
-				NewStar->SetDir(FVector::Left);
-			}
-			else {
-				NewStar->SetDir(FVector::Right);
-			}
+			//if (DirState == EActorDir::Left)
+			//{
+				//NewStar->SetDir(FVector::Left);
+			//}
+			//else {
+				//NewStar->SetDir(FVector::Right);
+			//}
+
+			StateAniChange(ActorState::Idle);
 		}
-
-		StateAniChange(ActorState::Idle);
-		return;
 	}
 }
 
