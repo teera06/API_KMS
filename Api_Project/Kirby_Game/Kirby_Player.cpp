@@ -34,7 +34,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	AniCreate(); // 애니메이션 종합 관리
 
-	GetWorld()->SetCameraPos({ 210,350 }); // 카메라 위치
+	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치
+
 
 	StateAniChange(ActorState::Idle); // 시작 애니메이션
 
@@ -157,6 +158,8 @@ void AKirby_Player::StateAniChange(ActorState _State)
 		switch (_State)
 		{
 		case ActorState::Idle:
+			
+
 			if (true == EatState && KirbyMode== AMode::Base) // Eat상태 (먹은상태) 는 커비가 기본 모드일때만 체크후 변경한다.
 			{
 				HeavyIdleStart(); // Heavy는 기본 형태의 커비에서만 가능한 애니메이션
@@ -325,6 +328,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
+
 	if (true == UEngineInput::IsDown('1'))
 	{
 		StateAniChange(ActorState::FreeMove);
@@ -351,6 +355,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('S')
 		)
 	{
+		FVector a = GetTransform().GetPosition();
+
 		StateAniChange(ActorState::Jump);
 		return;
 	}
