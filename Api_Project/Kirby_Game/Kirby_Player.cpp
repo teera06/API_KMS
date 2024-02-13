@@ -89,8 +89,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
 	
 	// 기본 흡수 
-	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 17, 0.06f, false);
-	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 17, 0.06f, false);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 16, 0.06f, false);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 16, 0.06f, false);
 	
 	// 모든 커비모드에서 사용 가능한 애니메이션
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.03f, false);
@@ -536,7 +536,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	{
 		EatState = false;
 
-		if (KirbyRenderer->IsCurAnimationEnd())
+		if (true==KirbyRenderer->IsCurAnimationEnd())
 		{
 			
 			AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
