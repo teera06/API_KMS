@@ -535,33 +535,11 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	DirCheck();
 	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	AddActorLocation(GravityCheck);
-
-	//if (true == UEngineInput::IsUp('A'))
-	//{
-		//StateAniChange(ActorState::Idle);
-		//return;
-	//}
-	
-	if (true == UEngineInput::IsPress('A'))
+	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		EatState = false;
 
-		if (true==KirbyRenderer->IsCurAnimationEnd())
-		{
-			
-			//AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
-			//NewStar->SetActorLocation(this->GetActorLocation());
-
-			//if (DirState == EActorDir::Left)
-			//{
-				//NewStar->SetDir(FVector::Left);
-			//}
-			//else {
-				//NewStar->SetDir(FVector::Right);
-			//}
-
-			StateAniChange(ActorState::Idle);
-		}
+		StateAniChange(ActorState::Idle);
 	}
 }
 
