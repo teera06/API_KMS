@@ -17,6 +17,7 @@ enum class ActorState
 	Walk,
 	Run,
 	Jump,
+	Fly,
 	Absorption,
 	All_Attack,
 	HeadDown,

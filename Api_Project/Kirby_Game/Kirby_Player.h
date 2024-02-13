@@ -99,5 +99,7 @@ private:
 	FVector GravityCheck = FVector::Zero; // 중력값 받기
 	AMode KirbyMode = AMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
+
+	static AKirby_Player* MainPlayer;
 };
 

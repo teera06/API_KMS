@@ -18,6 +18,7 @@ public:
 
 	static UWindowImage* ColMapImage; // 우선 맵만 사용
 
+
 	void SetDir(const FVector& _Dir)
 	{
 		Dir = _Dir;

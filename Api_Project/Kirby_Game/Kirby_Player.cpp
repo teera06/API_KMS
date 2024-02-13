@@ -6,6 +6,8 @@
 #include "Fire.h"
 #include "Base.h"
 
+AKirby_Player* AKirby_Player::MainPlayer = nullptr;
+
 AKirby_Player::AKirby_Player()
 {
 }
@@ -18,6 +20,8 @@ AKirby_Player::~AKirby_Player()
 void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 {
 	AActor::BeginPlay();
+
+	MainPlayer = this;
 
 	KirbyRenderer = CreateImageRenderer(RenderOrder::kirby); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
@@ -57,8 +61,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
 
 	// 기본 점프 모션
-	KirbyRenderer->CreateAnimation("Base_jump_Right", "kirby_Right.png", 38, 52, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_jump_Left", "kirby_Left.png", 38, 52, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 52, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 52, 0.1f, true);
 
 	// 기본 나는 모션
 	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 53, 64, 0.1f, true);
@@ -169,6 +173,8 @@ void AKirby_Player::StateAniChange(ActorState _State)
 			break;
 		case ActorState::Jump:
 			JumpStart();
+			break;
+		case ActorState::Fly:
 			break;
 		case ActorState::Run:
 			if (true == EatState && KirbyMode == AMode::Base) // 동일
@@ -343,7 +349,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
-
 	if (
 		true == UEngineInput::IsDown('X') && false == EatState
 		)
@@ -378,6 +383,19 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 void AKirby_Player::Jump(float _DeltaTime)
 {
+	DirCheck();
+
+	AddActorLocation(FVector::Up * _DeltaTime * 150);
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		StateAniChange(ActorState::Idle);
+	}
+
+	if (true == UEngineInput::IsPress('S'))
+	{
+
+	}
 }
 
 
@@ -560,7 +578,7 @@ void AKirby_Player::HeavyMoveStart()
 void AKirby_Player::JumpStart()
 {
 	DirCheck();
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Walk"));
+	KirbyRenderer->ChangeAnimation(GetAnimationName("jump"));
 }
 
 void AKirby_Player::RunStart()

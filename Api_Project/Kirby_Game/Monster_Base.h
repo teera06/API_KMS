@@ -1,7 +1,10 @@
 #pragma once
 #include <EngineCore\Actor.h>
+
 #include "ActorCommon.h"
 #include "ModeEnum.h"
+
+class AKirby_Player;
 
 class AMonster_Base : public AActor, public ActorCommon
 {
@@ -26,6 +29,8 @@ private:
 
 	float MoveSpeed = 150.0f;
 	AMode MonsterBase = AMode::Base;
+
+	AKirby_Player* Player = nullptr;
 
 	void AniCreate();
 };
