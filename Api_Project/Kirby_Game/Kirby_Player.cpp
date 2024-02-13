@@ -19,16 +19,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 {
 	AActor::BeginPlay();
 
-	// 플레이어 100, 100 => Actor
-	// 상체? 100, 100 - 50 => Renderer
-	// 하체? 100, 100 + 50 => Renderer
-
-	//{
-		//BodyRenderer = CreateImageRenderer(0);
-		//BodyRenderer->SetPosition({ 0, 30 });
-		//BodyRenderer->SetScale({ 8, 80 });
-	//}
-
 	KirbyRenderer = CreateImageRenderer(RenderOrder::kirby); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
@@ -47,7 +37,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 void AKirby_Player::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	//ModeInputTick(); // 커비 모드별 입력키
 	StateUpdate(_DeltaTime);
 }
 
