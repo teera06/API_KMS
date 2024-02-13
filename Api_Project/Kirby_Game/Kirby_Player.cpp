@@ -367,6 +367,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('A') && true==EatState
 		)
 	{
+		
 		StateAniChange(ActorState::All_Attack);
 		return;
 	}
@@ -512,7 +513,10 @@ void AKirby_Player::Absorption(float _DeltaTime)
 
 	if (UEngineInput::IsPress('X') && false == EatState)
 	{
-		EatState = true;
+		if (KirbyRenderer->IsCurAnimationEnd())
+		{
+			EatState = true;
+		}
 	}
 }
 
@@ -540,8 +544,11 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 		else {
 			NewStar->SetDir(FVector::Right);
 		}
-		EatState = false;
-		StateAniChange(ActorState::All_Attack);
+		if (KirbyRenderer->IsCurAnimationEnd())
+		{
+			EatState = false;
+		}
+		//StateAniChange(ActorState::All_Attack);
 	}
 }
 
