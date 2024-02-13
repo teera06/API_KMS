@@ -26,5 +26,7 @@ private:
 
 	float MoveSpeed = 150.0f;
 	AMode MonsterBase = AMode::Base;
+
+	void AniCreate();
 };
 

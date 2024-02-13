@@ -23,12 +23,27 @@ void AMonster_Base::BeginPlay()
 	//}
 
 	MonsterRenderer = CreateImageRenderer(RenderOrder::Monster); // 이미지 랜더 생성
-	MonsterRenderer->SetImage("kirby_Right.png"); // 이미지 Set
-	MonsterRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
+	MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
+	MonsterRenderer->SetTransform({ {0,0}, {310, 310} }); // 랜더의 위치 크기 
+
+	AniCreate();
+
+	for (int i = 0; i < 10; i++)
+	{
+		MonsterRenderer->ChangeAnimation("Monster_RIght");
+	}
+	MonsterRenderer->ChangeAnimation("Monster_Left");
 }
 
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
+}
+
+void AMonster_Base::AniCreate()
+{
+	// 기본 걷는 모션
+	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 0, 4, 0.15f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 0, 4, 0.15f, true); // 걷기
 }

@@ -37,6 +37,10 @@ void UStage1_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
+
+	UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
 	//Map->SetMapImage("to.png");
