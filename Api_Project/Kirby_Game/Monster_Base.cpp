@@ -1,4 +1,5 @@
 #include "Monster_Base.h"
+#include "ModeEnum.h"
 
 AMonster_Base::AMonster_Base()
 {
@@ -12,19 +13,16 @@ void AMonster_Base::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	// 플레이어 100, 100 => Actor
-	// 상체? 100, 100 - 50 => Renderer
-	// 하체? 100, 100 + 50 => Renderer
+	{
+		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
+		MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
+		MonsterRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
+	}
 
-	//{
-		//BodyRenderer = CreateImageRenderer(0);
-		//BodyRenderer->SetPosition({ 0, 30 });
-		//BodyRenderer->SetScale({ 8, 80 });
-	//}
-
-	MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
-	MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
-	MonsterRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
+	{
+		MonsterCollision = CreateCollision(ECollisionOrder::Monster);
+		MonsterCollision->SetScale({ 100, 100 });
+	}
 
 	AniCreate();
 
@@ -52,6 +50,22 @@ void AMonster_Base::Tick(float _DeltaTime)
 		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
 	}
 
+
+	std::vector<UCollision*> Result;
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
+
+		if (nullptr == Player)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+
+		Destroy();
+	}
 }
 
 void AMonster_Base::AniCreate()

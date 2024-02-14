@@ -33,7 +33,7 @@ enum class EActorDir
 	Right,
 };
 
-enum ERenderOrder
+enum class ERenderOrder
 {
 	TitleMap,
 	Stage1_Map,
@@ -41,4 +41,10 @@ enum ERenderOrder
 	Base,
 	Fire,
 	kirby,
+};
+
+enum class ECollisionOrder
+{
+	Monster,
+	kirby
 };

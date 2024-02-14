@@ -26,7 +26,7 @@ protected:
 
 private:
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
-
+	UCollision* MonsterCollision=nullptr;
 	float MoveSpeed = 150.0f;
 	EAMode MonsterBase = EAMode::Base;
 
