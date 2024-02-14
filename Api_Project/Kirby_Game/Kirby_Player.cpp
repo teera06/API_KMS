@@ -449,25 +449,44 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
 	}
-	FVector CheckPos = GetActorLocation();
+	
 
+	FVector CheckPos = GetActorLocation();
+	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
 	{
 	case EActorDir::Left:
-		CheckPos.X -=10;
+		CheckPos.X -= checkposvalue;
+		CarCheckPos.X -= 3;
 		break;
 	case EActorDir::Right:
-		CheckPos.X += 10;
+		CheckPos.X += checkposvalue;
+		CarCheckPos.X += 3;
 		break;
 	default:
 		break;
 	}
-	CheckPos.Y -= 5;
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	if (Color != Color8Bit(255, 0, 0, 0))
+	CheckPos.Y -= checkposvalue;
+	CarCheckPos.Y -= checkposvalue;
+	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	if (Color1 != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-		GetWorld()->AddCameraPos(MovePos);
+		if (Color2 != Color8Bit(0, 255, 0, 0))
+		{
+
+
+			GetWorld()->AddCameraPos(MovePos + Start);
+
+
+			Start = FVector::Zero;
+
+		}
+		else {
+			Start += MovePos;
+
+		}
 	}
 }
 
@@ -499,7 +518,6 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 
 	FVector MovePos = FVector::Zero;
-	FVector CarMovePos = FVector::Zero;
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
@@ -516,7 +534,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
-	CarMovePos = MovePos;
+
 	FVector CheckPos = GetActorLocation();
 	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
@@ -585,24 +603,41 @@ void AKirby_Player::Run(float _DeltaTime)
 	}
 
 	FVector CheckPos = GetActorLocation();
-
+	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
 	{
 	case EActorDir::Left:
 		CheckPos.X -= checkposvalue;
+		CarCheckPos.X -= 3;
 		break;
 	case EActorDir::Right:
 		CheckPos.X += checkposvalue;
+		CarCheckPos.X += 3;
 		break;
 	default:
 		break;
 	}
 	CheckPos.Y -= checkposvalue;
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	if (Color != Color8Bit(255, 0, 0, 0))
+	CarCheckPos.Y -= checkposvalue;
+	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	if (Color1 != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-		GetWorld()->AddCameraPos(MovePos);
+		if (Color2 != Color8Bit(0, 255, 0, 0))
+		{
+
+
+			GetWorld()->AddCameraPos(MovePos + Start);
+
+
+			Start = FVector::Zero;
+
+		}
+		else {
+			Start += MovePos;
+
+		}
 	}
 }
 
