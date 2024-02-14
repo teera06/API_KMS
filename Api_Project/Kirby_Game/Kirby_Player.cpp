@@ -35,7 +35,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	AniCreate(); // 애니메이션 종합 관리
 
 	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치
-	Start = GetWorld()->GetCameraPos();
 	StateAniChange(ActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -516,16 +515,16 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 	CarMovePos = MovePos;
 	FVector CheckPos = GetActorLocation();
-	FVector CarCheckPos = GetWorld()->GetCameraPos();
+	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
 	{
 	case EActorDir::Left:
 		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 20;
+		CarCheckPos.X -= 5;
 		break;
 	case EActorDir::Right:
 		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 20;
+		CarCheckPos.X += 1;
 		break;
 	default:
 		break;
@@ -537,13 +536,20 @@ void AKirby_Player::Walk(float _DeltaTime)
 	if (Color1 != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-	}
-
-	if (Color2 != Color8Bit(0, 255, 0, 0))
-	{
+		if (Color2 != Color8Bit(0, 255, 0, 0))
+		{
+			
+			
+			GetWorld()->AddCameraPos(MovePos+Start);
+			
+			
+			Start = FVector::Zero;
+			
+		}
+		else {
+			Start += MovePos;
 		
-		GetWorld()->AddCameraPos(MovePos);
-		
+		}
 	}
 }
 
