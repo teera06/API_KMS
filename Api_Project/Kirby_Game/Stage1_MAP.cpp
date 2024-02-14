@@ -14,8 +14,8 @@ void AStage1_MAP::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	MapRenderer = CreateImageRenderer(RenderOrder::Stage1_Map); // 이미지 랜더 생성
-	MapColRenderer = CreateImageRenderer(RenderOrder::Stage1_Map); // 이미지 랜더 생성
+	MapRenderer = CreateImageRenderer(ERenderOrder::Stage1_Map); // 이미지 랜더 생성
+	MapColRenderer = CreateImageRenderer(ERenderOrder::Stage1_Map); // 이미지 랜더 생성
 	MapRenderer->ActiveOff();
 }
 

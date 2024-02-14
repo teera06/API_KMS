@@ -28,7 +28,7 @@ private:
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 
 	float MoveSpeed = 150.0f;
-	AMode MonsterBase = AMode::Base;
+	EAMode MonsterBase = EAMode::Base;
 
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 

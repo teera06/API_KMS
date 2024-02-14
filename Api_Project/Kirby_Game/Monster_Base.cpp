@@ -22,7 +22,7 @@ void AMonster_Base::BeginPlay()
 		//BodyRenderer->SetScale({ 8, 80 });
 	//}
 
-	MonsterRenderer = CreateImageRenderer(RenderOrder::Monster); // 이미지 랜더 생성
+	MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 	MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
 	MonsterRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
 

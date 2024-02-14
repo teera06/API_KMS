@@ -31,7 +31,7 @@ public:
 		ModeName = _ModeName;
 	}
 
-	inline void SetMode(AMode _KirbyMode) // 커비 모드 체인지 할때 사용
+	inline void SetMode(EAMode _KirbyMode) // 커비 모드 체인지 할때 사용
 	{
 		KirbyMode = _KirbyMode;
 	}
@@ -44,7 +44,7 @@ protected:
 	// 몬스터, 커비 등 같이 사용하는 공통점이 생길수 있으니 우선 추후 생각
 	//--------------------------------------------------
 	// 상태 주요 업데이트
-	void StateAniChange(ActorState _State);
+	void StateAniChange(EActorState _State);
 	void StateUpdate(float _DeltaTime);
 
 	// 상태 함수들
@@ -81,7 +81,7 @@ protected:
 
 	std::string GetAnimationName(std::string_view _Name);
 	std::string CurAnimationName = "None";
-	ActorState State = ActorState::None;
+	EActorState State = EActorState::None;
 	EActorDir DirState = EActorDir::Right;
 	//---------------------------------------------------
 private:
@@ -103,8 +103,8 @@ private:
 	void AniCreate();
 
 	FVector GravityCheck = FVector::Zero; // 중력값 받기
-	FVector Start = FVector::Zero;
-	AMode KirbyMode = AMode::Base; // Kirby 모드
+	FVector CamstopMove = FVector::Zero;
+	EAMode KirbyMode = EAMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 
 	static AKirby_Player* MainPlayer;

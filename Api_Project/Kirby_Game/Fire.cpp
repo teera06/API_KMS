@@ -20,7 +20,7 @@ void AFire::Tick(float _DeltaTime)
 void AFire::BeginPlay()
 {
 	AActor::BeginPlay();
-	UImageRenderer* FireRenderer = CreateImageRenderer(RenderOrder::Base);
+	UImageRenderer* FireRenderer = CreateImageRenderer(ERenderOrder::Base);
 	FireRenderer->SetImage("Fire.png");
 	FireRenderer->SetTransform({ {0,0}, {100, 100} });
 	FireRenderer->SetActive(true, 0.3f);

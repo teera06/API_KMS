@@ -15,7 +15,7 @@ void ATitleActor::BeginPlay()
 {
 	AActor::BeginPlay();
 	
-	TitleRenderer = CreateImageRenderer(RenderOrder::TitleMap); // 이미지 랜더 생성
+	TitleRenderer = CreateImageRenderer(ERenderOrder::TitleMap); // 이미지 랜더 생성
 	TitleRenderer->SetImage("Log.bmp"); // 이미지 Set
 	TitleRenderer->SetTransColor({ 255,255,255,0 });
 	TitleRenderer->SetTransform({ {0,0}, windowScale }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 

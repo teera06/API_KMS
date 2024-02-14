@@ -18,7 +18,7 @@ void AAllStar::Tick(float _DeltaTime)
 void AAllStar::BeginPlay()
 {
 	AActor::BeginPlay();
-	AllStarRenderer = CreateImageRenderer(RenderOrder::Base);
+	AllStarRenderer = CreateImageRenderer(ERenderOrder::Base);
 	AllStarRenderer->SetImage("kirby2_Right.png");
 	AllStarRenderer->SetTransform({ {0,0}, {200, 200} });
 	AllStarRenderer->SetActive(true, 0.2f);

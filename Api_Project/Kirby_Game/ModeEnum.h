@@ -1,7 +1,7 @@
 #pragma once
 
 // 커비와 몬스터 개념 공유
-enum class AMode
+enum class EAMode
 {
 	Base,
 	Fire,
@@ -10,7 +10,7 @@ enum class AMode
 	Hammer,
 };
 
-enum class ActorState
+enum class EActorState
 {
 	None,
 	Idle,
@@ -33,7 +33,7 @@ enum class EActorDir
 	Right,
 };
 
-enum RenderOrder
+enum ERenderOrder
 {
 	TitleMap,
 	Stage1_Map,
