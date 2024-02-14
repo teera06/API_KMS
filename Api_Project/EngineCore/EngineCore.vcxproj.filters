@@ -19,6 +19,9 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{79ee55a0-459d-44dc-a916-bc30c2fb7dc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Collision">
+      <UniqueIdentifier>{ebac629b-f699-4a95-83b8-1765b675f74d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="EngineResourcesManager.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="EngineResourcesManager.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Component\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
