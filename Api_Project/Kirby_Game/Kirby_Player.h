@@ -107,7 +107,7 @@ private:
 	
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
-	FVector JumpPower = FVector::Up * 800;
+	FVector JumpPower = FVector::Up * 500;
 	FVector JumpVector = FVector::Zero;
 
 	

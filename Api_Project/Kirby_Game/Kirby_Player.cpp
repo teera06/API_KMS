@@ -71,8 +71,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.1f, true);
 
 	// 기본 점프 모션
-	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 52, 0.05f, true);
-	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 52, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 51, 0.09f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 51, 0.09f, true);
 
 	// 기본 나는 모션
 	KirbyRenderer->CreateAnimation("Base_FlyReady_Right", "kirby_Right.png", 53, 57, 0.1f, false);
@@ -476,22 +476,27 @@ void AKirby_Player::Idle(float _DeltaTime)
 void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck();
-
-	AddActorLocation(FVector::Up * _DeltaTime * 250);
-
-	if (true == UEngineInput::IsDown('S'))
+	FVector MovePos;
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		StateAniChange(EActorState::Fly);
-		return;
+		MovePos+=FVector::Left*checkSpeed* _DeltaTime;
 	}
 
-	if (true == KirbyRenderer->IsCurAnimationEnd())
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
+		MovePos += FVector::Right*checkSpeed* _DeltaTime;
+	}
+
+	MoveUpdate(_DeltaTime,MovePos);
+
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
 
-	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::Fly(float _DeltaTime)
@@ -570,6 +575,11 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
+	if (true == UEngineInput::IsDown('S'))
+	{
+		StateAniChange(EActorState::Jump);
+		return;
+	}
 
 	MoveUpdate(_DeltaTime, MovePos);
 }
@@ -669,6 +679,7 @@ void AKirby_Player::HeavyMoveStart()
 void AKirby_Player::JumpStart()
 {
 	DirCheck();
+	JumpVector = JumpPower;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Jump"));
 }
 

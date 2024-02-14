@@ -53,7 +53,7 @@ protected:
 	}
 
 private:
-	float Gravity = 500.0f;
+	float Gravity = 700.0f;
 	FVector GravityValue = FVector::Zero;
 	FVector Dir = FVector::Zero;
 
