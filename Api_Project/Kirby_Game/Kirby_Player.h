@@ -102,21 +102,29 @@ private:
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate();
 
-	FVector GravityCheck = FVector::Zero; // 중력값 받기
+	
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
+	
+	FVector GravityVector = FVector::Zero; // 중력값 받기
 
+	FVector JumpPower = FVector::Up * 800;
+	FVector JumpVector = FVector::Zero;
+
+	
+	FVector PlayMove = FVector::Zero;
 
 	EAMode KirbyMode = EAMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 
 	static AKirby_Player* MainPlayer;
 
+	
 
-	void CalLastMoveVector(float _DeltaTime);
-	void CalMoveVector(float _DeltaTime);
-	void CalJumpVector(float _DeltaTime);
+	
 	void CalGravityVector(float _DeltaTime);
-	void MoveLastMoveVector(float _DeltaTime);
-	void MoveUpdate(float _DeltaTime);
+	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
+	
+	
+	void MoveUpdate(float _DeltaTime, const FVector& _MovePos=FVector::Zero);
 };
 

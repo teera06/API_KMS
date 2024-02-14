@@ -104,6 +104,76 @@ void AKirby_Player::AniCreate()
 	
 }
 
+
+
+void AKirby_Player::CalGravityVector(float _DeltaTime)
+{
+	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+		GravityVector = FVector::Zero;
+	}
+}
+
+void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos)
+{
+	// 제로로 만들어서 초기화 시킨다.
+	PlayMove = FVector::Zero;
+	
+	PlayMove = PlayMove + JumpVector;
+	PlayMove = PlayMove + GravityVector;
+	//PlayMove + JumpVector;
+
+	FVector CheckPos = GetActorLocation();
+	FVector CarCheckPos = GetActorLocation();
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= checkposvalue;
+		CarCheckPos.X -= 3;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += checkposvalue;
+		CarCheckPos.X += 3;
+		break;
+	default:
+		break;
+	}
+	CheckPos.Y -= checkposvalue;
+	CarCheckPos.Y -= checkposvalue;
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
+	if (ColorR != Color8Bit(255, 0, 0, 0))
+	{
+		AddActorLocation(_MovePos+ (PlayMove * _DeltaTime));
+		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
+		{
+
+
+			GetWorld()->AddCameraPos(_MovePos + CamstopMove);
+			//CamMove = CamstopMove;
+
+			CamstopMove = FVector::Zero;
+
+		}
+		else {
+			CamstopMove += _MovePos;
+
+		}
+	}
+}
+
+
+
+void AKirby_Player::MoveUpdate(float _DeltaTime, const FVector& _MovePos)
+{
+	CalGravityVector(_DeltaTime);
+	MoveLastMoveVector(_DeltaTime, _MovePos);
+	//MoveLastMoveVector(_DeltaTime);
+}
+
 //----------------------------------------------------------------------------------------------------
 
 void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
@@ -400,9 +470,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
-
-	GravityCheck=GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::Jump(float _DeltaTime)
@@ -423,7 +491,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 		return;
 	}
 
-	
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::Fly(float _DeltaTime)
@@ -457,44 +525,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	}
 	
 
-	FVector CheckPos = GetActorLocation();
-	FVector CarCheckPos = GetActorLocation();
-	switch (DirState)
-	{
-	case EActorDir::Left:
-		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 3;
-		break;
-	case EActorDir::Right:
-		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 3;
-		break;
-	default:
-		break;
-	}
-	CheckPos.Y -= checkposvalue;
-	CarCheckPos.Y -= checkposvalue;
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
-	if (ColorR != Color8Bit(255, 0, 0, 0))
-	{
-		AddActorLocation(MovePos);
-		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
-		{
-
-
-			GetWorld()->AddCameraPos(MovePos + CamstopMove);
-
-
-			CamstopMove = FVector::Zero;
-
-		}
-		else {
-			CamstopMove += MovePos;
-
-		}
-	}
+	MoveUpdate(_DeltaTime, MovePos);
 }
 
 
@@ -502,8 +533,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 void AKirby_Player::HeadDown(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
@@ -515,8 +545,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 void AKirby_Player::Walk(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
@@ -527,12 +556,12 @@ void AKirby_Player::Walk(float _DeltaTime)
 	FVector MovePos = FVector::Zero;
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		MovePos += FVector::Left * _DeltaTime * checkSpeed;
+		MovePos += FVector::Left * _DeltaTime* checkSpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		MovePos += FVector::Right * _DeltaTime * checkSpeed;
+		MovePos += FVector::Right * _DeltaTime*checkSpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_SHIFT))
@@ -542,51 +571,13 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 
 
-	FVector CheckPos = GetActorLocation();
-	FVector CarCheckPos = GetActorLocation();
-	switch (DirState)
-	{
-	case EActorDir::Left:
-		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 3;
-		break;
-	case EActorDir::Right:
-		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 3;
-		break;
-	default:
-		break;
-	}
-	CheckPos.Y -= checkposvalue;
-	CarCheckPos.Y -= checkposvalue;
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
-	if (ColorR != Color8Bit(255, 0, 0, 0))
-	{
-		AddActorLocation(MovePos);
-		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
-		{
-
-
-			GetWorld()->AddCameraPos(MovePos + CamstopMove);
-
-
-			CamstopMove = FVector::Zero;
-
-		}
-		else {
-			CamstopMove += MovePos;
-
-		}
-	}
+	MoveUpdate(_DeltaTime, MovePos);
 }
 
 void AKirby_Player::Run(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	
 
 	if (UEngineInput::IsFree(VK_SHIFT))
 	{
@@ -610,52 +601,14 @@ void AKirby_Player::Run(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
-	FVector CheckPos = GetActorLocation();
-	FVector CarCheckPos = GetActorLocation();
-	switch (DirState)
-	{
-	case EActorDir::Left:
-		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 3;
-		break;
-	case EActorDir::Right:
-		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 3;
-		break;
-	default:
-		break;
-	}
-	CheckPos.Y -= checkposvalue;
-	CarCheckPos.Y -= checkposvalue;
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
-	if (ColorR != Color8Bit(255, 0, 0, 0))
-	{
-		AddActorLocation(MovePos);
-		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
-		{
-
-
-			GetWorld()->AddCameraPos(MovePos + CamstopMove);
-
-
-			CamstopMove = FVector::Zero;
-
-		}
-		else {
-			CamstopMove += MovePos;
-
-		}
-	}
+	MoveUpdate(_DeltaTime, MovePos);
 }
 
 void AKirby_Player::Absorption(float _DeltaTime)
 {
 	
 	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	
 
 	if (true == UEngineInput::IsFree('X'))
 	{
@@ -670,19 +623,22 @@ void AKirby_Player::Absorption(float _DeltaTime)
 			EatState = true;
 		}
 	}
+
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::All_Attack(float _DeltaTime)
 {
 	DirCheck();
-	GravityCheck = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	AddActorLocation(GravityCheck);
+	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		EatState = false;
 
 		StateAniChange(EActorState::Idle);
 	}
+
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::IdleStart()
