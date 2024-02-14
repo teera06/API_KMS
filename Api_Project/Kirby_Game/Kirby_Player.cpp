@@ -520,11 +520,11 @@ void AKirby_Player::Walk(float _DeltaTime)
 	{
 	case EActorDir::Left:
 		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 5;
+		CarCheckPos.X -= 3;
 		break;
 	case EActorDir::Right:
 		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 1;
+		CarCheckPos.X += 3;
 		break;
 	default:
 		break;
