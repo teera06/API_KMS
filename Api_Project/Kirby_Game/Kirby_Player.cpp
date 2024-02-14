@@ -468,12 +468,13 @@ void AKirby_Player::Fly(float _DeltaTime)
 	}
 	CheckPos.Y -= checkposvalue;
 	CarCheckPos.Y -= checkposvalue;
-	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	if (Color1 != Color8Bit(255, 0, 0, 0))
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
+	if (ColorR != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-		if (Color2 != Color8Bit(0, 255, 0, 0))
+		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
 		{
 
 
@@ -552,24 +553,25 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 	CheckPos.Y -= checkposvalue;
 	CarCheckPos.Y -= checkposvalue;
-	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	if (Color1 != Color8Bit(255, 0, 0, 0))
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
+	if (ColorR != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-		if (Color2 != Color8Bit(0, 255, 0, 0))
+		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
 		{
-			
-			
-			GetWorld()->AddCameraPos(MovePos+Start);
-			
-			
+
+
+			GetWorld()->AddCameraPos(MovePos + Start);
+
+
 			Start = FVector::Zero;
-			
+
 		}
 		else {
 			Start += MovePos;
-		
+
 		}
 	}
 }
@@ -619,12 +621,13 @@ void AKirby_Player::Run(float _DeltaTime)
 	}
 	CheckPos.Y -= checkposvalue;
 	CarCheckPos.Y -= checkposvalue;
-	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit Color2 = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	if (Color1 != Color8Bit(255, 0, 0, 0))
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
+	if (ColorR != Color8Bit(255, 0, 0, 0))
 	{
 		AddActorLocation(MovePos);
-		if (Color2 != Color8Bit(0, 255, 0, 0))
+		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
 		{
 
 
