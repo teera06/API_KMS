@@ -57,6 +57,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::AniCreate()
 {
 	// 晦獄 務朝 賅暮
-	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 0, 4, 0.15f, true); // 務晦
-	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 0, 4, 0.15f, true); // 務晦
+	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 0, 4, 0.2f, true); // 務晦
+	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 0, 4, 0.2f, true); // 務晦
 }
