@@ -405,16 +405,19 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	AddActorLocation(FVector::Up * _DeltaTime * 250);
 
+	if (true == UEngineInput::IsDown('S'))
+	{
+		StateAniChange(ActorState::Fly);
+		return;
+	}
+
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		StateAniChange(ActorState::Idle);
+		return;
 	}
 
-	if (true == UEngineInput::IsPress('S'))
-	{
-		StateAniChange(ActorState::Fly);
-
-	}
+	
 }
 
 void AKirby_Player::Fly(float _DeltaTime)
