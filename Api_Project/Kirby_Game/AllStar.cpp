@@ -1,6 +1,7 @@
 #include "AllStar.h"
 #include "ModeEnum.h"
 #include "Monster_Base.h"
+
 AAllStar::AAllStar()
 {
 }
@@ -23,14 +24,23 @@ void AAllStar::Tick(float _DeltaTime)
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
 
-		Monster->Destroy();
-		//if (nullptr == Player)
-		//{
-			//MsgBoxAssert("터져야겠지....");
-			// 	}
+		
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
 
+		Monster->Destroy();
 		Destroy();
 	}
+
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-20, Color8Bit::RedA);
+
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		Destroy();
+	}
+
 }
 
 void AAllStar::BeginPlay()

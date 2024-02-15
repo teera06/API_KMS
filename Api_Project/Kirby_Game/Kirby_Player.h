@@ -36,6 +36,11 @@ public:
 		KirbyMode = _KirbyMode;
 	}
 
+	bool isEatState()
+	{
+		EatState = true;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
