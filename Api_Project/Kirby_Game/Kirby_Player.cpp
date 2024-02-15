@@ -131,6 +131,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		GravityVector = FVector::Zero;
 	}
 
+	FVector MovePos = _MovePos;
 	FVector CheckPos = GetActorLocation();
 	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
@@ -151,23 +152,25 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
 	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
-	if (ColorR != Color8Bit(255, 0, 0, 0))
+	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
-		AddActorLocation(_MovePos+ (PlayMove * _DeltaTime));
-		if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
-		{
+		MovePos = FVector::Zero;
+	}
+
+	AddActorLocation(MovePos + (PlayMove * _DeltaTime));
+	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0))
+	{
 
 
-			GetWorld()->AddCameraPos((_MovePos * FVector::Right) + CamstopMove);
-			//CamMove = CamstopMove;
+		GetWorld()->AddCameraPos((MovePos * FVector::Right) + CamstopMove);
+		//CamMove = CamstopMove;
 
-			CamstopMove = FVector::Zero;
+		CamstopMove = FVector::Zero;
 
-		}
-		else {
-			CamstopMove += (_MovePos* FVector::Right);
+	}
+	else {
+		CamstopMove += (MovePos * FVector::Right);
 
-		}
 	}
 }
 
@@ -512,7 +515,6 @@ void AKirby_Player::Jump(float _DeltaTime)
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
 }
 
 void AKirby_Player::Fly(float _DeltaTime)
