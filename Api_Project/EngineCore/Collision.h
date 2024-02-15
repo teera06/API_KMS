@@ -25,11 +25,13 @@ public:
 	}
 
 	bool CollisionCheck(int _Order, std::vector<UCollision*>& _Result);
+	void DebugRender(FVector _CameraPos);
 
 protected:
 	void BeginPlay() override;
 
+
 private:
-	ECollisionType ColType = ECollisionType::CirCle;
+	ECollisionType ColType = ECollisionType::Rect;
 };
 

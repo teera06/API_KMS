@@ -36,6 +36,7 @@ public:
 	// bool CircleToPoint(const FTransform& _Left, const FTransform& _Right);
 
 	static bool CircleToCircle(const FTransform& _Left, const FTransform& _Right);
+	static bool RectToRect(const FTransform& _Left, const FTransform& _Right);
 
 public:
 	void SetScale(FVector _Value)

@@ -3,6 +3,7 @@
 #include <list>
 #include "Level.h"
 #include "Actor.h"
+#include "EngineCore.h"
 
 UCollision::UCollision()
 {
@@ -55,4 +56,32 @@ bool UCollision::CollisionCheck(int _Order, std::vector<UCollision*>& _Result)
 	}
 
 	return false == _Result.empty();
+}
+
+void UCollision::DebugRender(FVector _CameraPos)
+{
+	FTransform ThisTransform = GetActorBaseTransform();
+	ThisTransform.AddPosition(-_CameraPos);
+
+	switch (ColType)
+	{
+	case Point:
+	{
+		ThisTransform.SetScale({ 10, 10 });
+		GEngine->MainWindow.GetBackBufferImage()->DrawEllipse(ThisTransform);
+		break;
+	}
+	case CirCle:
+	{
+		GEngine->MainWindow.GetBackBufferImage()->DrawEllipse(ThisTransform);
+		break;
+	}
+	case Rect:
+	{
+		GEngine->MainWindow.GetBackBufferImage()->DrawRectangle(ThisTransform);
+		break;
+	}
+	default:
+		break;
+	}
 }
