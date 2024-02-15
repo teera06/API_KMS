@@ -92,12 +92,14 @@ private:
 	float checkSpeed = 0.0f;
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
+	float FlySpeed = 150.0f;
 	float camSpeed = 500.0f; // 카메라 속도
 	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
 	float HeavyRunSpeed = 100.0f;
 	float checkposvalue = 30;
 
 	bool EatState = false;
+	bool FlyState = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate();
@@ -118,9 +120,6 @@ private:
 
 	static AKirby_Player* MainPlayer;
 
-	
-
-	
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
 	

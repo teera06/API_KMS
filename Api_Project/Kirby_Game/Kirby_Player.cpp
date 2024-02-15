@@ -122,8 +122,14 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	PlayMove = FVector::Zero;
 	
 	PlayMove = PlayMove + JumpVector;
-	PlayMove = PlayMove + GravityVector;
-	//PlayMove + JumpVector;
+
+	if (false == FlyState)
+	{
+		PlayMove = PlayMove + GravityVector;
+	}
+	else {
+		GravityVector = FVector::Zero;
+	}
 
 	FVector CheckPos = GetActorLocation();
 	FVector CarCheckPos = GetActorLocation();
@@ -477,6 +483,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck();
 	FVector MovePos;
+
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos+=FVector::Left*checkSpeed* _DeltaTime;
@@ -488,6 +495,14 @@ void AKirby_Player::Jump(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime,MovePos);
+
+	if (UEngineInput::IsDown('S'))
+	{
+		FlyState = true;
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::Fly);
+		return;
+	}
 
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (Color == Color8Bit(255, 0, 0, 0))
@@ -506,27 +521,29 @@ void AKirby_Player::Fly(float _DeltaTime)
 
 	if (UEngineInput::IsFree('S'))
 	{
+		FlyState = false;
 		StateAniChange(EActorState::Idle);
+		return;
 	}
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
+		MovePos = FVector::Left * _DeltaTime * FlySpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
+		MovePos = FVector::Right * _DeltaTime * FlySpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_UP))
 	{
-		MovePos += FVector::Up * _DeltaTime * WalkSpeed;
+		MovePos = FVector::Up * _DeltaTime * 100;
 	}
 
 	if (UEngineInput::IsPress(VK_DOWN))
 	{
-		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
+		MovePos = FVector::Down * _DeltaTime * 100;
 	}
 	
 
