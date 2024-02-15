@@ -114,7 +114,6 @@ private:
 	FVector PlayMove = FVector::Zero;
 
 	FVector CurY = FVector::Zero;
-
 	EAMode KirbyMode = EAMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 
