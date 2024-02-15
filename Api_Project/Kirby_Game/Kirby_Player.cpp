@@ -435,7 +435,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('S')
 		)
 	{
-		FVector a = GetTransform().GetPosition();
+		CurY = GetTransform().GetPosition();
 
 		StateAniChange(EActorState::Jump);
 		return;
@@ -507,6 +507,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
+		
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;

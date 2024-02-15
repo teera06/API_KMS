@@ -106,14 +106,14 @@ private:
 
 	
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
-	
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
 	FVector JumpPower = FVector::Up * 500;
 	FVector JumpVector = FVector::Zero;
 
-	
 	FVector PlayMove = FVector::Zero;
+
+	FVector CurY = FVector::Zero;
 
 	EAMode KirbyMode = EAMode::Base; // Kirby 모드
 	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
