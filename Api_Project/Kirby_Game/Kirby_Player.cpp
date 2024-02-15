@@ -163,7 +163,6 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 
 
 		GetWorld()->AddCameraPos((MovePos * FVector::Right) + CamstopMove);
-		//CamMove = CamstopMove;
 
 		CamstopMove = FVector::Zero;
 
