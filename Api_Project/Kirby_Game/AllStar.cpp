@@ -1,6 +1,6 @@
 #include "AllStar.h"
 #include "ModeEnum.h"
-
+#include "Monster_Base.h"
 AAllStar::AAllStar()
 {
 }
@@ -13,6 +13,24 @@ void AAllStar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetDir() * Speed * _DeltaTime);
+
+	std::vector<UCollision*> Result;
+	if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		int a = 0;
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+		Monster->Destroy();
+		//if (nullptr == Player)
+		//{
+			//MsgBoxAssert("터져야겠지....");
+			// 	}
+
+		Destroy();
+	}
 }
 
 void AAllStar::BeginPlay()

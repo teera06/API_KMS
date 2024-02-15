@@ -27,6 +27,7 @@ void ABase::BeginPlay()
 	{
 		BaseCollision = CreateCollision(ECollisionOrder::AllStar);
 		BaseCollision->SetTransform({ { 100,0 }, { 80,80 } });
+		
 		BaseCollision->SetColType(ECollisionType::Rect);
 	}
 
