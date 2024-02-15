@@ -170,8 +170,11 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 
 	}
 	else {
-		CamstopMove += (MovePos * FVector::Right);
 
+		if (FlyState == false)
+		{
+			CamstopMove += (MovePos * FVector::Right);
+		}
 	}
 }
 
@@ -533,22 +536,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	DirCheck();
 	FVector MovePos;
 
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
-	{
-
-		FlyState = false;
-		StateAniChange(EActorState::Idle);
-		return;
-	}
-
-	if (UEngineInput::IsFree('S'))
-	{
-		FlyState = false;
-		StateAniChange(EActorState::Idle);
-		return;
-	}
-
+	
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos = FVector::Left * _DeltaTime * FlySpeed;
@@ -571,6 +559,25 @@ void AKirby_Player::Fly(float _DeltaTime)
 	
 
 	MoveUpdate(_DeltaTime, MovePos);
+	//AddActorLocation(MovePos);
+	//GetWorld()->AddCameraPos(MovePos * FVector::Right);
+
+	if (UEngineInput::IsFree('S'))
+	{
+		FlyState = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
+	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
+	if (Color1 == Color8Bit(255, 0, 255, 0) )
+	{
+
+		FlyState = false;
+
+		StateAniChange(EActorState::Idle);
+		return;
+	}
 
 	
 	
