@@ -36,10 +36,10 @@ public:
 		KirbyMode = _KirbyMode;
 	}
 
-	bool isEatState()
-	{
-		EatState = true;
-	}
+	//bool isEatState()
+	//{
+		//EatState = true;
+	//}
 
 protected:
 	// TickObject (Level2) 오버라이드
@@ -103,7 +103,7 @@ private:
 	float HeavyRunSpeed = 100.0f;
 	float checkposvalue = 30;
 
-	bool EatState = false;
+	//bool EatState = false;
 
 	bool FlyState = false;
 

@@ -29,6 +29,12 @@ public:
 		return Dir;
 	}
 
+
+	static void SetEatState(bool _EatState)
+	{
+		EatState = _EatState;
+	}
+
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
@@ -51,7 +57,7 @@ protected:
 	{
 		return Hp;
 	}
-
+	static bool EatState;
 private:
 	float Gravity = 700.0f;
 	FVector GravityValue = FVector::Zero;

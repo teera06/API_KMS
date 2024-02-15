@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 
+
 class ABase : public AActor
 {
 public:

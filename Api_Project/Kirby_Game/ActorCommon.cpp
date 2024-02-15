@@ -1,6 +1,7 @@
 #include "ActorCommon.h"
 
 UWindowImage* ActorCommon::ColMapImage = nullptr;
+bool ActorCommon::EatState = false;
 
 ActorCommon::ActorCommon()
 {

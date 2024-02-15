@@ -657,13 +657,13 @@ void AKirby_Player::Absorption(float _DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::IsPress('X') && false == EatState)
-	{
-		if (KirbyRenderer->IsCurAnimationEnd())
-		{
-			EatState = true;
-		}
-	}
+	//if (UEngineInput::IsPress('X') && false == EatState)
+	//{
+		//if (KirbyRenderer->IsCurAnimationEnd())
+		//{
+			//EatState = true;
+		//}
+	//}
 
 	MoveUpdate(_DeltaTime);
 }
