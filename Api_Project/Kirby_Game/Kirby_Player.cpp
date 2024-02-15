@@ -533,6 +533,15 @@ void AKirby_Player::Fly(float _DeltaTime)
 	DirCheck();
 	FVector MovePos;
 
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+
+		FlyState = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
 	if (UEngineInput::IsFree('S'))
 	{
 		FlyState = false;
@@ -562,6 +571,9 @@ void AKirby_Player::Fly(float _DeltaTime)
 	
 
 	MoveUpdate(_DeltaTime, MovePos);
+
+	
+	
 }
 
 
