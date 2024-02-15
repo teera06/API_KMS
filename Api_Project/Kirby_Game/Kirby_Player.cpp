@@ -37,9 +37,10 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	// 일반적으로는 충돌이라는 시점을 따로둡니다.
 	{
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby);
-		KirbyCollision->SetScale({ 100, 100 });
+		KirbyCollision->SetScale({ 70, 70 });
 		KirbyCollision->SetColType(ECollisionType::Rect);
 	}
+
 
 	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
@@ -457,6 +458,16 @@ void AKirby_Player::Idle(float _DeltaTime)
 		)
 	{
 		StateAniChange(EActorState::Absorption);
+		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
+		NewBase->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewBase->SetDir(FVector::Left);
+		}
+		else {
+			NewBase->SetDir(FVector::Right);
+		}
 		return;
 	}
 

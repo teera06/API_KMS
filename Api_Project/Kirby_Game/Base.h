@@ -23,6 +23,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
 private:
+	UImageRenderer* BaseRenderer = nullptr;
+	UCollision* BaseCollision = nullptr;
+
 	FVector Dir = FVector::Zero;
 	int speed = 5;
 	
