@@ -1,8 +1,9 @@
 #pragma once
 #include <EngineCore\Actor.h>
+#include "ActorCommon.h"
 
 
-class ABase : public AActor
+class ABase : public AActor, public ActorCommon
 {
 public:
 	// constrcuter destructer
@@ -15,10 +16,7 @@ public:
 	ABase& operator=(const ABase& _Other) = delete; // 디폴트 대입 연산자
 	ABase& operator=(ABase&& _Other) noexcept = delete;
 
-	void SetDir(const FVector& _Dir)
-	{
-		Dir = _Dir;
-	}
+	
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -27,8 +25,7 @@ private:
 	UImageRenderer* BaseRenderer = nullptr;
 	UCollision* BaseCollision = nullptr;
 
-	FVector Dir = FVector::Zero;
-	int speed = 5;
+	
 	
 };
 

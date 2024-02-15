@@ -16,6 +16,7 @@ void ABase::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
+	BaseCollision->SetPosition({ GetDir().iX() * 100,0 });
 	std::vector<UCollision*> Result;
 	if (true == BaseCollision->CollisionCheck(ECollisionOrder::Monster, Result))
 	{
@@ -47,11 +48,10 @@ void ABase::BeginPlay()
 
 	{
 		BaseCollision = CreateCollision(ECollisionOrder::AllStar);
-		BaseCollision->SetTransform({ { 100,0 }, { 80,80 } });
-		
-		BaseCollision->SetColType(ECollisionType::Rect);
-		BaseCollision->SetActive(true, 0.1f);
-	}
+		BaseCollision->SetScale({ 80,80 });
 
+		BaseCollision->SetColType(ECollisionType::Rect);
+	}
+	
 	Destroy(1.0f);
 }

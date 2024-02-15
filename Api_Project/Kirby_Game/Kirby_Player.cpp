@@ -651,19 +651,26 @@ void AKirby_Player::Absorption(float _DeltaTime)
 	DirCheck();
 	
 
+	//if (true == UEngineInput::IsFree('X'))
+	//{
+		//StateAniChange(EActorState::Idle);
+		//return;
+	//}
+
+	if (UEngineInput::IsDown('X') && false == EatState)
+	{
+		if (KirbyRenderer->IsCurAnimationEnd())
+		{
+			StateAniChange(EActorState::Idle);
+			return;
+		}
+	}
+
 	if (true == UEngineInput::IsFree('X'))
 	{
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
-	//if (UEngineInput::IsPress('X') && false == EatState)
-	//{
-		//if (KirbyRenderer->IsCurAnimationEnd())
-		//{
-			//EatState = true;
-		//}
-	//}
 
 	MoveUpdate(_DeltaTime);
 }
@@ -677,6 +684,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 		EatState = false;
 
 		StateAniChange(EActorState::Idle);
+		return;
 	}
 
 	MoveUpdate(_DeltaTime);
