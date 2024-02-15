@@ -65,18 +65,18 @@ void UCollision::DebugRender(FVector _CameraPos)
 
 	switch (ColType)
 	{
-	case Point:
+	case ECollisionType::Point:
 	{
 		ThisTransform.SetScale({ 10, 10 });
 		GEngine->MainWindow.GetBackBufferImage()->DrawEllipse(ThisTransform);
 		break;
 	}
-	case CirCle:
+	case ECollisionType::CirCle:
 	{
 		GEngine->MainWindow.GetBackBufferImage()->DrawEllipse(ThisTransform);
 		break;
 	}
-	case Rect:
+	case ECollisionType::Rect:
 	{
 		GEngine->MainWindow.GetBackBufferImage()->DrawRectangle(ThisTransform);
 		break;

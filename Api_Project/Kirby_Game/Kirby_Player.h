@@ -99,6 +99,7 @@ private:
 	float checkposvalue = 30;
 
 	bool EatState = false;
+
 	bool FlyState = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
