@@ -46,5 +46,6 @@ enum class ERenderOrder
 enum class ECollisionOrder
 {
 	Monster,
+	AllStar,
 	kirby
 };

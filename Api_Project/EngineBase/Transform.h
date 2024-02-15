@@ -127,7 +127,7 @@ public:
 	void SetRadius(float _Radius)
 	{
 		Scale = float4::Zero;
-		Scale.X = _Radius;
+		Scale.X = _Radius * 2.0f;
 	}
 
 	float GetRadius() const

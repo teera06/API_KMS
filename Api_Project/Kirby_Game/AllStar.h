@@ -22,4 +22,5 @@ protected:
 private:
 	float Speed = 300.0f;
 	UImageRenderer* AllStarRenderer = nullptr;
+	UCollision* AllStarCollision = nullptr;
 };

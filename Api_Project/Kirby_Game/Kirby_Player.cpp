@@ -38,6 +38,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	{
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby);
 		KirbyCollision->SetScale({ 100, 100 });
+		KirbyCollision->SetColType(ECollisionType::Rect);
 	}
 
 	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치

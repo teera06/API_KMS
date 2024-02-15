@@ -59,8 +59,8 @@ bool FTransform::CircleToRect(const FTransform& _Left, const FTransform& _Right)
 	}
 
 	FTransform RightTopCirCleTransform;
-	LeftTopCirCleTransform.SetPosition(_Right.RightTop());
-	LeftTopCirCleTransform.SetRadius(_Left.GetRadius());
+	RightTopCirCleTransform.SetPosition(_Right.RightTop());
+	RightTopCirCleTransform.SetRadius(_Left.GetRadius());
 
 	if (true == PointToCircle(_Left, RightTopCirCleTransform))
 	{
@@ -68,8 +68,8 @@ bool FTransform::CircleToRect(const FTransform& _Left, const FTransform& _Right)
 	}
 
 	FTransform LeftBottomCirCleTransform;
-	LeftTopCirCleTransform.SetPosition(_Right.LeftBottom());
-	LeftTopCirCleTransform.SetRadius(_Left.GetRadius());
+	LeftBottomCirCleTransform.SetPosition(_Right.LeftBottom());
+	LeftBottomCirCleTransform.SetRadius(_Left.GetRadius());
 
 	if (true == PointToCircle(_Left, LeftBottomCirCleTransform))
 	{
@@ -77,8 +77,8 @@ bool FTransform::CircleToRect(const FTransform& _Left, const FTransform& _Right)
 	}
 
 	FTransform RightBottomCirCleTransform;
-	LeftTopCirCleTransform.SetPosition(_Right.RightBottom());
-	LeftTopCirCleTransform.SetRadius(_Left.GetRadius());
+	RightBottomCirCleTransform.SetPosition(_Right.RightBottom());
+	RightBottomCirCleTransform.SetRadius(_Left.GetRadius());
 
 	if (true == PointToCircle(_Left, RightBottomCirCleTransform))
 	{
@@ -123,8 +123,9 @@ bool FTransform::CircleToPoint(const FTransform& _Left, const FTransform& _Right
 {
 	FVector Dir = _Left.Position - _Right.Position;
 	float Len = _Left.Scale.hX();
+	float Size = Dir.Size2D();
 
-	return Dir.Size2D() <= Len;
+	return Size <= Len;
 }
 
 bool FTransform::PointToCircle(const FTransform& _Left, const FTransform& _Right)
