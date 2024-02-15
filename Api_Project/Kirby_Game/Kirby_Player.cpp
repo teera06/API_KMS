@@ -454,7 +454,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == UEngineInput::IsDown('X') && false == EatState
+		true == UEngineInput::IsPress('X') && false == EatState
 		)
 	{
 		StateAniChange(EActorState::Absorption);
@@ -650,28 +650,13 @@ void AKirby_Player::Absorption(float _DeltaTime)
 	
 	DirCheck();
 	
-
-	//if (true == UEngineInput::IsFree('X'))
-	//{
-		//StateAniChange(EActorState::Idle);
-		//return;
-	//}
-
-	if (UEngineInput::IsDown('X') && false == EatState)
+	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		if (KirbyRenderer->IsCurAnimationEnd())
-		{
-			StateAniChange(EActorState::Idle);
-			return;
-		}
-	}
-
-	if (true == UEngineInput::IsFree('X'))
-	{
+		
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
+	
 	MoveUpdate(_DeltaTime);
 }
 
