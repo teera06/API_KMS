@@ -460,10 +460,10 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == UEngineInput::IsDown('S')
+		true == UEngineInput::IsDown('S') && false==JumpState
 		)
 	{
-
+		JumpState = true;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
@@ -523,18 +523,16 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		MovePos+=FVector::Left*checkSpeed* _DeltaTime;
+		MovePos += FVector::Left * checkSpeed * _DeltaTime;
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		MovePos += FVector::Right*checkSpeed* _DeltaTime;
+		MovePos += FVector::Right * checkSpeed * _DeltaTime;
 	}
 
-	if (UEngineInput::IsDown('S'))
+	if (UEngineInput::IsDown('S') && true == JumpState)
 	{
-
-		CurY = FVector::Zero;
 		FlyState = true;
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Fly);
@@ -550,6 +548,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
 
+		JumpState = false;
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;

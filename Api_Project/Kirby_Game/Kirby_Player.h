@@ -104,6 +104,7 @@ private:
 
 
 	bool FlyState = false;
+	bool JumpState = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate();
