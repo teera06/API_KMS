@@ -44,11 +44,11 @@ void AMonster_Base::Tick(float _DeltaTime)
 	if (MonsterDirNormal.iX() == -1)
 	{
 		MonsterRenderer->ChangeAnimation("Monster_Left");
-		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
+		AddActorLocation(MonsterDirNormal * _DeltaTime * 50.0f);
 	}
 	else {
 		MonsterRenderer->ChangeAnimation("Monster_Right");
-		AddActorLocation(MonsterDirNormal * _DeltaTime * 10.0f);
+		AddActorLocation(MonsterDirNormal * _DeltaTime * 50.0f);
 	}
 
 
