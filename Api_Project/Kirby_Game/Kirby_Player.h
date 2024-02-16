@@ -101,7 +101,7 @@ private:
 	float camSpeed = 500.0f; // 카메라 속도
 	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
 	float HeavyRunSpeed = 100.0f;
-	float checkposvalue = 35;
+	float checkposvalue = 30;
 
 	//bool EatState = false;
 
