@@ -35,6 +35,9 @@ public:
 	{
 		KirbyMode = _KirbyMode;
 	}
+
+	void CamYMove();
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

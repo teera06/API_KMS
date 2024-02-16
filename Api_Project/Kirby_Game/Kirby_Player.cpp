@@ -22,6 +22,28 @@ AKirby_Player::~AKirby_Player()
 	Destroy(0.0f);
 }
 
+void AKirby_Player::CamYMove()
+{
+	FVector CamMoveY;
+
+	if (CurY.iY() != GetActorLocation().iY())
+	{
+		if (CurY.iY() > GetActorLocation().iY())
+		{
+			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation());
+			CamMoveY = CamMoveY * FVector::Up;
+			GetWorld()->AddCameraPos(CamMoveY * 0.6f);
+		}
+		else if (CurY.iY() < GetActorLocation().iY()) {
+			CamMoveY = (FVector::Down * GetActorLocation()) - (FVector::Down * CurY);
+			CamMoveY = CamMoveY * FVector::Down;
+			GetWorld()->AddCameraPos(CamMoveY * 0.6f);
+		}
+		CurY = GetActorLocation();
+	}
+	
+}
+
 void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 {
 	AActor::BeginPlay();
@@ -134,6 +156,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	}
 
 	FVector MovePos = _MovePos;
+	
 	FVector CheckPos = GetActorLocation();
 	FVector CarCheckPos = GetActorLocation();
 	switch (DirState)
@@ -164,7 +187,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0))
 	{
 
-
+	
 		GetWorld()->AddCameraPos((MovePos * FVector::Right) + CamstopMove);
 
 		CamstopMove = FVector::Zero;
@@ -413,9 +436,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
-
-	
-
+	CurY = GetActorLocation();
 	if (true == UEngineInput::IsDown('1'))
 	{
 		StateAniChange(EActorState::FreeMove);
@@ -442,7 +463,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('S')
 		)
 	{
-		CurY = GetTransform().GetPosition();
 
 		StateAniChange(EActorState::Jump);
 		return;
@@ -513,6 +533,8 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	if (UEngineInput::IsDown('S'))
 	{
+
+
 		FlyState = true;
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Fly);
@@ -522,10 +544,12 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime,MovePos);
 
+	CamYMove();
 	
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
+
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;
@@ -637,6 +661,8 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
+
+	CamYMove();
 }
 
 void AKirby_Player::Run(float _DeltaTime)
@@ -667,6 +693,8 @@ void AKirby_Player::Run(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
+
+	CamYMove();
 }
 
 void AKirby_Player::Absorption(float _DeltaTime)
