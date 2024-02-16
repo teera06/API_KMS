@@ -139,18 +139,18 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	switch (DirState)
 	{
 	case EActorDir::Left:
-		CheckPos.X -= checkposvalue;
-		CarCheckPos.X -= 3;
+		CheckPos.X -= checkposX;
+		CarCheckPos.X -= 3.0f;// 3으로 우선 고정
 		break;
 	case EActorDir::Right:
-		CheckPos.X += checkposvalue;
-		CarCheckPos.X += 3;
+		CheckPos.X += checkposX;
+		CarCheckPos.X += 3.0f;
 		break;
 	default:
 		break;
 	}
-	CheckPos.Y -= checkposvalue;
-	CarCheckPos.Y -= checkposvalue;
+	CheckPos.Y -= checkposY;
+	CarCheckPos.Y -= checkposY;
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
 	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
@@ -414,6 +414,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 
+	
+
 	if (true == UEngineInput::IsDown('1'))
 	{
 		StateAniChange(EActorState::FreeMove);
@@ -589,13 +591,15 @@ void AKirby_Player::Fly(float _DeltaTime)
 void AKirby_Player::HeadDown(float _DeltaTime)
 {
 	DirCheck();
-	
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
 		StateAniChange(EActorState::Idle);
 		return;
 	}
+
+
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::Walk(float _DeltaTime)

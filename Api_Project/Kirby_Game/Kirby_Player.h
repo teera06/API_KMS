@@ -35,12 +35,6 @@ public:
 	{
 		KirbyMode = _KirbyMode;
 	}
-
-	//bool isEatState()
-	//{
-		//EatState = true;
-	//}
-
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -101,9 +95,10 @@ private:
 	float camSpeed = 500.0f; // 카메라 속도
 	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
 	float HeavyRunSpeed = 100.0f;
-	float checkposvalue = 30;
+	
+	float checkposX = 30.0f;
+	float checkposY = 30.0f;
 
-	//bool EatState = false;
 
 	bool FlyState = false;
 
