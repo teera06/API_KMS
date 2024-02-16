@@ -40,16 +40,29 @@ void AMonster_Base::Tick(float _DeltaTime)
 
 	FVector MonsterDir = PlayerPos - MonsterPos;
 	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
+	
+	FVector MovePos = FVector::Zero;
+	int check = 0;
+	
+	MovePos += MonsterDirNormal * _DeltaTime * 50.0f * FVector::Right;
 
 	if (MonsterDirNormal.iX() == -1)
 	{
 		MonsterRenderer->ChangeAnimation("Monster_Left");
-		AddActorLocation(MonsterDirNormal * _DeltaTime * 50.0f*FVector::Right);
+		check = -20;
 	}
 	else {
 		MonsterRenderer->ChangeAnimation("Monster_Right");
-		AddActorLocation(MonsterDirNormal * _DeltaTime * 50.0f*FVector::Right);
+		check = 20;
 	}
+
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX()+check, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		MovePos = FVector::Zero;
+	}
+
+	AddActorLocation(MovePos);
 
 
 	std::vector<UCollision*> Result;
