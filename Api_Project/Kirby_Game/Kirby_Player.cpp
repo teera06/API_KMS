@@ -32,12 +32,12 @@ void AKirby_Player::CamYMove()
 		{
 			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation());
 			CamMoveY = CamMoveY * FVector::Up;
-			GetWorld()->AddCameraPos(CamMoveY * 0.6f);
+			GetWorld()->AddCameraPos(CamMoveY * 0.63f);
 		}
 		else if (CurY.iY() < GetActorLocation().iY()) {
 			CamMoveY = (FVector::Down * GetActorLocation()) - (FVector::Down * CurY);
 			CamMoveY = CamMoveY * FVector::Down;
-			GetWorld()->AddCameraPos(CamMoveY * 0.6f);
+			GetWorld()->AddCameraPos(CamMoveY * 0.63f);
 		}
 		CurY = GetActorLocation();
 	}
@@ -534,7 +534,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	if (UEngineInput::IsDown('S'))
 	{
 
-
+		CurY = FVector::Zero;
 		FlyState = true;
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Fly);
@@ -559,7 +559,6 @@ void AKirby_Player::Jump(float _DeltaTime)
 void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
-	
 	if (UEngineInput::IsFree('S'))
 	{
 		FlyState = false;
@@ -594,7 +593,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	//AddActorLocation(MovePos);
 	//GetWorld()->AddCameraPos(MovePos * FVector::Right);
 
-	
+	//CamYMove();
 
 	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
 	if (Color1 == Color8Bit(255, 0, 255, 0) )
