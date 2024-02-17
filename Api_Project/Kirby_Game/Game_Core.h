@@ -9,7 +9,6 @@ public:
 	UGame_Core(); // 디폴트 생성자
 	~UGame_Core(); // 디폴트 소멸자
 
-	// delete Function
 	UGame_Core(const UGame_Core& _Other) = delete;
 	UGame_Core(UGame_Core&& _Other) noexcept = delete;
 	UGame_Core& operator=(const UGame_Core& _Other) = delete;
