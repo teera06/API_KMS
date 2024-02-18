@@ -21,21 +21,6 @@ public:
 
 	static AKirby_Player* GetMainPlayer();
 
-	std::string_view GetModeName() // Get 이름체인지
-	{
-		return ModeName;
-	}
-
-	void SetModeName(std::string_view _ModeName) // Set 이름 체인지
-	{
-		ModeName = _ModeName;
-	}
-
-	inline void SetMode(EAMode _KirbyMode) // 커비 모드 체인지 할때 사용
-	{
-		KirbyMode = _KirbyMode;
-	}
-
 	void CamYMove();
 
 protected:
@@ -94,14 +79,15 @@ private:
 	float checkSpeed = 0.0f;
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
+
 	float FlySpeed = 150.0f;
 	float camSpeed = 500.0f; // 카메라 속도
+
 	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
 	float HeavyRunSpeed = 100.0f;
 	
 	float checkposX = 30.0f;
 	float checkposY = 30.0f;
-
 
 	bool FlyState = false;
 	bool JumpState = false;
@@ -119,8 +105,7 @@ private:
 	FVector PlayMove = FVector::Zero;
 
 	FVector CurY = FVector::Zero;
-	EAMode KirbyMode = EAMode::Base; // Kirby 모드
-	std::string ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
+
 
 	static AKirby_Player* MainPlayer;
 

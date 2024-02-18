@@ -2,6 +2,8 @@
 
 UWindowImage* ActorCommon::ColMapImage = nullptr;
 bool ActorCommon::EatState = false;
+EAMode ActorCommon::KirbyMode = EAMode::Base; // Kirby 모드
+std::string ActorCommon::ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 
 ActorCommon::ActorCommon()
 {

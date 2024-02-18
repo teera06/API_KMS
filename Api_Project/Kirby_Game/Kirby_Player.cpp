@@ -717,7 +717,8 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		EatState = false;
-
+		SetModeName("Base_");
+		SetMode(EAMode::Base);
 		StateAniChange(EActorState::Idle);
 		return;
 	}

@@ -35,6 +35,21 @@ public:
 		EatState = _EatState;
 	}
 
+	static std::string_view GetModeName() // Get 이름체인지
+	{
+		return ModeName;
+	}
+
+	static void SetModeName(std::string_view _ModeName) // Set 이름 체인지
+	{
+		ModeName = _ModeName;
+	}
+
+	static void SetMode(EAMode _KirbyMode) // 커비 모드 체인지 할때 사용
+	{
+		KirbyMode = _KirbyMode;
+	}
+
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
@@ -58,6 +73,8 @@ protected:
 		return Hp;
 	}
 	static bool EatState;
+	static EAMode KirbyMode; // Kirby 모드
+	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 private:
 	float Gravity = 700.0f;
 	FVector GravityValue = FVector::Zero;
