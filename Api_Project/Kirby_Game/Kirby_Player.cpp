@@ -595,11 +595,11 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 		MovePos += FVector::Up * _DeltaTime * 100.0f;
 	}
-
-	if (UEngineInput::IsPress(VK_DOWN) && UEngineInput::IsPress('S'))
-	{
+	else {
 		MovePos += FVector::Down * _DeltaTime * 100.0f;
 	}
+
+	
 	
 
 	MoveUpdate(_DeltaTime, MovePos);
