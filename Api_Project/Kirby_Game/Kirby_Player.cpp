@@ -99,8 +99,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 51, 0.09f, true);
 
 	// 기본 나는 모션
-	KirbyRenderer->CreateAnimation("Base_FlyReady_Right", "kirby_Right.png", 53, 57, 0.1f, false);
-	KirbyRenderer->CreateAnimation("Base_FlyReady_Left", "kirby_Left.png", 53, 57, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_FlyReady_Right", "kirby_Right.png", 53, 57, 0.08f, false);
+	KirbyRenderer->CreateAnimation("Base_FlyReady_Left", "kirby_Left.png", 53, 57, 0.08f, false);
 	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 58, 65, 0.1f, true);
 
@@ -118,8 +118,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
 	
 	// 기본 흡수 
-	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 16, 0.06f, false);
-	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 16, 0.06f, false);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
+	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 	
 	// 모든 커비모드에서 사용 가능한 애니메이션
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.03f, false);
@@ -460,10 +460,10 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == UEngineInput::IsDown('S') && false==JumpState
+		true == UEngineInput::IsDown('S') 
 		)
 	{
-		JumpState = true;
+
 		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
@@ -532,11 +532,15 @@ void AKirby_Player::Jump(float _DeltaTime)
 		MovePos += FVector::Right * checkSpeed * _DeltaTime;
 	}
 
-	if (UEngineInput::IsDown('S') && true == JumpState)
+	if (UEngineInput::IsDown('S'))
 	{
+		FlyReadyStart();
 		FlyState = true;
 		JumpVector = FVector::Zero;
-		StateAniChange(EActorState::Fly);
+		if (true == KirbyRenderer->IsCurAnimationEnd())
+		{
+			StateAniChange(EActorState::Fly);
+		}
 		return;
 	}
 
@@ -549,7 +553,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
 
-		JumpState = false;
+		
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;
@@ -591,11 +595,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	
 
 	MoveUpdate(_DeltaTime, MovePos);
-	//AddActorLocation(MovePos);
-	//GetWorld()->AddCameraPos(MovePos * FVector::Right);
-
-	//CamYMove();
-
+	
 	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
 	if (Color1 == Color8Bit(255, 0, 255, 0) )
 	{
@@ -606,15 +606,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	    return;
 	}
 
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
-	{
-
-		JumpState = false;
-		JumpVector = FVector::Zero;
-		StateAniChange(EActorState::Idle);
-		return;
-	}
+	
 	
 }
 
@@ -662,9 +654,9 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('S') && false == JumpState)
+	if (true == UEngineInput::IsDown('S'))
 	{
-		JumpState = true;
+		
 		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
