@@ -36,6 +36,7 @@ protected:
 	void Idle(float _DeltaTime);
 	void Walk(float _DeltaTime);
 	void Jump(float _DeltaTime);
+	void FlyReady(float _DeltaTime);
 	void Fly(float _DeltaTime);
 	void HeadDown(float _DeltaTime);
 	

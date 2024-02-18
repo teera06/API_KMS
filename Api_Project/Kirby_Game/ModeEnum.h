@@ -17,7 +17,7 @@ enum class EActorState
 	Walk,
 	Run,
 	Jump,
-	FlyRead,
+	FlyReady,
 	Fly,
 	Absorption,
 	All_Attack,

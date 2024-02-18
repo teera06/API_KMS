@@ -292,7 +292,7 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::Jump:
 			JumpStart();
 			break;
-		case EActorState::FlyRead:
+		case EActorState::FlyReady:
 			FlyReadyStart();
 			break;
 		case EActorState::Fly:
@@ -348,6 +348,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case EActorState::Fly: // 날기
 		Fly(_DeltaTime);
+		break;
+	case EActorState::FlyReady: // 날기
+		FlyReady(_DeltaTime);
 		break;
 	case EActorState::Run: // 달리기
 		Run(_DeltaTime);
@@ -534,13 +537,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	if (UEngineInput::IsDown('S'))
 	{
-		FlyReadyStart();
-		FlyState = true;
-		JumpVector = FVector::Zero;
-		if (true == KirbyRenderer->IsCurAnimationEnd())
-		{
-			StateAniChange(EActorState::Fly);
-		}
+		StateAniChange(EActorState::FlyReady);
 		return;
 	}
 
@@ -556,6 +553,17 @@ void AKirby_Player::Jump(float _DeltaTime)
 		
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
+		return;
+	}
+}
+
+void AKirby_Player::FlyReady(float _DeltaTime)
+{
+	FlyState = true;
+	JumpVector = FVector::Zero;
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		StateAniChange(EActorState::Fly);
 		return;
 	}
 }
