@@ -32,12 +32,12 @@ void AKirby_Player::CamYMove()
 		{
 			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation());
 			CamMoveY = CamMoveY * FVector::Up;
-			GetWorld()->AddCameraPos(CamMoveY * 0.63f);
+			GetWorld()->AddCameraPos(CamMoveY * 0.59f);
 		}
 		else if (CurY.iY() < GetActorLocation().iY()) {
 			CamMoveY = (FVector::Down * GetActorLocation()) - (FVector::Down * CurY);
 			CamMoveY = CamMoveY * FVector::Down;
-			GetWorld()->AddCameraPos(CamMoveY * 0.63f);
+			GetWorld()->AddCameraPos(CamMoveY * 0.59f);
 		}
 		CurY = GetActorLocation();
 	}
@@ -64,7 +64,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	}
 
 
-	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),350}); // 카메라 위치
+	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),340}); // 카메라 위치
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
