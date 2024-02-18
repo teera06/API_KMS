@@ -464,6 +464,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		)
 	{
 		JumpState = true;
+		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
@@ -558,26 +559,27 @@ void AKirby_Player::Jump(float _DeltaTime)
 void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
-	if (UEngineInput::IsFree('S'))
+	if (UEngineInput::IsDown('X'))
 	{
 		FlyState = false;
-		StateAniChange(EActorState::Idle);
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::Jump);
 		return;
 	}
 
 	FVector MovePos= FVector::Zero;
 	
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('S'))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('S'))
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
-	if (UEngineInput::IsPress(VK_UP) && UEngineInput::IsPress('S'))
+	if (UEngineInput::IsPress(VK_UP))
 	{
 		MovePos += FVector::Up * _DeltaTime * 100.0f;
 	}
@@ -599,12 +601,20 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 
 		FlyState = false;
-
-		StateAniChange(EActorState::Idle);
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::Jump);
 	    return;
 	}
 
-	
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+
+		JumpState = false;
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
 	
 }
 
@@ -652,11 +662,14 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('S'))
+	if (true == UEngineInput::IsDown('S') && false == JumpState)
 	{
+		JumpState = true;
+		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
+
 
 	MoveUpdate(_DeltaTime, MovePos);
 
@@ -754,7 +767,6 @@ void AKirby_Player::HeavyMoveStart()
 void AKirby_Player::JumpStart()
 {
 	DirCheck();
-	JumpVector = JumpPower;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Jump"));
 }
 
