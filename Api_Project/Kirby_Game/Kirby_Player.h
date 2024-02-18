@@ -17,12 +17,8 @@ public:
 	AKirby_Player& operator=(const AKirby_Player& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_Player& operator=(AKirby_Player&& _Other) noexcept = delete;
 
-	void FireKirby(); // 불 커비
-
 	static AKirby_Player* GetMainPlayer();
-
-	void CamYMove();
-
+	
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -111,8 +107,10 @@ private:
 
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
-	
-	
 	void MoveUpdate(float _DeltaTime, const FVector& _MovePos=FVector::Zero);
+	void FireKirby(); // 불 커비
+
+	void CamYMove();
+
 };
 
