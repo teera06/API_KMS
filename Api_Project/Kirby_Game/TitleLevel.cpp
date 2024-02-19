@@ -1,6 +1,5 @@
 #include "TitleLevel.h"
 #include "TitleActor.h"
-#include "Log.h"
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -39,7 +38,6 @@ void UTitleLevel::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Mapback.png", 5, 1);
 	
 	SpawnActor<ATitleActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
-	SpawnActor<ALog>()->SetActorLocation(windowscale.Half2D());
 	
 }
 
@@ -48,7 +46,7 @@ void UTitleLevel::Tick(float _DeltaTime)
 	ULevel::Tick(_DeltaTime);
 
 	if (true == UEngineInput::IsDown(VK_LBUTTON))
-	{
+	{   
 		GEngine->ChangeLevel("Stage1_Level");
 	}
 }

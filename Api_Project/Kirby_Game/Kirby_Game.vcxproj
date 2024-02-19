@@ -51,10 +51,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Monster_Base.cpp">
       <SubType>
       </SubType>
@@ -95,10 +91,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Kirby_Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Log.h">
       <SubType>
       </SubType>
     </ClInclude>
