@@ -26,7 +26,7 @@ void ABase::Tick(float _DeltaTime)
 	}
 
 	BaseCollision->SetPosition({ GetDir().iX() * 100,0 });
-	BaseRenderer->SetPosition({ GetDir().iX() * 110,-40 });
+	BaseRenderer->SetPosition({ GetDir().iX() * 105,-50 });
 
 
 
@@ -57,19 +57,19 @@ void ABase::BeginPlay()
 	{
 		BaseRenderer = CreateImageRenderer(ERenderOrder::Base); // 이미지 랜더 생성
 		BaseRenderer->SetImage("effect_Right.png"); // 이미지 Set
-		BaseRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
+		BaseRenderer->SetTransform({ {0,0}, {150, 150} }); // 랜더의 위치 크기 
 	}
 
 	{
 		BaseCollision = CreateCollision(ECollisionOrder::AllStar);
-		BaseCollision->SetScale({ 80,80 });
+		BaseCollision->SetScale({ 75,75 });
 
 		BaseCollision->SetColType(ECollisionType::Rect);
 	}
 
-	BaseRenderer->CreateAnimation("effect_Right", "effect_Right.png", 0,5, 0.1f, false);
-	BaseRenderer->CreateAnimation("effect_Left", "effect_Left.png", 0, 5, 0.1f, false);
+	BaseRenderer->CreateAnimation("effect_Right", "effect_Right.png", 0,5, 0.1f, true);
+	BaseRenderer->CreateAnimation("effect_Left", "effect_Left.png", 0,5, 0.1f, true);
 	BaseRenderer->ChangeAnimation("effect_Right");
 	
-	Destroy(1.0f);
+	Destroy(0.5f);
 }
