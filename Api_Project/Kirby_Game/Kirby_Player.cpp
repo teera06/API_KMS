@@ -584,7 +584,6 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (UEngineInput::IsDown('X'))
 	{
 		FlyState = false;
-		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::fall);
 		return;
 	}
@@ -618,7 +617,6 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (Color1 == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
-		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::fall);
 	    return;
 	}
@@ -628,7 +626,6 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 
 		FlyState = false;
-		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::fall);
 		return;
 	}
@@ -640,18 +637,32 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 {
 	
 	DirCheck();
-	MoveUpdate(_DeltaTime);
+	//MoveUpdate(_DeltaTime);
 	
+	FVector MovePos = FVector::Zero;
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * checkSpeed;
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		MovePos += FVector::Right * _DeltaTime * checkSpeed;
+	}
+
+	MoveUpdate(_DeltaTime, MovePos);
+
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
-
-
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		CamYMove();
 		return;
 	}
+
+
 }
 
 
