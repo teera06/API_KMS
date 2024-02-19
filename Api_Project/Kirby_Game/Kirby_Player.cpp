@@ -105,8 +105,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 58, 65, 0.1f, true);
 
 	// 떨어지는 모션
-	KirbyRenderer->CreateAnimation("Base_fall_Right", "kirby_Right.png", { 66,67,35,36,37 }, 0.0f, false);
-	KirbyRenderer->CreateAnimation("Base_fall_Left", "kirby_Left.png", { 66,67,35,36,37 }, 0.0f, false);
+	KirbyRenderer->CreateAnimation("Base_fall_Right", "kirby_Right.png", { 66,67,35,36,37 }, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_fall_Left", "kirby_Left.png", { 66,67,35,36,37 }, 0.1f, false);
 	// 기본 숙이기 
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
@@ -617,10 +617,9 @@ void AKirby_Player::Fly(float _DeltaTime)
 	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
 	if (Color1 == Color8Bit(255, 0, 255, 0) )
 	{
-
 		FlyState = false;
 		JumpVector = FVector::Zero;
-		StateAniChange(EActorState::Jump);
+		StateAniChange(EActorState::fall);
 	    return;
 	}
 
