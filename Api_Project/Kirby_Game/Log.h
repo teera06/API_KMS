@@ -20,7 +20,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
-	UImageRenderer* TitleRenderer = nullptr;
+	UImageRenderer* LogRenderer = nullptr;
 	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 };
 
