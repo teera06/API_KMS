@@ -30,7 +30,7 @@ void ABase::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 50);
+		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f* _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->Destroy(0.3f);
 		

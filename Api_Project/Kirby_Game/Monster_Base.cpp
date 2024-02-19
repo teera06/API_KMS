@@ -71,7 +71,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 		MonsterRenderer->SetAlpha(0.5f);
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];
-		int a = 0;
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
 
@@ -79,7 +78,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Destroy(0.1f);
+		Destroy();
 	}
 }
 
