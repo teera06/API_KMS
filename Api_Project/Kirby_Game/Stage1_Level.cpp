@@ -2,6 +2,7 @@
 #include "Stage1_MAP.h"
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
+#include "pengi_Ice.h"
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -40,8 +41,8 @@ void UStage1_Level::BeginPlay()
 
 	UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
 	UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
-	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
-	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
 
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
@@ -56,6 +57,8 @@ void UStage1_Level::BeginPlay()
 		AMonster_Base* NewMonster = SpawnActor<AMonster_Base>();
 		NewMonster->SetActorLocation({ 800 + i * 100,800 });
 	}
+
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1200,800 });
 }
 
 void UStage1_Level::Tick(float _DeltaTime)

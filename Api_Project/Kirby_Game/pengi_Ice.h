@@ -7,18 +7,18 @@
 #include "Kirby_Player.h"
 
 
-class pengi_Ice : public AActor, public ActorCommon
+class Apengi_Ice : public AActor, public ActorCommon
 {
 public:
 	// constrcuter destructer
-	pengi_Ice(); // 디폴트 생성자
-	~pengi_Ice(); // 디폴트 소멸자
+	Apengi_Ice(); // 디폴트 생성자
+	~Apengi_Ice(); // 디폴트 소멸자
 
 	// delete Function
-	pengi_Ice(const pengi_Ice& _Other) = delete; // 디폴트 복사 생성자
-	pengi_Ice(pengi_Ice&& _Other) noexcept = delete; 
-	pengi_Ice& operator=(const pengi_Ice& _Other) = delete; // 디폴트 대입 연산자
-	pengi_Ice& operator=(pengi_Ice&& _Other) noexcept = delete;
+	Apengi_Ice(const Apengi_Ice& _Other) = delete; // 디폴트 복사 생성자
+	Apengi_Ice(Apengi_Ice&& _Other) noexcept = delete; 
+	Apengi_Ice& operator=(const Apengi_Ice& _Other) = delete; // 디폴트 대입 연산자
+	Apengi_Ice& operator=(Apengi_Ice&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
