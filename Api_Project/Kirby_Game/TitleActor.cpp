@@ -18,13 +18,13 @@ void ATitleActor::BeginPlay()
 	TitleRenderer = CreateImageRenderer(ERenderOrder::TitleMap); // 이미지 랜더 생성
 	TitleRenderer->SetImage("Mapback.png"); // 이미지 Set
 	//TitleRenderer->SetTransColor({ 255,255,255,0 });
-	TitleRenderer->SetTransform({ {0,0}, windowScale*2 }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
+	TitleRenderer->SetTransform({{0,0}, {1900,1100} }); // 액터에서의 렌더(이미지) 위치 및 크기 설정 
 	
 	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
 
-	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 5, 1.0f, true); // 오른쪽 서 있기
+	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 2.0f, true); // 오른쪽 서 있기
 	TitleRenderer->ChangeAnimation("Mapback");
 }
 

@@ -32,6 +32,9 @@
     <ClCompile Include="AllStar.cpp">
       <Filter>Stage_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Title_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -65,6 +68,9 @@
     <ClInclude Include="ModeEnum.h" />
     <ClInclude Include="AllStar.h">
       <Filter>Stage_Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Title_Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

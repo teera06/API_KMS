@@ -35,9 +35,10 @@ void UTitleLevel::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
-	UEngineResourcesManager::GetInst().CuttingImage("Mapback.png", 6, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Mapback.png", 5, 1);
 	
 	SpawnActor<ATitleActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
+	SpawnActor<>
 	
 }
 

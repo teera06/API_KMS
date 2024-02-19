@@ -37,6 +37,7 @@ enum class EActorDir
 enum class ERenderOrder
 {
 	TitleMap,
+	Log,
 	Stage1_Map,
 	Monster,
 	Base,
