@@ -637,7 +637,6 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 {
 	
 	DirCheck();
-	//MoveUpdate(_DeltaTime);
 	
 	FVector MovePos = FVector::Zero;
 

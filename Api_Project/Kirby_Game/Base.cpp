@@ -16,7 +16,20 @@ void ABase::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
+	if (GetDir().iX() == FVector::Left.iX())
+	{
+		BaseRenderer->ChangeAnimation("effect_Left");
+	}
+	else
+	{
+		BaseRenderer->ChangeAnimation("effect_Right");
+	}
+
 	BaseCollision->SetPosition({ GetDir().iX() * 100,0 });
+	BaseRenderer->SetPosition({ GetDir().iX() * 110,-40 });
+
+
+
 	std::vector<UCollision*> Result;
 	if (true == BaseCollision->CollisionCheck(ECollisionOrder::Monster, Result))
 	{
@@ -34,7 +47,7 @@ void ABase::Tick(float _DeltaTime)
 		Monster->SetEatState(true);
 		Monster->Destroy(0.3f);
 		
-		Destroy(0.3f);
+		Destroy(0.1f);
 	}
 }
 
@@ -42,8 +55,9 @@ void ABase::BeginPlay()
 {
 	AActor::BeginPlay();
 	{
-		//Renderer->SetImage("Fire.png");
-		//Renderer->SetTransform({ {0,0}, {100, 100} });
+		BaseRenderer = CreateImageRenderer(ERenderOrder::Base); // 이미지 랜더 생성
+		BaseRenderer->SetImage("effect_Right.png"); // 이미지 Set
+		BaseRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
 	}
 
 	{
@@ -52,6 +66,10 @@ void ABase::BeginPlay()
 
 		BaseCollision->SetColType(ECollisionType::Rect);
 	}
+
+	BaseRenderer->CreateAnimation("effect_Right", "effect_Right.png", 0,5, 0.1f, false);
+	BaseRenderer->CreateAnimation("effect_Left", "effect_Left.png", 0, 5, 0.1f, false);
+	BaseRenderer->ChangeAnimation("effect_Right");
 	
 	Destroy(1.0f);
 }
