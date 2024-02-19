@@ -623,6 +623,15 @@ void AKirby_Player::Fly(float _DeltaTime)
 	    return;
 	}
 
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+
+		FlyState = false;
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::fall);
+		return;
+	}
 	
 	
 }
