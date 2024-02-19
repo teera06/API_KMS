@@ -44,7 +44,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 	FVector MovePos = FVector::Zero;
 	int check = 0;
 	
-	MovePos += MonsterDirNormal * _DeltaTime * 50.0f * FVector::Right;
+	MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
 
 	if (MonsterDirNormal.iX() == -1)
 	{
@@ -85,6 +85,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::AniCreate()
 {
 	// 晦獄 務朝 賅暮
-	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 0, 4, 0.2f, true); // 務晦
-	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 0, 4, 0.2f, true); // 務晦
+	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 1, 4, 0.3f, true); // 務晦
+	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 4, 0.3f, true); // 務晦
 }
