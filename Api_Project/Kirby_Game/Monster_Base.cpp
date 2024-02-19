@@ -68,6 +68,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 	{
+		MonsterRenderer->SetAlpha(0.5f);
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];
 		int a = 0;
@@ -78,8 +79,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-
-		Destroy();
+		Destroy(0.1f);
 	}
 }
 
