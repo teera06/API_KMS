@@ -40,6 +40,8 @@ void UStage1_Level::BeginPlay()
 
 	UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
 	UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
+	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
 
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
