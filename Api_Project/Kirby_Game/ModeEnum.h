@@ -19,6 +19,7 @@ enum class EActorState
 	Jump,
 	FlyReady,
 	Fly,
+	fall,
 	Absorption,
 	All_Attack,
 	HeadDown,

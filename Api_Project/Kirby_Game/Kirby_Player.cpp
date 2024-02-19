@@ -301,6 +301,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::Fly:
 			FlyStart();
 			break;
+		case EActorState::fall:
+			FlyFallStart();
+			break;
 		case EActorState::Run:
 			if (true == EatState && KirbyMode == EAMode::Base) // 동일
 			{
@@ -354,6 +357,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case EActorState::FlyReady: // 날기
 		FlyReady(_DeltaTime);
+		break;
+	case EActorState::fall: // 날기
+		Flyfall(_DeltaTime);
 		break;
 	case EActorState::Run: // 달리기
 		Run(_DeltaTime);
@@ -562,6 +568,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 void AKirby_Player::FlyReady(float _DeltaTime)
 {
+	DirCheck();
 	FlyState = true;
 	JumpVector = FVector::Zero;
 	if (true == KirbyRenderer->IsCurAnimationEnd())
@@ -578,7 +585,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 		FlyState = false;
 		JumpVector = FVector::Zero;
-		StateAniChange(EActorState::Jump);
+		StateAniChange(EActorState::fall);
 		return;
 	}
 
@@ -619,6 +626,24 @@ void AKirby_Player::Fly(float _DeltaTime)
 
 	
 	
+}
+
+void AKirby_Player::Flyfall(float _DeltaTime)
+{
+	
+	DirCheck();
+	MoveUpdate(_DeltaTime);
+	
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+
+
+		JumpVector = FVector::Zero;
+		StateAniChange(EActorState::Idle);
+		CamYMove();
+		return;
+	}
 }
 
 
@@ -783,6 +808,12 @@ void AKirby_Player::FlyStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Fly"));
+}
+
+void AKirby_Player::FlyFallStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("fall"));
 }
 
 void AKirby_Player::RunStart()

@@ -38,6 +38,7 @@ protected:
 	void Jump(float _DeltaTime);
 	void FlyReady(float _DeltaTime);
 	void Fly(float _DeltaTime);
+	void Flyfall(float _DeltaTime);
 	void HeadDown(float _DeltaTime);
 	
 	// 커비만 가능 한 상태 
@@ -55,6 +56,7 @@ protected:
 	void JumpStart();
 	void FlyReadyStart();
 	void FlyStart();
+	void FlyFallStart();
 	void RunStart();
 	void AbsorptionStart();
 	void HeadDownStart();
