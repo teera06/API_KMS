@@ -17,6 +17,12 @@ void Apengi_Ice::BeginPlay()
 		PengiRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
 	}
 
+	{
+		PengiCollision = CreateCollision(ECollisionOrder::iceMonster);
+		PengiCollision->SetScale({ 70, 70 });
+		PengiCollision->SetColType(ECollisionType::Rect);
+	}
+
 	AniCreate();
 	PengiRenderer->ChangeAnimation("Pengi_Right");
 }
@@ -25,6 +31,22 @@ void Apengi_Ice::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
+
+	std::vector<UCollision*> Result;
+	if (true == PengiCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+	{
+		
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		//AActor* Ptr = Collision->GetOwner();
+		//AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
+
+		if (nullptr == Player)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Destroy();
+	}
 }
 
 void Apengi_Ice::AniCreate()

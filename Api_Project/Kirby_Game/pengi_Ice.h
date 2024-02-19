@@ -27,6 +27,8 @@ private:
 	UImageRenderer* PengiRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* PengiCollision = nullptr;
 
+	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
+
 	void AniCreate();
 };
 

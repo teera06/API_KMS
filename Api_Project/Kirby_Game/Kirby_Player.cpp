@@ -869,7 +869,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 		//SetNamechange("Base_");
 		Absorption(_DeltaTime);
 		break;
-	case EAMode::Fire:
+	case EAMode::Ice:
 		FireKirby();
 		break;
 	case EAMode::Mike:

@@ -4,7 +4,7 @@
 enum class EAMode
 {
 	Base,
-	Fire,
+	Ice,
 	Mike,
 	Sword,
 	Hammer,
@@ -41,13 +41,14 @@ enum class ERenderOrder
 	Stage1_Map,
 	Monster,
 	Base,
-	Fire,
+	Ice,
 	kirby,
 };
 
 enum class ECollisionOrder
 {
 	Monster,
+	iceMonster,
 	AllStar,
 	kirby
 };

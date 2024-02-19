@@ -2,6 +2,7 @@
 #include <EngineCore\EngineCore.h>
 #include "ModeEnum.h"
 #include "Monster_Base.h"
+#include "pengi_Ice.h"
 #include "Kirby_Player.h"
 
 ABase::ABase()
@@ -47,6 +48,26 @@ void ABase::Tick(float _DeltaTime)
 		Monster->SetEatState(true);
 		Monster->Destroy(0.3f);
 		
+		Destroy(0.1f);
+	}else if(true == BaseCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		int a = 0;
+		AActor* Ptr = Collision->GetOwner();
+		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->SetEatState(true);
+		//Monster->SetMode(EAMode::Ice);
+		//Monster->SetModeName("Ice_");
+
+		Monster->Destroy(0.3f);
+
 		Destroy(0.1f);
 	}
 }
