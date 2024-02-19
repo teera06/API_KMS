@@ -26,15 +26,15 @@ void ABase::Tick(float _DeltaTime)
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
 
-
 		if (nullptr == Monster)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * 50);
 		Monster->SetEatState(true);
-		Monster->Destroy();
+		Monster->Destroy(0.3f);
 		
-		Destroy();
+		Destroy(0.3f);
 	}
 }
 
