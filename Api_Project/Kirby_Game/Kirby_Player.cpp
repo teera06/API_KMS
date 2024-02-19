@@ -229,7 +229,7 @@ void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 	{
 		DirState = Dir;
 		std::string Name = GetAnimationName(CurAnimationName);
-		KirbyRenderer->ChangeAnimation(Name);
+		KirbyRenderer->ChangeAnimation(Name, true,KirbyRenderer->GetCurAnimationFrame(), KirbyRenderer->GetCurAnimationTime());
 	}
 }
 
