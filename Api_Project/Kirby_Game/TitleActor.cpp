@@ -23,7 +23,7 @@ void ATitleActor::BeginPlay()
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
 	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
 
-	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 2.0f, true); // 오른쪽 서 있기
+	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true); // 오른쪽 서 있기
 	TitleRenderer->ChangeAnimation("Mapback");
 }
 
