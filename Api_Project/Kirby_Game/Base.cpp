@@ -26,7 +26,7 @@ void ABase::Tick(float _DeltaTime)
 	}
 
 	BaseCollision->SetPosition({ GetDir().iX() * 100,0 });
-	BaseRenderer->SetPosition({ GetDir().iX() * 105,-50 });
+	BaseRenderer->SetPosition({ GetDir().iX() * 105,-48 });
 
 
 
@@ -62,7 +62,7 @@ void ABase::BeginPlay()
 
 	{
 		BaseCollision = CreateCollision(ECollisionOrder::AllStar);
-		BaseCollision->SetScale({ 75,75 });
+		BaseCollision->SetScale({ 70,70 });
 
 		BaseCollision->SetColType(ECollisionType::Rect);
 	}
