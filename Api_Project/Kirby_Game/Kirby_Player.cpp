@@ -278,7 +278,6 @@ void AKirby_Player::StateAniChange(EActorState _State)
 	if (std::string(GetModeName()) != "Base_")
 	{
 		SetMode(EAMode::Ice);
-		KirbyRenderer->SetTransform({ {0,0}, {210, 210} });
 	}
 
 	if (State != _State)
