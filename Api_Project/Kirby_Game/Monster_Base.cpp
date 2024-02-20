@@ -16,7 +16,7 @@ void AMonster_Base::BeginPlay()
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
-		MonsterRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
+		MonsterRenderer->SetTransform({ {0,1}, {64* scale, 64* scale} }); // 랜더의 위치 크기 
 	}
 
 	{
@@ -85,6 +85,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::AniCreate()
 {
 	// 기본 걷는 모션
-	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 1, 4, 0.3f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 4, 0.3f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 1, 3, 0.3f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 3, 0.3f, true); // 걷기
 }

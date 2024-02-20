@@ -52,7 +52,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
-	KirbyRenderer->SetTransform({ {0,0}, {210, 210} }); // 랜더의 위치 크기 
+	KirbyRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
 
 	AniCreate(); // 애니메이션 종합 관리
 
@@ -294,8 +294,16 @@ void AKirby_Player::StateAniChange(EActorState _State)
 
 	if (std::string(GetModeName()) != "Base_")
 	{
-		SetMode(EAMode::Ice);
+		if (std::string(GetModeName()) == "Ice_")
+		{
+			SetMode(EAMode::Ice);
+		}
+		else if (std::string(GetModeName()) == "Sword_")
+		{
+			SetMode(EAMode::Sword);
+		}
 	}
+	
 
 	if (State != _State)
 	{

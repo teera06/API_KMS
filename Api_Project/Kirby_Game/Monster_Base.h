@@ -31,6 +31,8 @@ private:
 	
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
+	int scale = 5;
+
 	void AniCreate();
 };
 

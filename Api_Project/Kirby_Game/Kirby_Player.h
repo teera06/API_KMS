@@ -115,5 +115,6 @@ private:
 
 	void CamYMove();
 
+	int scale = 3;
 };
 
