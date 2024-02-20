@@ -63,8 +63,8 @@ void ABase::Tick(float _DeltaTime)
 		}
 		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
 		Monster->SetEatState(true);
-		//Monster->SetMode(EAMode::Ice);
-		//Monster->SetModeName("Ice_");
+		//SetMode(EAMode::Ice);
+		SetModeName("Ice_");
 
 		Monster->Destroy(0.3f);
 

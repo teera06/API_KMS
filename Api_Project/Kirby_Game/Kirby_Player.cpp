@@ -274,20 +274,42 @@ void AKirby_Player::StateAniChange(EActorState _State)
 {
 	// 이전상태와 지금 상태가 같지 않아
 	// 이전에는 move 지금은 Idle
+
+	if (std::string(GetModeName()) != "Base_")
+	{
+		SetMode(EAMode::Ice);
+	}
+
 	if (State != _State)
 	{
 		switch (_State)
 		{
 		case EActorState::Idle:
 			
-
-			if (true == EatState && KirbyMode== EAMode::Base) // Eat상태 (먹은상태) 는 커비가 기본 모드일때만 체크후 변경한다.
+			switch (KirbyMode)
 			{
-				HeavyIdleStart(); // Heavy는 기본 형태의 커비에서만 가능한 애니메이션
-			}
-			else
-			{
+			case EAMode::Base:
+				if (true == EatState && KirbyMode == EAMode::Base) // Eat상태 (먹은상태) 는 커비가 기본 모드일때만 체크후 변경한다.
+				{
+					HeavyIdleStart(); // Heavy는 기본 형태의 커비에서만 가능한 애니메이션
+				}
+				else
+				{
+					IdleStart();
+				}
+				break;
+			case EAMode::Ice:
+				SetModeName("Ice_");
 				IdleStart();
+				break;
+			case EAMode::Mike:
+				break;
+			case EAMode::Sword:
+				break;
+			case EAMode::Hammer:
+				break;
+			default:
+				break;
 			}
 			break;
 		case EActorState::Walk:
@@ -775,6 +797,8 @@ void AKirby_Player::Absorption(float _DeltaTime)
 		StateAniChange(EActorState::Idle);
 		return;
 	}
+
+
 	
 	MoveUpdate(_DeltaTime);
 }
