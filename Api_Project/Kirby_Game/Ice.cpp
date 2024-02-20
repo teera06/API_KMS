@@ -42,8 +42,8 @@ void AIce::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Destroy(0.1f);
-		Monster->Destroy(0.1);
+		IceCollision->Destroy();
+		Monster->Destroy(0.5f);
 	}
 	else if (true == IceCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -56,11 +56,11 @@ void AIce::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Destroy(0.1f);
-		Monster->Destroy(0.1);
-
-		
+		IceCollision->Destroy();
+		Monster->Destroy(0.5f);
 	}
+
+	IceRenderer->Destroy(0.1f);
 }
 
 void AIce::BeginPlay()
