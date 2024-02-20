@@ -128,7 +128,17 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.03f, false);
 	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.03f, false);
 
-	
+	//-- 아이스 커비
+	KirbyRenderer->CreateAnimation("Ice_Idle_Right", "Ice_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
+	KirbyRenderer->CreateAnimation("Ice_Idle_Left", "Ice_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
+
+	// 아이스 걷는 모션
+	KirbyRenderer->CreateAnimation("Ice_Walk_Right", "Ice_Right.png", 32, 39, 0.1f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Ice_Walk_Left", "Ice_Left.png", 32, 39, 0.1f, true); // 걷기
+
+	// 아이스 뛰는 모션
+	KirbyRenderer->CreateAnimation("Ice_run_Right", "Ice_Right.png", 40, 49, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Ice_run_Left", "Ice_Left.png", 40, 49, 0.1f, true);
 }
 
 
