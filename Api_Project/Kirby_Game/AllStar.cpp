@@ -20,7 +20,6 @@ void AAllStar::Tick(float _DeltaTime)
 	{
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];
-		int a = 0;
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
 

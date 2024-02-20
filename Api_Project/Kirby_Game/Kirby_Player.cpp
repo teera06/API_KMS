@@ -157,9 +157,9 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Right", "Ice_Right.png",10, 11, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Left", "Ice_Left.png", 10, 11, 0.5f, true);
 
-	// 아이스 숙이기 
-	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.1f, true);
+	// 아이스 공격
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.08f, true);
 }
 
 
