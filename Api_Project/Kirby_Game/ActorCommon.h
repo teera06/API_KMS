@@ -19,6 +19,8 @@ public:
 	static UWindowImage* ColMapImage; // 우선 맵만 사용
 
 
+	
+
 	void SetDir(const FVector& _Dir)
 	{
 		Dir = _Dir;
@@ -79,7 +81,7 @@ private:
 	float Gravity = 700.0f;
 	FVector GravityValue = FVector::Zero;
 	FVector Dir = FVector::Zero;
-
+	
 	// 커비, 몬스터 공통 변수
 	int Hp = 0;
 	int Att = 0;

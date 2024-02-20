@@ -42,8 +42,8 @@ void AIce::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		IceCollision->Destroy();
-		Monster->Destroy(0.5f);
+		IceCollision->Destroy(0.1f);
+		Monster->IceState();
 	}
 	else if (true == IceCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -56,8 +56,8 @@ void AIce::Tick(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		IceCollision->Destroy();
-		Monster->Destroy(0.5f);
+		IceCollision->Destroy(0.1f);
+		Monster->IceState();
 	}
 
 	IceRenderer->Destroy(0.1f);
@@ -74,7 +74,7 @@ void AIce::BeginPlay()
 	}
 	{
 		IceCollision = CreateCollision(ECollisionOrder::IceAttack);
-		IceCollision->SetScale({ 70,70 });
+		IceCollision->SetScale({ 100,70 });
 		IceCollision->SetColType(ECollisionType::Rect);
 	}
 

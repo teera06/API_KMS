@@ -19,6 +19,7 @@ public:
 	AMonster_Base& operator=(const AMonster_Base& _Other) = delete; // 디폴트 대입 연산자
 	AMonster_Base& operator=(AMonster_Base&& _Other) noexcept = delete;
 
+	void IceState();
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -31,6 +32,7 @@ private:
 	
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
+	bool ice = false;
 	int scale = 5;
 
 	void AniCreate();

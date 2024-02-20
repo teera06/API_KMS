@@ -8,13 +8,21 @@ Apengi_Ice::~Apengi_Ice()
 {
 }
 
+void Apengi_Ice::IceState()
+{
+	scale = 2;
+	PengiRenderer->ChangeAnimation("MonsterIce");
+	PengiRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+	ice = true;
+}
+
 void Apengi_Ice::BeginPlay()
 {
 	AActor::BeginPlay();
 	{
 		PengiRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		PengiRenderer->SetImage("pengi_Right.png"); // 이미지 Set
-		PengiRenderer->SetTransform({ {0,0}, {330, 330} }); // 랜더의 위치 크기 
+		PengiRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
 	}
 
 	{
@@ -54,4 +62,5 @@ void Apengi_Ice::AniCreate()
 	// 기본 걷는 모션
 	PengiRenderer->CreateAnimation("Pengi_Right", "Pengi_Right.png", 1, 4, 0.3f, true); // 걷기
 	PengiRenderer->CreateAnimation("Pengi_Left", "Pengi_Left.png", 1, 4, 0.3f, true); // 걷기
+	PengiRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
 }

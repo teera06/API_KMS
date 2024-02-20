@@ -19,7 +19,7 @@ public:
 	Apengi_Ice(Apengi_Ice&& _Other) noexcept = delete; 
 	Apengi_Ice& operator=(const Apengi_Ice& _Other) = delete; // 디폴트 대입 연산자
 	Apengi_Ice& operator=(Apengi_Ice&& _Other) noexcept = delete;
-
+	void IceState();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -30,5 +30,7 @@ private:
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
 	void AniCreate();
+	int scale = 5;
+	bool ice = false;
 };
 
