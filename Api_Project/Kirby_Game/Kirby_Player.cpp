@@ -154,8 +154,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_fall_Right", "Ice_Right.png",75,79, 0.1f, false);
 	KirbyRenderer->CreateAnimation("Ice_fall_Left", "Ice_Left.png", 75,79, 0.1f, false);
 	// ±âº» ¼÷ÀÌ±â 
-	//KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
-	//KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Ice_HeadDown_Right", "Ice_Right.png",10, 11, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Ice_HeadDown_Left", "Ice_Left.png", 10, 11, 0.5f, true);
 }
 
 
