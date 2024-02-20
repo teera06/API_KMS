@@ -21,6 +21,7 @@ enum class EActorState
 	Fly,
 	fall,
 	Absorption,
+	IceAttack,
 	All_Attack,
 	HeadDown,
 	CameraFreeMove,

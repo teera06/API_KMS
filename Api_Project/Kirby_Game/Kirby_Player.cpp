@@ -5,7 +5,7 @@
 #include "AllStar.h"
 #include "Fire.h"
 #include "Base.h"
-
+#include "Ice.h"
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
@@ -144,18 +144,22 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", 80, 90, 0.12f, true);
 	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png",80, 90, 0.12f, true);
 
-	// 기본 나는 모션
+	// 아이스 나는 모션
 	KirbyRenderer->CreateAnimation("Ice_FlyReady_Right", "Ice_Right.png", 54, 58, 0.08f, false);
 	KirbyRenderer->CreateAnimation("Ice_FlyReady_Left", "Ice_Left.png", 54, 58, 0.08f, false);
 	KirbyRenderer->CreateAnimation("Ice_Fly_Right", "Ice_Right.png", 59, 74, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Ice_Fly_Left", "Ice_Left.png", 59, 74, 0.08f, true);
 
-	// 떨어지는 모션
+	// 아이스 떨어지는 모션
 	KirbyRenderer->CreateAnimation("Ice_fall_Right", "Ice_Right.png",75,79, 0.1f, false);
 	KirbyRenderer->CreateAnimation("Ice_fall_Left", "Ice_Left.png", 75,79, 0.1f, false);
-	// 기본 숙이기 
+	// 아이스 숙이기 
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Right", "Ice_Right.png",10, 11, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Left", "Ice_Left.png", 10, 11, 0.5f, true);
+
+	// 아이스 숙이기 
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.1f, true);
 }
 
 
@@ -324,7 +328,6 @@ void AKirby_Player::StateAniChange(EActorState _State)
 				}
 				break;
 			case EAMode::Ice:
-				SetModeName("Ice_");
 				IdleStart();
 				break;
 			case EAMode::Mike:
@@ -376,6 +379,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::Absorption:
 			AbsorptionStart();
 			break;
+		case EActorState::IceAttack:
+			IceAttackStart();
+			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
 			break;
@@ -422,6 +428,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		Run(_DeltaTime);
 		break;
 	case EActorState::Absorption: // 흡수
+		ModeInputTick(_DeltaTime);
+		break;
+	case EActorState::IceAttack: // 흡수
 		ModeInputTick(_DeltaTime);
 		break;
 	case EActorState::HeadDown: // 숙이기
@@ -560,6 +569,20 @@ void AKirby_Player::Idle(float _DeltaTime)
 		}
 		else {
 			NewBase->SetDir(FVector::Right);
+		}
+		return;
+	}
+	else if(true == UEngineInput::IsPress('X') && KirbyMode==EAMode::Ice ){
+		StateAniChange(EActorState::IceAttack);
+		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+		NewIce->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewIce->SetDir(FVector::Left);
+		}
+		else {
+			NewIce->SetDir(FVector::Right);
 		}
 		return;
 	}
@@ -906,6 +929,12 @@ void AKirby_Player::AbsorptionStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Absorption"));
 }
 
+void AKirby_Player::IceAttackStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("IceAttack"));
+}
+
 void AKirby_Player::HeadDownStart()
 {
 	DirCheck();
@@ -929,7 +958,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 		Absorption(_DeltaTime);
 		break;
 	case EAMode::Ice:
-		FireKirby();
+		IceKirby(_DeltaTime);
 		break;
 	case EAMode::Mike:
 		break;
@@ -945,6 +974,22 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 void AKirby_Player::FireKirby()
 {
 	
+}
+
+void AKirby_Player::IceKirby(float _DeltaTime)
+{
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
+
+
+	MoveUpdate(_DeltaTime);
 }
 
 

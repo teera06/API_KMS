@@ -59,6 +59,7 @@ protected:
 	void FlyFallStart();
 	void RunStart();
 	void AbsorptionStart();
+	void IceAttackStart();
 	void HeadDownStart();
 	void AllAttackStart();
 
@@ -112,7 +113,7 @@ private:
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
 	void MoveUpdate(float _DeltaTime, const FVector& _MovePos=FVector::Zero);
 	void FireKirby(); // 불 커비
-
+	void IceKirby(float _DeltaTime); // 아이스 커비
 	void CamYMove();
 
 	int scale = 3;

@@ -35,6 +35,9 @@
     <ClCompile Include="pengi_Ice.cpp">
       <Filter>Stage_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Ice.cpp">
+      <Filter>Stage_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -70,6 +73,9 @@
       <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="pengi_Ice.h">
+      <Filter>Stage_Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Ice.h">
       <Filter>Stage_Actor</Filter>
     </ClInclude>
   </ItemGroup>
