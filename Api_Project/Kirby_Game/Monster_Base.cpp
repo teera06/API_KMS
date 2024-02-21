@@ -62,41 +62,16 @@ void AMonster_Base::Tick(float _DeltaTime)
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonsterRenderer->ChangeAnimation("Monster_Left");
-			checkX = -20;
+			checkX = -30;
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 			MonsterRenderer->ChangeAnimation("Monster_Right");
-			checkX = 20;
+			checkX = 30;
 		}
 		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 	}
 	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
-		--Value;
-		if (0 >= Value)
-		{
-			Dir.X *= -1;
-			Value = TurnValue;
-		}
-		else
-		{
-			Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
-			if (ColorR == Color8Bit(255, 0, 0, 0))
-			{
-				if (true == IsIce)
-				{
-					IceMove = FVector::Zero;
-					Destroy();
-				}
-				else {
-					MovePos = FVector::Zero;
-				}
-
-			}
-			else {
-				AddActorLocation(Dir * _DeltaTime * 30.0f);
-			}
-		}
-		MovePos = FVector::Zero;
+		BaseMove(_DeltaTime);
 	}
 
 
@@ -172,6 +147,48 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 1, 3, 0.3f, true); // 걷기
 	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 3, 0.3f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
+}
+
+void AMonster_Base::BaseMove(float _DeltaTime)
+{
+
+	FVector Move = FVector::Zero;
+
+	--Value;
+	if (0 >= Value)
+	{
+		Dir.X *= -1;
+		Value = TurnValue;
+	}
+	else
+	{
+		if (Dir.iX() == -1)
+		{
+			MonsterRenderer->ChangeAnimation("Monster_Left");
+			checkX = -30;
+		}
+		else {
+			MonsterRenderer->ChangeAnimation("Monster_Right");
+			checkX = 30;
+		}
+		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			if (true == IsIce)
+			{
+				IceMove = FVector::Zero;
+				Destroy();
+			}
+			else {
+				Move = FVector::Zero;
+			}
+		}
+		else {
+			Move += Dir * _DeltaTime * 30.0f;
+		}
+
+		AddActorLocation(Move);
+	}
 }
 
 

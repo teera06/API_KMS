@@ -40,5 +40,6 @@ private:
 
 	int checkX = 0;
 	
+	void BaseMove(float _DeltaTime);
 };
 
