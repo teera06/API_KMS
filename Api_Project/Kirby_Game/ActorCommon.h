@@ -52,10 +52,18 @@ public:
 		KirbyMode = _KirbyMode;
 	}
 
-	FVector IceMove = FVector::Zero;
-	bool IsIce = false;
-	bool iceColision = false;
-	int scale = 0;
+	// 우선 Set, Get으로 만들지 말지를 정하기
+	FVector IceMove = FVector::Zero; // 얼음 이동 관련 공통 
+	bool IsIce = false; // 언 상태 인지 bool값 공통
+	int scale = 0; // 캐릭터들 이미지 크기
+
+	const int TurnValue = 300; // 몬스터 행동 강령
+	int Value = TurnValue; // 몬스터 행동 강령
+	FVector MonsterDirNormal = FVector::Zero; // 플레이어 추격 방향
+
+	float MoveSpeed = 40.0f; // 몬스터 공통 스피드
+
+	int checkX = 0; // 벽에 충돌할때 X축 범위
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 

@@ -144,6 +144,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::AniCreate()
 {
 	// ±âº» °È´Â ¸ð¼Ç
+
 	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 1, 3, 0.3f, true); // °È±â
 	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 3, 0.3f, true); // °È±â
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
@@ -162,12 +163,12 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 	}
 	else
 	{
-		if (Dir.iX() == -1)
+		if (Dir.iX() == -1 && IsIce == false)
 		{
 			MonsterRenderer->ChangeAnimation("Monster_Left");
 			checkX = -30;
 		}
-		else {
+		else if(Dir.iX() == 1 && IsIce == false){
 			MonsterRenderer->ChangeAnimation("Monster_Right");
 			checkX = 30;
 		}

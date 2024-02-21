@@ -28,17 +28,11 @@ protected:
 private:
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision=nullptr;
-	float MoveSpeed = 40.0f;
-	
+
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
-	void AniCreate();
-	const int TurnValue =300;
-	int Value = TurnValue;
 	FVector Dir = FVector::Right;
-	FVector MonsterDirNormal = FVector::Zero;
-
-	int checkX = 0;
+	void AniCreate();
 	
 	void BaseMove(float _DeltaTime);
 };

@@ -46,7 +46,6 @@ void UStage1_Level::BeginPlay()
 
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
-	//Map->SetMapImage("to.png");
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
