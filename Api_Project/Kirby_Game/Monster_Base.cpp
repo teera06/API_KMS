@@ -55,21 +55,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 	FVector MonsterDir = PlayerPos - MonsterPos;
 	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
 
-	if (MosterXL.iX() < PlayerXR.iX()&& MosterXR.iX()> PlayerXR.iX())
-	{
-		
-		MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
-	}
-	else {
-		MovePos = FVector::Zero;
-	}
-
-
-
-
-
-
-
 	if (MonsterDirNormal.iX() == -1 && iceState == false)
 	{
 		MonsterRenderer->ChangeAnimation("Monster_Left");
@@ -79,6 +64,27 @@ void AMonster_Base::Tick(float _DeltaTime)
 		MonsterRenderer->ChangeAnimation("Monster_Right");
 		check = 20;
 	}
+
+	if (MosterXL.iX() < PlayerXR.iX()&& MosterXR.iX()> PlayerXR.iX())
+	{
+		
+		MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
+	}
+	else {
+		--Value;
+		if (0 >= Value)
+		{
+			Dir.X *= -1;
+			Value = TurnValue;
+		}
+		else
+		{
+			AddActorLocation(Dir * _DeltaTime * 30.0f);
+		}
+		MovePos = FVector::Zero;
+		return;
+	}
+
 
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + check, GetActorLocation().iY() - 30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))

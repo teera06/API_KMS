@@ -33,5 +33,9 @@ private:
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
 	void AniCreate();
+	const int TurnValue =400;
+	int Value = TurnValue;
+	FVector Dir = FVector::Right;
+
 };
 
