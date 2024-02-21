@@ -645,8 +645,20 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	if (UEngineInput::IsDown('S'))
 	{
-		StateAniChange(EActorState::FlyReady);
-		return;
+		switch (KirbyMode)
+		{
+		case EAMode::Base:
+			if (false == EatState)
+			{
+				StateAniChange(EActorState::FlyReady);
+				return;
+			}
+			break;
+		default:
+			StateAniChange(EActorState::FlyReady);
+			return;
+			break;
+		}
 	}
 
 
