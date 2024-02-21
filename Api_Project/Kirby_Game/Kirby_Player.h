@@ -115,5 +115,7 @@ private:
 	void FireKirby(); // 불 커비
 	void IceKirby(float _DeltaTime); // 아이스 커비
 	void CamYMove();
+
+	bool SkillOnOff = false;
 };
 

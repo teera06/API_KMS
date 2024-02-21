@@ -239,7 +239,6 @@ void AKirby_Player::MoveUpdate(float _DeltaTime, const FVector& _MovePos)
 {
 	CalGravityVector(_DeltaTime);
 	MoveLastMoveVector(_DeltaTime, _MovePos);
-	//MoveLastMoveVector(_DeltaTime);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -256,7 +255,7 @@ void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 		Dir = EActorDir::Right;
 	}
 
-	if (Dir != DirState)
+	if (Dir != DirState && false==SkillOnOff)
 	{
 		DirState = Dir;
 		std::string Name = GetAnimationName(CurAnimationName);
@@ -559,6 +558,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress('X') && false == EatState
 		)
 	{
+		SkillOnOff = true;
 		StateAniChange(EActorState::Absorption);
 		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
 		NewBase->SetActorLocation(this->GetActorLocation());
@@ -573,6 +573,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if(true == UEngineInput::IsPress('X') && KirbyMode==EAMode::Ice ){
+		SkillOnOff = true;
 		StateAniChange(EActorState::IceAttack);
 		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
 		NewIce->SetActorLocation(this->GetActorLocation());
@@ -841,7 +842,7 @@ void AKirby_Player::Absorption(float _DeltaTime)
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		
+		SkillOnOff = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -982,7 +983,7 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-
+		SkillOnOff = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
