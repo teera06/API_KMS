@@ -14,7 +14,7 @@ void AMonster_Base::IceState()
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
 	MonsterRenderer->SetTransform({ {0,1}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
-	iceState = true;
+	IsIce = true;
 }
 
 void AMonster_Base::BeginPlay()
@@ -41,36 +41,36 @@ void AMonster_Base::BeginPlay()
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
-	FVector PlayerPos = Player->GetActorLocation();
-	FVector MonsterPos = GetActorLocation();
-	FVector MosterXL = MonsterPos + FVector::Left * 200;
-	FVector PlayerXR = PlayerPos * FVector::Right;
+	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
-	FVector MosterXR = MonsterPos + FVector::Right * 200;
+	FVector MosterXL = MonsterPos + FVector::Left * 200; // 몬스터 왼쪽 플레이어 인식 시야 X축
+	FVector MosterXR = MonsterPos + FVector::Right * 200; // 몬스터 오른쪽 플레이어 인식 시야 X축
+	
+	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
+
+	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
+	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
 	FVector MovePos = FVector::Zero;
-	int check = 0;
-	FVector MonsterDir = PlayerPos - MonsterPos;
-	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
+	
 
-	if (MonsterDirNormal.iX() == -1 && iceState == false)
+	if (MosterXL.iX() < PlayerX.iX()&& MosterXR.iX()> PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
-		MonsterRenderer->ChangeAnimation("Monster_Left");
-		check = -20;
+		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		{
+			MonsterRenderer->ChangeAnimation("Monster_Left");
+			checkX = -20;
+		}
+		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+			MonsterRenderer->ChangeAnimation("Monster_Right");
+			checkX = 20;
+		}
+		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 	}
-	else if (MonsterDirNormal.iX() == 1 && iceState == false) {
-		MonsterRenderer->ChangeAnimation("Monster_Right");
-		check = 20;
-	}
-
-	if (MosterXL.iX() < PlayerXR.iX()&& MosterXR.iX()> PlayerXR.iX())
-	{
-		
-		MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
-	}
-	else {
+	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
 		--Value;
 		if (0 >= Value)
 		{
@@ -79,21 +79,30 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 		else
 		{
-			AddActorLocation(Dir * _DeltaTime * 30.0f);
+			Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+			if (ColorR == Color8Bit(255, 0, 0, 0))
+			{
+				if (true == IsIce)
+				{
+					IceMove = FVector::Zero;
+					Destroy();
+				}
+				else {
+					MovePos = FVector::Zero;
+				}
+
+			}
+			else {
+				AddActorLocation(Dir * _DeltaTime * 30.0f);
+			}
 		}
 		MovePos = FVector::Zero;
-		return;
 	}
 
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + check, GetActorLocation().iY() - 30, Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
-	{
-		MovePos = FVector::Zero;
-	}
-
+	// 콜리전 
 	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == false)
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false)
 	{
 		MonsterRenderer->SetAlpha(0.5f);
 		// 이런식으로 상대를 사용할수 있다.
@@ -107,7 +116,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 		Destroy();
 	}
-	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == true)) {
+	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
@@ -133,20 +142,27 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 	}
 
-	if (iceState == false)
+
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		if (true == IsIce)
+		{
+			IceMove = FVector::Zero;
+			Destroy();
+		}
+		else {
+			MovePos = FVector::Zero;
+		}
+
+	}
+
+	if (IsIce == false)
 	{
 		AddActorLocation(MovePos);
 	}
 	else {
 		AddActorLocation(IceMove);
-	}
-
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::RedA);
-
-	if (Color == Color8Bit(255, 0, 0, 0))
-	{
-		IceMove = FVector::Zero;
-		Destroy();
 	}
 }
 
@@ -157,3 +173,5 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 1, 3, 0.3f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
 }
+
+

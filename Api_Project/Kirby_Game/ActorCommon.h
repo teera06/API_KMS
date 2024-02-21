@@ -53,7 +53,7 @@ public:
 	}
 
 	FVector IceMove = FVector::Zero;
-	bool iceState = false;
+	bool IsIce = false;
 	bool iceColision = false;
 	int scale = 0;
 protected:

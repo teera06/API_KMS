@@ -13,7 +13,7 @@ void Apengi_Ice::IceState()
 	scale = 2;
 	PengiRenderer->ChangeAnimation("MonsterIce");
 	PengiRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
-	iceState = true;
+	IsIce = true;
 }
 
 void Apengi_Ice::BeginPlay()
