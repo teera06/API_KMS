@@ -30,7 +30,5 @@ private:
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
 	void AniCreate();
-	int scale = 5;
-	bool ice = false;
 };
 

@@ -14,13 +14,13 @@ void AMonster_Base::IceState()
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
 	MonsterRenderer->SetTransform({ {0,1}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
-	ice = true;
+	iceState = true;
 }
 
 void AMonster_Base::BeginPlay()
 {
 	AActor::BeginPlay();
-
+	scale = 5;
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
@@ -54,12 +54,12 @@ void AMonster_Base::Tick(float _DeltaTime)
 	
 	MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
 
-	if (MonsterDirNormal.iX() == -1 && ice==false)
+	if (MonsterDirNormal.iX() == -1 && iceState==false)
 	{
 		MonsterRenderer->ChangeAnimation("Monster_Left");
 		check = -20;
 	}
-	else if(MonsterDirNormal.iX() == 1 && ice == false){
+	else if(MonsterDirNormal.iX() == 1 && iceState == false){
 		MonsterRenderer->ChangeAnimation("Monster_Right");
 		check = 20;
 	}
@@ -70,14 +70,14 @@ void AMonster_Base::Tick(float _DeltaTime)
 		MovePos = FVector::Zero;
 	}
 
-	if (ice == false)
+	if (iceState == false)
 	{
 		AddActorLocation(MovePos);
 	}
 
 
 	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && ice == false)
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == false)
 	{
 		MonsterRenderer->SetAlpha(0.5f);
 		// 이런식으로 상대를 사용할수 있다.
@@ -91,7 +91,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 		Destroy();
 	}
-	else if((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && ice == true)){
+	else if((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == true)){
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);

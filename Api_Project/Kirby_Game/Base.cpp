@@ -76,8 +76,9 @@ void ABase::BeginPlay()
 		BaseRenderer = CreateImageRenderer(ERenderOrder::Base); // 이미지 랜더 생성
 		BaseRenderer->SetImage("effect_Right.png"); // 이미지 Set
 		BaseRenderer->SetActive(true, 0.1f);
-		BaseRenderer->SetTransform({ {0,0}, {150, 120} }); // 랜더의 위치 크기 
+		BaseRenderer->SetTransform({ {0,0}, {32*5, 32*4} }); // 랜더의 위치 크기 
 	}
+	//150//120
 	{
 		BaseCollision = CreateCollision(ECollisionOrder::AllStar);
 		BaseCollision->SetScale({ 70,70 });

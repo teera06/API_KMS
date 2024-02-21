@@ -32,7 +32,7 @@ public:
 	}
 
 
-	static void SetEatState(bool _EatState)
+	static void SetEatState(const bool _EatState)
 	{
 		EatState = _EatState;
 	}
@@ -52,6 +52,8 @@ public:
 		KirbyMode = _KirbyMode;
 	}
 
+	bool iceState = false;
+	int scale = 0;
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 

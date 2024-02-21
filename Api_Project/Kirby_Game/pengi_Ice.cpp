@@ -13,12 +13,14 @@ void Apengi_Ice::IceState()
 	scale = 2;
 	PengiRenderer->ChangeAnimation("MonsterIce");
 	PengiRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
-	ice = true;
+	iceState = true;
 }
 
 void Apengi_Ice::BeginPlay()
 {
 	AActor::BeginPlay();
+
+	scale = 5;
 	{
 		PengiRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		PengiRenderer->SetImage("pengi_Right.png"); // 이미지 Set
