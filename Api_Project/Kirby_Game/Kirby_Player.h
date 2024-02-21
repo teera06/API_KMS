@@ -54,6 +54,8 @@ protected:
 	void HeavyMoveStart();
 
 	void JumpStart();
+	void HeavyJumpStart();
+
 	void FlyReadyStart();
 	void FlyStart();
 	void FlyFallStart();
@@ -80,7 +82,8 @@ private:
 	float WalkSpeed = 100.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
 
-	float FlySpeed = 150.0f;
+	float FlySpeed = 110.0f;
+
 	float camSpeed = 500.0f; // 카메라 속도
 
 	float HeavyWalkSpeed = 80.0f; // EatState일때 스피드
@@ -99,7 +102,9 @@ private:
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
-	FVector JumpPower = FVector::Up * 500;
+	FVector JumpPowerBase = FVector::Up * 500;
+	FVector JumpPowerHeavy = FVector::Up * 300;
+
 	FVector JumpVector = FVector::Zero;
 
 	FVector PlayMove = FVector::Zero;

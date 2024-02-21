@@ -119,7 +119,13 @@ void AKirby_Player::AniCreate()
 	// Heavy모드 Move
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
+
+	// Heavy모드 Move
+	KirbyRenderer->CreateAnimation("Base_HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
+	KirbyRenderer->CreateAnimation("Base_HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
 	
+
+
 	// 기본 흡수 
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
@@ -355,12 +361,22 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			}
 			break;
 		case EActorState::Jump:
-			JumpStart();
+			if (true == EatState && KirbyMode == EAMode::Base) // 동일
+			{
+				JumpVector = JumpPowerHeavy;
+				HeavyJumpStart();
+			}
+			else
+			{
+				JumpVector = JumpPowerBase;
+				JumpStart();
+			}
 			break;
 		case EActorState::FlyReady:
 			FlyReadyStart();
 			break;
 		case EActorState::Fly:
+			checkSpeed = FlySpeed;
 			FlyStart();
 			break;
 		case EActorState::fall:
@@ -544,7 +560,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		)
 	{
 
-		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
@@ -795,7 +810,6 @@ void AKirby_Player::Walk(float _DeltaTime)
 	if (true == UEngineInput::IsDown('S'))
 	{
 		
-		JumpVector = JumpPower;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
@@ -900,6 +914,12 @@ void AKirby_Player::JumpStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Jump"));
+}
+
+void AKirby_Player::HeavyJumpStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyJump"));
 }
 
 void AKirby_Player::FlyReadyStart()
