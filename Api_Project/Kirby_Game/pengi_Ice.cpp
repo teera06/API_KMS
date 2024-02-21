@@ -140,6 +140,8 @@ void Apengi_Ice::Tick(float _DeltaTime)
 
 void Apengi_Ice::AniCreate()
 {
+	PengiRenderer->CreateAnimation("Idel_Right", "Pengi_Right.png", 0, 0, 0.3f, true); // 務晦
+	PengiRenderer->CreateAnimation("Idel_Left", "Pengi_Left.png", 0, 0, 0.3f, true); // 務晦
 	// 晦獄 務朝 賅暮
 	PengiRenderer->CreateAnimation("Pengi_Right", "Pengi_Right.png", 1, 3, 0.3f, true); // 務晦
 	PengiRenderer->CreateAnimation("Pengi_Left", "Pengi_Left.png", 1, 3, 0.3f, true); // 務晦
@@ -175,15 +177,16 @@ void Apengi_Ice::BaseMove(float _DeltaTime)
 				IceMove = FVector::Zero;
 				Destroy();
 			}
-			else {
-				Move = FVector::Zero;
-			}
 		}
 		else {
 			MoveSpeed = 30.0f;
 			Move += Dir * _DeltaTime * MoveSpeed;
 		}
 
+		if (true == IsIce)
+		{
+			Move = FVector::Zero;
+		}
 		AddActorLocation(Move);
 	}
 }

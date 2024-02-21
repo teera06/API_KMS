@@ -177,13 +177,15 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 				IceMove = FVector::Zero;
 				Destroy();
 			}
-			else {
-				Move = FVector::Zero;
-			}
 		}
 		else {
 			MoveSpeed = 30.0f;
 			Move += Dir * _DeltaTime * MoveSpeed;
+		}
+
+		if (true == IsIce)
+		{
+			Move = FVector::Zero;
 		}
 
 		AddActorLocation(Move);
