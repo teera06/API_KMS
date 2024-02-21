@@ -155,17 +155,17 @@ void Apengi_Ice::BaseMove(float _DeltaTime)
 	--Value;
 	if (0 >= Value)
 	{
-		Dir.X *= -1;
+		DirMonster.X *= -1;
 		Value = TurnValue;
 	}
 	else
 	{
-		if (Dir.iX() == -1 && IsIce == false)
+		if (DirMonster.iX() == -1 && IsIce == false)
 		{
 			PengiRenderer->ChangeAnimation("Pengi_Left");
 			checkX = -30;
 		}
-		else if (Dir.iX() == 1 && IsIce == false) {
+		else if (DirMonster.iX() == 1 && IsIce == false) {
 			PengiRenderer->ChangeAnimation("Pengi_Right");
 			checkX = 30;
 		}
@@ -180,7 +180,7 @@ void Apengi_Ice::BaseMove(float _DeltaTime)
 		}
 		else {
 			MoveSpeed = 30.0f;
-			Move += Dir * _DeltaTime * MoveSpeed;
+			Move += DirMonster * _DeltaTime * MoveSpeed;
 		}
 
 		if (true == IsIce)
