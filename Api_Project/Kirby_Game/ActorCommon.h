@@ -62,6 +62,7 @@ public:
 	FVector MonsterDirNormal = FVector::Zero; // 플레이어 추격 방향
 
 	float MoveSpeed = 40.0f; // 몬스터 공통 스피드
+	float IceSpeed = 200.0f; // 얼음(얼려진 후) 이동 스피드
 
 	int checkX = 0; // 벽에 충돌할때 X축 범위
 protected:
@@ -71,7 +72,8 @@ protected:
 	{
 		Att = _Att;
 	}
-
+	int a = 0;
+	int b = 0;
 	void SetHp(int _Hp)
 	{
 		Hp = _Hp;

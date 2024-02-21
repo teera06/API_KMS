@@ -46,8 +46,8 @@ void AMonster_Base::Tick(float _DeltaTime)
 	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
-	FVector MosterXL = MonsterPos + FVector::Left * 200; // 몬스터 왼쪽 플레이어 인식 시야 X축
-	FVector MosterXR = MonsterPos + FVector::Right * 200; // 몬스터 오른쪽 플레이어 인식 시야 X축
+	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
+	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
 	
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
 
@@ -103,17 +103,15 @@ void AMonster_Base::Tick(float _DeltaTime)
 
 		if (MonsterDirNormal.iX() == -1)
 		{
-			for (int i = 1; i < 10; i++)
-			{
-				IceMove = FVector::Right * 200.0f * _DeltaTime;
-			}
+			
+			IceMove = FVector::Right * IceSpeed * _DeltaTime;
+			
 		}
 		else {
 
-			for (int i = 1; i < 10; i++)
-			{
-				IceMove = FVector::Left * 200.0f * _DeltaTime;
-			}
+			
+			IceMove = FVector::Left * IceSpeed * _DeltaTime;
+			
 		}
 	}
 
