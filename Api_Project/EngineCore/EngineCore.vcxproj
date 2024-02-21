@@ -183,6 +183,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineDebug.h" />
     <ClInclude Include="EngineResourcesManager.h">
       <SubType>
       </SubType>
@@ -221,6 +222,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineResourcesManager.cpp">
       <SubType>
       </SubType>

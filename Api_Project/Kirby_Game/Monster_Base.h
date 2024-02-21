@@ -31,10 +31,10 @@ private:
 
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
-	FVector DirMonster = FVector::Right;
+	FVector DirMonster = FVector::Left;
 	void AniCreate();
 	
 	void BaseMove(float _DeltaTime);
-
+	
 };
 

@@ -22,6 +22,9 @@
     <Filter Include="Object\Component\Collision">
       <UniqueIdentifier>{ebac629b-f699-4a95-83b8-1765b675f74d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{5fc99766-d746-4d18-aec1-b8505848b9cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Component\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="EngineDebug.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -79,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug.h">
+      <Filter>Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -49,17 +49,17 @@ void UStage1_Level::BeginPlay()
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
-	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });;
+	{
+		SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });;
 
-	for (int i = 1; i <= 4; i++)
-	{
-		AMonster_Base* NewMonster = SpawnActor<AMonster_Base>();
-		NewMonster->SetActorLocation({ 800 + i * 100,800 });
-	}
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 800 ,800 });
-	for (int i = 1; i <= 3; i++)
-	{
-		SpawnActor<Apengi_Ice>()->SetActorLocation({ 1200+i*200,800 });
+
+		SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
+		SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });
+		SpawnActor<AMonster_Base>()->SetActorLocation({ 1900,600 });
+		
+		SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
+		SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
+		//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
 	}
 }
 

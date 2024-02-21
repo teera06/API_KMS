@@ -42,7 +42,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
-
 	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
@@ -191,5 +190,7 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 		AddActorLocation(Move);
 	}
 }
+
+
 
 
