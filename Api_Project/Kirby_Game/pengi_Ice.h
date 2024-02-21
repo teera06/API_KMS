@@ -28,7 +28,9 @@ private:
 	UCollision* PengiCollision = nullptr;
 
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
-
+	
+	FVector Dir = FVector::Right;
 	void AniCreate();
+	void BaseMove(float _DeltaTime);
 };
 

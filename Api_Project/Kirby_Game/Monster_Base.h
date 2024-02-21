@@ -36,6 +36,5 @@ private:
 	
 	void BaseMove(float _DeltaTime);
 
-	float sight = 200.0f;
 };
 

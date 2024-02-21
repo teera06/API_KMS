@@ -68,6 +68,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 			MonsterRenderer->ChangeAnimation("Monster_Right");
 			checkX = 30;
 		}
+		MoveSpeed = 50.0f;
 		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 	}
 	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
@@ -109,9 +110,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 		else {
 
-			
 			IceMove = FVector::Left * IceSpeed * _DeltaTime;
-			
 		}
 	}
 
@@ -183,7 +182,8 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 			}
 		}
 		else {
-			Move += Dir * _DeltaTime * 30.0f;
+			MoveSpeed = 30.0f;
+			Move += Dir * _DeltaTime * MoveSpeed;
 		}
 
 		AddActorLocation(Move);
