@@ -99,14 +99,14 @@ void AMonster_Base::Tick(float _DeltaTime)
 		{
 			for (int i = 1; i < 10; i++)
 			{
-				IceMove = FVector::Right * 150.0f * _DeltaTime;
+				IceMove = FVector::Right * 200.0f * _DeltaTime;
 			}
 		}
 		else {
 
 			for (int i = 1; i < 10; i++)
 			{
-				IceMove = FVector::Left * 150.0f * _DeltaTime;
+				IceMove = FVector::Left * 200.0f * _DeltaTime;
 			}
 		}
 	}
