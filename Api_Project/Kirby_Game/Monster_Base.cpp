@@ -45,14 +45,30 @@ void AMonster_Base::Tick(float _DeltaTime)
 
 	FVector PlayerPos = Player->GetActorLocation();
 	FVector MonsterPos = GetActorLocation();
+	FVector MosterXL = MonsterPos + FVector::Left * 200;
+	FVector PlayerXR = PlayerPos * FVector::Right;
 
-	FVector MonsterDir = PlayerPos - MonsterPos;
-	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
+	FVector MosterXR = MonsterPos + FVector::Right * 200;
 
 	FVector MovePos = FVector::Zero;
 	int check = 0;
+	FVector MonsterDir = PlayerPos - MonsterPos;
+	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
 
-	MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
+	if (MosterXL.iX() < PlayerXR.iX()&& MosterXR.iX()> PlayerXR.iX())
+	{
+		
+		MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
+	}
+	else {
+		MovePos = FVector::Zero;
+	}
+
+
+
+
+
+
 
 	if (MonsterDirNormal.iX() == -1 && iceState == false)
 	{
