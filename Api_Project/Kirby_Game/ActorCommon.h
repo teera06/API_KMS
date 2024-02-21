@@ -52,7 +52,9 @@ public:
 		KirbyMode = _KirbyMode;
 	}
 
+	FVector IceMove = FVector::Zero;
 	bool iceState = false;
+	bool iceColision = false;
 	int scale = 0;
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분

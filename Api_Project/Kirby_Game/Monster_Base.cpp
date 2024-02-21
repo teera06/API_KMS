@@ -48,33 +48,27 @@ void AMonster_Base::Tick(float _DeltaTime)
 
 	FVector MonsterDir = PlayerPos - MonsterPos;
 	FVector MonsterDirNormal = MonsterDir.Normalize2DReturn();
-	
+
 	FVector MovePos = FVector::Zero;
 	int check = 0;
-	
+
 	MovePos += MonsterDirNormal * _DeltaTime * 40.0f * FVector::Right;
 
-	if (MonsterDirNormal.iX() == -1 && iceState==false)
+	if (MonsterDirNormal.iX() == -1 && iceState == false)
 	{
 		MonsterRenderer->ChangeAnimation("Monster_Left");
 		check = -20;
 	}
-	else if(MonsterDirNormal.iX() == 1 && iceState == false){
+	else if (MonsterDirNormal.iX() == 1 && iceState == false) {
 		MonsterRenderer->ChangeAnimation("Monster_Right");
 		check = 20;
 	}
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX()+check, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + check, GetActorLocation().iY() - 30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		MovePos = FVector::Zero;
 	}
-
-	if (iceState == false)
-	{
-		AddActorLocation(MovePos);
-	}
-
 
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == false)
@@ -91,7 +85,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 		}
 		Destroy();
 	}
-	else if((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == true)){
+	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && iceState == true)) {
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
@@ -103,11 +97,34 @@ void AMonster_Base::Tick(float _DeltaTime)
 
 		if (MonsterDirNormal.iX() == -1)
 		{
-			AddActorLocation(FVector::Right*1000.f * _DeltaTime);
+			for (int i = 1; i < 10; i++)
+			{
+				IceMove = FVector::Right * 150.0f * _DeltaTime;
+			}
 		}
 		else {
-			AddActorLocation(FVector::Left * 1000.f * _DeltaTime);
+
+			for (int i = 1; i < 10; i++)
+			{
+				IceMove = FVector::Left * 150.0f * _DeltaTime;
+			}
 		}
+	}
+
+	if (iceState == false)
+	{
+		AddActorLocation(MovePos);
+	}
+	else {
+		AddActorLocation(IceMove);
+	}
+
+	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::RedA);
+
+	if (Color == Color8Bit(255, 0, 0, 0))
+	{
+		IceMove = FVector::Zero;
+		Destroy();
 	}
 }
 
