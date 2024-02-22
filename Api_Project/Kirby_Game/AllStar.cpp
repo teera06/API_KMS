@@ -65,7 +65,7 @@ void AAllStar::BeginPlay()
 		AllStarRenderer = CreateImageRenderer(ERenderOrder::Base);
 		AllStarRenderer->SetImage("kirby2_Right.png");
 		AllStarRenderer->SetTransform({ {0,0}, {200, 200} });
-		AllStarRenderer->SetActive(true, 0.2f);
+		AllStarRenderer->SetActive(true, 0.1f);
 
 		AllStarRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 54, 57, 0.1f, true);
 
