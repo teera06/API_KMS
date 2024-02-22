@@ -610,7 +610,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('A') && true==EatState
 		)
 	{
-		
+		SkillOnOff = true;
 		StateAniChange(EActorState::All_Attack);
 		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
 		NewStar->SetActorLocation(this->GetActorLocation());
@@ -887,6 +887,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
+		SkillOnOff = false;
 		EatState = false;
 		SetModeName("Base_");
 		SetMode(EAMode::Base);

@@ -90,7 +90,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			Destroy();
 		}
 		else {
-			Player->GetKirbyRender()->SetAlpha(0.5f);
+			//Player->GetKirbyRender()->SetAlpha(0.5f);
 			Player->AddActorLocation(MonsterDirNormal * 500.0f * _DeltaTime);
 			AddActorLocation(MonsterDirNormal * -200.0f * _DeltaTime);
 			MonsterRenderer->ChangeAnimation("die_Right");
