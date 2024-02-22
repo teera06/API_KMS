@@ -182,6 +182,9 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 				IceMove = FVector::Zero;
 				Destroy();
 			}
+			else {
+				DirMonster.X *= -1;
+			}
 		}
 		else {
 			MoveSpeed = 30.0f;
