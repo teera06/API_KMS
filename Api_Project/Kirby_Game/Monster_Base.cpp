@@ -71,7 +71,10 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false)
 	{
-		MonsterRenderer->SetAlpha(0.5f);
+		
+			
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
@@ -81,7 +84,12 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Destroy();
+
+		//Player->GetKirbyRender()->SetAlpha(0.5f);
+		
+		AddActorLocation(MonsterDirNormal * -100.0f * _DeltaTime);
+		MonsterRenderer->ChangeAnimation("die_Right");
+		Destroy(0.1f);
 	}
 	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
 		UCollision* Collision = Result[0];
@@ -136,7 +144,7 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Monster_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("Monster_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
-	//MonsterRenderer->ChangeAnimation("die_Right","")
+	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5, false);
 }
 
 void AMonster_Base::BaseMove(float _DeltaTime)

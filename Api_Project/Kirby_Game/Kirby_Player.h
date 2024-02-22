@@ -19,6 +19,11 @@ public:
 
 	static AKirby_Player* GetMainPlayer();
 	
+	UImageRenderer* GetKirbyRender()
+	{
+		return KirbyRenderer;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
