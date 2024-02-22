@@ -82,19 +82,19 @@ void AKirby_Player::AniCreate()
 {
 	// (오른쪽, 왼쪽)
 	// (1) Base
-	// 기본 서있는 모션
+	// 기본 서있는 모션(완)
 	KirbyRenderer->CreateAnimation("Base_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Base_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
 
-	// 기본 걷는 모션
+	// 기본 걷는 모션(완)
 	KirbyRenderer->CreateAnimation("Base_Walk_Right", "kirby_Right.png", 10, 19, 0.07f, true); // 걷기
 	KirbyRenderer->CreateAnimation("Base_Walk_Left", "kirby_Left.png", 10, 19, 0.07f, true); // 걷기
 
-	// 기본 뛰는 모션
+	// 기본 뛰는 모션(완)
 	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.04f, true);
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.04f, true);
 
-	// 기본 점프 모션
+	// 기본 점프 모션(완)
 	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 51, 0.06f, true);
 	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 51, 0.06f, true);
 
@@ -117,8 +117,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Left", "kirby2_Left.png", 19, 20, 0.5f, true);
 
 	// Heavy모드 Move
-	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.1f, true);
-	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.06f, true);
 
 	// Heavy모드 Move
 	KirbyRenderer->CreateAnimation("Base_HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
