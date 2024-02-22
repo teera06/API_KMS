@@ -90,10 +90,11 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			Destroy();
 		}
 		else {
-			//Player->GetKirbyRender()->SetAlpha(0.5f);
-			AddActorLocation(MonsterDirNormal * -100.0f * _DeltaTime);
+			Player->GetKirbyRender()->SetAlpha(0.5f);
+			Player->AddActorLocation(MonsterDirNormal * 500.0f * _DeltaTime);
+			AddActorLocation(MonsterDirNormal * -200.0f * _DeltaTime);
 			MonsterRenderer->ChangeAnimation("die_Right");
-			Destroy(0.2f);
+			Destroy(0.15f);
 		}
 	}
 	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
@@ -149,7 +150,7 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Monster_Right", "Dee_Right.png", 0, 4, 0.1f, true); // °È±â
 	MonsterRenderer->CreateAnimation("Monster_Left", "Dee_Left.png", 0, 4, 0.1f, true); // °È±â
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
-	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5, false);
+	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false);
 }
 
 void AMonster_Base::BaseMove(float _DeltaTime)
