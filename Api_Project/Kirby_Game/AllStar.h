@@ -20,7 +20,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
 private:
-	float Speed = 300.0f;
+	float Speed = 500.0f;
 	UImageRenderer* AllStarRenderer = nullptr;
 	UCollision* AllStarCollision = nullptr;
 };

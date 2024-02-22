@@ -131,8 +131,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 	
 	// 모든 커비모드에서 사용 가능한 애니메이션
-	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 53, 0.03f, false);
-	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 53, 0.03f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 52, 0.03f, false);
 
 	//-- 아이스 커비
 	KirbyRenderer->CreateAnimation("Ice_Idle_Right", "Ice_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
@@ -147,8 +147,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_run_Left", "Ice_Left.png", 42, 49, 0.04f, true);
 
 	// 아이스 점프 모션
-	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", 80, 90, 0.12f, true);
-	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png",80, 90, 0.12f, true);
+	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", 80, 90, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png",80, 90, 0.06f, true);
 
 	// 아이스 나는 모션
 	KirbyRenderer->CreateAnimation("Ice_FlyReady_Right", "Ice_Right.png", 54, 58, 0.08f, false);
