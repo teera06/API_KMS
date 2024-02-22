@@ -45,6 +45,7 @@ void ABase::Tick(float _DeltaTime)
 		}
 		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f* _DeltaTime);
 		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
 		Monster->Destroy(0.3f);
 		
 		Destroy(0.1f);

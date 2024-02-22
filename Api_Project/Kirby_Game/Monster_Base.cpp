@@ -85,11 +85,16 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		//Player->GetKirbyRender()->SetAlpha(0.5f);
-		
-		AddActorLocation(MonsterDirNormal * -100.0f * _DeltaTime);
-		MonsterRenderer->ChangeAnimation("die_Right");
-		Destroy(0.1f);
+		if (true == GetBaseOnOff())
+		{
+			Destroy();
+		}
+		else {
+			//Player->GetKirbyRender()->SetAlpha(0.5f);
+			AddActorLocation(MonsterDirNormal * -100.0f * _DeltaTime);
+			MonsterRenderer->ChangeAnimation("die_Right");
+			Destroy(0.2f);
+		}
 	}
 	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
 		UCollision* Collision = Result[0];

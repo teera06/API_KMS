@@ -20,6 +20,18 @@ public:
 	AMonster_Base& operator=(AMonster_Base&& _Other) noexcept = delete;
 
 	void IceState();
+
+	void SetBaseOnOff(bool _BaseOnOff)
+	{
+		BaseOnOff = _BaseOnOff;
+	}
+
+	bool GetBaseOnOff()
+	{
+		return BaseOnOff;
+	}
+
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -38,5 +50,6 @@ private:
 	
 	void BaseMove(float _DeltaTime);
 	
+	bool BaseOnOff = false;
 };
 
