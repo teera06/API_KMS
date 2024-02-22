@@ -20,10 +20,10 @@ void AMonster_Base::IceState()
 void AMonster_Base::BeginPlay()
 {
 	AActor::BeginPlay();
-	scale = 5;
+	scale = 3;
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
-		MonsterRenderer->SetImage("Monster_Right.png"); // 이미지 Set
+		MonsterRenderer->SetImage("Dee_Right.png"); // 이미지 Set
 		MonsterRenderer->SetTransform({ {0,1}, {64* scale, 64* scale} }); // 랜더의 위치 크기 
 	}
 
@@ -133,9 +133,10 @@ void AMonster_Base::AniCreate()
 {
 	// 기본 걷는 모션
 
-	MonsterRenderer->CreateAnimation("Monster_Right", "Monster_Right.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Monster_Left", "Monster_Left.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Monster_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Monster_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
+	//MonsterRenderer->ChangeAnimation("die_Right","")
 }
 
 void AMonster_Base::BaseMove(float _DeltaTime)

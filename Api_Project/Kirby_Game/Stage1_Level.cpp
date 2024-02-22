@@ -39,8 +39,10 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 	}
 
-	UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
-	UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
+	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("Dee_Left.png", 5, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
 
