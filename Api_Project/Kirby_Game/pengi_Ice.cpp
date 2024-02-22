@@ -152,12 +152,12 @@ void Apengi_Ice::BaseMove(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
 
-	if (DirMonster.iX() == -1 && IsIce == false)
+	if (MonsterDirNormal.iX() == -1 && IsIce == false)
 	{
 		PengiRenderer->ChangeAnimation("Idel_Left");
 		checkX = -30;
 	}
-	else if (DirMonster.iX() == 1 && IsIce == false) {
+	else if (MonsterDirNormal.iX() == 1 && IsIce == false) {
 		PengiRenderer->ChangeAnimation("Idel_Right");
 		checkX = 30;
 	}
@@ -182,6 +182,6 @@ void Apengi_Ice::BaseMove(float _DeltaTime)
 	{
 		Move = FVector::Zero;
 	}
-	AddActorLocation(Move);
+	//AddActorLocation(Move);
 	
 }
