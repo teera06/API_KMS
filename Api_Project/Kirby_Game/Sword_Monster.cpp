@@ -7,7 +7,7 @@ Sword_Monster::Sword_Monster()
 Sword_Monster::~Sword_Monster()
 {
 }
-
+int a = 0;
 void Sword_Monster::MoveUpdate(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
