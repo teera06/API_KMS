@@ -38,6 +38,9 @@
     <ClCompile Include="Ice.cpp">
       <Filter>Stage_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Sword_Monster.cpp">
+      <Filter>Stage_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -76,6 +79,9 @@
       <Filter>Stage_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Ice.h">
+      <Filter>Stage_Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword_Monster.h">
       <Filter>Stage_Actor</Filter>
     </ClInclude>
   </ItemGroup>

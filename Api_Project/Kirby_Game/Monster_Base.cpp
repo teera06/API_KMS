@@ -62,23 +62,9 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	FVector MovePos = FVector::Zero;
 
 
-	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
-	{
-		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
-		{
-			MonsterRenderer->ChangeAnimation("Monster_Left");
-			checkX = -30;
-		}
-		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
-			MonsterRenderer->ChangeAnimation("Monster_Right");
-			checkX = 30;
-		}
-		MoveSpeed = 50.0f;
-		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
-	}
-	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
-		BaseMove(_DeltaTime);
-	}
+	
+	BaseMove(_DeltaTime);
+	
 
 
 	// 콜리전 
