@@ -60,11 +60,8 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
 	FVector MovePos = FVector::Zero;
+	FVector DiePos = FVector::Zero;
 
-
-	
-	BaseMove(_DeltaTime);
-	
 
 
 	// 콜리전 
@@ -91,10 +88,10 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		}
 		else {
 			//Player->GetKirbyRender()->SetAlpha(0.5f);
-			Player->AddActorLocation(MonsterDirNormal * 500.0f * _DeltaTime);
-			AddActorLocation(MonsterDirNormal * -200.0f * _DeltaTime);
+			//Player->AddActorLocation(MonsterDirNormal * 500.0f * _DeltaTime);
 			MonsterRenderer->ChangeAnimation("die_Right");
-			Destroy(0.15f);
+			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right;
+			diecheck = true;
 		}
 	}
 	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
@@ -134,12 +131,23 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 
 	}
 
-	if (IsIce == false)
+	if (true==diecheck)
 	{
-		AddActorLocation(MovePos);
+		MovePos = FVector::Zero;
+		AddActorLocation(DiePos);
+		Destroy(0.01f);
+		
 	}
 	else {
-		AddActorLocation(IceMove);
+		BaseMove(_DeltaTime);
+
+		if (IsIce == false)
+		{
+			AddActorLocation(MovePos);
+		}
+		else {
+			AddActorLocation(IceMove);
+		}
 	}
 }
 

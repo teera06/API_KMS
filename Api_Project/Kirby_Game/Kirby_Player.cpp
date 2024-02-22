@@ -28,7 +28,7 @@ void AKirby_Player::CamYMove()
 
 	if (CurY.iY() != GetActorLocation().iY())
 	{
-		if (CurY.iY() > GetActorLocation().iY())
+		if (CurY.iY() > GetActorLocation().iY()) // 날거나 점플했을때
 		{
 			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation());
 			CamMoveY = CamMoveY * FVector::Up;
@@ -363,12 +363,10 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::Jump:
 			if (true == EatState && KirbyMode == EAMode::Base) // 동일
 			{
-				JumpVector = JumpPowerHeavy;
 				HeavyJumpStart();
 			}
 			else
 			{
-				JumpVector = JumpPowerBase;
 				JumpStart();
 			}
 			break;
@@ -559,7 +557,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('S') 
 		)
 	{
-
+		JumpVector = JumpPowerIdle;
 		StateAniChange(EActorState::Jump);
 		return;
 	}
@@ -762,13 +760,12 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
-
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (Color == Color8Bit(255, 0, 0, 0))
 	{
+		CamYMove();
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
-		CamYMove();
 		return;
 	}
 
@@ -821,7 +818,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('S'))
 	{
-		
+		JumpVector = JumpPowerMove;
 		StateAniChange(EActorState::Jump);
 		return;
 	}

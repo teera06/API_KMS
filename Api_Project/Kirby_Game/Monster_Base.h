@@ -51,5 +51,6 @@ private:
 	void BaseMove(float _DeltaTime);
 	
 	bool BaseOnOff = false;
+	bool diecheck = false;
 };
 
