@@ -82,7 +82,7 @@ private:
 	float WalkSpeed = 200.0f; // 걷는 속도
 	float RunSpeed = 250.0f; // 뛰는 속도
 
-	float FlySpeed = 110.0f;
+	float FlySpeed = 180.0f;
 
 	float camSpeed = 500.0f; // 카메라 속도
 
@@ -103,7 +103,7 @@ private:
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
 	FVector JumpPowerBase = FVector::Up * 400;
-	FVector JumpPowerHeavy = FVector::Up * 300;
+	FVector JumpPowerHeavy = FVector::Up * 400;
 
 	FVector JumpVector = FVector::Zero;
 
