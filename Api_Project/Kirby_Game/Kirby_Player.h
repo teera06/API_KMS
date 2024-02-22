@@ -102,7 +102,7 @@ private:
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
-	FVector JumpPowerBase = FVector::Up * 500;
+	FVector JumpPowerBase = FVector::Up * 400;
 	FVector JumpPowerHeavy = FVector::Up * 300;
 
 	FVector JumpVector = FVector::Zero;
