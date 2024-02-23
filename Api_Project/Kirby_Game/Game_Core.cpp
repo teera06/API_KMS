@@ -22,7 +22,7 @@ void UGame_Core::BeginPlay()
 	UEngineCore::BeginPlay();
 
 	MainWindow.SetWindowPosition({ 200,100 }); // 윈도우창이 뜨는 위치 Set
-	MainWindow.SetWindowScale({ 1200, 800}); // 윈도우창 크기 Set
+	MainWindow.SetWindowScale({ 1000, 700}); // 윈도우창 크기 Set
 
 	UEngineDirectory NewPath; // 현재 파일 경로
 

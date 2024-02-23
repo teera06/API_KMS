@@ -64,7 +64,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	}
 
 
-	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),340}); // 카메라 위치
+	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),400}); // 카메라 위치
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
