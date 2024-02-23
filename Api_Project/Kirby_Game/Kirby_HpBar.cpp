@@ -15,7 +15,7 @@ AKirby_HpBar::~AKirby_HpBar()
 void AKirby_HpBar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	SetActorLocation({ GetWorld()->GetCameraPos().iX()+140, GetWorld()->GetCameraPos().iY()+660 });
+	SetActorLocation({ GetWorld()->GetCameraPos().iX()+145, GetWorld()->GetCameraPos().iY()+650 });
 
 	if (ModeName== "Base_")
 	{
