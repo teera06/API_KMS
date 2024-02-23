@@ -56,6 +56,11 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	AniCreate(); // 애니메이션 종합 관리
 
+	{
+		HpRenderer = CreateImageRenderer(ERenderOrder::HPBar); // 이미지 랜더 생성
+		HpRenderer->SetImage("HpHUD.png"); // 이미지 Set
+		HpRenderer->SetTransform({ {-350,50}, {64 * 5, 64 * 4} }); // 랜더의 위치 크기 
+	}
 	// 일반적으로는 충돌이라는 시점을 따로둡니다.
 	{
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby);

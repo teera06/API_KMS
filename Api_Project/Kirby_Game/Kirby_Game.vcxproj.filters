@@ -10,18 +10,6 @@
     <ClCompile Include="Stage1_Level.cpp">
       <Filter>ContentsLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Kirby_Player.cpp">
-      <Filter>Stage_Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Fire.cpp">
-      <Filter>Stage_Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster_Base.cpp">
-      <Filter>Stage_Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Base.cpp">
-      <Filter>Stage_Actor</Filter>
-    </ClCompile>
     <ClCompile Include="TitleActor.cpp">
       <Filter>Title_Actor</Filter>
     </ClCompile>
@@ -29,17 +17,29 @@
       <Filter>Stage_Actor\Stage1_Map</Filter>
     </ClCompile>
     <ClCompile Include="ActorCommon.cpp" />
-    <ClCompile Include="AllStar.cpp">
-      <Filter>Stage_Actor</Filter>
+    <ClCompile Include="Kirby_Player.cpp">
+      <Filter>Stage_Actor\Kirby</Filter>
     </ClCompile>
-    <ClCompile Include="pengi_Ice.cpp">
-      <Filter>Stage_Actor</Filter>
+    <ClCompile Include="AllStar.cpp">
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>Stage_Actor\Kirby</Filter>
     </ClCompile>
     <ClCompile Include="Ice.cpp">
-      <Filter>Stage_Actor</Filter>
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Base.cpp">
+      <Filter>Stage_Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="pengi_Ice.cpp">
+      <Filter>Stage_Actor\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Sword_Monster.cpp">
-      <Filter>Stage_Actor</Filter>
+      <Filter>Stage_Actor\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,18 +52,6 @@
     <ClInclude Include="Stage1_Level.h">
       <Filter>ContentsLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Kirby_Player.h">
-      <Filter>Stage_Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Fire.h">
-      <Filter>Stage_Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster_Base.h">
-      <Filter>Stage_Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>Stage_Actor</Filter>
-    </ClInclude>
     <ClInclude Include="TitleActor.h">
       <Filter>Title_Actor</Filter>
     </ClInclude>
@@ -72,17 +60,29 @@
     </ClInclude>
     <ClInclude Include="ActorCommon.h" />
     <ClInclude Include="ModeEnum.h" />
-    <ClInclude Include="AllStar.h">
-      <Filter>Stage_Actor</Filter>
+    <ClInclude Include="Kirby_Player.h">
+      <Filter>Stage_Actor\Kirby</Filter>
     </ClInclude>
-    <ClInclude Include="pengi_Ice.h">
-      <Filter>Stage_Actor</Filter>
+    <ClInclude Include="AllStar.h">
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Stage_Actor\Kirby</Filter>
     </ClInclude>
     <ClInclude Include="Ice.h">
-      <Filter>Stage_Actor</Filter>
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Base.h">
+      <Filter>Stage_Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="pengi_Ice.h">
+      <Filter>Stage_Actor\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Sword_Monster.h">
-      <Filter>Stage_Actor</Filter>
+      <Filter>Stage_Actor\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +100,12 @@
     </Filter>
     <Filter Include="Stage_Actor\Stage1_Map">
       <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Kirby">
+      <UniqueIdentifier>{6d5507b0-c863-4514-8dd1-f1e77ee87b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Monster">
+      <UniqueIdentifier>{bc8afad8-8029-432f-b9ba-201fe0bebceb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
