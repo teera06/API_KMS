@@ -21,6 +21,6 @@ void AKirby_HpBar::BeginPlay()
 	{
 		HpRenderer = CreateImageRenderer(ERenderOrder::HPBar); // 이미지 랜더 생성
 		HpRenderer->SetImage("HpHUD.png"); // 이미지 Set
-		HpRenderer->SetTransform({ {GetWorld()->GetCameraPos().iX()+200,GetWorld()->GetCameraPos().iY()+300}, {64 * 5, 64 * 4}}); // 랜더의 위치 크기 
+		HpRenderer->SetTransform({ {0,0}, {64 * 6, 64 * 4} }); // 랜더의 위치 크기 
 	}
 }
