@@ -23,7 +23,7 @@ public:
 	{
 		return KirbyRenderer;
 	}
-
+	void HitStart();
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -45,7 +45,7 @@ protected:
 	void Fly(float _DeltaTime);
 	void Flyfall(float _DeltaTime);
 	void HeadDown(float _DeltaTime);
-	
+	void hit(float _DeltaTime);
 	// 커비만 가능 한 상태 
 	void Run(float _DeltaTime);
 	void Absorption(float _DeltaTime); // 흡수
@@ -60,6 +60,7 @@ protected:
 
 	void JumpStart();
 	void HeavyJumpStart();
+
 
 	void FlyReadyStart();
 	void FlyStart();
@@ -98,7 +99,7 @@ private:
 	float checkposY = 30.0f;
 
 	bool FlyState = false;
-	
+	bool hitState = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate();

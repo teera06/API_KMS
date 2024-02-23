@@ -112,6 +112,10 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
+	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.1f, false);
+
+
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
 	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Right", "kirby2_Right.png", 19, 20, 0.5f, true);
@@ -383,6 +387,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::fall:
 			FlyFallStart();
 			break;
+		case EActorState::hit:
+			HitStart();
+			break;
 		case EActorState::Run:
 			if (true == EatState && KirbyMode == EAMode::Base) // 동일
 			{
@@ -454,6 +461,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		break;
 	case EActorState::HeadDown: // 숙이기
 		HeadDown(_DeltaTime);
+		break;
+	case EActorState::hit: // 숙이기
+		hit(_DeltaTime);
 		break;
 	case EActorState::All_Attack: // 흡수 후 가능 -> 별 공격
 		All_Attack(_DeltaTime);
@@ -791,6 +801,17 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 	MoveUpdate(_DeltaTime);
 }
 
+void AKirby_Player::hit(float _DeltaTime)
+{
+	int a = 0;
+	DirCheck();
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+}
+
 void AKirby_Player::Walk(float _DeltaTime)
 {
 	DirCheck();
@@ -933,6 +954,12 @@ void AKirby_Player::HeavyJumpStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyJump"));
+}
+
+void AKirby_Player::HitStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
 }
 
 void AKirby_Player::FlyReadyStart()

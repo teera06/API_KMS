@@ -5,6 +5,7 @@ enum class EAMode
 {
 	Base,
 	Ice,
+	Fire,
 	Mike,
 	Sword,
 	Hammer,
@@ -20,6 +21,7 @@ enum class EActorState
 	FlyReady,
 	Fly,
 	fall,
+	hit,
 	Absorption,
 	IceAttack,
 	All_Attack,

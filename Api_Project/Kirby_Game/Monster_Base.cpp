@@ -97,6 +97,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			//FVector Move = MonsterDirNormal * 500.0f * _DeltaTime *FVector::Right;
 			//Player->AddActorLocation(Move);
 			//GetWorld()->AddCameraPos(Move);
+			Player->HitStart();
 			MonsterRenderer->ChangeAnimation("die_Right");
 			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right;
 			diecheck = true;
