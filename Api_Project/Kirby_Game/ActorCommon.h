@@ -39,13 +39,18 @@ protected:
 	{
 		Hp = _Hp;
 	}
+
+	void AddHP(const int _Value)
+	{
+		Hp -= _Value;
+	}
 	
-	inline int GetAtt()
+	inline int GetAtt()const
 	{
 		return Att;
 	}
 
-	inline int GetHp()
+	inline int GetHp() const
 	{
 		return Hp;
 	}

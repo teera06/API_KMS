@@ -50,6 +50,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	AActor::BeginPlay();
 
 	MainPlayer = this;
+	SetHp(100);
 	scale = 3;
 	KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set

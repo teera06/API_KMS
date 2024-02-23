@@ -4,6 +4,7 @@
 #include "ActorCommon.h"
 #include <EngineCore/Level.h>
 
+#include "Kirby_Player.h"
 
 class AKirby_HpBar :public AActor, public ActorCommon // ActorCommon(중력)
 {
@@ -27,6 +28,7 @@ private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* StateRenderer = nullptr; // 커비 랜더링 (이미지)
 
+	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 	FVector Move = FVector::Zero;
 };
 
