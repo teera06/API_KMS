@@ -17,11 +17,11 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	SetActorLocation({ GetWorld()->GetCameraPos().iX()+140, GetWorld()->GetCameraPos().iY()+660 });
 
-	if (std::string(GetModeName()) == "Base")
+	if (ModeName== "Base_")
 	{
 		StateRenderer->ChangeAnimation("Base_");
 	}
-	else if (std::string(GetModeName()) == "Ice")
+	else if(ModeName=="Ice_")
 	{
 		StateRenderer->ChangeAnimation("Ice_");
 	}
