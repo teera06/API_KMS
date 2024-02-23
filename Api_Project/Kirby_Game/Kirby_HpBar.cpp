@@ -9,6 +9,17 @@ AKirby_HpBar::~AKirby_HpBar()
 {
 }
 
+
+
+AKirby_HpBar* AKirby_HpBar::GetHPBar()
+{
+	return MainHPBar;
+}
+
+AKirby_HpBar* AKirby_HpBar::MainHPBar = nullptr;
+
+
+
 void AKirby_HpBar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);

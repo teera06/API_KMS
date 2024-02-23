@@ -18,25 +18,16 @@ public:
 	AKirby_HpBar& operator=(const AKirby_HpBar& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_HpBar& operator=(AKirby_HpBar&& _Other) noexcept = delete;
 
-	void HpAddActorMove(FVector _Value)
-	{
-		this->AddActorLocation(_Value);
-	}
+	
 
-	void HpSetActor(FVector _Value)
-	{
-		this->SetActorLocation(_Value);
-	}
-
-	FVector GetHpActorLocation()
-	{
-		return this->GetActorLocation();
-	}
+	static AKirby_HpBar* GetHPBar();
 
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
+
+	static AKirby_HpBar* MainHPBar;
 };
 
