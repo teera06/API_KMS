@@ -51,6 +51,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Kirby_HpBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Kirby_Player.cpp">
       <SubType>
       </SubType>
@@ -103,6 +107,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Ice.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Kirby_HpBar.h">
       <SubType>
       </SubType>
     </ClInclude>
