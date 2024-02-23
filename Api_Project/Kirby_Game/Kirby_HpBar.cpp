@@ -35,9 +35,15 @@ void AKirby_HpBar::BeginPlay()
 	HpRenderer->SetImage("HpHUD.png"); // 이미지 Set
 	HpRenderer->SetTransform({ {0,0}, {64 * 6, 64 * 5} }); // 랜더의 위치 크기 
 
+	HpAddRenderer = CreateImageRenderer(ERenderOrder::HPgauge);
+	HpAddRenderer->SetImage("GaugeHUD.png");
+	HpAddRenderer->SetTransform({ {51,15}, {64 * 5, 64 * 5} }); // 랜더의 위치 크기 
+
 	StateRenderer= CreateImageRenderer(ERenderOrder::State);
 	StateRenderer->SetImage("changeHUD.png"); // 이미지 Set
 	StateRenderer->SetTransform({ {-90,0}, {64 * 5, 64 * 5} }); // 랜더의 위치 크기 
+
+	
 
 	StateRenderer->CreateAnimation("Base_", "changeHUD.png", 0, 0,true); // 오른쪽 서 있기
 	StateRenderer->CreateAnimation("Fire_", "changeHUD.png", 1, 1, true);

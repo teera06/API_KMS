@@ -26,6 +26,7 @@ protected:
 	void BeginPlay() override;
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* StateRenderer = nullptr; // 커비 랜더링 (이미지)
 
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
