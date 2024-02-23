@@ -41,7 +41,11 @@ void AMonster_Base::BeginPlay()
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	MoveUpdate(_DeltaTime);
+	if (false == diecheck)
+	{
+		MoveUpdate(_DeltaTime);
+	}
+	
 	
 }
 
@@ -135,8 +139,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	{
 		MovePos = FVector::Zero;
 		AddActorLocation(DiePos);
-		Destroy(0.01f);
-		
+		Destroy(0.3f);
 	}
 	else {
 		BaseMove(_DeltaTime);
