@@ -30,7 +30,7 @@ void UGame_Core::BeginPlay()
 	CreateLevel<UTitleLevel>("TitleLevel"); // 타이틀 레벨
 	CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level
 	
-	ChangeLevel("TitleLevel"); // 레벨 변경
+	ChangeLevel("Stage1_Level"); // 레벨 변경
 }
 
 void UGame_Core::Tick(float _DeltaTime)
