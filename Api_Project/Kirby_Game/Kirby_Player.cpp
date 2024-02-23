@@ -2,6 +2,7 @@
 #include <EnginePlatform\EngineInput.h> // Level1
 #include <EngineCore/EngineCore.h>
 
+#include "Kirby_HpBar.h"
 #include "AllStar.h"
 #include "Fire.h"
 #include "Base.h"
@@ -56,11 +57,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	AniCreate(); // 애니메이션 종합 관리
 
-	{
-		HpRenderer = CreateImageRenderer(ERenderOrder::HPBar); // 이미지 랜더 생성
-		HpRenderer->SetImage("HpHUD.png"); // 이미지 Set
-		HpRenderer->SetTransform({ {-350,50}, {64 * 5, 64 * 4} }); // 랜더의 위치 크기 
-	}
 	// 일반적으로는 충돌이라는 시점을 따로둡니다.
 	{
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby);
@@ -70,6 +66,8 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 
 	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),400}); // 카메라 위치
+
+	GetWorld()->SpawnActor<AKirby_HpBar>()->SetActorLocation(GetWorld()->GetCameraPos());
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer

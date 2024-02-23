@@ -1,9 +1,26 @@
 #include "Kirby_HpBar.h"
+#include <EngineCore/EngineCore.h>
 
-Kirby_HpBar::Kirby_HpBar()
+AKirby_HpBar::AKirby_HpBar()
 {
 }
 
-Kirby_HpBar::~Kirby_HpBar()
+AKirby_HpBar::~AKirby_HpBar()
 {
+}
+
+void AKirby_HpBar::Tick(float _DeltaTime)
+{
+	AActor::Tick(_DeltaTime);
+	//AddActorLocation(FVector::Right*100.0f * _DeltaTime);
+}
+
+void AKirby_HpBar::BeginPlay()
+{
+	AActor::BeginPlay();
+	{
+		HpRenderer = CreateImageRenderer(ERenderOrder::HPBar); // 이미지 랜더 생성
+		HpRenderer->SetImage("HpHUD.png"); // 이미지 Set
+		HpRenderer->SetTransform({ {GetWorld()->GetCameraPos().iX()+200,GetWorld()->GetCameraPos().iY()+300}, {64 * 5, 64 * 4}}); // 랜더의 위치 크기 
+	}
 }
