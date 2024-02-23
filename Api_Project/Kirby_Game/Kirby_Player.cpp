@@ -112,8 +112,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
-	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.1f, false);
-	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
+	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
 
 
 	// ---기본에서만 가능한 모션들----
@@ -811,8 +811,18 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 
 void AKirby_Player::hit(float _DeltaTime)
 {
-	int a = 0;
-	//DirCheck();
+	FVector Move = FVector::Zero;
+
+	if (DirState == EActorDir::Left)
+	{
+		Move = FVector::Right * 100.0f * _DeltaTime;
+	}
+	else {
+		Move = FVector::Left * 100.0f * _DeltaTime;
+	}
+
+	AddActorLocation(Move);
+	GetWorld()->AddCameraPos(Move);
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		hitState = false;
