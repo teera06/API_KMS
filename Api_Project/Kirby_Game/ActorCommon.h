@@ -18,9 +18,6 @@ public:
 
 	static UWindowImage* ColMapImage; // 우선 맵만 사용
 
-
-	
-
 	void SetDir(const FVector& _Dir)
 	{
 		Dir = _Dir;
@@ -29,27 +26,6 @@ public:
 	FVector GetDir()
 	{
 		return Dir;
-	}
-
-
-	static void SetEatState(const bool _EatState)
-	{
-		EatState = _EatState;
-	}
-
-	static std::string_view GetModeName() // Get 이름체인지
-	{
-		return ModeName;
-	}
-
-	static void SetModeName(std::string_view _ModeName) // Set 이름 체인지
-	{
-		ModeName = _ModeName;
-	}
-
-	static void SetMode(EAMode _KirbyMode) // 커비 모드 체인지 할때 사용
-	{
-		KirbyMode = _KirbyMode;
 	}
 
 protected:
@@ -74,11 +50,27 @@ protected:
 		return Hp;
 	}
 
+	static void SetEatState(const bool _EatState)
+	{
+		EatState = _EatState;
+	}
 
-	// static 변수
+	static std::string_view GetModeName() // Get 이름체인지
+	{
+		return ModeName;
+	}
+
+	static void SetModeName(std::string_view _ModeName) // Set 이름 체인지
+	{
+		ModeName = _ModeName;
+	}
+
+	static void SetMode(EAMode _KirbyMode) // 커비 모드 체인지 할때 사용
+	{
+		KirbyMode = _KirbyMode;
+	}
 	static bool EatState;
 	static EAMode KirbyMode; // Kirby 모드
-	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 
 	// 우선 Set, Get으로 만들지 말지를 정하기
 	FVector IceMove = FVector::Zero; // 얼음 이동 관련 공통 
@@ -104,7 +96,8 @@ private:
 	
 	// 커비, 몬스터 공통 변수
 	
-
+	// static 변수
+	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 
 	int Hp = 0;
 	int Att = 0;
