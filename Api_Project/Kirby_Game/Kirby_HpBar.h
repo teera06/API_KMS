@@ -14,13 +14,11 @@ public:
 
 	// delete Function
 	AKirby_HpBar(const AKirby_HpBar& _Other) = delete; // 디폴트 복사 생성자
-	AKirby_HpBar(AKirby_HpBar&& _Other) noexcept = delete; 
+	AKirby_HpBar(AKirby_HpBar&& _Other) noexcept = delete;
 	AKirby_HpBar& operator=(const AKirby_HpBar& _Other) = delete; // 디폴트 대입 연산자
 	AKirby_HpBar& operator=(AKirby_HpBar&& _Other) noexcept = delete;
 
-	
 
-	static AKirby_HpBar* GetHPBar();
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -28,6 +26,6 @@ protected:
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 
-	static AKirby_HpBar* MainHPBar;
+	FVector Move = FVector::Zero;
 };
 

@@ -3,7 +3,7 @@
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
-
+#include "Kirby_HpBar.h"
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -62,7 +62,7 @@ void UStage1_Level::BeginPlay()
 
 	{
 		SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });
-
+		SpawnActor<AKirby_HpBar>()->SetActorLocation({180,1050});
 
 		SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
 		SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });

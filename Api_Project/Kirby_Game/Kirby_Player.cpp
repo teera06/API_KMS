@@ -6,7 +6,7 @@
 #include "Fire.h"
 #include "Base.h"
 #include "Ice.h"
-#include "Kirby_HpBar.h"
+
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
@@ -65,8 +65,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	}
 
 
-	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),400}); // 카메라 위치
-	GetWorld()->SpawnActor<AKirby_HpBar>()->SetActorLocation({ GetWorld()->GetCameraPos().iX() +150, GetWorld()->GetCameraPos().iY() + 650 });
+	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),450}); // 카메라 위치
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -232,8 +231,10 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0))
 	{
 
+		FVector Move = (MovePos * FVector::Right) + CamstopMove;
 	
-		GetWorld()->AddCameraPos((MovePos * FVector::Right) + CamstopMove);
+		GetWorld()->AddCameraPos(Move);
+		
 
 		CamstopMove = FVector::Zero;
 
