@@ -44,7 +44,7 @@ private:
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 
 	FVector DirMonster = FVector::Left;
-
+	FVector DiePos = FVector::Zero;
 	void MoveUpdate(float _DeltaTime);
 	void AniCreate();
 	

@@ -45,6 +45,10 @@ void AMonster_Base::Tick(float _DeltaTime)
 	{
 		MoveUpdate(_DeltaTime);
 	}
+	else {
+		AddActorLocation(DiePos);
+	
+	}
 	
 	
 }
@@ -64,10 +68,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
 	FVector MovePos = FVector::Zero;
-	FVector DiePos = FVector::Zero;
-
-
-
+	
 	// 콜리전 
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false)
@@ -138,7 +139,6 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	if (true==diecheck)
 	{
 		MovePos = FVector::Zero;
-		AddActorLocation(DiePos);
 		Destroy(0.3f);
 	}
 	else {
