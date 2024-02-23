@@ -812,7 +812,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 void AKirby_Player::hit(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
-
+	JumpVector = FVector::Zero;
 	if (DirState == EActorDir::Left)
 	{
 		Move = FVector::Right * 100.0f * _DeltaTime;
@@ -822,7 +822,9 @@ void AKirby_Player::hit(float _DeltaTime)
 	}
 
 	AddActorLocation(Move);
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
 	GetWorld()->AddCameraPos(Move);
+	CamYMove();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		hitState = false;
