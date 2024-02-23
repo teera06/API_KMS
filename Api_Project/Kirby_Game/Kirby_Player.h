@@ -4,6 +4,8 @@
 #include "ActorCommon.h"
 #include <EngineCore/Level.h>
 
+#include "Kirby_HpBar.h"
+
 class AKirby_Player : public AActor, public ActorCommon // ActorCommon(ม฿ทย)
 {
 public:
@@ -118,7 +120,7 @@ private:
 
 
 	static AKirby_Player* MainPlayer;
-
+	AKirby_HpBar* Player = AKirby_HpBar::GetHPBar();
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
 	void MoveUpdate(float _DeltaTime, const FVector& _MovePos=FVector::Zero);
