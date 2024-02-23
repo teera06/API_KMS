@@ -26,7 +26,7 @@ public:
 		IsActiveValue = false;
 	}
 
-	void SetActive(bool _Active, float _ActiveTime = 0.0f)
+	virtual void SetActive(bool _Active, float _ActiveTime = 0.0f)
 	{
 		ActiveTime = _ActiveTime;
 
@@ -36,7 +36,10 @@ public:
 			return;
 		}
 
-		IsActiveUpdate = true;
+		if (true == _Active && 0.0f != ActiveTime)
+		{
+			IsActiveUpdate = true;
+		}
 		IsActiveValue = false;
 	}
 

@@ -133,6 +133,11 @@ public:
 		return CurAnimation->CurTime;
 	}
 
+	UAnimationInfo* GetCurAnimation() const
+	{
+		return CurAnimation;
+	}
+
 	void TextRender(float _DeltaTime);
 	void ImageRender(float _DeltaTime);
 
@@ -148,9 +153,10 @@ public:
 	{
 		Size = _Value;
 	}
-	void SetTextColor(Color8Bit _Color)
+	void SetTextColor(Color8Bit _Color, Color8Bit _Color2 = Color8Bit::White)  //변경
 	{
 		TextColor = _Color;
+		TextColor2 = _Color2; //추가
 	}
 	void SetCameraRatio(float _Ratio)
 	{
@@ -158,6 +164,12 @@ public:
 	}
 
 	FTransform GetRenderTransForm();
+
+	// Text 효과
+	void SetTextEffect(int _Effect = 0)
+	{
+		TextEffect = _Effect;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -177,11 +189,15 @@ private:
 	// 회전
 	float Angle = 0.0f;
 
-
-	// const std::string& _Text, const std::string& _Font, float _Size, const FTransform& _Trans, Color8Bit _Color = Color8Bit::Black
 	std::string Text = "";
 	std::string Font = "궁서";
 	float Size = 10.0f;
 	Color8Bit TextColor = Color8Bit::BlackA;
+	Color8Bit TextColor2 = Color8Bit::BlackA; //추가
+	int TextEffect = 0;
+	// Default : 0, 
+	// Bold & Italic : 1, (custom)
+	// Bold : 2,
+	// ...
 };
 
