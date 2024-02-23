@@ -41,6 +41,7 @@ enum class ERenderOrder
 	Log,
 	Stage1_Map,
 	HPBar,
+	State,
 	Monster,
 	Base,
 	Ice,

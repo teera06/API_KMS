@@ -25,6 +25,7 @@ protected:
 	void BeginPlay() override;
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* StateRenderer = nullptr; // 커비 랜더링 (이미지)
 
 	FVector Move = FVector::Zero;
 };

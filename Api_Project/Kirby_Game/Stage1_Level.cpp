@@ -54,6 +54,7 @@ void UStage1_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("changeHUD.png", 5, 2);
 
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
