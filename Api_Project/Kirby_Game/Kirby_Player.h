@@ -3,7 +3,7 @@
 #include "ModeEnum.h"
 #include "ActorCommon.h"
 #include <EngineCore/Level.h>
-// 내일 강의로 체크하기 -> 리펙토링
+
 class AKirby_Player : public AActor, public ActorCommon // ActorCommon(중력)
 {
 public:

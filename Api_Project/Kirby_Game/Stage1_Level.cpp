@@ -41,6 +41,14 @@ void UStage1_Level::BeginPlay()
 
 	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
 	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby_Left.png", 10, 7);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Right.png", 10, 6);
+	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Left.png", 10, 6);
+	UEngineResourcesManager::GetInst().CuttingImage("Ice_Right.png", 10, 12);
+	UEngineResourcesManager::GetInst().CuttingImage("Ice_Left.png", 10, 12);
+	UEngineResourcesManager::GetInst().CuttingImage("effect_Right.png", 8, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("effect_Left.png", 8, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Dee_Left.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);

@@ -1,5 +1,6 @@
 #include "Monster_Base.h"
 #include "ModeEnum.h"
+#include <EngineCore/EngineCore.h>
 
 AMonster_Base::AMonster_Base()
 {
@@ -93,7 +94,9 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		}
 		else {
 			//Player->GetKirbyRender()->SetAlpha(0.5f);
-			//Player->AddActorLocation(MonsterDirNormal * 500.0f * _DeltaTime);
+			//FVector Move = MonsterDirNormal * 500.0f * _DeltaTime *FVector::Right;
+			//Player->AddActorLocation(Move);
+			//GetWorld()->AddCameraPos(Move);
 			MonsterRenderer->ChangeAnimation("die_Right");
 			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right;
 			diecheck = true;
