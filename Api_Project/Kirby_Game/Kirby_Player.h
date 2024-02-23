@@ -24,6 +24,10 @@ public:
 		return KirbyRenderer;
 	}
 	void HitStart();
+	void Sethitstate(bool _hitState)
+	{
+		hitState = _hitState;
+	}
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

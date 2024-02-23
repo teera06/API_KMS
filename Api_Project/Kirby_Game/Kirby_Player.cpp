@@ -324,7 +324,7 @@ void AKirby_Player::StateAniChange(EActorState _State)
 	}
 	
 
-	if (State != _State)
+	if (State != _State && false==hitState)
 	{
 		switch (_State)
 		{
@@ -387,9 +387,6 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::fall:
 			FlyFallStart();
 			break;
-		case EActorState::hit:
-			HitStart();
-			break;
 		case EActorState::Run:
 			if (true == EatState && KirbyMode == EAMode::Base) // 동일
 			{
@@ -419,58 +416,69 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		}
 	}
 
+	
+	if (true == hitState)
+	{
+		State = EActorState::hit;
+		return;
+	}
+
 	State = _State;
 }
 
 void AKirby_Player::StateUpdate(float _DeltaTime)
 {
-	switch (State) // 현재 상태별 진행해야하는 형태
+	if (false == hitState)
 	{
-	case EActorState::CameraFreeMove: // 카메라 움직임 -> 테스트용
-		CameraFreeMove(_DeltaTime);
-		break;
-	case EActorState::FreeMove: // 카메라, 캐릭터 자유롭게 이동 -> 테스트용
-		FreeMove(_DeltaTime);
-		break;
-	case EActorState::Idle: // 서있기
-		Idle(_DeltaTime);
-		break;
-	case EActorState::Walk: // 걷기
-		Walk(_DeltaTime);
-		break;
-	case EActorState::Jump: // 점프
-		Jump(_DeltaTime);
-		break;
-	case EActorState::Fly: // 날기
-		Fly(_DeltaTime);
-		break;
-	case EActorState::FlyReady: // 날기
-		FlyReady(_DeltaTime);
-		break;
-	case EActorState::fall: // 날기
-		Flyfall(_DeltaTime);
-		break;
-	case EActorState::Run: // 달리기
-		Run(_DeltaTime);
-		break;
-	case EActorState::Absorption: // 흡수
-		ModeInputTick(_DeltaTime);
-		break;
-	case EActorState::IceAttack: // 흡수
-		ModeInputTick(_DeltaTime);
-		break;
-	case EActorState::HeadDown: // 숙이기
-		HeadDown(_DeltaTime);
-		break;
-	case EActorState::hit: // 숙이기
-		hit(_DeltaTime);
-		break;
-	case EActorState::All_Attack: // 흡수 후 가능 -> 별 공격
-		All_Attack(_DeltaTime);
-		break;
-	default:
-		break;
+		switch (State) // 현재 상태별 진행해야하는 형태
+		{
+		case EActorState::CameraFreeMove: // 카메라 움직임 -> 테스트용
+			CameraFreeMove(_DeltaTime);
+			break;
+		case EActorState::FreeMove: // 카메라, 캐릭터 자유롭게 이동 -> 테스트용
+			FreeMove(_DeltaTime);
+			break;
+		case EActorState::Idle: // 서있기
+			Idle(_DeltaTime);
+			break;
+		case EActorState::Walk: // 걷기
+			Walk(_DeltaTime);
+			break;
+		case EActorState::Jump: // 점프
+			Jump(_DeltaTime);
+			break;
+		case EActorState::Fly: // 날기
+			Fly(_DeltaTime);
+			break;
+		case EActorState::FlyReady: // 날기
+			FlyReady(_DeltaTime);
+			break;
+		case EActorState::fall: // 날기
+			Flyfall(_DeltaTime);
+			break;
+		case EActorState::Run: // 달리기
+			Run(_DeltaTime);
+			break;
+		case EActorState::Absorption: // 흡수
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::IceAttack: // 흡수
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::HeadDown: // 숙이기
+			HeadDown(_DeltaTime);
+			break;
+		case EActorState::All_Attack: // 흡수 후 가능 -> 별 공격
+			All_Attack(_DeltaTime);
+			break;
+		default:
+			break;
+		}
 	}
+	else {
+		hit(_DeltaTime);
+	}
+	
 }
 
 
@@ -804,12 +812,15 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 void AKirby_Player::hit(float _DeltaTime)
 {
 	int a = 0;
-	DirCheck();
+	//DirCheck();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
+		hitState = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
+
+
 }
 
 void AKirby_Player::Walk(float _DeltaTime)
@@ -958,7 +969,7 @@ void AKirby_Player::HeavyJumpStart()
 
 void AKirby_Player::HitStart()
 {
-	DirCheck();
+	//DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
 }
 
