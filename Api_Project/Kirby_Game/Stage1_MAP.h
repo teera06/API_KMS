@@ -1,6 +1,6 @@
 #pragma once
-#include <EngineCore/Actor.h>
-#include<EngineCore/EngineCore.h>
+#include <EngineCore/Actor.h> // 상속
+#include<EngineCore/EngineCore.h> // GEngine
 
 // 맵은 우선 잠시 대기
 class AStage1_MAP : public AActor
@@ -27,8 +27,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
-	FVector windowScale = GEngine->MainWindow.GetWindowScale();
-	UImageRenderer* MapRenderer = nullptr;
-	UImageRenderer* MapColRenderer = nullptr;
+	FVector windowScale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기
+
+	UImageRenderer* MapRenderer = nullptr; // 렌더링
+	UImageRenderer* MapColRenderer = nullptr; // 콜리전 -> 픽셀 충돌
 };
 

@@ -1,6 +1,8 @@
 #include "Stage1_MAP.h"
-#include "ModeEnum.h"
-#include "ActorCommon.h"
+
+#include "ModeEnum.h" // Enum 모음집
+
+#include "ActorCommon.h" // ActorCommon::ColMapImage = Image; -> 픽셀 충돌할 맵 이미지 설정
 
 AStage1_MAP::AStage1_MAP()
 {
@@ -31,19 +33,18 @@ void AStage1_MAP::Tick(float _DeltaTime)
 
 void AStage1_MAP::SetMapImage(std::string_view _MapImageName)
 {
-	MapRenderer->SetImage(_MapImageName);
-	UWindowImage* Image = MapRenderer->GetImage();
-	FVector ImageScale = Image->GetScale();
-	MapRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
-	
-	
+	MapRenderer->SetImage(_MapImageName); // 이미지 Set
+	UWindowImage* Image = MapRenderer->GetImage(); // Set한 이미지 값을 받고
+	FVector ImageScale = Image->GetScale(); // 이미지 크기를 저장
+	MapRenderer->SetTransform({ ImageScale.Half2D(), ImageScale }); 
+	// 이미지의 X축 Y축 절반의 위치에 이미지 크기만 크기만큼 랜더링
 }
 
 void AStage1_MAP::SetColMapImage(std::string_view _MapImageName)
 {
 	MapColRenderer->SetImage(_MapImageName);
 	UWindowImage* Image = MapColRenderer->GetImage();
-	ActorCommon::ColMapImage = Image;
+	ActorCommon::ColMapImage = Image; // 픽셀 충돌할 맵 설정
 	FVector ImageScale = Image->GetScale();
 	MapColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }
