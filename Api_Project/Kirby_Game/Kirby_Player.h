@@ -111,12 +111,16 @@ private:
 
 	float camSpeed = 500.0f; // 카메라 속도
 
-	bool FlyState = false;
+	float CamYSpeed = 0.5f; // Y축 CamYMove() 카메라 이동 수치
+	
+	// 특정 상태별 bool 값
+	bool FlyState = false; 
 	bool hitState = false;
+	bool SkillOnOff = false;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성
-	void KirbyModeCheck();
+	void KirbyModeCheck(); // 커비 모드 체인지
 	
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
 	FVector GravityVector = FVector::Zero; // 중력값 받기
@@ -140,6 +144,5 @@ private:
 	void IceKirby(float _DeltaTime); // 아이스 커비
 	void CamYMove();
 
-	bool SkillOnOff = false;
 };
 

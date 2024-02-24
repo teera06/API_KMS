@@ -31,16 +31,16 @@ public:
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
-	void SetAtt(const int _Att)
+	void SetAtt(const int& _Att)
 	{
 		Att = _Att;
 	}
-	void SetHp(const int _Hp)
+	void SetHp(const int& _Hp)
 	{
 		Hp = _Hp;
 	}
 
-	void AddHP(const int _Value)
+	void AddHP(const int& _Value)
 	{
 		Hp -= _Value;
 	}
@@ -55,7 +55,7 @@ protected:
 		return Hp;
 	}
 
-	static void SetEatState(const bool _EatState)
+	static void SetEatState(const bool& _EatState)
 	{
 		EatState = _EatState;
 	}
@@ -84,7 +84,6 @@ protected:
 	// 아래에는 Set, Get 만들어두기 어중간한 변수들
 	int checkX = 0; // 벽에 충돌할때 X축 범위
 	bool IsIce = false; // 언 상태 인지 bool값 공통
-
 
 	// 맴버 변수 고정 값 들
 	const float sight = 250.0f; // 몬스터 시야

@@ -69,20 +69,20 @@ void UStage1_Level::BeginPlay()
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
-	{
-		// 커비와 커비 상태창 Actor 생성
-		SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });
-		SpawnActor<AKirby_HpBar>();
+	
+	// 커비와 커비 상태창 Actor 생성
+	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });
+	SpawnActor<AKirby_HpBar>();
 
-		// 몬스터 Actor 생성
-		SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
-		SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });
-		SpawnActor<AMonster_Base>()->SetActorLocation({ 1900,600 });
+	// 몬스터 Actor 생성
+	SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
+	SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });
+	SpawnActor<AMonster_Base>()->SetActorLocation({ 1900,600 });
 		
-		SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
-		SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
-		//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
-	}
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
+	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
+	
 }
 
 void UStage1_Level::Tick(float _DeltaTime)

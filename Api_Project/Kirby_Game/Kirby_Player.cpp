@@ -1,6 +1,7 @@
 #include "Kirby_Player.h"
-#include <EnginePlatform\EngineInput.h> // Level1
-#include <EngineCore/EngineCore.h>
+
+#include <EnginePlatform\EngineInput.h> // Level1 -> 입력 담당(조작)
+#include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
 
 #include "AllStar.h"
 #include "Fire.h"
@@ -29,18 +30,19 @@ void AKirby_Player::CamYMove() // 카메라 Y축 이동 담당
 
 	if (CurY.iY() != GetActorLocation().iY()) // 커비 Actor의 Y축 변화가 있는 경우
 	{
-		if (CurY.iY() > GetActorLocation().iY()) // 날거나 점플했을때
+		if (CurY.iY() > GetActorLocation().iY()) // 날거나 점프했을때
 		{
-			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation());
-			CamMoveY = CamMoveY * FVector::Up;
-			GetWorld()->AddCameraPos(CamMoveY * 0.59f);
+			CamMoveY = (FVector::Down * CurY) - (FVector::Down * GetActorLocation()); // Kirby의 Y축 변화가 
+			CamMoveY = CamMoveY * FVector::Up; // -(Up)일 때 계산하여
+			GetWorld()->AddCameraPos(CamMoveY * CamYSpeed); // 그 수치 만큼 카메라 Y축에 더해준다.
 		}
-		else if (CurY.iY() < GetActorLocation().iY()) {
-			CamMoveY = (FVector::Down * GetActorLocation()) - (FVector::Down * CurY);
-			CamMoveY = CamMoveY * FVector::Down;
-			GetWorld()->AddCameraPos(CamMoveY * 0.59f);
+		else if (CurY.iY() < GetActorLocation().iY()) { // 날다가 떨어질 때 
+			CamMoveY = (FVector::Down * GetActorLocation()) - (FVector::Down * CurY); // Kirby의 Y축 변화가
+			CamMoveY = CamMoveY * FVector::Down; // +(Down)일 때 계산하여
+			GetWorld()->AddCameraPos(CamMoveY * CamYSpeed); // 그 수치 만큼 카메라 Y축에 더해준다.
 		}
-		CurY = GetActorLocation();
+		// 계산 후
+		CurY = GetActorLocation(); // 커비의 현재 위치 갱신
 	}
 	
 }
@@ -49,24 +51,29 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 {
 	AActor::BeginPlay();
 
-	MainPlayer = this;
-	SetHp(100);
-	scale = 3;
-	KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
-	KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
-	KirbyRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
+	MainPlayer = this; // 다른 클래스가 사용하기 위해 본인을 넣는다.
 
+	SetHp(100); // 커비 Hp
+	
+	scale = 3; // ActorCommon -> 랜더링 크기 설정
+
+	// 랜더링 설정
+	{
+		KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
+		KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
+		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+	}
 	AniCreate(); // 애니메이션 종합 관리
 
-	// 일반적으로는 충돌이라는 시점을 따로둡니다.
+	// 콜리전 설정
 	{
-		KirbyCollision = CreateCollision(ECollisionOrder::kirby);
+		KirbyCollision = CreateCollision(ECollisionOrder::kirby); 
 		KirbyCollision->SetScale({ 70, 70 });
-		KirbyCollision->SetColType(ECollisionType::Rect);
+		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
 	}
 
+	GetWorld()->SetCameraPos({GetTransform().GetPosition().iX(),400}); // 카메라 위치 설정
 
-	GetWorld()->SetCameraPos({ GetTransform().GetPosition().iX(),450}); // 카메라 위치
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -80,6 +87,7 @@ void AKirby_Player::Tick(float _DeltaTime)
 	StateUpdate(_DeltaTime);
 }
 
+// 애니메이션 생성 관리
 void AKirby_Player::AniCreate()
 {
 	// (오른쪽, 왼쪽)
@@ -106,13 +114,15 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
 	KirbyRenderer->CreateAnimation("Base_Fly_Left", "kirby_Left.png", 58, 65, 0.1f, true);
 
-	// 떨어지는 모션
+	// 기본 떨어지는 모션
 	KirbyRenderer->CreateAnimation("Base_fall_Right", "kirby_Right.png", { 66,67,35,36,37 }, 0.1f, false);
 	KirbyRenderer->CreateAnimation("Base_fall_Left", "kirby_Left.png", { 66,67,35,36,37 }, 0.1f, false);
+	
 	// 기본 숙이기 
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
+	// 기본 몬스터 충돌 애니메이션
 	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
 	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
 
@@ -130,15 +140,11 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
 	
-
-
 	// 기본 흡수 
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 	
-	// 모든 커비모드에서 사용 가능한 애니메이션
-	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
-	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 52, 0.03f, false);
+
 
 	//-- 아이스 커비
 	KirbyRenderer->CreateAnimation("Ice_Idle_Right", "Ice_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
@@ -175,11 +181,17 @@ void AKirby_Player::AniCreate()
 	// 아이스 공격
 	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.08f, true);
 	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.08f, true);
-	// 기본 흡수 -> 기본에서 아이스 중간 이미지 
+	
+	// 아이스 흡수 -> 기본에서 아이스 중간 이미지 
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
+
+	// 모든 커비모드에서 사용 가능한 애니메이션
+	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 52, 0.03f, false);
 }
 
+// 커비 모드 체인지 관리
 void AKirby_Player::KirbyModeCheck()
 {
 	if (std::string(GetModeName()) != "Base_") // 기본 커비 형태의 문자열이 아닌 경우
@@ -195,56 +207,58 @@ void AKirby_Player::KirbyModeCheck()
 	}
 }
 
-
-
+// 중력 제어
 void AKirby_Player::CalGravityVector(float _DeltaTime)
 {
-	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
+	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime); // 중력은 계속 가해진다.
+
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
-		GravityVector = FVector::Zero;
+		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}
 }
 
+// 최종 이동 관리
 void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos)
 {
 	// 제로로 만들어서 초기화 시킨다.
-	PlayMove = FVector::Zero;
+	PlayMove = FVector::Zero; // Kirby 이동 관리
 	
 	PlayMove = PlayMove + JumpVector;
 
-	if (false == FlyState)
+	if (false == FlyState) // 날지 않은 경우
 	{
-		PlayMove = PlayMove + GravityVector;
+		PlayMove = PlayMove + GravityVector; // 중력 영향 O
 	}
-	else {
-		GravityVector = FVector::Zero;
+	else { // 나는 경우
+		GravityVector = FVector::Zero; // 중력의 영향 X
 	}
 
 	FVector MovePos = _MovePos;
 	
 	FVector CheckPos = GetActorLocation();
-	FVector CarCheckPos = GetActorLocation();
+	FVector CamCheckPos = GetActorLocation();
+
 	switch (DirState)
 	{
 	case EActorDir::Left:
 		CheckPos.X -= checkposX;
-		CarCheckPos.X -= 3.0f;// 3으로 우선 고정
+		CamCheckPos.X -= 3.0f;// 3으로 우선 고정
 		break;
 	case EActorDir::Right:
 		CheckPos.X += checkposX;
-		CarCheckPos.X += 3.0f;
+		CamCheckPos.X += 3.0f;
 		break;
 	default:
 		break;
 	}
 	CheckPos.Y -= checkposY;
-	CarCheckPos.Y -= checkposY;
+	CamCheckPos.Y -= checkposY;
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::GreenA);
-	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::BlueA);
-	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(CarCheckPos.iX(), CarCheckPos.iY(), Color8Bit::MagentaA);
+	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
+	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		MovePos = FVector::Zero;
