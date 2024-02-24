@@ -21,14 +21,14 @@ void UGame_Core::BeginPlay()
 {
 	UEngineCore::BeginPlay();
 
-	MainWindow.SetWindowPosition({ 200,100 }); // 윈도우창이 뜨는 위치 Set
-	MainWindow.SetWindowScale({ 1000, 700}); // 윈도우창 크기 Set
+	MainWindow.SetWindowPosition({ positionX,positionY }); // 윈도우창이 뜨는 위치 Set
+	MainWindow.SetWindowScale({ windowX, windowY}); // 윈도우창 크기 Set
 
-	SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
+	//SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 
 	// EngineCore에서 std::map<std::string, ULevel*> AllLevel; map으로 관리
-	CreateLevel<UTitleLevel>("TitleLevel"); // 타이틀 레벨
-	CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level
+	CreateLevel<UTitleLevel>("TitleLevel"); // 타이틀 Level 생성
+	CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level 생성
 	
 	ChangeLevel("Stage1_Level"); // 레벨 변경
 }

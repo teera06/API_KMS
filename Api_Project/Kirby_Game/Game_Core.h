@@ -22,5 +22,13 @@ protected:
 
 private:
 
+	// 윈도우창 크기 (X,Y)
+	int windowX = 1000;
+	int windowY = 700;
+
+	// 윈도우창 위치 (X,Y)
+	int positionX = 200;
+	int positionY = 100;
+
 };
 
