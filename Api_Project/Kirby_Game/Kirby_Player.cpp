@@ -180,6 +180,21 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 }
 
+void AKirby_Player::KirbyModeCheck()
+{
+	if (std::string(GetModeName()) != "Base_") // 기본 커비 형태의 문자열이 아닌 경우
+	{
+		if (std::string(GetModeName()) == "Ice_") // 아이스 문자열이면
+		{
+			SetMode(EAMode::Ice); // 아이스 형태로
+		}
+		else if (std::string(GetModeName()) == "Sword_") // 소드 문자열이면
+		{
+			SetMode(EAMode::Sword); // 소드 형태로
+		}
+	}
+}
+
 
 
 void AKirby_Player::CalGravityVector(float _DeltaTime)
@@ -310,24 +325,14 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 //-------------------------------------------------------------------------------
 
-void AKirby_Player::StateAniChange(EActorState _State)
+void AKirby_Player::StateAniChange(EActorState _State) // 커비의 움직임 상태에 맞는 애니메이션 실행
 {
+	
+	// 커비 형태의 문자열에 맞게 커비 모드를 설정 해준다.
+	KirbyModeCheck();
+
 	// 이전상태와 지금 상태가 같지 않아
 	// 이전에는 move 지금은 Idle
-
-	if (std::string(GetModeName()) != "Base_")
-	{
-		if (std::string(GetModeName()) == "Ice_")
-		{
-			SetMode(EAMode::Ice);
-		}
-		else if (std::string(GetModeName()) == "Sword_")
-		{
-			SetMode(EAMode::Sword);
-		}
-	}
-	
-
 	if (State != _State && false==hitState)
 	{
 		switch (_State)
