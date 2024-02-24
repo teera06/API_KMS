@@ -317,8 +317,8 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 	CurAnimationName = _Name;
 
 	if (std::string(_Name) == "AllAttack") // AllAttack은 모든 커비모드에서 사용 가능하기에
-	{// 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
-		return std::string(_Name) + DirName;
+	{
+		return std::string(_Name) + DirName; // // 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
 	}
 	return std::string(GetModeName()) + std::string(_Name) + DirName;
 }
@@ -388,7 +388,7 @@ void AKirby_Player::StateAniChange(EActorState _State) // 커비의 움직임 상태에 �
 			checkSpeed = FlySpeed;
 			FlyStart();
 			break;
-		case EActorState::fall:
+		case EActorState::Flyfall:
 			FlyFallStart();
 			break;
 		case EActorState::Absorption:
@@ -436,20 +436,20 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		case EActorState::Walk: // 걷기
 			Walk(_DeltaTime);
 			break;
+		case EActorState::Run: // 걷기
+			Run(_DeltaTime);
+			break;
 		case EActorState::Jump: // 점프
 			Jump(_DeltaTime);
+			break;
+		case EActorState::FlyReady: // 날기 준비
+			FlyReady(_DeltaTime);
 			break;
 		case EActorState::Fly: // 날기
 			Fly(_DeltaTime);
 			break;
-		case EActorState::FlyReady: // 날기
-			FlyReady(_DeltaTime);
-			break;
-		case EActorState::fall: // 날기
+		case EActorState::Flyfall: // 날다가 추락
 			Flyfall(_DeltaTime);
-			break;
-		case EActorState::Run: // 달리기
-			Run(_DeltaTime);
 			break;
 		case EActorState::Absorption: // 흡수
 			ModeInputTick(_DeltaTime);
@@ -706,7 +706,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (UEngineInput::IsDown('X'))
 	{
 		FlyState = false;
-		StateAniChange(EActorState::fall);
+		StateAniChange(EActorState::Flyfall);
 		return;
 	}
 
@@ -739,7 +739,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (Color1 == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
-		StateAniChange(EActorState::fall);
+		StateAniChange(EActorState::Flyfall);
 	    return;
 	}
 
@@ -748,7 +748,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 
 		FlyState = false;
-		StateAniChange(EActorState::fall);
+		StateAniChange(EActorState::Flyfall);
 		return;
 	}
 	
