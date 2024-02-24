@@ -20,14 +20,14 @@ AKirby_Player::AKirby_Player()
 
 AKirby_Player::~AKirby_Player()
 {
-	Destroy(0.0f);
+
 }
 
-void AKirby_Player::CamYMove()
+void AKirby_Player::CamYMove() // 카메라 Y축 이동 담당
 {
-	FVector CamMoveY;
+	FVector CamMoveY=FVector::Zero;
 
-	if (CurY.iY() != GetActorLocation().iY())
+	if (CurY.iY() != GetActorLocation().iY()) // 커비 Actor의 Y축 변화가 있는 경우
 	{
 		if (CurY.iY() > GetActorLocation().iY()) // 날거나 점플했을때
 		{
