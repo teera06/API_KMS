@@ -408,19 +408,18 @@ void AKirby_Player::StateAniChange(EActorState _State) // 커비의 움직임 상태에 �
 		}
 	}
 
-	
-	if (true == hitState)
+	if (true == hitState) // 몬스터와 충돌인 상황에서
 	{
-		State = EActorState::hit;
+		State = EActorState::hit; // 현재 상태는 hit로 리턴
 		return;
 	}
 
-	State = _State;
+	State = _State; // 일반적인 상황은 _State로 저장
 }
 
 void AKirby_Player::StateUpdate(float _DeltaTime)
 {
-	if (false == hitState)
+	if (false == hitState) // 몬스터와 충돌하지 않은 상태에서만 상태에 따른 조작 가능
 	{
 		switch (State) // 현재 상태별 진행해야하는 형태
 		{
@@ -451,23 +450,23 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 		case EActorState::Flyfall: // 날다가 추락
 			Flyfall(_DeltaTime);
 			break;
-		case EActorState::Absorption: // 흡수
-			ModeInputTick(_DeltaTime);
-			break;
-		case EActorState::IceAttack: // 흡수
-			ModeInputTick(_DeltaTime);
-			break;
 		case EActorState::HeadDown: // 숙이기
 			HeadDown(_DeltaTime);
 			break;
-		case EActorState::All_Attack: // 흡수 후 가능 -> 별 공격
+		case EActorState::All_Attack: // 흡수 후 가능 -> 별 뱉기 공격
 			All_Attack(_DeltaTime);
+			break;
+		case EActorState::Absorption: // 흡수
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::IceAttack: // 아이스 공격
+			ModeInputTick(_DeltaTime);
 			break;
 		default:
 			break;
 		}
 	}
-	else {
+	else { // 몬스터와 충돌시 실행
 		hit(_DeltaTime);
 	}
 	
