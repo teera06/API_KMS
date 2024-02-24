@@ -1,11 +1,8 @@
 #include "Game_Core.h"
-#include "Kirby_Player.h"
+
+// Level 생성에 필요한 헤더
 #include "TitleLevel.h"
 #include "Stage1_Level.h"
-
-#include <EngineCore\EngineResourcesManager.h>
-#include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
-#include <EngineBase\EngineFile.h> // Level0 EngineFile
 
 UGame_Core::UGame_Core()
 	: UEngineCore()
