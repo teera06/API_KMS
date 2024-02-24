@@ -331,37 +331,20 @@ void AKirby_Player::StateAniChange(EActorState _State) // Ä¿ºñÀÇ ¿òÁ÷ÀÓ »óÅÂ¿¡ ¸
 	// Ä¿ºñ ÇüÅÂÀÇ ¹®ÀÚ¿­¿¡ ¸Â°Ô Ä¿ºñ ¸ðµå¸¦ ¼³Á¤ ÇØÁØ´Ù.
 	KirbyModeCheck();
 
-	// ÀÌÀü»óÅÂ¿Í Áö±Ý »óÅÂ°¡ °°Áö ¾Ê¾Æ
-	// ÀÌÀü¿¡´Â move Áö±ÝÀº Idle
+	// ÀÌÀü»óÅÂ¿Í ÇöÀç »óÅÂ°¡ ´Ù¸¥ °æ¿ì ¿Í ¸ó½ºÅÍ¿ÍÀÇ Ãæµ¹ÀÌ ¾ÈÇßÀ» ¶§ ½ÇÇà
+	// ex) ÀÌÀü¿¡´Â move Áö±ÝÀº Idle
 	if (State != _State && false==hitState)
 	{
-		switch (_State)
+		switch (_State) // »óÅÂº° ¾Ö´Ï¸ÞÀÌ¼Ç ½ºÅ¸Æ®
 		{
 		case EActorState::Idle:
-			
-			switch (KirbyMode)
+			if (true == EatState && KirbyMode == EAMode::Base) // Eat»óÅÂ (¸ÔÀº»óÅÂ) ´Â Ä¿ºñ°¡ ±âº» ¸ðµåÀÏ¶§¸¸ Ã¼Å©ÈÄ º¯°æÇÑ´Ù.
 			{
-			case EAMode::Base:
-				if (true == EatState && KirbyMode == EAMode::Base) // Eat»óÅÂ (¸ÔÀº»óÅÂ) ´Â Ä¿ºñ°¡ ±âº» ¸ðµåÀÏ¶§¸¸ Ã¼Å©ÈÄ º¯°æÇÑ´Ù.
-				{
-					HeavyIdleStart(); // Heavy´Â ±âº» ÇüÅÂÀÇ Ä¿ºñ¿¡¼­¸¸ °¡´ÉÇÑ ¾Ö´Ï¸ÞÀÌ¼Ç
-				}
-				else
-				{
-					IdleStart();
-				}
-				break;
-			case EAMode::Ice:
+				HeavyIdleStart(); // Heavy´Â ±âº» ÇüÅÂÀÇ Ä¿ºñ¿¡¼­¸¸ °¡´ÉÇÑ ¾Ö´Ï¸ÞÀÌ¼Ç
+			}
+			else
+			{
 				IdleStart();
-				break;
-			case EAMode::Mike:
-				break;
-			case EAMode::Sword:
-				break;
-			case EAMode::Hammer:
-				break;
-			default:
-				break;
 			}
 			break;
 		case EActorState::Walk:
@@ -374,6 +357,18 @@ void AKirby_Player::StateAniChange(EActorState _State) // Ä¿ºñÀÇ ¿òÁ÷ÀÓ »óÅÂ¿¡ ¸
 			{
 				checkSpeed = WalkSpeed;
 				WalkStart();;
+			}
+			break;
+		case EActorState::Run:
+			if (true == EatState && KirbyMode == EAMode::Base) // µ¿ÀÏ
+			{
+				checkSpeed = HeavyRunSpeed;
+				HeavyMoveStart();
+			}
+			else
+			{
+				checkSpeed = RunSpeed;
+				RunStart();
 			}
 			break;
 		case EActorState::Jump:
@@ -395,18 +390,6 @@ void AKirby_Player::StateAniChange(EActorState _State) // Ä¿ºñÀÇ ¿òÁ÷ÀÓ »óÅÂ¿¡ ¸
 			break;
 		case EActorState::fall:
 			FlyFallStart();
-			break;
-		case EActorState::Run:
-			if (true == EatState && KirbyMode == EAMode::Base) // µ¿ÀÏ
-			{
-				checkSpeed = HeavyRunSpeed;
-				HeavyMoveStart();
-			}
-			else
-			{	
-				checkSpeed = RunSpeed;
-				RunStart();
-			}
 			break;
 		case EActorState::Absorption:
 			AbsorptionStart();
