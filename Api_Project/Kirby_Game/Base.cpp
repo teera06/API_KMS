@@ -46,7 +46,6 @@ void ABase::Tick(float _DeltaTime)
 		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f* _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
-		Monster->Destroy(0.3f);
 		
 		Destroy(0.1f);
 	}else if(true == BaseCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
@@ -62,9 +61,9 @@ void ABase::Tick(float _DeltaTime)
 		}
 		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
 		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
+	
 		SetModeName("Ice_");
-
-		Monster->Destroy(0.3f);
 
 		Destroy(0.1f);
 	}

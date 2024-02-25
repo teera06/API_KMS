@@ -18,15 +18,23 @@ public:
 	Apengi_Ice& operator=(const Apengi_Ice& _Other) = delete; // 디폴트 대입 연산자
 	Apengi_Ice& operator=(Apengi_Ice&& _Other) noexcept = delete;
 	void IceState();
+	void SetBaseOnOff(const bool& _BaseOn)
+	{
+		BaseOn = _BaseOn;
+	}
 
+	bool GetBaseOnOff() const
+	{
+		return BaseOn;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
-	UImageRenderer* PengiRenderer = nullptr; // 커비 랜더링 (이미지)
-	UCollision* PengiCollision = nullptr;
+	UImageRenderer* MonterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UCollision* MonsterCollision = nullptr;
 
 	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
 

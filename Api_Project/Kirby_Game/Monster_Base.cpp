@@ -39,7 +39,7 @@ void AMonster_Base::BeginPlay()
 	// 애니메이션 만들기
 	AniCreate();
 
-	MonsterRenderer->ChangeAnimation("Monster_Left");
+	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
 
@@ -146,8 +146,8 @@ void AMonster_Base::AniCreate()
 {
 	// 기본 걷는 모션
 
-	MonsterRenderer->CreateAnimation("Monster_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Monster_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
 }
@@ -168,11 +168,11 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 	{
 		if (StartDir.iX() == -1 && IsIce == false) // 왼쪽 방향에 얼지 않은 상태
 		{
-			MonsterRenderer->ChangeAnimation("Monster_Left");
+			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
 		else if(StartDir.iX() == 1 && IsIce == false){ // 오른쪽 방향에 얼지 않은 상태
-			MonsterRenderer->ChangeAnimation("Monster_Right");
+			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
 

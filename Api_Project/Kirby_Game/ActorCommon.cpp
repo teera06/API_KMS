@@ -13,8 +13,6 @@ ActorCommon::~ActorCommon()
 {
 }
 
-
-
 FVector ActorCommon::GetGravity(int _X, int _Y, float _DeltaTime)
 {
 	Color8Bit Color = ActorCommon::ColMapImage->GetColor(_X, _Y, Color8Bit::RedA);
