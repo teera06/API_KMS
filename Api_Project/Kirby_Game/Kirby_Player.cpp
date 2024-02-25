@@ -946,8 +946,6 @@ void AKirby_Player::Absorption(float _DeltaTime)
 		return;
 	}
 
-
-	
 	MoveUpdate(_DeltaTime);
 }
 
@@ -968,6 +966,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	MoveUpdate(_DeltaTime);
 }
 
+// 애니메이션 스타트 관리
 void AKirby_Player::IdleStart()
 {
 	DirCheck();
@@ -1099,8 +1098,6 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
-
 
 	MoveUpdate(_DeltaTime);
 }
