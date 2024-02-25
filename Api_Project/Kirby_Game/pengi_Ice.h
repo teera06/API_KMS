@@ -30,7 +30,13 @@ private:
 	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
 	
 	FVector DirMonster = FVector::Left;
+	FVector IceMove = FVector::Zero; // 얼음 이동 관련 공통 
 	void AniCreate();
 	void BaseMove(float _DeltaTime);
+	const float sight = 250.0f; // 몬스터 시야
+	bool IsIce = false; // 언 상태 인지 bool값 공통
+	int checkX = 0; // 벽에 충돌할때 X축 범위
+	float MoveSpeed = 30.0f; // 몬스터 공통 스피드
+	const float IceSpeed = 200.0f; // 얼음(얼려진 후) 이동 스피드
 };
 

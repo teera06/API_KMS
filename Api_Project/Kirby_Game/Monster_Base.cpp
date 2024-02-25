@@ -110,7 +110,8 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		if (MonsterDirNormal.iX() == -1) // 
+		// 얼음 상태 일때 움직임 계산
+		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 		{
 
 			IceMove = FVector::Right * IceSpeed * _DeltaTime;
@@ -123,7 +124,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	}
 
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY()-30, Color8Bit::RedA);
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		if (true == IsIce)
@@ -173,21 +174,21 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 	--Value;
 	if (0 >= Value)
 	{
-		DirMonster.X *= -1;
+		StartDir.X *= -1;
 		Value = TurnValue;
 	}
 	else
 	{
-		if (DirMonster.iX() == -1 && IsIce == false)
+		if (StartDir.iX() == -1 && IsIce == false)
 		{
 			MonsterRenderer->ChangeAnimation("Monster_Left");
-			checkX = -30;
+			WallX = -30;
 		}
-		else if(DirMonster.iX() == 1 && IsIce == false){
+		else if(StartDir.iX() == 1 && IsIce == false){
 			MonsterRenderer->ChangeAnimation("Monster_Right");
-			checkX = 30;
+			WallX = 30;
 		}
-		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
 			if (true == IsIce)
@@ -196,12 +197,12 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 				Destroy();
 			}
 			else {
-				DirMonster.X *= -1;
+				StartDir.X *= -1;
 			}
 		}
 		else {
 			MoveSpeed = 30.0f;
-			Move += DirMonster * _DeltaTime * MoveSpeed;
+			Move += StartDir * _DeltaTime * MoveSpeed;
 		}
 
 		if (true == IsIce)

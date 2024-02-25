@@ -38,9 +38,9 @@ void Sword_Monster::MoveUpdate(float _DeltaTime)
 		//Move += DirMonster * _DeltaTime * MoveSpeed;
 	//}
 
-	if (true == IsIce)
-	{
-		Move = FVector::Zero;
-	}
-	AddActorLocation(Move);
+	//if (true == IsIce)
+	//{
+		//Move = FVector::Zero;
+	//}
+	//AddActorLocation(Move);
 }
