@@ -114,9 +114,9 @@ private:
 	float CamYSpeed = 0.5f; // Y축 CamYMove() 카메라 이동 수치
 	
 	// 특정 상태별 bool 값
-	bool FlyState = false; 
-	bool hitState = false;
-	bool SkillOnOff = false;
+	bool FlyState = false; // 나는 상태
+	bool hitState = false; // 충돌 상태
+	bool SkillOn = false; // 스킬 사용 중인 상태
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성
@@ -125,24 +125,28 @@ private:
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
-	FVector JumpPowerIdle = FVector::Up * 400;
-	FVector JumpPowerMove = FVector::Up * 500;
+	// 점프력 제어
+	FVector JumpPowerIdle = FVector::Up * 400; // 서있는 경우에서 점프력
+	FVector JumpPowerMove = FVector::Up * 500; // 이동할때의 점프력
+	FVector JumpVector = FVector::Zero; // 최종 점프력
 
-	FVector JumpVector = FVector::Zero;
+	FVector PlayMove = FVector::Zero; // Kirby Move
 
-	FVector PlayMove = FVector::Zero;
-
-	FVector CurY = FVector::Zero;
+	FVector CurY = FVector::Zero; // Camera Y Move
 
 
 	static AKirby_Player* MainPlayer;
 	
+	// 움직임 제어 함수
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
 	void MoveUpdate(float _DeltaTime, const FVector& _MovePos=FVector::Zero);
+	
+	// 커비 모드별 정리 함수
 	void FireKirby(); // 불 커비
 	void IceKirby(float _DeltaTime); // 아이스 커비
+	
+	// 카메라 Y축 제어 함수
 	void CamYMove();
-
 };
 

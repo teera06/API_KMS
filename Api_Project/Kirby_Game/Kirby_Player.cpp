@@ -237,9 +237,10 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 
 	FVector MovePos = _MovePos;
 	
-	FVector CheckPos = GetActorLocation();
-	FVector CamCheckPos = GetActorLocation();
+	FVector CheckPos = GetActorLocation(); // Kirby
+	FVector CamCheckPos = GetActorLocation(); // camera
 
+	// 방향 별 픽셀 충돌 인식 범위
 	switch (DirState)
 	{
 	case EActorDir::Left:
@@ -253,26 +254,29 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	default:
 		break;
 	}
+
 	CheckPos.Y -= checkposY;
 	CamCheckPos.Y -= checkposY;
+
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
 	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::GreenA);
 	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
 	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
+
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
 	{
 		MovePos = FVector::Zero;
 	}
 
-	AddActorLocation(MovePos + (PlayMove * _DeltaTime));
-	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0))
-	{
+	AddActorLocation(MovePos + (PlayMove * _DeltaTime)); // 최종 Kirby 움직임 계산 X축(게임 조작을 통한 값)과 Y축 (중력, 점프)
 
-		FVector Move = (MovePos * FVector::Right) + CamstopMove;
+	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0)) // 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	{
+		// 카메라 최종 이동
+		FVector Move = (MovePos * FVector::Right) + CamstopMove; // 
 	
 		GetWorld()->AddCameraPos(Move);
 		
-
 		CamstopMove = FVector::Zero;
 
 	}
@@ -292,7 +296,7 @@ void AKirby_Player::MoveUpdate(float _DeltaTime, const FVector& _MovePos)
 
 //----------------------------------------------------------------------------------------------------
 
-void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
+void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 방향 체크
 {
 	EActorDir Dir = DirState;
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -304,7 +308,7 @@ void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 		Dir = EActorDir::Right;
 	}
 
-	if (Dir != DirState && false==SkillOnOff)
+	if (Dir != DirState && false==SkillOn) // 스킬 사용중에는 방향 전환 불가능
 	{
 		DirState = Dir;
 		std::string Name = GetAnimationName(CurAnimationName);
@@ -312,10 +316,12 @@ void AKirby_Player::DirCheck() // 커비 왼쪽 오른쪽 체크
 	}
 }
 
+// 최종 변경해야할 애니메이션 관리
 std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 {
 	std::string DirName = "";
 
+	// 방향 체크
 	switch (DirState)
 	{
 	case EActorDir::Left:
@@ -334,12 +340,11 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 	{
 		return std::string(_Name) + DirName; // // 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
 	}
-	return std::string(GetModeName()) + std::string(_Name) + DirName;
+	return std::string(GetModeName()) + std::string(_Name) + DirName; // 최종 변경해야할 애니메이션 이름 (커비 모드) + 애니메이션 이름 + (방향)
 }
 
-//-------------------------------------------------------------------------------
-
-void AKirby_Player::StateAniChange(EActorState _State) // 커비의 움직임 상태에 맞는 애니메이션 실행
+// 커비의 움직임 상태에 맞는 애니메이션 실행
+void AKirby_Player::StateAniChange(EActorState _State) 
 {
 	
 	// 커비 형태의 문자열에 맞게 커비 모드를 설정 해준다.
@@ -556,7 +561,10 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
-	CurY = GetActorLocation();
+	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
+	
+
+	// 테스트 모드
 	if (true == UEngineInput::IsDown('1'))
 	{
 		StateAniChange(EActorState::FreeMove);
@@ -569,7 +577,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
-
+	// 걷기
 	if (
 		true == UEngineInput::IsPress(VK_LEFT) ||
 		true == UEngineInput::IsPress(VK_RIGHT)
@@ -579,6 +587,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 점프
 	if (
 		true == UEngineInput::IsDown('S') 
 		)
@@ -588,6 +597,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 숙이기
 	if (
 		true == UEngineInput::IsPress(VK_DOWN)
 		)
@@ -596,11 +606,12 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 커비 모드에 따른 스킬 공격
 	if (
 		true == UEngineInput::IsPress('X') && false == EatState
 		)
 	{
-		SkillOnOff = true;
+		SkillOn = true;
 		StateAniChange(EActorState::Absorption);
 		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
 		NewBase->SetActorLocation(this->GetActorLocation());
@@ -615,7 +626,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if(true == UEngineInput::IsPress('X') && KirbyMode==EAMode::Ice ){
-		SkillOnOff = true;
+		SkillOn = true;
 		StateAniChange(EActorState::IceAttack);
 		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
 		NewIce->SetActorLocation(this->GetActorLocation());
@@ -630,11 +641,12 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
 		true == UEngineInput::IsDown('A') && true==EatState
 		)
 	{
-		SkillOnOff = true;
+		SkillOn = true;
 		StateAniChange(EActorState::All_Attack);
 		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
 		NewStar->SetActorLocation(this->GetActorLocation());
@@ -654,9 +666,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 void AKirby_Player::Jump(float _DeltaTime)
 {
-	DirCheck();
+	DirCheck(); // 방향 체크
+
 	FVector MovePos;
 
+	// 점프 도중 X축 이동
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * checkSpeed * _DeltaTime;
@@ -667,11 +681,13 @@ void AKirby_Player::Jump(float _DeltaTime)
 		MovePos += FVector::Right * checkSpeed * _DeltaTime;
 	}
 
+	// 점프 도중 Fly
 	if (UEngineInput::IsDown('S'))
 	{
 		switch (KirbyMode)
 		{
 		case EAMode::Base:
+			// Base에서는 EatState가 true이면 날지 못한다.
 			if (false == EatState)
 			{
 				StateAniChange(EActorState::FlyReady);
@@ -685,30 +701,31 @@ void AKirby_Player::Jump(float _DeltaTime)
 		}
 	}
 
+	MoveUpdate(_DeltaTime,MovePos); // 최종 움직임
 
-	MoveUpdate(_DeltaTime,MovePos);
-
-	CamYMove();
+	CamYMove(); // 카메라 Y축 계산
 	
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
-
-		
-		JumpVector = FVector::Zero;
-		StateAniChange(EActorState::Idle);
+		JumpVector = FVector::Zero; // 점프력 힘은 0
+		StateAniChange(EActorState::Idle); // Idle 변화
 		return;
 	}
 }
 
+// 날기 위한 준비 모션
 void AKirby_Player::FlyReady(float _DeltaTime)
 {
-	DirCheck();
-	FlyState = true;
-	JumpVector = FVector::Zero;
-	if (true == KirbyRenderer->IsCurAnimationEnd())
+	DirCheck(); 
+
+	FlyState = true; // 날기 위한 Bool값 True
+	JumpVector = FVector::Zero; // 점프력 0
+	
+	if (true == KirbyRenderer->IsCurAnimationEnd()) //  해당 애니메이션 종료 후
 	{
-		StateAniChange(EActorState::Fly);
+		StateAniChange(EActorState::Fly); // 날기로 전환
 		return;
 	}
 }
@@ -716,6 +733,8 @@ void AKirby_Player::FlyReady(float _DeltaTime)
 void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
+
+	// 나는 도중 X키 누를 경우 -> 떨어짐
 	if (UEngineInput::IsDown('X'))
 	{
 		FlyState = false;
@@ -743,31 +762,29 @@ void AKirby_Player::Fly(float _DeltaTime)
 		MovePos += FVector::Down * _DeltaTime * 100.0f;
 	}
 
-	
-	
-
 	MoveUpdate(_DeltaTime, MovePos);
 	
-	Color8Bit Color1 = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
-	if (Color1 == Color8Bit(255, 0, 255, 0) )
+	// 천장 픽셀 충돌 -> 추락
+	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
+	if (ColorM == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
 		StateAniChange(EActorState::Flyfall);
 	    return;
 	}
 
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
+	// 바닥 픽셀 충돌  -> 추락
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 
 		FlyState = false;
 		StateAniChange(EActorState::Flyfall);
 		return;
 	}
-	
-	
 }
 
+// 날다가 추락할 때
 void AKirby_Player::Flyfall(float _DeltaTime)
 {
 	
@@ -786,16 +803,16 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (Color == Color8Bit(255, 0, 0, 0))
+
+	// 추락해서 바닥과 충돌할 경우
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		CamYMove();
 		JumpVector = FVector::Zero;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
-
 }
 
 
@@ -920,7 +937,7 @@ void AKirby_Player::Absorption(float _DeltaTime)
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SkillOnOff = false;
+		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -936,7 +953,7 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SkillOnOff = false;
+		SkillOn = false;
 		EatState = false;
 		SetModeName("Base_");
 		SetMode(EAMode::Base);
@@ -1074,7 +1091,7 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SkillOnOff = false;
+		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
