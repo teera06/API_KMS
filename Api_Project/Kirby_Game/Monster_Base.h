@@ -59,11 +59,11 @@ private:
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 
-	float MoveSpeed = 80.0f; // 몬스터 스피드
-	const float IceSpeed = 400.0f; // 얼음(얼려진 후) 이동 스피드
+	float MoveSpeed = 30.0f; // 몬스터 스피드
+	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	// 일반 몬스터 행동 범위
-	const int TurnValue = 300; // 몬스터 행동 강령
+	const int TurnValue = 800; // 몬스터 행동 강령
 	int Value = TurnValue; // 몬스터 행동 강령
 
 };

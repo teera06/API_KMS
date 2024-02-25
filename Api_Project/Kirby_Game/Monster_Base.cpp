@@ -166,6 +166,7 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
 }
 
+// 기본 행동 강령
 void AMonster_Base::BaseMove(float _DeltaTime)
 {
 
@@ -179,38 +180,39 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 	}
 	else
 	{
-		if (StartDir.iX() == -1 && IsIce == false)
+		if (StartDir.iX() == -1 && IsIce == false) // 왼쪽 방향에 얼지 않은 상태
 		{
 			MonsterRenderer->ChangeAnimation("Monster_Left");
 			WallX = -30;
 		}
-		else if(StartDir.iX() == 1 && IsIce == false){
+		else if(StartDir.iX() == 1 && IsIce == false){ // 오른쪽 방향에 얼지 않은 상태
 			MonsterRenderer->ChangeAnimation("Monster_Right");
 			WallX = 30;
 		}
+
 		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
-		if (ColorR == Color8Bit(255, 0, 0, 0))
+		
+		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽 픽셀 충돌
 		{
-			if (true == IsIce)
+			if (true == IsIce) // 얼음 상태일 경우
 			{
-				IceMove = FVector::Zero;
-				Destroy();
+				IceMove = FVector::Zero; // 움직임 0
+				Destroy(); // 죽음
 			}
-			else {
+			else { // 아닌 경우는 방향 전환
 				StartDir.X *= -1;
 			}
 		}
-		else {
-			MoveSpeed = 30.0f;
+		else { // 충돌하지 않은 경우
 			Move += StartDir * _DeltaTime * MoveSpeed;
 		}
 
-		if (true == IsIce)
+		if (true == IsIce) // 얼음 상태일 경우 기존 얼지 않은 상태의 움직임을 해서는 안된다.
 		{
 			Move = FVector::Zero;
 		}
 
-		AddActorLocation(Move);
+		AddActorLocation(Move); // 최종 움직임 계산
 	}
 }
 
