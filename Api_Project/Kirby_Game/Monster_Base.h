@@ -1,7 +1,8 @@
 #pragma once
+// 상속
 #include <EngineCore\Actor.h>
-
 #include "ActorCommon.h"
+
 #include "ModeEnum.h"
 
 #include "Kirby_Player.h"
@@ -21,14 +22,14 @@ public:
 
 	void IceState();
 
-	void SetBaseOnOff(bool _BaseOnOff)
+	void SetBaseOnOff(bool _BaseOn)
 	{
-		BaseOnOff = _BaseOnOff;
+		BaseOn = _BaseOn;
 	}
 
 	bool GetBaseOnOff()
 	{
-		return BaseOnOff;
+		return BaseOn;
 	}
 
 
@@ -38,6 +39,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision=nullptr;
 
@@ -45,12 +47,13 @@ private:
 
 	FVector DirMonster = FVector::Left;
 	FVector DiePos = FVector::Zero;
+
 	void MoveUpdate(float _DeltaTime);
 	void AniCreate();
 	
 	void BaseMove(float _DeltaTime);
 	
-	bool BaseOnOff = false;
+	bool BaseOn = false;
 	bool diecheck = false;
 };
 

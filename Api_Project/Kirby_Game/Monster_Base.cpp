@@ -10,6 +10,7 @@ AMonster_Base::~AMonster_Base()
 {
 }
 
+// 언 상태
 void AMonster_Base::IceState()
 {
 	scale = 2;
@@ -21,23 +22,27 @@ void AMonster_Base::IceState()
 void AMonster_Base::BeginPlay()
 {
 	AActor::BeginPlay();
-	scale = 3;
+	scale = 3; // 평소 크기
+	// 랜더링
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("Dee_Right.png"); // 이미지 Set
 		MonsterRenderer->SetTransform({ {0,1}, {64* scale, 64* scale} }); // 랜더의 위치 크기 
 	}
 
+	// 콜리전
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::Monster);
 		MonsterCollision->SetScale({ 70, 70 });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 
+	// 애니메이션 만들기
 	AniCreate();
 
 	MonsterRenderer->ChangeAnimation("Monster_Left");
 }
+
 
 void AMonster_Base::Tick(float _DeltaTime)
 {
@@ -60,9 +65,6 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
-	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
-	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
-
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
@@ -72,31 +74,25 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	
 	// 콜리전 
 	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false)
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		
-			
 		//MonsterRenderer->SetAlpha(0.5f+nf);
 		
-		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
 
+		// 방어코드
 		if (nullptr == Player)
 		{
-			MsgBoxAssert("터져야겠지....");
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
 		}
 
-		if (true == GetBaseOnOff())
+		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
-		else {
-			//Player->GetKirbyRender()->SetAlpha(0.5f);
-			//FVector Move = MonsterDirNormal * 500.0f * _DeltaTime *FVector::Right;
-			//Player->AddActorLocation(Move);
-			//GetWorld()->AddCameraPos(Move);
+		else {// 일반적인 플레이와의 충돌
 			Player->Sethitstate(true);
 			Player->HitStart();
 			MonsterRenderer->ChangeAnimation("die_Right");
@@ -165,8 +161,8 @@ void AMonster_Base::AniCreate()
 
 	MonsterRenderer->CreateAnimation("Monster_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("Monster_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
-	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false);
+	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
+	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
 }
 
 void AMonster_Base::BaseMove(float _DeltaTime)
