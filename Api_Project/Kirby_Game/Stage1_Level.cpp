@@ -43,9 +43,6 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
 
-	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Right.png", 10, 5);
-	//UEngineResourcesManager::GetInst().CuttingImage("Monster_Left.png", 10, 5);
-
 	// 이미지 컷팅 -> 커비 관련 이미지
 	UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
 	UEngineResourcesManager::GetInst().CuttingImage("kirby_Left.png", 10, 7);
@@ -63,13 +60,31 @@ void UStage1_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
 
+	//NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
+	//NewPath.Move("sound"); // 폴더 이동
+
+	std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+	for (UEngineFile& File : testList)
+	{
+		UEngineSound::Load(File.GetFullPath());
+	}
+
+	//BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
+	//BGMPlayer.Loop();
+	// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
+	// BGMPlayer.Off();
+	
+
+
+
 	// 맵 생성
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
 	Map->SetMapImage("stage1_map.png");
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
-	
+
 	// 커비와 커비 상태창 Actor 생성
 	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });
 	SpawnActor<AKirby_HpBar>();
@@ -78,7 +93,7 @@ void UStage1_Level::BeginPlay()
 	SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
 	SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });
 	SpawnActor<AMonster_Base>()->SetActorLocation({ 1900,600 });
-		
+
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
 	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
@@ -89,3 +104,4 @@ void UStage1_Level::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
 }
+
