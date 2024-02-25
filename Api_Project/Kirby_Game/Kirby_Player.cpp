@@ -815,8 +815,6 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	}
 }
 
-
-
 void AKirby_Player::HeadDown(float _DeltaTime)
 {
 	DirCheck();
@@ -827,34 +825,39 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 		return;
 	}
 
-
 	MoveUpdate(_DeltaTime);
 }
 
+// 몬스터와 충돌하는 경우
 void AKirby_Player::hit(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
-	JumpVector = FVector::Zero;
-	if (DirState == EActorDir::Left)
+	JumpVector = FVector::Zero; // 점프 도중에 충돌할 경우 -> 점프력 0
+
+	// 몬스터와 반대 방향으로 이동해야하기 위해
+	if (DirState == EActorDir::Left) // 왼쪽일 때는 
 	{
-		Move = FVector::Right * 100.0f * _DeltaTime;
+		Move = FVector::Right * 100.0f * _DeltaTime; // 오른쪽
 	}
-	else {
-		Move = FVector::Left * 100.0f * _DeltaTime;
+	else { // 오른쪽일 때는
+		Move = FVector::Left * 100.0f * _DeltaTime; // 왼쪽
 	}
 
+	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime));
-	GetWorld()->AddCameraPos(Move);
-	CamYMove();
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
+	
+	// 충돌시 카메라 이동 제어
+	GetWorld()->AddCameraPos(Move); // X축
+	CamYMove(); // Y축
+
+	// 애니메이션 종료 시 다시 원래 상태로 돌아감
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		hitState = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
-
-
 }
 
 void AKirby_Player::Walk(float _DeltaTime)
@@ -869,6 +872,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 	}
 
 	FVector MovePos = FVector::Zero;
+
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime* checkSpeed;
