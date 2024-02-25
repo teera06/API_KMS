@@ -63,7 +63,7 @@ private:
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	// 일반 몬스터 행동 범위
-	const int TurnValue = 800; // 몬스터 행동 강령
+	const int TurnValue = 5000; // 몬스터 행동 강령
 	int Value = TurnValue; // 몬스터 행동 강령
 
 };

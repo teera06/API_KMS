@@ -1,6 +1,5 @@
 #include "Monster_Base.h"
 #include "ModeEnum.h"
-#include <EngineCore/EngineCore.h>
 
 AMonster_Base::AMonster_Base()
 {
@@ -170,11 +169,11 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 		if (StartDir.iX() == -1 && IsIce == false) // 왼쪽 방향에 얼지 않은 상태
 		{
 			MonsterRenderer->ChangeAnimation("Monster_Left");
-			WallX = -30;
+			WallX = -20;
 		}
 		else if(StartDir.iX() == 1 && IsIce == false){ // 오른쪽 방향에 얼지 않은 상태
 			MonsterRenderer->ChangeAnimation("Monster_Right");
-			WallX = 30;
+			WallX = 20;
 		}
 
 		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);

@@ -35,15 +35,36 @@ void Apengi_Ice::BeginPlay()
 	}
 
 	AniCreate();
-	PengiRenderer->ChangeAnimation("Pengi_Right");
+	PengiRenderer->ChangeAnimation("Idle_Left");
 }
 
 void Apengi_Ice::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
+	if (false == IsDie) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
+	{
+		MoveUpdate(_DeltaTime);
+	}
+	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		AddActorLocation(DiePos); // 죽으면서 이동
+	}
+}
+
+void Apengi_Ice::AniCreate()
+{
+	PengiRenderer->CreateAnimation("Idle_Right", "Pengi_Right.png", 0, 0, 0.3f, true); // 걷기
+	PengiRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); // 걷기
+	// 기본 걷는 모션
+	PengiRenderer->CreateAnimation("Pengi_Right", "Pengi_Right.png", 1, 3, 0.3f, true); // 걷기
+	PengiRenderer->CreateAnimation("Pengi_Left", "Pengi_Left.png", 1, 3, 0.3f, true); // 걷기
+	PengiRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
+}
+
+void Apengi_Ice::MoveUpdate(float _DeltaTime)
+{
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
-	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
 	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
@@ -62,17 +83,25 @@ void Apengi_Ice::Tick(float _DeltaTime)
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			PengiRenderer->ChangeAnimation("Pengi_Left");
-			checkX = -30;
+			WallX = -30;
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 			PengiRenderer->ChangeAnimation("Pengi_Right");
-			checkX = 30;
+			WallX = 30;
 		}
 		MoveSpeed = 50.0f;
 		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 	}
 	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
-		BaseMove(_DeltaTime);
+		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		{
+			PengiRenderer->ChangeAnimation("Idle_Left");
+			
+		}
+		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+			PengiRenderer->ChangeAnimation("Idle_Right");
+			
+		}
 	}
 
 
@@ -115,7 +144,7 @@ void Apengi_Ice::Tick(float _DeltaTime)
 	}
 
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		if (true == IsIce)
@@ -138,50 +167,6 @@ void Apengi_Ice::Tick(float _DeltaTime)
 	}
 }
 
-void Apengi_Ice::AniCreate()
-{
-	PengiRenderer->CreateAnimation("Idel_Right", "Pengi_Right.png", 0, 0, 0.3f, true); // 걷기
-	PengiRenderer->CreateAnimation("Idel_Left", "Pengi_Left.png", 0, 0, 0.3f, true); // 걷기
-	// 기본 걷는 모션
-	PengiRenderer->CreateAnimation("Pengi_Right", "Pengi_Right.png", 1, 3, 0.3f, true); // 걷기
-	PengiRenderer->CreateAnimation("Pengi_Left", "Pengi_Left.png", 1, 3, 0.3f, true); // 걷기
-	PengiRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false);
-}
 
-void Apengi_Ice::BaseMove(float _DeltaTime)
-{
-	FVector Move = FVector::Zero;
 
-	if (MonsterDirNormal.iX() == -1 && IsIce == false)
-	{
-		PengiRenderer->ChangeAnimation("Idel_Left");
-		checkX = -30;
-	}
-	else if (MonsterDirNormal.iX() == 1 && IsIce == false) {
-		PengiRenderer->ChangeAnimation("Idel_Right");
-		checkX = 30;
-	}
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
-	{
-		if (true == IsIce)
-		{
-			IceMove = FVector::Zero;
-			Destroy();
-		}
-		else {
-			DirMonster.X *= -1;
-		}
-	}
-	else {
-		MoveSpeed = 30.0f;
-		Move += DirMonster * _DeltaTime * MoveSpeed;
-	}
 
-	if (true == IsIce)
-	{
-		Move = FVector::Zero;
-	}
-	//AddActorLocation(Move);
-	
-}
