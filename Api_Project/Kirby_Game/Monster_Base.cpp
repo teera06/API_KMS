@@ -47,16 +47,14 @@ void AMonster_Base::BeginPlay()
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	if (false == IsDie)
+
+	if (false == IsDie) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
 	{
 		MoveUpdate(_DeltaTime);
 	}
-	else {
-		AddActorLocation(DiePos);
-	
+	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		AddActorLocation(DiePos); // 죽으면서 이동
 	}
-	
-	
 }
 
 void AMonster_Base::MoveUpdate(float _DeltaTime)
@@ -65,13 +63,9 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
-	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
-
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
-	FVector MovePos = FVector::Zero;
-	
 	// 콜리전 
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
@@ -123,7 +117,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		}
 	}
 
-
+	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
@@ -132,23 +126,16 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			IceMove = FVector::Zero;
 			Destroy();
 		}
-		else {
-			MovePos = FVector::Zero;
-		}
-
 	}
 
-	if (true==IsDie)
+	if (true==IsDie) // 죽으면
 	{
-		MovePos = FVector::Zero;
-		Destroy(0.3f);
+		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {
-		BaseMove(_DeltaTime);
-
-		if (IsIce == false)
+		if (false==IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
 		{
-			AddActorLocation(MovePos);
+			BaseMove(_DeltaTime);
 		}
 		else {
 			AddActorLocation(IceMove);
