@@ -43,7 +43,7 @@ private:
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision=nullptr;
 
-	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
 	FVector DirMonster = FVector::Left;
 	FVector DiePos = FVector::Zero;
@@ -54,6 +54,6 @@ private:
 	void BaseMove(float _DeltaTime);
 	
 	bool BaseOn = false;
-	bool diecheck = false;
+	bool IsDie = false;
 };
 

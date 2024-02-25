@@ -47,7 +47,7 @@ void AMonster_Base::BeginPlay()
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	if (false == diecheck)
+	if (false == IsDie)
 	{
 		MoveUpdate(_DeltaTime);
 	}
@@ -62,7 +62,7 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
-	FVector PlayerPos = Player->GetActorLocation();  // 플레이어 위치
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
@@ -93,14 +93,14 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
-			Player->Sethitstate(true);
-			Player->HitStart();
-			MonsterRenderer->ChangeAnimation("die_Right");
-			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right;
-			diecheck = true;
+			Player->Sethitstate(true); // 플레이어 충돌 체크
+			Player->HitStart(); // hit 상태 스타트
+			MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right; // 죽으면서 이동하는 위치 계산
+			IsDie = true; // 죽음 체크
 		}
 	}
-	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) {
+	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) { // 얼음 상태로 커비와 충돌 하는 경우
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
@@ -110,7 +110,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		if (MonsterDirNormal.iX() == -1)
+		if (MonsterDirNormal.iX() == -1) // 
 		{
 
 			IceMove = FVector::Right * IceSpeed * _DeltaTime;
@@ -123,7 +123,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	}
 
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + checkX, GetActorLocation().iY()-30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		if (true == IsIce)
@@ -137,7 +137,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 
 	}
 
-	if (true==diecheck)
+	if (true==IsDie)
 	{
 		MovePos = FVector::Zero;
 		Destroy(0.3f);
