@@ -8,7 +8,6 @@ ATitleActor::ATitleActor()
 
 ATitleActor::~ATitleActor()
 {
-	Destroy(0.0f);
 }
 
 void ATitleActor::BeginPlay()
@@ -35,6 +34,6 @@ void ATitleActor::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	if (true == UEngineInput::IsDown(VK_LBUTTON))
 	{
-		Destroy(0.0f);
+		Destroy();
 	}
 }

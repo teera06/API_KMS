@@ -70,8 +70,8 @@ void UStage1_Level::BeginPlay()
 		UEngineSound::Load(File.GetFullPath());
 	}
 
-	//BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
-	//BGMPlayer.Loop();
+	BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
+	BGMPlayer.Loop();
 	// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
 	// BGMPlayer.Off();
 	

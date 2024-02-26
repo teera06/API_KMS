@@ -119,12 +119,12 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		// 얼음 상태 일때 움직임 계산
 		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 		{
-
+			WallX = 20;
 			IceMove = FVector::Right * IceSpeed * _DeltaTime;
 
 		}
 		else {
-
+			WallX = -20;
 			IceMove = FVector::Left * IceSpeed * _DeltaTime;
 		}
 	}

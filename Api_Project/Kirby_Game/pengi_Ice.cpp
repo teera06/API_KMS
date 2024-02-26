@@ -116,7 +116,6 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
-		MoveSpeed = 50.0f;
 		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 	}
 	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
@@ -124,13 +123,13 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		{
 			MonsterRenderer->ChangeAnimation("Idle_Left");
 			WallX = -20;
-
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 			MonsterRenderer->ChangeAnimation("Idle_Right");
 			WallX = 20;
 		}
 	}
+
 	// 콜리전 
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
@@ -175,12 +174,12 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		// 얼음 상태 일때 움직임 계산
 		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 		{
-
+			WallX = 20;
 			IceMove = FVector::Right * IceSpeed * _DeltaTime;
 
 		}
 		else {
-
+			WallX = -20;
 			IceMove = FVector::Left * IceSpeed * _DeltaTime;
 		}
 	}
