@@ -499,14 +499,27 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 테스트 모드
 	if (true == UEngineInput::IsDown('1'))
 	{
-		GetWorld()->SpawnActor<AMonster_Base>()->SetActorLocation({ GetActorLocation().iX() + 300,500 });
+		if (DirState == EActorDir::Left)
+		{
+			GetWorld()->SpawnActor<AMonster_Base>()->SetActorLocation({ GetActorLocation().iX() - 200,600 });
+		}
+		else {
+			GetWorld()->SpawnActor<AMonster_Base>()->SetActorLocation({ GetActorLocation().iX() + 300,600 });
+		}
+		
 		Hp = 100;
 		return;
 	}
 
 	if (true == UEngineInput::IsDown('2'))
 	{
-		GetWorld()->SpawnActor<Apengi_Ice>()->SetActorLocation({ GetActorLocation().iX() + 300,500 });
+		if (DirState == EActorDir::Left)
+		{
+			GetWorld()->SpawnActor<Apengi_Ice>()->SetActorLocation({ GetActorLocation().iX() - 200,600 });
+		}
+		else {
+			GetWorld()->SpawnActor<Apengi_Ice>()->SetActorLocation({ GetActorLocation().iX() + 300,600 });
+		}
 		Hp = 100;
 		return;
 	}

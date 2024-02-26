@@ -181,6 +181,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 			AddActorLocation(MovePos);
 		}
 		else {
+			MovePos = FVector::Zero;
 			AddActorLocation(IceMove);
 		}
 	}
