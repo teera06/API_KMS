@@ -53,6 +53,8 @@ private:
 
 	void AniCreate(); // 애니메이션 관리
 
+	void IceToMonster(float _DeltaTime);
+
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인

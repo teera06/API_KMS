@@ -129,6 +129,12 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		}
 	}
 
+
+	if (true == IsIce)
+	{
+		IceToMonster(_DeltaTime);
+	}
+
 	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
@@ -163,6 +169,28 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Move_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
+}
+
+void AMonster_Base::IceToMonster(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+		// 방어코드
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		Monster->Destroy();
+		Destroy();
+
+	}
 }
 
 // 기본 행동 강령
