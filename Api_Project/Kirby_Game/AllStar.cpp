@@ -30,7 +30,11 @@ void AAllStar::Tick(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		Monster->Destroy();
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		//FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		//Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
 		Destroy();
 	}else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{

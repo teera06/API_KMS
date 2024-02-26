@@ -30,7 +30,20 @@ public:
 		return BaseOn;
 	}
 
+	UImageRenderer* GetMonsterRenderer()
+	{
+		return MonsterRenderer;
+	}
 
+	void SetIsDie(const bool& _IsDie)
+	{
+		IsDie = _IsDie;
+	}
+
+	void SetDiePos(const FVector& _DiePos)
+	{
+		DiePos = _DiePos;
+	}
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

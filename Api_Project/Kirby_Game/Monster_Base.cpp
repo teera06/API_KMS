@@ -182,12 +182,17 @@ void AMonster_Base::IceToMonster(float _DeltaTime)
 		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
 
 		// 방어코드
+
 		if (nullptr == Monster)
 		{
 			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
 		}
 
-		Monster->Destroy();
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
 		Destroy();
 
 	}
