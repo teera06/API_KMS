@@ -847,6 +847,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	AddActorLocation(Move);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
 	
+	FlyState = false; // 날다가 추락할 경우
 	// 충돌시 카메라 이동 제어
 	GetWorld()->AddCameraPos(Move); // X축
 	CamYMove(); // Y축
