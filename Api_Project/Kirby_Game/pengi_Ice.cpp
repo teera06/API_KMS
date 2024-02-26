@@ -83,11 +83,11 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonterRenderer->ChangeAnimation("Move_Left");
-			WallX = -30;
+			WallX = -20;
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 			MonterRenderer->ChangeAnimation("Move_Right");
-			WallX = 30;
+			WallX = 20;
 		}
 		MoveSpeed = 50.0f;
 		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
@@ -96,11 +96,12 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonterRenderer->ChangeAnimation("Idle_Left");
+			WallX = -20;
 
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 			MonterRenderer->ChangeAnimation("Idle_Right");
-
+			WallX = 20;
 		}
 	}
 	// 콜리전 
@@ -165,6 +166,8 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 			IceMove = FVector::Zero;
 			Destroy();
 		}
+
+		MovePos = FVector::Zero;
 	}
 
 	if (true == IsDie) // 죽으면
