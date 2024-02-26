@@ -8,6 +8,9 @@
 #include "Base.h"
 #include "Ice.h"
 
+#include "Monster_Base.h"
+#include "pengi_Ice.h"
+
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
@@ -442,12 +445,6 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 	{
 		switch (State) // 현재 상태별 진행해야하는 형태
 		{
-		case EActorState::CameraFreeMove: // 카메라 움직임 -> 테스트용
-			CameraFreeMove(_DeltaTime);
-			break;
-		case EActorState::FreeMove: // 카메라, 캐릭터 자유롭게 이동 -> 테스트용
-			FreeMove(_DeltaTime);
-			break;
 		case EActorState::Idle: // 서있기
 			Idle(_DeltaTime);
 			break;
@@ -491,71 +488,6 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 	
 }
 
-
-void AKirby_Player::CameraFreeMove(float _DeltaTime)
-{
-	if (UEngineInput::IsPress(VK_LEFT))
-	{
-		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * camSpeed);
-		// AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
-	}
-
-	if (UEngineInput::IsPress(VK_RIGHT))
-	{
-		GetWorld()->AddCameraPos(FVector::Right * _DeltaTime * camSpeed);
-	}
-
-	if (UEngineInput::IsPress(VK_UP))
-	{
-		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * camSpeed);
-		// AddActorLocation(FVector::Up * _DeltaTime * 500.0f);
-	}
-
-	if (UEngineInput::IsPress(VK_DOWN))
-	{
-		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * camSpeed);
-		// AddActorLocation(FVector::Down * _DeltaTime * 500.0f);
-	}
-
-	if (UEngineInput::IsDown('2'))
-	{
-		StateAniChange(EActorState::Idle);
-	}
-}
-
-void AKirby_Player::FreeMove(float _DeltaTime)
-{
-	FVector MovePos;
-
-	if (UEngineInput::IsPress(VK_LEFT))
-	{
-		MovePos += FVector::Left * _DeltaTime * WalkSpeed;
-	}
-
-	if (UEngineInput::IsPress(VK_RIGHT))
-	{
-		MovePos += FVector::Right * _DeltaTime * WalkSpeed;
-	}
-
-	if (UEngineInput::IsPress(VK_UP))
-	{
-		MovePos += FVector::Up * _DeltaTime * WalkSpeed;
-	}
-
-	if (UEngineInput::IsPress(VK_DOWN))
-	{
-		MovePos += FVector::Down * _DeltaTime * WalkSpeed;
-	}
-
-	AddActorLocation(MovePos);
-	GetWorld()->AddCameraPos(MovePos);
-
-	if (UEngineInput::IsDown('1'))
-	{
-		StateAniChange(EActorState::Idle);
-	}
-}
-
 void AKirby_Player::Idle(float _DeltaTime)
 {
 	// 왼쪽 오른쪽도 안되고 있고.
@@ -567,13 +499,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 테스트 모드
 	if (true == UEngineInput::IsDown('1'))
 	{
-		StateAniChange(EActorState::FreeMove);
+		GetWorld()->SpawnActor<AMonster_Base>()->SetActorLocation({ GetActorLocation().iX() + 300,500 });
+		Hp = 100;
 		return;
 	}
 
 	if (true == UEngineInput::IsDown('2'))
 	{
-		StateAniChange(EActorState::CameraFreeMove);
+		GetWorld()->SpawnActor<Apengi_Ice>()->SetActorLocation({ GetActorLocation().iX() + 300,500 });
+		Hp = 100;
 		return;
 	}
 

@@ -65,10 +65,6 @@ protected:
 	void StateAniChange(EActorState _State); // 커비의 움직임 상태에 맞는 애니메이션 실행
 	void StateUpdate(float _DeltaTime);
 
-	// Test 모드
-	void CameraFreeMove(float _DeltaTime);
-	void FreeMove(float _DeltaTime);
-
 	// 상태에 따른 조작
 	void Idle(float _DeltaTime); // 서있기
 	void Walk(float _DeltaTime); // 걷기

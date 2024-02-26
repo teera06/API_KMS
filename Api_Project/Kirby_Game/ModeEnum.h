@@ -26,9 +26,6 @@ enum class EActorState
 	IceAttack,
 	All_Attack,
 	HeadDown,
-	CameraFreeMove,
-	FreeMove,
-
 };
 
 enum class EActorDir
