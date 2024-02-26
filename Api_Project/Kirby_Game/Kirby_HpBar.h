@@ -29,7 +29,7 @@ private:
 	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* StateRenderer = nullptr; // 커비 랜더링 (이미지)
 
-	AKirby_Player* Player = AKirby_Player::GetMainPlayer();
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 	FVector Move = FVector::Zero;
 };
 

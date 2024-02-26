@@ -53,7 +53,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	MainPlayer = this; // 다른 클래스가 사용하기 위해 본인을 넣는다.
 
-	SetHp(100); // 커비 Hp
+	//SetHp(100); // 커비 Hp
 	
 	scale = 3; // ActorCommon -> 랜더링 크기 설정
 

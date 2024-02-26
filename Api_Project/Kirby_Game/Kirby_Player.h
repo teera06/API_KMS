@@ -41,6 +41,21 @@ public:
 		hitState = _hitState;
 	}
 
+	void SetHp(const int& _Hp)
+	{
+		Hp = _Hp;
+	}
+
+	void AddHP(const int& _Value)
+	{
+		Hp += _Value;
+	}
+
+	int GetHp()
+	{
+		return Hp;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -128,6 +143,8 @@ private:
 	bool FlyState = false; // 나는 상태
 	bool hitState = false; // 충돌 상태
 	bool SkillOn = false; // 스킬 사용 중인 상태
+
+	int Hp=100;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성

@@ -126,6 +126,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		}
 		else {// 일반적인 플레이와의 충돌
 			Player->Sethitstate(true); // 플레이어 충돌 체크
+			Player->AddHP(-20);
 			Player->HitStart(); // hit 상태 스타트
 			Player->GetKirbyRender()->SetAlpha(0.5f);
 			Player->GetKirbyCollision()->ActiveOff();

@@ -35,24 +35,11 @@ protected:
 	{
 		Att = _Att;
 	}
-	void SetHp(const int& _Hp)
-	{
-		Hp = _Hp;
-	}
 
-	void AddHP(const int& _Value)
-	{
-		Hp -= _Value;
-	}
 	
 	inline int GetAtt()const
 	{
 		return Att;
-	}
-
-	inline int GetHp() const
-	{
-		return Hp;
 	}
 
 	static void SetEatState(const bool& _EatState)
@@ -91,7 +78,6 @@ private:
 	// static 변수
 	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 
-	int Hp = 0;
 	int Att = 0;
 };
 
