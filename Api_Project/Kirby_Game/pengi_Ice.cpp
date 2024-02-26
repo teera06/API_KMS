@@ -127,6 +127,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 			Player->Sethitstate(true); // 플레이어 충돌 체크
 			Player->HitStart(); // hit 상태 스타트
 			Player->GetKirbyRender()->SetAlpha(0.5f);
+			Player->GetKirbyCollision()->ActiveOff();
 			MonterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			IsDie = true; // 죽음 체크

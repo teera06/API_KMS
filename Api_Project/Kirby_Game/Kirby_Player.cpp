@@ -856,6 +856,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	{
 		hitState = false;
 		KirbyRenderer->SetAlpha(1.0f);
+		KirbyCollision->SetActive(true, 0.1f);
 		StateAniChange(EActorState::Idle);
 		return;
 	}

@@ -28,6 +28,11 @@ public:
 		return KirbyRenderer;
 	}
 
+	UCollision* GetKirbyCollision()
+	{
+		return KirbyCollision;
+	}
+
 
 	void HitStart(); // 몬스터와 충돌시 시작
 

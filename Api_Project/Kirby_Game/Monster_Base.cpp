@@ -88,6 +88,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 		else {// 일반적인 플레이와의 충돌
 			Player->Sethitstate(true); // 플레이어 충돌 체크
 			Player->GetKirbyRender()->SetAlpha(0.5f);
+			Player->GetKirbyCollision()->ActiveOff();
 			Player->HitStart(); // hit 상태 스타트
 			MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			DiePos=MonsterDirNormal * -200.0f * _DeltaTime*FVector::Right; // 죽으면서 이동하는 위치 계산
