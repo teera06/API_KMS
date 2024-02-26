@@ -1,6 +1,6 @@
 #include "pengi_Ice.h"
 #include "ModeEnum.h"
-
+#include "Monster_Base.h"
 Apengi_Ice::Apengi_Ice()
 {
 }
@@ -59,6 +59,33 @@ void Apengi_Ice::AniCreate()
 
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
+}
+
+void Apengi_Ice::IceToMonster(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+		// 방어코드
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
+		Destroy();
+
+	}
 }
 
 void Apengi_Ice::MoveUpdate(float _DeltaTime)
@@ -158,6 +185,10 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		}
 	}
 
+	if (true == IsIce)
+	{
+		IceToMonster(_DeltaTime);
+	}
 	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
