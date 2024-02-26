@@ -855,6 +855,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		hitState = false;
+		KirbyRenderer->SetAlpha(1.0f);
 		StateAniChange(EActorState::Idle);
 		return;
 	}

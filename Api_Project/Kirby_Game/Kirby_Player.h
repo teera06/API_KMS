@@ -23,6 +23,12 @@ public:
 
 	static AKirby_Player* GetMainPlayer(); // 몬스터나 상태창이 플레이어에 대한 정보를 알아야 할 때 사용
 	
+	UImageRenderer* GetKirbyRender() const
+	{
+		return KirbyRenderer;
+	}
+
+
 	void HitStart(); // 몬스터와 충돌시 시작
 
 	void Sethitstate(bool _hitState) // Set hitState
