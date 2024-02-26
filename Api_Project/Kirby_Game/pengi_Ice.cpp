@@ -12,8 +12,8 @@ Apengi_Ice::~Apengi_Ice()
 void Apengi_Ice::IceState()
 {
 	scale = 2;
-	MonterRenderer->ChangeAnimation("MonsterIce");
-	MonterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+	MonsterRenderer->ChangeAnimation("MonsterIce");
+	MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	IsIce = true;
 }
 
@@ -23,9 +23,9 @@ void Apengi_Ice::BeginPlay()
 
 	scale = 5;
 	{
-		MonterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
-		MonterRenderer->SetImage("pengi_Right.png"); // 이미지 Set
-		MonterRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
+		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
+		MonsterRenderer->SetImage("pengi_Right.png"); // 이미지 Set
+		MonsterRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
 	}
 
 	{
@@ -35,7 +35,7 @@ void Apengi_Ice::BeginPlay()
 	}
 
 	AniCreate();
-	MonterRenderer->ChangeAnimation("Idle_Left");
+	MonsterRenderer->ChangeAnimation("Idle_Left");
 }
 
 void Apengi_Ice::Tick(float _DeltaTime)
@@ -52,13 +52,13 @@ void Apengi_Ice::Tick(float _DeltaTime)
 
 void Apengi_Ice::AniCreate()
 {
-	MonterRenderer->CreateAnimation("Idle_Right", "Pengi_Right.png", 0, 0, 0.3f, true);  
-	MonterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
-	MonterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 
-	MonterRenderer->CreateAnimation("Move_Left", "Pengi_Left.png", 1, 3, 0.3f, true); 
+	MonsterRenderer->CreateAnimation("Idle_Right", "Pengi_Right.png", 0, 0, 0.3f, true);  
+	MonsterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
+	MonsterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 
+	MonsterRenderer->CreateAnimation("Move_Left", "Pengi_Left.png", 1, 3, 0.3f, true); 
 
-	MonterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
-	MonterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
+	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
+	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 }
 
 void Apengi_Ice::MoveUpdate(float _DeltaTime)
@@ -82,11 +82,11 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	{
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
-			MonterRenderer->ChangeAnimation("Move_Left");
+			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
-			MonterRenderer->ChangeAnimation("Move_Right");
+			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
 		MoveSpeed = 50.0f;
@@ -95,12 +95,12 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	else { // 플레이어가 몬스터 시야 밖인 경우 몬스터 행동강령
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
-			MonterRenderer->ChangeAnimation("Idle_Left");
+			MonsterRenderer->ChangeAnimation("Idle_Left");
 			WallX = -20;
 
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
-			MonterRenderer->ChangeAnimation("Idle_Right");
+			MonsterRenderer->ChangeAnimation("Idle_Right");
 			WallX = 20;
 		}
 	}
@@ -130,7 +130,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 			Player->HitStart(); // hit 상태 스타트
 			Player->GetKirbyRender()->SetAlpha(0.5f);
 			Player->GetKirbyCollision()->ActiveOff();
-			MonterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			IsDie = true; // 죽음 체크
 		}
