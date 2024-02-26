@@ -66,6 +66,11 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
+
+	manual = CreateImageRenderer(ERenderOrder::Menu); // 이미지 랜더 생성
+	manual->SetImage("menu.png"); // 이미지 Set
+	manual->SetTransform({ {0,-200}, {64 * 10, 64 * 10} }); // 랜더의 위치 크기 
+	manual->ActiveOff();
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -496,8 +501,23 @@ void AKirby_Player::Idle(float _DeltaTime)
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
 	
 
+
 	// 테스트 모드
+
 	if (true == UEngineInput::IsDown('1'))
+	{
+		
+		if (true == manual->IsActive())
+		{
+			manual->ActiveOff();
+		}
+		else
+		{
+			manual->ActiveOn();
+		}
+	}
+
+	if (true == UEngineInput::IsDown('2'))
 	{
 		if (DirState == EActorDir::Left)
 		{
@@ -511,7 +531,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('2'))
+	if (true == UEngineInput::IsDown('3'))
 	{
 		if (DirState == EActorDir::Left)
 		{

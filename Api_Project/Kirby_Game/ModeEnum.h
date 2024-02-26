@@ -46,6 +46,7 @@ enum class ERenderOrder
 	Base,
 	Ice,
 	kirby,
+	Menu,
 };
 
 enum class ECollisionOrder
