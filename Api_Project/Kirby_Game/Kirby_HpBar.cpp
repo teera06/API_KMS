@@ -37,7 +37,10 @@ void AKirby_HpBar::BeginPlay()
 
 	HpAddRenderer = CreateImageRenderer(ERenderOrder::HPgauge);
 	HpAddRenderer->SetImage("GaugeHUD.png");
-	HpAddRenderer->SetTransform({ {51,15}, {64 * 5, 64 * 5} }); // 랜더의 위치 크기 
+	HpAddRenderer->SetTransform({ {51,15}, {64 *5, 64 * 5} }); // 랜더의 위치 크기 
+	// x값
+	// 51 5 ->70?
+
 
 	StateRenderer= CreateImageRenderer(ERenderOrder::State);
 	StateRenderer->SetImage("changeHUD.png"); // 이미지 Set
