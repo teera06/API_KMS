@@ -56,6 +56,7 @@ private:
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
+	bool IsOne = false;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 
@@ -63,7 +64,10 @@ private:
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	// 일반 몬스터 행동 범위
-	const int TurnValue = 5000; // 몬스터 행동 강령
+	FVector CurLocation = FVector::Zero;
+	FVector RangeXL = FVector::Zero;
+	FVector RangeXR = FVector::Zero;
+	const int TurnValue = 500; // 몬스터 행동 강령
 	int Value = TurnValue; // 몬스터 행동 강령
 
 };
