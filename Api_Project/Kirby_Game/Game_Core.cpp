@@ -4,7 +4,7 @@
 #include "TitleLevel.h"
 #include "Stage1_Level.h"
 
-//#include <EngineBase\EngineDirectory.h>
+
 
 
 UGame_Core::UGame_Core()
@@ -24,9 +24,6 @@ void UGame_Core::BeginPlay()
 	MainWindow.SetWindowPosition({ positionX,positionY }); // 윈도우창이 뜨는 위치 Set
 	MainWindow.SetWindowScale({ windowX, windowY}); // 윈도우창 크기 Set
 
-	//UEngineDirectory NewDir;
-
-	//NewDir.MoveToSearchChild("GameResources");
 	//SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 
 	// EngineCore에서 std::map<std::string, ULevel*> AllLevel; map으로 관리
