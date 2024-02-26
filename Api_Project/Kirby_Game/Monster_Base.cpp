@@ -48,16 +48,17 @@ void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
-	if (false == IsOne)
+	if (false == checkLocation) // 첫 업데이트와, 벽에 충돌시에만 실행
 	{
-		CurLocation = GetActorLocation();
-		RangeXL = (CurLocation * FVector::Right) + (FVector::Left * 100.0f);
-		RangeXR = (CurLocation * FVector::Right) + (FVector::Right * 100.0f);
+		// 이동 범위 지정
+		CurLocation = GetActorLocation()*FVector::Right; 
+		RangeXL = CurLocation + (FVector::Left * RangeX);
+		RangeXR = CurLocation + (FVector::Right * RangeX);
 	}
 
 	if (false == IsDie) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
 	{
-		IsOne = true;
+		checkLocation = true;
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
@@ -170,8 +171,6 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 	FVector Move = FVector::Zero;
 	FVector test = GetActorLocation() * FVector::Right;
 
-	int a = 0;
-	--Value;
 	if (RangeXL.iX() >= test.iX() || RangeXR.iX()<=test.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	{
 		StartDir.X *= -1;
@@ -201,7 +200,7 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 			}
 			else { // 아닌 경우는 방향 전환
 				StartDir.X *= -1;
-				IsOne = false;
+				checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
 			}
 		}
 		else { // 충돌하지 않은 경우

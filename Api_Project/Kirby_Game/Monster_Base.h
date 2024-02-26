@@ -14,7 +14,7 @@ public:
 
 	// delete Function
 	AMonster_Base(const AMonster_Base& _Other) = delete; // 디폴트 복사 생성자
-	AMonster_Base(AMonster_Base&& _Other) noexcept = delete; 
+	AMonster_Base(AMonster_Base&& _Other) noexcept = delete;
 	AMonster_Base& operator=(const AMonster_Base& _Other) = delete; // 디폴트 대입 연산자
 	AMonster_Base& operator=(AMonster_Base&& _Other) noexcept = delete;
 
@@ -41,7 +41,7 @@ private:
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
-	UCollision* MonsterCollision=nullptr;
+	UCollision* MonsterCollision = nullptr;
 
 	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
 
@@ -50,13 +50,13 @@ private:
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 	void BaseMove(float _DeltaTime); // 몬스터 기본 움직임
-	
+
 	void AniCreate(); // 애니메이션 관리
-	
+
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
-	bool IsOne = false;
+	bool checkLocation = false; // 현재 위치 체크
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 
@@ -64,11 +64,9 @@ private:
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	// 일반 몬스터 행동 범위
-	FVector CurLocation = FVector::Zero;
-	FVector RangeXL = FVector::Zero;
-	FVector RangeXR = FVector::Zero;
-	const int TurnValue = 500; // 몬스터 행동 강령
-	int Value = TurnValue; // 몬스터 행동 강령
-
+	FVector CurLocation = FVector::Zero; // 현재 액터 위치 저장
+	FVector RangeXL = FVector::Zero; // 현재위치 기준 왼쪽 이동 범위
+	FVector RangeXR = FVector::Zero; // 현재위치 기준 오른쪽 이동 범위
+	float RangeX = 100.0f; // 이동 단위
 };
 
