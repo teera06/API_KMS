@@ -16,42 +16,13 @@ void AAllStar::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetDir() * Speed * _DeltaTime);
 
-	std::vector<UCollision*> Result;
-	if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Monster, Result))
-	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
+	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
+	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("터져야겠지....");
-		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
-		//FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-		Monster->SetIsDie(true);
-		//Monster->SetDiePos(DiePos);
-		Monster->Destroy(0.3f);
-		Destroy();
-	}else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
-	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		Apengi_Ice* iceMonster = dynamic_cast<Apengi_Ice*>(Ptr);
-
-
-		if (nullptr == iceMonster)
-		{
-			MsgBoxAssert("터져야겠지....");
-		}
-
-		iceMonster->Destroy();
-		Destroy();
-	}
+	Collisiongather(_DeltaTime);
 
 	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-20, Color8Bit::RedA);
 
@@ -84,4 +55,45 @@ void AAllStar::BeginPlay()
 	}
 
 	Destroy(1.0f);
+}
+
+void AAllStar::Collisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
+		Destroy();
+	}
+	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		Apengi_Ice* iceMonster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+
+		if (nullptr == iceMonster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+
+		iceMonster->Destroy();
+		Destroy();
+	}
 }
