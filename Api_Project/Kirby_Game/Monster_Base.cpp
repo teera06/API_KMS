@@ -49,7 +49,7 @@ void AMonster_Base::BeginPlay()
 void AMonster_Base::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-
+	GroundUp();
 	if (false == checkLocation) // 첫 업데이트와, 벽에 충돌시에만 실행
 	{
 		// 이동 범위 지정
@@ -235,6 +235,22 @@ void AMonster_Base::CalDir()
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
+}
+
+void AMonster_Base::GroundUp()
+{
+	while (true)
+	{
+		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 30, Color8Bit::RedA);
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			AddActorLocation(FVector::Up * 2);
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 // 기본 행동 강령
