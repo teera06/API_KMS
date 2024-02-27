@@ -67,8 +67,15 @@ void AIce::Tick(float _DeltaTime)
 		{
 			// 이런식으로 상대를 사용할수 있다.
 			UCollision* Collision = Result[0];
-			
-			MainPlayer->AddHP(-20);
+			AActor* Ptr = Collision->GetOwner();
+			AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
+
+			Player->Sethitstate(true); // 플레이어 충돌 체크
+			Player->GetKirbyRender()->SetAlpha(0.5f);
+			Player->GetKirbyCollision()->ActiveOff();
+			Player->AddHP(-20);
+			Player->HitStart(); // hit 상태 스타트
+			int a = Player->GetHp();
 			IceCollision->Destroy(0.1f);
 		}
 	}

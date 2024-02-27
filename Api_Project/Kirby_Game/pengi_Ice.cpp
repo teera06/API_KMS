@@ -266,21 +266,21 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 
 void Apengi_Ice::IceAtt()
 {
-	//AIce* NewIce = GetWorld()->SpawnActor<AIce>();
-	//NewIce->SetOwner(EIceOwner::iceMonster);
+	AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+	NewIce->SetOwner(EIceOwner::iceMonster);
 	if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att_Left");
-		//NewIce->SetDir(FVector::Left);
+		NewIce->SetDir(FVector::Left);
 	}
 	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
-		//NewIce->SetDir(FVector::Right);
+		NewIce->SetDir(FVector::Right);
 	}
 
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		//NewIce->SetActorLocation(this->GetActorLocation());
+		NewIce->SetActorLocation(this->GetActorLocation());
 		IsAtt = false;
 		skill = 5.0f;
 	}
