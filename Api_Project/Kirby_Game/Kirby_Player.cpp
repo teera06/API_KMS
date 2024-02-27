@@ -749,7 +749,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	MoveUpdate(_DeltaTime, MovePos);
 	CamYMove();
 	// 천장 픽셀 충돌 -> 추락
-	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-15, Color8Bit::MagentaA);
+	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (ColorM == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
