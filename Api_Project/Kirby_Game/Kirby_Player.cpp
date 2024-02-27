@@ -187,8 +187,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_hit_Left", "Ice_Left.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
 
 	// 아이스 공격
-	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.05f, true);
 	
 	// 아이스 흡수 -> 기본에서 아이스 중간 이미지 
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
@@ -614,7 +614,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		StateAniChange(EActorState::IceAttack);
 		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
 		NewIce->SetOwner(EIceOwner::kirby);
-		NewIce->SetActorLocation(this->GetActorLocation());
 
 		if (DirState == EActorDir::Left)
 		{
@@ -623,6 +622,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		else {
 			NewIce->SetDir(FVector::Right);
 		}
+
+	
+		NewIce->SetActive(true, 0.22f);
+		NewIce->SetOwner(EIceOwner::kirby);
+		NewIce->SetActorLocation(this->GetActorLocation());
 		return;
 	}
 

@@ -43,7 +43,7 @@ void AIce::Tick(float _DeltaTime)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-			IceCollision->Destroy(0.1f);
+			IceCollision->Destroy();
 			Monster->IceState();
 		}
 		else if (true == IceCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
@@ -57,7 +57,7 @@ void AIce::Tick(float _DeltaTime)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-			IceCollision->Destroy(0.1f);
+			IceCollision->Destroy();
 			Monster->IceState();
 		}
 	}
@@ -99,5 +99,5 @@ void AIce::BeginPlay()
 	IceRenderer->CreateAnimation("Ice_Left", "Ice_Left.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
 	IceRenderer->ChangeAnimation("Ice_Right");
 
-	Destroy(1.0f);
+	Destroy(0.5f);
 }
