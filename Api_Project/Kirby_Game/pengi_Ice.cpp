@@ -60,8 +60,8 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Left", "Pengi_Left.png", 1, 3, 0.3f, true); 
-	MonsterRenderer->CreateAnimation("Att_Right", "Pengi_Right.png", 4, 6, 0.3f, false);
-	MonsterRenderer->CreateAnimation("Att_Left", "Pengi_Left.png",4, 6, 0.3f, false);
+	MonsterRenderer->CreateAnimation("Att_Right", "Pengi_Right.png", 4, 6, 0.1f, false);
+	MonsterRenderer->CreateAnimation("Att_Left", "Pengi_Left.png",4, 6, 0.1f, false);
 
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // Á×À½ 
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // Á×À½ 
@@ -278,6 +278,7 @@ void Apengi_Ice::IceAtt()
 		NewIce->SetDir(FVector::Right);
 	}
 
+	//NewIce->SetActive(true, 0.06f);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		NewIce->SetActorLocation(this->GetActorLocation());
