@@ -1,6 +1,9 @@
 #include "pengi_Ice.h"
 #include "ModeEnum.h"
 #include "Monster_Base.h"
+#include "Ice.h"
+
+#include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
 Apengi_Ice::Apengi_Ice()
 {
 }
@@ -57,6 +60,8 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Left", "Pengi_Left.png", 1, 3, 0.3f, true); 
+	MonsterRenderer->CreateAnimation("Att_Right", "Pengi_Right.png", 4, 6, 0.3f, false);
+	MonsterRenderer->CreateAnimation("Att_Left", "Pengi_Left.png",4, 6, 0.3f, false);
 
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // 죽음 
@@ -217,6 +222,9 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
 	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
 
+	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 인식 시야 X축
+	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 인식 시야 X축
+
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
@@ -248,6 +256,34 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 			WallX = 20;
 		}
 	}
+
+	// 플레이어를 향해 공격
+	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
+	{
+		IsAtt = true;
+	}
+}
+
+void Apengi_Ice::IceAtt()
+{
+	//AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+	//NewIce->SetOwner(EIceOwner::iceMonster);
+	if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att_Left");
+		//NewIce->SetDir(FVector::Left);
+	}
+	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att_Right");
+		//NewIce->SetDir(FVector::Right);
+	}
+
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		//NewIce->SetActorLocation(this->GetActorLocation());
+		IsAtt = false;
+		skill = 5.0f;
+	}
 }
 
 void Apengi_Ice::GroundUp()
@@ -270,9 +306,17 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
-	CalDir(_DeltaTime);
-	Collisiongather(_DeltaTime);
-	CalResult(_DeltaTime);
+	skill -= _DeltaTime;
+	if (true == IsAtt && skill<1.0f)
+	{
+		MovePos = FVector::Zero;
+		IceAtt();
+	}
+	else {
+		CalDir(_DeltaTime);
+		Collisiongather(_DeltaTime);
+		CalResult(_DeltaTime);
+	}
 }
 
 

@@ -613,6 +613,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		SkillOn = true;
 		StateAniChange(EActorState::IceAttack);
 		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+		NewIce->SetOwner(EIceOwner::kirby);
 		NewIce->SetActorLocation(this->GetActorLocation());
 
 		if (DirState == EActorDir::Left)

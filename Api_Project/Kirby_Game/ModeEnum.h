@@ -57,3 +57,10 @@ enum class ECollisionOrder
 	AllStar,
 	kirby
 };
+
+enum class EIceOwner
+{
+	None,
+	iceMonster,
+	kirby
+};

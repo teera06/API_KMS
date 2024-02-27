@@ -44,6 +44,9 @@
     <ClCompile Include="Kirby_HpBar.cpp">
       <Filter>Stage_Actor\Kirby</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Fire.cpp">
+      <Filter>Stage_Actor\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="Kirby_HpBar.h">
       <Filter>Stage_Actor\Kirby</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Fire.h">
+      <Filter>Stage_Actor\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

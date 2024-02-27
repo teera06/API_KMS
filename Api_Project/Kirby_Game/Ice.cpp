@@ -3,7 +3,6 @@
 #include "ModeEnum.h"
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
-#include "Kirby_Player.h"
 
 AIce::AIce()
 {
@@ -31,34 +30,49 @@ void AIce::Tick(float _DeltaTime)
 
 
 	std::vector<UCollision*> Result;
-	if (true == IceCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+	if (Owner == EIceOwner::kirby)
 	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
-
-		if (nullptr == Monster)
+		if (true == IceCollision->CollisionCheck(ECollisionOrder::Monster, Result))
 		{
-			MsgBoxAssert("터져야겠지....");
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			IceCollision->Destroy(0.1f);
+			Monster->IceState();
 		}
-		IceCollision->Destroy(0.1f);
-		Monster->IceState();
+		else if (true == IceCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			IceCollision->Destroy(0.1f);
+			Monster->IceState();
+		}
 	}
-	else if (true == IceCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+	else if (Owner == EIceOwner::iceMonster)
 	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
-
-		if (nullptr == Monster)
+		if (true == IceCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
-			MsgBoxAssert("터져야겠지....");
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			
+			MainPlayer->AddHP(-20);
+			IceCollision->Destroy(0.1f);
 		}
-		IceCollision->Destroy(0.1f);
-		Monster->IceState();
 	}
+	
 
 	IceRenderer->Destroy(0.1f);
 }
