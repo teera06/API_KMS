@@ -133,7 +133,6 @@ void AMonster_Base::IceToMonster(float _DeltaTime)
 		{
 			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
 		}
-
 		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 		Monster->SetIsDie(true);

@@ -56,12 +56,20 @@ private:
 
 	FVector IceMove = FVector::Zero; // 얼음 이동 
 	FVector DiePos = FVector::Zero; // 죽음 이동
+	FVector MovePos = FVector::Zero;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 	
 	void AniCreate(); // 애니메이션 관리
 
 	void IceToMonster(float _DeltaTime);
+
+	void CalDir(float _DeltaTime);
+	void Collisiongather(float _DeltaTime);
+	void CalResult(float _DeltaTime);
+	
+
+	void GroundUp();
 
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
