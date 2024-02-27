@@ -60,8 +60,8 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Left", "Pengi_Left.png", 1, 3, 0.3f, true); 
-	MonsterRenderer->CreateAnimation("Att_Right", "Pengi_Right.png", 4, 6, 0.1f, false);
-	MonsterRenderer->CreateAnimation("Att_Left", "Pengi_Left.png",4, 6, 0.1f, false);
+	MonsterRenderer->CreateAnimation("Att_Right", "Pengi_Right.png", 4, 6, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att_Left", "Pengi_Left.png",4, 6, 0.15f, false);
 
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // 죽음 
@@ -258,7 +258,7 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 	}
 
 	// 플레이어를 향해 공격
-	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
+	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX() && MainPlayer->GetActorLocation().iY()>=GetActorLocation().iY()-30) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
 		IsAtt = true;
 	}
@@ -283,7 +283,7 @@ void Apengi_Ice::IceAtt()
 	{
 		NewIce->SetActorLocation(this->GetActorLocation());
 		IsAtt = false;
-		skill = 6.0f;
+		skillcooldowntime = 6.0f;
 	}
 }
 
@@ -307,8 +307,8 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
-	skill -= _DeltaTime;
-	if (true == IsAtt && skill<1.0f)
+	skillcooldowntime -= _DeltaTime;
+	if (true == IsAtt && skillcooldowntime<0.0f)
 	{
 		MovePos = FVector::Zero;
 		IceAtt();
