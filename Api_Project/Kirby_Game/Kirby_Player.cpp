@@ -215,6 +215,22 @@ void AKirby_Player::KirbyModeCheck()
 	}
 }
 
+void AKirby_Player::GroundUp()
+{
+	while (true)
+	{
+		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::RedA);
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			AddActorLocation(FVector::Up*2);
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
 // 중력 제어
 void AKirby_Player::CalGravityVector(float _DeltaTime)
 {
@@ -300,6 +316,7 @@ void AKirby_Player::MoveUpdate(float _DeltaTime, const FVector& _MovePos)
 {
 	CalGravityVector(_DeltaTime);
 	MoveLastMoveVector(_DeltaTime, _MovePos);
+	GroundUp();
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -145,6 +145,7 @@ private:
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
+	void GroundUp();
 	
 	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
 	FVector GravityVector = FVector::Zero; // 중력값 받기
