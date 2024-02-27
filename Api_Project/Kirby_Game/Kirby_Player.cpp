@@ -219,7 +219,7 @@ void AKirby_Player::GroundUp()
 {
 	while (true)
 	{
-		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::RedA);
+		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-1, Color8Bit::RedA);
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
 			AddActorLocation(FVector::Up*2);
