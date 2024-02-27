@@ -3,18 +3,18 @@
 #include "ModeEnum.h"
 
 // 몬스터, 커비는 사용, 맵은 사용X 
-class ActorCommon
+class UActorCommon
 {
 public:
 	// constrcuter destructer
-	ActorCommon(); // 디폴트 생성자
-	~ActorCommon(); // 디폴트 소멸자
+	UActorCommon(); // 디폴트 생성자
+	~UActorCommon(); // 디폴트 소멸자
 
 	// delete Function
-	ActorCommon(const ActorCommon& _Other) = delete; // 디폴트 복사 생성자
-	ActorCommon(ActorCommon&& _Other) noexcept = delete;
-	ActorCommon& operator=(const ActorCommon& _Other) = delete; // 디폴트 대입 연산자
-	ActorCommon& operator=(ActorCommon&& _Other) noexcept = delete;
+	UActorCommon(const UActorCommon& _Other) = delete; // 디폴트 복사 생성자
+	UActorCommon(UActorCommon&& _Other) noexcept = delete;
+	UActorCommon& operator=(const UActorCommon& _Other) = delete; // 디폴트 대입 연산자
+	UActorCommon& operator=(UActorCommon&& _Other) noexcept = delete;
 
 	static UWindowImage* ColMapImage; // 우선 맵만 사용
 

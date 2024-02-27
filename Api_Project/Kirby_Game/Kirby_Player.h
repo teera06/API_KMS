@@ -7,7 +7,7 @@
 // Enum 모음집
 #include "ModeEnum.h"
 
-class AKirby_Player : public AActor, public ActorCommon // ActorCommon(중력)
+class AKirby_Player : public AActor, public UActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer

@@ -3,7 +3,7 @@
 #include "ActorCommon.h"
 
 
-class ABase : public AActor, public ActorCommon
+class ABase : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer

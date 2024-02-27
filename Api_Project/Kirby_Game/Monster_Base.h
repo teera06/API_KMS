@@ -5,7 +5,7 @@
 
 #include "Kirby_Player.h" // MainPlayer
 
-class AMonster_Base : public AActor, public ActorCommon
+class AMonster_Base : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer

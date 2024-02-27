@@ -2,7 +2,7 @@
 #include <EngineCore\Actor.h>
 #include "ActorCommon.h"
 
-class AIce :public AActor, public ActorCommon
+class AIce :public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer

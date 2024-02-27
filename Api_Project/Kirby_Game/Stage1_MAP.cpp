@@ -44,7 +44,7 @@ void AStage1_MAP::SetColMapImage(std::string_view _MapImageName)
 {
 	MapColRenderer->SetImage(_MapImageName);
 	UWindowImage* Image = MapColRenderer->GetImage();
-	ActorCommon::ColMapImage = Image; // ÇÈ¼¿ Ãæµ¹ÇÒ ¸Ê ¼³Á¤
+	UActorCommon::ColMapImage = Image; // ÇÈ¼¿ Ãæµ¹ÇÒ ¸Ê ¼³Á¤
 	FVector ImageScale = Image->GetScale();
 	MapColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }

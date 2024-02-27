@@ -81,7 +81,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	}
 
 	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		if (true == IsIce)
@@ -241,7 +241,7 @@ void AMonster_Base::GroundUp()
 {
 	while (true)
 	{
-		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::RedA);
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::RedA);
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
 			AddActorLocation(FVector::Up * 2);
@@ -278,7 +278,7 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 			WallX = 20;
 		}
 
-		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
 		
 		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽 픽셀 충돌
 		{

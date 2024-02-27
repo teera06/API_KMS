@@ -1,21 +1,21 @@
 #include "ActorCommon.h"
 
-UWindowImage* ActorCommon::ColMapImage = nullptr;
-bool ActorCommon::EatState = false;
-EAMode ActorCommon::KirbyMode = EAMode::Base; // Kirby 모드
-std::string ActorCommon::ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
+UWindowImage* UActorCommon::ColMapImage = nullptr;
+bool UActorCommon::EatState = false;
+EAMode UActorCommon::KirbyMode = EAMode::Base; // Kirby 모드
+std::string UActorCommon::ModeName = "Base_"; // Kirby 모드별 애니메이션 이름 체인지
 
-ActorCommon::ActorCommon()
+UActorCommon::UActorCommon()
 {
 }
 
-ActorCommon::~ActorCommon()
+UActorCommon::~UActorCommon()
 {
 }
 
-FVector ActorCommon::GetGravity(int _X, int _Y, float _DeltaTime)
+FVector UActorCommon::GetGravity(int _X, int _Y, float _DeltaTime)
 {
-	Color8Bit Color = ActorCommon::ColMapImage->GetColor(_X, _Y, Color8Bit::RedA);
+	Color8Bit Color = UActorCommon::ColMapImage->GetColor(_X, _Y, Color8Bit::RedA);
 	if (Color != Color8Bit(255, 0, 0, 0))
 	{
 		GravityValue = FVector::Down * _DeltaTime * Gravity;

@@ -219,7 +219,7 @@ void AKirby_Player::GroundUp()
 {
 	while (true)
 	{
-		Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-1, Color8Bit::RedA);
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-1, Color8Bit::RedA);
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
 			AddActorLocation(FVector::Up*2);
@@ -236,7 +236,7 @@ void AKirby_Player::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime); // 중력은 계속 가해진다.
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
@@ -282,10 +282,10 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	CheckPos.Y -= checkposY;
 	CamCheckPos.Y -= checkposY;
 
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
-	Color8Bit ColorG = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::GreenA);
-	Color8Bit ColorB = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
-	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::GreenA);
+	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
+	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
 
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
 	{
@@ -689,7 +689,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	CamYMove(); // 카메라 Y축 계산
 	
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
@@ -749,7 +749,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	MoveUpdate(_DeltaTime, MovePos);
 	CamYMove();
 	// 천장 픽셀 충돌 -> 추락
-	Color8Bit ColorM = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (ColorM == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
@@ -758,7 +758,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	}
 
 	// 바닥 픽셀 충돌  -> 추락
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 
@@ -789,7 +789,7 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	MoveUpdate(_DeltaTime, MovePos);
 	CamYMove();
 	// 추락해서 바닥과 충돌할 경우
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		JumpVector = FVector::Zero;

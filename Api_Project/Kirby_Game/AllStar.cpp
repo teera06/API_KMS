@@ -104,7 +104,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 	}
 
 	// ÇÈ¼¿ Ãæµ¹
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
 
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{

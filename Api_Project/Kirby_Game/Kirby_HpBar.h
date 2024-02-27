@@ -6,7 +6,7 @@
 
 #include "Kirby_Player.h"
 
-class AKirby_HpBar :public AActor, public ActorCommon // ActorCommon(중력)
+class AKirby_HpBar :public AActor, public UActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer

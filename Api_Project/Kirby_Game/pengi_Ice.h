@@ -5,7 +5,7 @@
 #include "Kirby_Player.h"
 
 
-class Apengi_Ice : public AActor, public ActorCommon
+class Apengi_Ice : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
