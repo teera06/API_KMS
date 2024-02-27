@@ -69,12 +69,8 @@ void AMonster_Base::Tick(float _DeltaTime)
 void AMonster_Base::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
-	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
-	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
-
-	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
-	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
-
+	
+	CalDir();
 	Collisiongather(_DeltaTime);
 
 	if (true == IsIce)
@@ -116,6 +112,7 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Move_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
 }
 
 void AMonster_Base::IceToMonster(float _DeltaTime)
@@ -173,7 +170,14 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 			Player->GetKirbyCollision()->ActiveOff();
 			Player->AddHP(-20);
 			Player->HitStart(); // hit 상태 스타트
-			MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+			{
+				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
+			}
+			else {
+				MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			}
 			DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			IsDie = true; // 죽음 체크
 		}
@@ -200,6 +204,15 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 			IceMove = FVector::Left * IceSpeed * _DeltaTime;
 		}
 	}
+}
+
+void AMonster_Base::CalDir()
+{
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
+
+	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
+	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 }
 
 // 기본 행동 강령

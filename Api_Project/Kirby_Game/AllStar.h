@@ -29,4 +29,5 @@ private:
 	UCollision* AllStarCollision = nullptr;
 
 	void Collisiongather(float _DeltaTime);
+	void CalDir();
 };

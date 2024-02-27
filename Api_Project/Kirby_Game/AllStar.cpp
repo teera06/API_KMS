@@ -16,21 +16,8 @@ void AAllStar::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetDir() * Speed * _DeltaTime);
 
-	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
-	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
-
-	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
-	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
-
+	CalDir();
 	Collisiongather(_DeltaTime);
-
-	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-20, Color8Bit::RedA);
-
-	if (ColorR == Color8Bit(255, 0, 0, 0))
-	{
-		Destroy();
-	}
-
 }
 
 void AAllStar::BeginPlay()
@@ -59,6 +46,7 @@ void AAllStar::BeginPlay()
 
 void AAllStar::Collisiongather(float _DeltaTime)
 {
+	// 사각형 충돌
 	std::vector<UCollision*> Result;
 	if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Monster, Result))
 	{
@@ -73,7 +61,14 @@ void AAllStar::Collisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+		{
+			Monster->GetMonsterRenderer()->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
+		}
+		else {
+			Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		}
 		FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
@@ -96,4 +91,21 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		iceMonster->Destroy();
 		Destroy();
 	}
+
+	// 픽셀 충돌
+	Color8Bit ColorR = ActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		Destroy();
+	}
+}
+
+void AAllStar::CalDir()
+{
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
+
+	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
+	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 }
