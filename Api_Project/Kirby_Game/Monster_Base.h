@@ -69,6 +69,8 @@ private:
 	void IceToMonster(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 	void CalDir();
+	void CalResult(float _DeltaTime);
+
 	void GroundUp();
 
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 

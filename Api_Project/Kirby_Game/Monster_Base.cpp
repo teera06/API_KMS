@@ -74,36 +74,7 @@ void AMonster_Base::MoveUpdate(float _DeltaTime)
 	
 	CalDir();
 	Collisiongather(_DeltaTime);
-
-	if (true == IsIce)
-	{
-		IceToMonster(_DeltaTime);
-	}
-
-	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
-	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY()-30, Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
-	{
-		if (true == IsIce)
-		{
-			IceMove = FVector::Zero;
-			Destroy();
-		}
-	}
-
-	if (true==IsDie) // 죽으면
-	{
-		Destroy(0.3f); // 0.3f 뒤에 삭제
-	}
-	else {
-		if (false==IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
-		{
-			BaseMove(_DeltaTime);
-		}
-		else {
-			AddActorLocation(IceMove);
-		}
-	}
+	CalResult(_DeltaTime);
 }
 
 void AMonster_Base::AniCreate()
@@ -234,6 +205,39 @@ void AMonster_Base::CalDir()
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
+}
+
+void AMonster_Base::CalResult(float _DeltaTime)
+{
+	if (true == IsIce)
+	{
+		IceToMonster(_DeltaTime);
+	}
+
+	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		if (true == IsIce)
+		{
+			IceMove = FVector::Zero;
+			Destroy();
+		}
+	}
+
+	if (true == IsDie) // 죽으면
+	{
+		Destroy(0.3f); // 0.3f 뒤에 삭제
+	}
+	else {
+		if (false == IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
+		{
+			BaseMove(_DeltaTime);
+		}
+		else {
+			AddActorLocation(IceMove);
+		}
+	}
 }
 
 void AMonster_Base::GroundUp()
