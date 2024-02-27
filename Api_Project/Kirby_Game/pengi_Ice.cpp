@@ -282,7 +282,7 @@ void Apengi_Ice::IceAtt()
 	{
 		NewIce->SetActorLocation(this->GetActorLocation());
 		IsAtt = false;
-		skill = 5.0f;
+		skill = 6.0f;
 	}
 }
 
