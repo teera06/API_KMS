@@ -98,6 +98,7 @@ protected:
 	// 공격 모션
 	void AllAttackStart(); // 별 뱉기 공격
 	void IceAttackStart(); // 아이스 공격
+	void FireAttackStart(); // 아이스 공격
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck(); // 오른쪽, 왼쪽 방향 체크

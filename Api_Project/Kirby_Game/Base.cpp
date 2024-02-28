@@ -113,7 +113,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
 
-		SetModeName("Ice_");
+		SetModeName("Fire_");
 
 		Destroy(0.1f);
 	}

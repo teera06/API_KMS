@@ -154,6 +154,25 @@ void AKirby_Player::AniCreate()
 	
 
 
+	//-- 파이어 커비 
+	KirbyRenderer->CreateAnimation("Fire_Idle_Right", "Fire_Right.png", {0,2,4,6}, 0.2f, true); // 오른쪽 서 있기
+	KirbyRenderer->CreateAnimation("Fire_Idle_Left", "Fire_Left.png", { 0,2,4,6 }, 0.2f, true); // 왼쪽 서있기
+
+	// 파이어 걷는 모션
+	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", {32,33,35,38,39,40,41,43,46,47,48,50}, 0.06f, true); // 걷기
+	//46
+	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.06f, true); // 걷기
+
+	// 파이어 뛰는 모션
+	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 52, 49, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Fire_run_Left", "Fire_Left.png", 52, 49, 0.05f, true);
+
+	// 파이어 점프 모션
+	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", 11, 21, 0.07f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png",11, 21, 0.07f, true);
+
+
+
 	//-- 아이스 커비
 	KirbyRenderer->CreateAnimation("Ice_Idle_Right", "Ice_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 	KirbyRenderer->CreateAnimation("Ice_Idle_Left", "Ice_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
@@ -168,7 +187,7 @@ void AKirby_Player::AniCreate()
 
 	// 아이스 점프 모션
 	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", 80, 90, 0.07f, true);
-	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png",80, 90, 0.07f, true);
+	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png", 80, 90, 0.07f, true);
 
 	// 아이스 나는 모션
 	KirbyRenderer->CreateAnimation("Ice_FlyReady_Right", "Ice_Right.png", 54, 58, 0.08f, false);
@@ -177,22 +196,27 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Fly_Left", "Ice_Left.png", 59, 74, 0.08f, true);
 
 	// 아이스 떨어지는 모션
-	KirbyRenderer->CreateAnimation("Ice_fall_Right", "Ice_Right.png",75,79, 0.1f, false);
-	KirbyRenderer->CreateAnimation("Ice_fall_Left", "Ice_Left.png", 75,79, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Ice_fall_Right", "Ice_Right.png", 75, 79, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Ice_fall_Left", "Ice_Left.png", 75, 79, 0.1f, false);
 	// 아이스 숙이기 
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Right", "Ice_Right.png", 10, 11, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Ice_HeadDown_Left", "Ice_Left.png", 10, 11, 0.5f, true);
 
-	KirbyRenderer->CreateAnimation("Ice_hit_Right", "Ice_Right.png", {90,89,88,87,86,85,84,83,82,81,80,79}, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Ice_hit_Right", "Ice_Right.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Ice_hit_Left", "Ice_Left.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
 
 	// 아이스 공격
 	KirbyRenderer->CreateAnimation("Ice_IceAttack_Right", "Ice_Right.png", 94, 103, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Ice_IceAttack_Left", "Ice_Left.png", 94, 103, 0.05f, true);
-	
+
 	// 아이스 흡수 -> 기본에서 아이스 중간 이미지 
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
+
+
+
+
+
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
@@ -208,9 +232,9 @@ void AKirby_Player::KirbyModeCheck()
 		{
 			SetMode(EAMode::Ice); // 아이스 형태로
 		}
-		else if (std::string(GetModeName()) == "Sword_") // 소드 문자열이면
+		else if (std::string(GetModeName()) == "Fire_") // 소드 문자열이면
 		{
-			SetMode(EAMode::Sword); // 소드 형태로
+			SetMode(EAMode::Fire); // 소드 형태로
 		}
 	}
 }
@@ -1036,6 +1060,10 @@ void AKirby_Player::IceAttackStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("IceAttack"));
+}
+
+void AKirby_Player::FireAttackStart()
+{
 }
 
 void AKirby_Player::HeadDownStart()
