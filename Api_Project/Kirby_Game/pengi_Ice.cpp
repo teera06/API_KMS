@@ -33,7 +33,7 @@ void Apengi_Ice::BeginPlay()
 
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::iceMonster);
-		MonsterCollision->SetScale({ 70, 70 });
+		MonsterCollision->SetScale({ 60, 60 });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 

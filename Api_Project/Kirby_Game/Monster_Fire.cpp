@@ -35,7 +35,7 @@ void AMonster_Fire::BeginPlay()
 	// ÄÝ¸®Àü
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::FireMonster);
-		MonsterCollision->SetScale({ 70, 70 });
+		MonsterCollision->SetScale({ 40, 40});
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 

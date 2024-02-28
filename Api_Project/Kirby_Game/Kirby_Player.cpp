@@ -76,7 +76,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	// 콜리전 설정
 	{
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby); 
-		KirbyCollision->SetScale({ 70, 70 });
+		KirbyCollision->SetScale({ 60, 60 });
 		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
 	}
 
@@ -148,6 +148,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
 	KirbyRenderer->CreateAnimation("Base_HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
 	
+
+
 	// 기본 흡수 
 	KirbyRenderer->CreateAnimation("Base_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Base_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
