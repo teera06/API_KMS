@@ -1064,7 +1064,7 @@ void AKirby_Player::HeavyJumpStart()
 
 void AKirby_Player::HitStart()
 {
-	//DirCheck();
+	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
 }
 
