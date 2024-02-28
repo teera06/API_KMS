@@ -156,15 +156,6 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 		}
 	}
 	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) { // 얼음 상태로 커비와 충돌 하는 경우
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
-
-		if (nullptr == Player)
-		{
-			MsgBoxAssert("터져야겠지....");
-		}
-
 		// 얼음 상태 일때 움직임 계산
 		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 		{
