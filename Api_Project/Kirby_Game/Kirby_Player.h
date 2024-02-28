@@ -167,8 +167,6 @@ private:
 
 	static AKirby_Player* MainPlayer;
 	
-	std::string checkName = "Base_";
-
 	// 움직임 제어 함수
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);

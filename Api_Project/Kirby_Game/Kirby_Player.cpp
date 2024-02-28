@@ -569,7 +569,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 	{
 		
 		transform = false;
-		checkName = GetModeName();
 		GetWorld()->SetAllTimeScale(1.0f);
 		effectRenderer->ActiveOff();
 		
@@ -645,11 +644,10 @@ void AKirby_Player::Idle(float _DeltaTime)
 		if (true==EatState && GetModeName() == "Base_")
 		{
 			EatState = false;
-			checkName = GetModeName();
 		}
-		else if (true == EatState &&  GetModeName()!= checkName) {
+		else if (true == EatState &&  GetModeName()!="Base_") {
 			transform = true;
-			checkName = GetModeName();
+			EatState = false;
 			effectRenderer->ActiveOn();
 			effectRenderer->ChangeAnimation("effect");
 			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);
@@ -660,7 +658,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// 커비 모드에 따른 스킬 공격
 	if (
-		true == UEngineInput::IsPress('X') && false == EatState
+		true == UEngineInput::IsPress('X') && false == EatState && KirbyMode == EAMode::Base
 		)
 	{
 		SkillOn = true;
@@ -700,7 +698,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
-		true == UEngineInput::IsDown('A') && true==EatState
+		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base)
 		)
 	{
 		SkillOn = true;
