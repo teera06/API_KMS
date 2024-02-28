@@ -137,16 +137,16 @@ void AKirby_Player::AniCreate()
 
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
-	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Right", "kirby2_Right.png", 19, 20, 0.5f, true);
-	KirbyRenderer->CreateAnimation("Base_HeavyIdle_Left", "kirby2_Left.png", 19, 20, 0.5f, true);
+	KirbyRenderer->CreateAnimation("HeavyIdle_Right", "kirby2_Right.png", 19, 20, 0.5f, true);
+	KirbyRenderer->CreateAnimation("HeavyIdle_Left", "kirby2_Left.png", 19, 20, 0.5f, true);
 
 	// Heavy모드 Move
-	KirbyRenderer->CreateAnimation("Base_HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.06f, true);
-	KirbyRenderer->CreateAnimation("Base_HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.06f, true);
+	KirbyRenderer->CreateAnimation("HeavyMove_Right", "kirby2_Right.png", 23, 33, 0.06f, true);
+	KirbyRenderer->CreateAnimation("HeavyMove_Left", "kirby2_Left.png", 23, 33, 0.06f, true);
 
 	// Heavy모드 Move
-	KirbyRenderer->CreateAnimation("Base_HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
-	KirbyRenderer->CreateAnimation("Base_HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
+	KirbyRenderer->CreateAnimation("HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
+	KirbyRenderer->CreateAnimation("HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
 	
 
 
@@ -401,7 +401,7 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 	CurAnimationName = _Name;
 
-	if (std::string(_Name) == "AllAttack") // AllAttack은 모든 커비모드에서 사용 가능하기에
+	if (std::string(_Name) == "AllAttack" || std::string(_Name) == "HeavyIdle" || std::string(_Name) == "HeavyMove" || std::string(_Name) == "HeavyJump") // AllAttack은 모든 커비모드에서 사용 가능하기에
 	{
 		return std::string(_Name) + DirName; // // 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
 	}
@@ -413,7 +413,7 @@ void AKirby_Player::StateAniChange(EActorState _State)
 {
 	
 	// 커비 형태의 문자열에 맞게 커비 모드를 설정 해준다.
-	KirbyModeCheck();
+	//KirbyModeCheck();
 
 	// 이전상태와 현재 상태가 다른 경우 와 몬스터와의 충돌이 안했을 때 실행
 	// ex) 이전에는 move 지금은 Idle
@@ -849,6 +849,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
+		KirbyModeCheck();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
