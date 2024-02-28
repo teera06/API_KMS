@@ -71,7 +71,7 @@ void AIce::Tick(float _DeltaTime)
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
-			MainPlayer->HitStart(); // hit 상태 스타트
+			MainPlayer->IcehitStart(); // hit 상태 스타트
 
 			IceCollision->Destroy();
 		}

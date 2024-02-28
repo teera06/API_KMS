@@ -142,6 +142,9 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
 	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
 
+	// 기본 몬스터 충돌 애니메이션
+	KirbyRenderer->CreateAnimation("Base_Icehit_Right", "hitKirby.png", 5,9, 0.04f, false);
+	KirbyRenderer->CreateAnimation("Base_Icehit_Left", "hitKirby.png", 5,9, 0.04f, false);
 
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
@@ -918,6 +921,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	}
 }
 
+
 void AKirby_Player::Walk(float _DeltaTime)
 {
 	DirCheck();
@@ -1066,6 +1070,12 @@ void AKirby_Player::HitStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
+}
+
+void AKirby_Player::IcehitStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Icehit"));
 }
 
 void AKirby_Player::FlyReadyStart()

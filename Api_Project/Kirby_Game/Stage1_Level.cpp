@@ -54,6 +54,7 @@ void UStage1_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("effect_Right.png", 8, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("effect_Left.png", 8, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Effects.png", 10, 4);
+	UEngineResourcesManager::GetInst().CuttingImage("hitkirby.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("changeHUD.png", 5, 2);
 
 	// 이미지 컷팅 -> 몬스터 관련 이미지
