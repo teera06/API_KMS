@@ -46,6 +46,7 @@ enum class ERenderOrder
 	Base,
 	Ice,
 	kirby,
+	effect,
 	Menu,
 };
 

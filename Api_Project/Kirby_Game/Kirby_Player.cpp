@@ -67,6 +67,13 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
+	{
+		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
+		effectRenderer->SetImage("Effects.png"); // 이미지 Set//
+		effectRenderer->SetTransform({ {0,0}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		effectRenderer->ActiveOff();
+	}
+
 	manual = CreateImageRenderer(ERenderOrder::Menu); // 이미지 랜더 생성
 	manual->SetImage("menu.png"); // 이미지 Set
 	manual->SetTransform({ {0,-200}, {64 * 10, 64 * 10} }); // 랜더의 위치 크기 

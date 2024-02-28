@@ -116,6 +116,7 @@ protected:
 private:
 	
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* KirbyCollision = nullptr; // 커비 콜리전 (충돌)
 	UImageRenderer* manual = nullptr;
 	// 행동별 속도 정리
