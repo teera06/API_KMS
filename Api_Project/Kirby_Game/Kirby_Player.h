@@ -140,6 +140,7 @@ private:
 	bool FlyState = false; // 나는 상태
 	bool hitState = false; // 충돌 상태
 	bool SkillOn = false; // 스킬 사용 중인 상태
+	bool transform = false;
 
 	int Hp=100;
 

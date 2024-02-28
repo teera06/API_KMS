@@ -629,6 +629,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		if (checkName != GetModeName())
 		{
 			checkName = GetModeName();
+			transform = true;
 			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);
 		}
 		StateAniChange(EActorState::HeadDown);
