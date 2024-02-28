@@ -3,6 +3,8 @@
 #include "ModeEnum.h"
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
+#include "Monster_Fire.h"
+
 #include "Kirby_Player.h"
 
 ABase::ABase()
@@ -29,44 +31,8 @@ void ABase::Tick(float _DeltaTime)
 	BaseCollision->SetPosition({ GetDir().iX() * 100,0 });
 	BaseRenderer->SetPosition({ GetDir().iX() * 105,-35 });
 
+	Collisiongather(_DeltaTime);
 
-
-	std::vector<UCollision*> Result;
-	if (true == BaseCollision->CollisionCheck(ECollisionOrder::Monster, Result))
-	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("터져야겠지....");
-		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f* _DeltaTime);
-		Monster->SetEatState(true);
-		Monster->SetBaseOnOff(true);
-		
-		Destroy(0.1f);
-	}else if(true == BaseCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
-	{
-		// 이런식으로 상대를 사용할수 있다.
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("터져야겠지....");
-		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
-		Monster->SetEatState(true);
-		Monster->SetBaseOnOff(true);
-	
-		SetModeName("Ice_");
-
-		Destroy(0.1f);
-	}
 }
 
 void ABase::BeginPlay()
@@ -91,4 +57,64 @@ void ABase::BeginPlay()
 	BaseRenderer->ChangeAnimation("effect_Right");
 	
 	Destroy(0.45f);
+}
+
+void ABase::Collisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == BaseCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
+
+		Destroy(0.1f);
+	}
+	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
+
+		SetModeName("Ice_");
+
+		Destroy(0.1f);
+	}
+	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
+
+		SetModeName("Ice_");
+
+		Destroy(0.1f);
+	}
 }

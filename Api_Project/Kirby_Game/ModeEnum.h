@@ -53,7 +53,9 @@ enum class ECollisionOrder
 {
 	Monster,
 	iceMonster,
+	FireMonster,
 	IceAttack,
+	FireAttack,
 	AllStar,
 	kirby
 };
