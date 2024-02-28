@@ -66,7 +66,6 @@ void AIce::Tick(float _DeltaTime)
 		if (true == IceCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
 		
-
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();

@@ -56,8 +56,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	MainPlayer = this; // 다른 클래스가 사용하기 위해 본인을 넣는다.
 
-	//SetHp(100); // 커비 Hp
-	
 	scale = 3; // ActorCommon -> 랜더링 크기 설정
 
 	// 랜더링 설정
@@ -139,12 +137,12 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
 	// 기본 몬스터 충돌 애니메이션
-	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
-	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, false);
+	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
+	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 
 	// 기본 몬스터 충돌 애니메이션
-	KirbyRenderer->CreateAnimation("Base_Icehit_Right", "hitKirby.png", 5,9, 0.04f, false);
-	KirbyRenderer->CreateAnimation("Base_Icehit_Left", "hitKirby.png", 5,9, 0.04f, false);
+	KirbyRenderer->CreateAnimation("Base_Icehit_Right", "hitKirby.png", 5,9, 0.05f, false);
+	KirbyRenderer->CreateAnimation("Base_Icehit_Left", "hitKirby.png", 5,9, 0.05f, false);
 
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
@@ -647,6 +645,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		if (true==EatState && GetModeName() == "Base_")
 		{
 			EatState = false;
+			checkName = GetModeName();
 		}
 		else if (true == EatState &&  GetModeName()!= checkName) {
 			transform = true;
@@ -904,7 +903,6 @@ void AKirby_Player::hit(float _DeltaTime)
 	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
-	
 	FlyState = false; // 날다가 추락할 경우
 	// 충돌시 카메라 이동 제어
 	GetWorld()->AddCameraPos(Move); // X축
@@ -916,9 +914,10 @@ void AKirby_Player::hit(float _DeltaTime)
 		hitState = false;
 		KirbyRenderer->SetAlpha(1.0f);
 		KirbyCollision->SetActive(true, 0.1f);
-		StateAniChange(EActorState::Idle);
-		return;
+		
 	}
+	StateAniChange(EActorState::Idle);
+	return;
 }
 
 
