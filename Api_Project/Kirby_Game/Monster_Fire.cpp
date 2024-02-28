@@ -69,16 +69,10 @@ void AMonster_Fire::Tick(float _DeltaTime)
 
 void AMonster_Fire::MoveUpdate(float _DeltaTime)
 {
+	CalDir(_DeltaTime);
+	Collisiongather(_DeltaTime);
+	CalResult(_DeltaTime);
 	
-	if (true == IsAtt)
-	{
-		AddActorLocation(MovePos);
-	}
-	else {
-		CalDir(_DeltaTime);
-		Collisiongather(_DeltaTime);
-		CalResult(_DeltaTime);
-	}
 }
 
 void AMonster_Fire::BaseMove(float _DeltaTime)
@@ -262,9 +256,7 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
 	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
 
-	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 인식 시야 X축
-	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 인식 시야 X축
-
+	
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
@@ -274,6 +266,22 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 
 	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
+		IsAtt = true;
+		MoveSpeed = 100.0f;
+		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		{
+			MonsterRenderer->ChangeAnimation("Att_Left");
+			WallX = -20;
+		}
+		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+			MonsterRenderer->ChangeAnimation("Att_Right");
+			WallX = 20;
+		}
+		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
+	}
+	else {
+		//MovePos = FVector::Zero;
+		IsAtt = false;
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");
@@ -283,13 +291,6 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
-		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
-	}
-
-	// 플레이어를 향해 공격
-	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX() && MainPlayer->GetActorLocation().iY() >= GetActorLocation().iY() - 30) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
-	{
-		IsAtt = true;
 	}
 }
 
@@ -318,7 +319,13 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 	else {
 		if (false == IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
 		{
-			BaseMove(_DeltaTime);
+			if (true == IsAtt)
+			{
+				AddActorLocation(MovePos);
+			}
+			else {
+				BaseMove(_DeltaTime);
+			}
 		}
 		else {
 			AddActorLocation(IceMove);
