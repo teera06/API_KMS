@@ -70,7 +70,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	{
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
 		effectRenderer->SetImage("Effects.png"); // 이미지 Set//
-		effectRenderer->SetTransform({ {0,0}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
 		effectRenderer->ActiveOff();
 	}
 
@@ -105,6 +105,7 @@ void AKirby_Player::Tick(float _DeltaTime)
 // 애니메이션 생성 관리
 void AKirby_Player::AniCreate()
 {
+	effectRenderer->CreateAnimation("effect", "Effects.png", { 6,7,6,7,6,7 }, false);
 	// (오른쪽, 왼쪽)
 	// (1) Base
 	// 기본 서있는 모션(완)
@@ -564,7 +565,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
 	
-
+	if (true == transform)
+	{
+		
+		transform = false;
+		checkName = GetModeName();
+		GetWorld()->SetAllTimeScale(1.0f);
+		effectRenderer->ActiveOff();
+		
+	}
 
 	// 테스트 모드
 
@@ -633,10 +642,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress(VK_DOWN)
 		)
 	{
-		if (checkName != GetModeName())
+		if (true==EatState && GetModeName() == "Base_")
 		{
-			checkName = GetModeName();
+			EatState = false;
+		}
+		else if (true == EatState &&  GetModeName()!= checkName) {
 			transform = true;
+			checkName = GetModeName();
+			effectRenderer->ActiveOn();
+			effectRenderer->ChangeAnimation("effect");
 			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);
 		}
 		StateAniChange(EActorState::HeadDown);
@@ -863,7 +877,6 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
-		GetWorld()->SetAllTimeScale(1.0f);
 		StateAniChange(EActorState::Idle);
 		return;
 	}
