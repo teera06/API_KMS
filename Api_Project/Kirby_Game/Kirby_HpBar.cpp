@@ -60,6 +60,10 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	{
 		StateRenderer->ChangeAnimation("Ice_");
 	}
+	else if (std::string(GetModeName()) == "Fire_")
+	{
+		StateRenderer->ChangeAnimation("Fire_");
+	}
 }
 
 void AKirby_HpBar::BeginPlay()

@@ -159,17 +159,16 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_Idle_Left", "Fire_Left.png", { 0,2,4,6 }, 0.2f, true); // ¿ÞÂÊ ¼­ÀÖ±â
 
 	// ÆÄÀÌ¾î °È´Â ¸ð¼Ç
-	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", {32,33,35,38,39,40,41,43,46,47,48,50}, 0.06f, true); // °È±â
-	//46
-	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.06f, true); // °È±â
+	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.05f, true); // °È±â
+	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.05f, true); // °È±â
 
 	// ÆÄÀÌ¾î ¶Ù´Â ¸ð¼Ç
-	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 52, 49, 0.05f, true);
-	KirbyRenderer->CreateAnimation("Fire_run_Left", "Fire_Left.png", 52, 49, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 52, 59, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Fire_run_Left", "Fire_Left.png", 52, 59, 0.1f, true);
 
 	// ÆÄÀÌ¾î Á¡ÇÁ ¸ð¼Ç
-	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", 11, 21, 0.07f, true);
-	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png",11, 21, 0.07f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", 21, 31, 0.07f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png",21, 31, 0.07f, true);
 
 
 
