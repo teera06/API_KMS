@@ -164,16 +164,16 @@ void AKirby_Player::AniCreate()
 
 
 	//-- 파이어 커비 
-	KirbyRenderer->CreateAnimation("Fire_Idle_Right", "Fire_Right.png", {0,2,4,6}, 0.2f, true); // 오른쪽 서 있기
-	KirbyRenderer->CreateAnimation("Fire_Idle_Left", "Fire_Left.png", { 0,2,4,6 }, 0.2f, true); // 왼쪽 서있기
+	KirbyRenderer->CreateAnimation("Fire_Idle_Right", "Fire_Right.png", 0,6, 0.2f, true); // 오른쪽 서 있기
+	KirbyRenderer->CreateAnimation("Fire_Idle_Left", "Fire_Left.png", 0,6, 0.2f, true); // 왼쪽 서있기
 
 	// 파이어 걷는 모션
-	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.05f, true); // 걷기
-	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", { 32,33,35,38,39,40,41,43,46,47,48,50 }, 0.05f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", 32,50, 0.045f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", 32,50, 0.045f, true); // 걷기
 
 	// 파이어 뛰는 모션
-	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 52, 59, 0.08f, true);
-	KirbyRenderer->CreateAnimation("Fire_run_Left", "Fire_Left.png", 52, 59, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 53, 59, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Fire_run_Left", "Fire_Left.png", 53, 59, 0.08f, true);
 
 	// 파이어 점프 모션
 	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", 21, 31, 0.07f, true);
@@ -189,8 +189,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_fall_Right", "Fire_Right.png", 97, 101, 0.1f, false);
 	KirbyRenderer->CreateAnimation("Fire_fall_Left", "Fire_Left.png", 97, 101, 0.1f, false);
 	// 파이어 숙이기 
-	KirbyRenderer->CreateAnimation("Fire_HeadDown_Right", "Fire_Right.png", 8, 15, 0.5f, true);
-	KirbyRenderer->CreateAnimation("FIre_HeadDown_Left", "Fire_Left.png", 8, 15, 0.5f, true);
+	KirbyRenderer->CreateAnimation("Fire_HeadDown_Right", "Fire_Right.png", 8, 9, 0.5f, true);
+	KirbyRenderer->CreateAnimation("FIre_HeadDown_Left", "Fire_Left.png", 8, 9, 0.5f, true);
 
 	KirbyRenderer->CreateAnimation("Fire_hit_Right", "Fire_Right.png", {115,114,113,112,111,110,109,108,107,106,105,104,103,102,101}, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Fire_hit_Left", "Fire_Left.png", { 115,114,113,112,111,110,109,108,107,106,105,104,103,102,101 }, 0.05f, true);
