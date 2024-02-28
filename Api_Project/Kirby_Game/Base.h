@@ -25,6 +25,7 @@ private:
 	UImageRenderer* BaseRenderer = nullptr;
 	UCollision* BaseCollision = nullptr;
 
+	float Power = 600.0f;
 	void Collisiongather(float _DeltaTime);
 	
 };

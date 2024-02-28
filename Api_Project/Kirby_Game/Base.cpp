@@ -73,7 +73,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
 		SetModeName("Base_");
@@ -91,7 +91,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
 
@@ -110,7 +110,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		Monster->AddActorLocation(GetDir() * FVector::Left * 500.0f * _DeltaTime);
+		Monster->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
 
