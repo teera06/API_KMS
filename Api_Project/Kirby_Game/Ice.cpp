@@ -67,7 +67,6 @@ void AIce::Tick(float _DeltaTime)
 		{
 		
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
-			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
 			MainPlayer->IcehitStart(); // hit 상태 스타트

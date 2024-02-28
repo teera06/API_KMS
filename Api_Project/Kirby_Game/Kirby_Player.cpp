@@ -136,13 +136,15 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
 	KirbyRenderer->CreateAnimation("Base_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
 
-	// 기본 몬스터 충돌 애니메이션
+	// 충돌 애니메이션
 	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 
-	// 기본 몬스터 충돌 애니메이션
-	KirbyRenderer->CreateAnimation("Base_Icehit_Right", "hitKirby.png", 5,9, 0.05f, false);
-	KirbyRenderer->CreateAnimation("Base_Icehit_Left", "hitKirby.png", 5,9, 0.05f, false);
+	KirbyRenderer->CreateAnimation("Icehit_Right", "hitKirby.png", 5,9, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Icehit_Left", "hitKirby.png", 5,9, 0.1f, false);
+
+	KirbyRenderer->CreateAnimation("hothit_Right", "hitKirby.png", 0, 3, 0.1f, false);
+	KirbyRenderer->CreateAnimation("hothit_Left", "hitKirby.png", 0, 3, 0.1f, false);
 
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
@@ -409,7 +411,7 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 	CurAnimationName = _Name;
 
-	if (std::string(_Name) == "AllAttack" || std::string(_Name) == "HeavyIdle" || std::string(_Name) == "HeavyMove" || std::string(_Name) == "HeavyJump") // AllAttack은 모든 커비모드에서 사용 가능하기에
+	if (std::string(_Name) == "AllAttack" || std::string(_Name) == "HeavyIdle" || std::string(_Name) == "HeavyMove" || std::string(_Name) == "HeavyJump" || std::string(_Name) == "Icehit" || std::string(_Name) == "hothit") // AllAttack은 모든 커비모드에서 사용 가능하기에
 	{
 		return std::string(_Name) + DirName; // // 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
 	}
@@ -1075,6 +1077,12 @@ void AKirby_Player::IcehitStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Icehit"));
+}
+
+void AKirby_Player::hothitStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("hothit"));
 }
 
 void AKirby_Player::FlyReadyStart()

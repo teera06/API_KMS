@@ -36,6 +36,7 @@ public:
 
 	void HitStart(); // 몬스터와 충돌시 시작
 	void IcehitStart();
+	void hothitStart();
 
 	void Sethitstate(bool _hitState) // Set hitState
 	{

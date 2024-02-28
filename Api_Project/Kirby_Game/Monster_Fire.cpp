@@ -196,10 +196,9 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 		}
 		else {// 일반적인 플레이와의 충돌
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
-			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
-			MainPlayer->HitStart(); // hit 상태 스타트
+			MainPlayer->hothitStart(); // hit 상태 스타트
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
 				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
