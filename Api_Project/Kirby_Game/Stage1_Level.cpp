@@ -5,6 +5,7 @@
 #include "Kirby_Player.h" 
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
+#include "Monster_Fire.h"
 #include "Kirby_HpBar.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
@@ -57,6 +58,8 @@ void UStage1_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("Flamer_Right.png", 5, 4);
+	UEngineResourcesManager::GetInst().CuttingImage("Flamer_Left.png", 5, 4);
 
 	//NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
 	//NewPath.Move("sound"); // 폴더 이동
@@ -96,6 +99,8 @@ void UStage1_Level::BeginPlay()
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
 	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
+
+	SpawnActor<AMonster_Fire>()->SetActorLocation({ 800,800 });
 	
 }
 

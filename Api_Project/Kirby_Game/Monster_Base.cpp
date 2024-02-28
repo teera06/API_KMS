@@ -261,9 +261,9 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 {
 
 	FVector Move = FVector::Zero;
-	FVector test = GetActorLocation() * FVector::Right;
+	FVector CurX = GetActorLocation() * FVector::Right;
 
-	if (RangeXL.iX() >= test.iX() || RangeXR.iX()<=test.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	if (RangeXL.iX() >= CurX.iX() || RangeXR.iX()<=CurX.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	{
 		StartDir.X *= -1;
 		AddActorLocation(StartDir*FVector::Right * _DeltaTime * 100.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
