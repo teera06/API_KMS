@@ -626,6 +626,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress(VK_DOWN)
 		)
 	{
+		if (checkName != GetModeName())
+		{
+			checkName = GetModeName();
+			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);
+		}
 		StateAniChange(EActorState::HeadDown);
 		return;
 	}
@@ -846,10 +851,11 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 void AKirby_Player::HeadDown(float _DeltaTime)
 {
 	DirCheck();
+	KirbyModeCheck();
 
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
-		KirbyModeCheck();
+		GetWorld()->SetAllTimeScale(1.0f);
 		StateAniChange(EActorState::Idle);
 		return;
 	}
