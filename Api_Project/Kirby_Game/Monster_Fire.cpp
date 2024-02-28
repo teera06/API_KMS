@@ -299,6 +299,9 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 		{
 			if (true == IsAtt)
 			{
+				CurLocation = GetActorLocation() * FVector::Right;
+				RangeXL = CurLocation + (FVector::Left * RangeX);
+				RangeXR = CurLocation + (FVector::Right * RangeX);
 				AddActorLocation(MovePos);
 			}
 			else {
