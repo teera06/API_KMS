@@ -81,7 +81,7 @@ void UStage1_Level::BeginPlay()
 	// BGMPlayer.Off();
 	
 
-
+	SetCameraPos({ 0,400 }); // 카메라 위치 설정
 
 	// 맵 생성
 	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
@@ -90,9 +90,8 @@ void UStage1_Level::BeginPlay()
 	Map->SetColMapImage("cor_map.png");
 	Map->SwitchDebug();
 
-
 	// 커비와 커비 상태창 Actor 생성
-	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,800 });
+	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,1000 });
 	SpawnActor<AKirby_HpBar>();
 
 	// 몬스터 Actor 생성
@@ -104,7 +103,7 @@ void UStage1_Level::BeginPlay()
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
 	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
 
-	SpawnActor<AMonster_Fire>()->SetActorLocation({ 800,800 });
+	SpawnActor<AMonster_Fire>()->SetActorLocation({ 1000,800 });
 	
 }
 
