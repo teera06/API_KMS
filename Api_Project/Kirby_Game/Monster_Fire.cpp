@@ -69,9 +69,16 @@ void AMonster_Fire::Tick(float _DeltaTime)
 
 void AMonster_Fire::MoveUpdate(float _DeltaTime)
 {
-	CalDir();
-	Collisiongather(_DeltaTime);
-	CalResult(_DeltaTime);
+	
+	if (true == IsAtt)
+	{
+		AddActorLocation(MovePos);
+	}
+	else {
+		CalDir(_DeltaTime);
+		Collisiongather(_DeltaTime);
+		CalResult(_DeltaTime);
+	}
 }
 
 void AMonster_Fire::BaseMove(float _DeltaTime)
@@ -128,10 +135,12 @@ void AMonster_Fire::AniCreate()
 {
 	// 기본 걷는 모션
 
-	MonsterRenderer->CreateAnimation("Move_Right", "Flamer_Right.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Move_Left", "Flamer_Left.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("die_Right", "Flamer_Right.png", 5, 5, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("die_Left", "Flamer_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("Move_Right", "Flamer_Right.png", 0, 3, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Left", "Flamer_Left.png", 0, 3, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Att_Right", "Flamer_Right.png", 6, 13, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Att_Left", "Flamer_Left.png", 6, 13, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("die_Right", "Flamer_Right.png", 4, 5, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Left", "Flamer_Left.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 }
 
@@ -245,13 +254,43 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	}
 }
 
-void AMonster_Fire::CalDir()
+void AMonster_Fire::CalDir(float _DeltaTime)
 {
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
+	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
+	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
+
+	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 인식 시야 X축
+	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 인식 시야 X축
+
+	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
+
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
+
+	MovePos = FVector::Zero; // 플레이어 추격 시 이동
+
+	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
+	{
+		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		{
+			MonsterRenderer->ChangeAnimation("Move_Left");
+			WallX = -20;
+		}
+		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+			MonsterRenderer->ChangeAnimation("Move_Right");
+			WallX = 20;
+		}
+		MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
+	}
+
+	// 플레이어를 향해 공격
+	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX() && MainPlayer->GetActorLocation().iY() >= GetActorLocation().iY() - 30) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
+	{
+		IsAtt = true;
+	}
 }
 
 void AMonster_Fire::CalResult(float _DeltaTime)
