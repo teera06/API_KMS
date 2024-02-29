@@ -3,6 +3,8 @@
 
 #include "Stage2_Map.h"
 #include "Kirby_Player.h" 
+#include "Kirby_HpBar.h"
+
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -40,15 +42,17 @@ void UStage2_Level::BeginPlay()
 	SetCameraPos({ 0,550 }); // 카메라 위치 설정
 
 	// 맵 생성
-	AStage2_Map* Map = SpawnActor<AStage2_Map>();
-	Map->SetMapImage("stage2_map.png");
+	NewMap = SpawnActor<AStage2_Map>();
+	NewMap->SetMapImage("stage2_map.png");
 	//Map->SetMapImage("stage2_map.png");
-	Map->SetColMapImage("cor2_map.png");
-	Map->SwitchDebug();
+	NewMap->SetColMapImage("cor2_map.png");
+	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
-	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,1000 });
-	//SpawnActor<AKirby_HpBar>();
+	NewPlayer=SpawnActor<AKirby_Player>();
+	NewPlayer->SetActorLocation({ 500,1000 });
+
+	NewHpBar=SpawnActor<AKirby_HpBar>();
 }
 
 void UStage2_Level::Tick(float _DeltaTime)

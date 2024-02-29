@@ -43,17 +43,17 @@ public:
 		hitState = _hitState;
 	}
 
-	void SetHp(const int& _Hp)
+	static void SetHp(const int& _Hp)
 	{
 		Hp = _Hp;
 	}
 
-	void AddHP(const int& _Value)
+	static void AddHP(const int& _Value)
 	{
 		Hp += _Value;
 	}
 
-	int GetHp()
+	static int GetHp()
 	{
 		return Hp;
 	}
@@ -145,7 +145,7 @@ private:
 	bool SkillOn = false; // 스킬 사용 중인 상태
 	bool transform = false;
 
-	int Hp=100;
+	static int Hp;
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성

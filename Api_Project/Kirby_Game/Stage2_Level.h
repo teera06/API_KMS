@@ -2,6 +2,10 @@
 #include <EngineCore\Level.h> // »ó¼Ó
 #include <EnginePlatform\EngineSound.h>
 
+class AStage2_Map;
+class AKirby_Player;
+class AKirby_HpBar;
+
 class UStage2_Level :public ULevel
 {
 public:
@@ -21,5 +25,8 @@ protected:
 	void LevelStart(ULevel* _PrevLevel)override;
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	AStage2_Map* NewMap = nullptr;
+	AKirby_Player* NewPlayer = nullptr;
+	AKirby_HpBar* NewHpBar = nullptr;
 };
 

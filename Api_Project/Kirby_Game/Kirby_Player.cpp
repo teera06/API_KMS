@@ -17,6 +17,8 @@
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
+int AKirby_Player::Hp = 100;
+
 AKirby_Player* AKirby_Player::GetMainPlayer()
 {
 	return MainPlayer;
