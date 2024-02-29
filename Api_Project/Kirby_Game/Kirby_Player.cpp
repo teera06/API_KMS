@@ -914,12 +914,15 @@ void AKirby_Player::hit(float _DeltaTime)
 		Move = FVector::Left * 100.0f * _DeltaTime; // 왼쪽
 	}
 
+	
+	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::GreenA);
+	//Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
 	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
 	FlyState = false; // 날다가 추락할 경우
-	// 충돌시 카메라 이동 제어
-	GetWorld()->AddCameraPos(Move); // X축
+	
+	CamstopMove += Move;
 	CamYMove(); // Y축
 
 	// 애니메이션 종료 시 다시 원래 상태로 돌아감
