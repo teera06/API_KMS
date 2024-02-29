@@ -8,6 +8,7 @@
 #include "Base.h"
 #include "Ice.h"
 
+#include "Stage2_Level.h"
 // 테스트
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
@@ -589,6 +590,18 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	// 테스트 모드
+
+
+
+	
+	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::BlueA);
+	
+	if (true== UEngineInput::IsDown(VK_UP))// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	{
+		// && ColorB != Color8Bit(0, 0, 255, 0)
+		GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
+		GEngine->ChangeLevel("Stage2_Level");
+	}
 
 	if (true == UEngineInput::IsDown('1'))
 	{
