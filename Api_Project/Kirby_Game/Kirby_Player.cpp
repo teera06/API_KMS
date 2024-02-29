@@ -141,11 +141,11 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 	KirbyRenderer->CreateAnimation("Base_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 
-	KirbyRenderer->CreateAnimation("Icehit_Right", "hitKirby.png", 5,9, 0.1f, false);
-	KirbyRenderer->CreateAnimation("Icehit_Left", "hitKirby.png", 5,9, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Icehit_Right", "hitKirby_Right.png", 5,9, 0.1f, false);
+	KirbyRenderer->CreateAnimation("Icehit_Left", "hitKirby_Left.png", 5,9, 0.1f, false);
 
-	KirbyRenderer->CreateAnimation("hothit_Right", "hitKirby.png", 0, 3, 0.1f, false);
-	KirbyRenderer->CreateAnimation("hothit_Left", "hitKirby.png", 0, 3, 0.1f, false);
+	KirbyRenderer->CreateAnimation("hothit_Right", "hitKirby_Right.png", 0, 3, 0.1f, false);
+	KirbyRenderer->CreateAnimation("hothit_Left", "hitKirby_Left.png", 0, 3, 0.1f, false);
 
 	// ---기본에서만 가능한 모션들----
 	// Heavy 모드 Idle
