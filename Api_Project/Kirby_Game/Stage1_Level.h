@@ -34,13 +34,8 @@ private:
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 	
-	std::vector<AMonster_Base*> NewBaseMonster;
 	AMonster_Base* NewBase = nullptr;
-
-	std::vector<Apengi_Ice*> NewIceMonster;
 	Apengi_Ice* NewIce = nullptr;
-
-	std::vector<AMonster_Fire*> NewFireMonster;
 	AMonster_Fire* NewFire = nullptr;
 
 	const int Basesize = 4;

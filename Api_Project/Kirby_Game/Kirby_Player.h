@@ -58,6 +58,12 @@ public:
 		return Hp;
 	}
 
+	// 커비의 판단으로 나머지 플레이 레벨 만들자
+	bool CreateStage2 = false;
+	bool CreateStage3 = false;
+	bool BossStage = false;
+
+	static int StageCheck;
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

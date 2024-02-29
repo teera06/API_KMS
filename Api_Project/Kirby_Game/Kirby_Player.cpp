@@ -18,6 +18,8 @@
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 int AKirby_Player::Hp = 100;
+int AKirby_Player::StageCheck = 1;
+
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
 {
@@ -598,12 +600,24 @@ void AKirby_Player::Idle(float _DeltaTime)
 	
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::BlueA);
 	
-	if (true== UEngineInput::IsDown(VK_UP))// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
-		//if(GetWorld()->LevelEnd())
-		GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
+		if (false == CreateStage2)
+		{
+			CreateStage2 = true;
+			GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
+		}
+		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
+	}else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2)// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	{
+		// && ColorB != Color8Bit(0, 0, 255, 0)
+		//if (false == CreateStage2)
+		//{
+			//GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
+		//}
+		GEngine->ChangeLevel("Stage1_Level");
 	}
 
 	if (true == UEngineInput::IsDown('1'))

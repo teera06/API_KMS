@@ -94,36 +94,29 @@ void UStage1_Level::BeginPlay()
 
 	// 커비와 커비 상태창 Actor 생성
 	NewPlayer=SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,1000 });
+	NewPlayer->SetActorLocation({ 500,600 });
 	
 	NewHpBar=SpawnActor<AKirby_HpBar>();
 
 	// 몬스터 Actor 생성
-	NewBaseMonster.reserve(Basesize);
+	
 	for (int i = 0; i < Basesize; i++)
 	{
 		NewBase = SpawnActor<AMonster_Base>();
 		NewBase->SetActorLocation({800+i*800,700 });
 
-		NewBaseMonster.push_back(NewBase);
 	}
 	
-	NewIceMonster.reserve(Icesize);
 	for (int i = 0; i < Icesize; i++)
 	{
 		NewIce = SpawnActor<Apengi_Ice>();
 		NewIce->SetActorLocation({ 1100 + i * 800,800 });
-
-		NewIceMonster.push_back(NewIce);
 	}
 
-	NewFireMonster.reserve(Firesize);
 	for (int i = 0; i < Firesize; i++)
 	{
 		NewFire = SpawnActor<AMonster_Fire>();
 		NewFire->SetActorLocation({ 1000 + i * 1000,600 +i*-150});
-
-		NewFireMonster.push_back(NewFire);
 	}
 }
 
@@ -143,19 +136,9 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
-	if (NewMap != nullptr)
-	{
-		NewMap->Destroy();
-	}
-
-	if (NewPlayer != nullptr)
-	{
-		NewPlayer->Destroy();
-	}
-
 	if (NewHpBar != nullptr)
 	{
-		NewPlayer->Destroy();
+		NewHpBar->Destroy();
 	}
 
 	if (NewBase != nullptr)
@@ -173,10 +156,14 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 		NewFire->Destroy();
 	}
 
-	NewBaseMonster.clear();
-	
-	NewIceMonster.clear();
+	if (NewMap != nullptr)
+	{
+		NewMap->Destroy();
+	}
 
-	NewFireMonster.clear();
+	if (NewPlayer != nullptr)
+	{
+		NewPlayer->Destroy();
+	}
 }
 
