@@ -14,7 +14,7 @@
       <Filter>Title_Actor</Filter>
     </ClCompile>
     <ClCompile Include="Stage1_MAP.cpp">
-      <Filter>Stage_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage_Map</Filter>
     </ClCompile>
     <ClCompile Include="ActorCommon.cpp" />
     <ClCompile Include="Kirby_Player.cpp">
@@ -51,7 +51,7 @@
       <Filter>ContentsLevel</Filter>
     </ClCompile>
     <ClCompile Include="Stage2_Map.cpp">
-      <Filter>Stage_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage_Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +68,7 @@
       <Filter>Title_Actor</Filter>
     </ClInclude>
     <ClInclude Include="Stage1_MAP.h">
-      <Filter>Stage_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage_Map</Filter>
     </ClInclude>
     <ClInclude Include="ActorCommon.h" />
     <ClInclude Include="ModeEnum.h" />
@@ -106,7 +106,7 @@
       <Filter>ContentsLevel</Filter>
     </ClInclude>
     <ClInclude Include="Stage2_Map.h">
-      <Filter>Stage_Actor\Stage1_Map</Filter>
+      <Filter>Stage_Actor\Stage_Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,14 +122,14 @@
     <Filter Include="Stage_Actor">
       <UniqueIdentifier>{1c18503f-14a5-483b-b894-fd43af5a3acb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stage_Actor\Stage1_Map">
-      <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Stage_Actor\Kirby">
       <UniqueIdentifier>{6d5507b0-c863-4514-8dd1-f1e77ee87b9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Stage_Actor\Monster">
       <UniqueIdentifier>{bc8afad8-8029-432f-b9ba-201fe0bebceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Stage_Map">
+      <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

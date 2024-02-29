@@ -7,6 +7,7 @@ class AKirby_HpBar;
 class AMonster_Base;
 class Apengi_Ice;
 class AMonster_Fire;
+class AStage1_MAP;
 
 class UStage1_Level:public ULevel
 {
@@ -28,6 +29,8 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	UEngineSoundPlayer BGMPlayer;
+
+	AStage1_MAP* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 	

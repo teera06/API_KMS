@@ -86,11 +86,11 @@ void UStage1_Level::BeginPlay()
 	SetCameraPos({ 0,400 }); // 카메라 위치 설정
 
 	// 맵 생성
-	AStage1_MAP* Map = SpawnActor<AStage1_MAP>();
-	Map->SetMapImage("stage1_map.png");
+	NewMap = SpawnActor<AStage1_MAP>();
+	NewMap->SetMapImage("stage1_map.png");
 	//Map->SetMapImage("stage2_map.png");
-	Map->SetColMapImage("cor_map.png");
-	Map->SwitchDebug();
+	NewMap->SetColMapImage("cor_map.png");
+	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
 	NewPlayer=SpawnActor<AKirby_Player>();
@@ -142,6 +142,11 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
+
+	if (NewMap != nullptr)
+	{
+		NewMap->Destroy();
+	}
 
 	if (NewPlayer != nullptr)
 	{
