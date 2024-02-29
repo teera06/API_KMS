@@ -59,10 +59,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="LevelCommon.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Monster_Base.cpp">
       <SubType>
       </SubType>
@@ -131,10 +127,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Kirby_Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="LevelCommon.h">
       <SubType>
       </SubType>
     </ClInclude>
