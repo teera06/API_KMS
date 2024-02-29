@@ -599,6 +599,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	if (true== UEngineInput::IsDown(VK_UP))// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
+		
 		GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
 		GEngine->ChangeLevel("Stage2_Level");
 	}
