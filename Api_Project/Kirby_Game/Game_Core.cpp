@@ -3,9 +3,6 @@
 // Level 생성에 필요한 헤더
 #include "TitleLevel.h"
 #include "Stage1_Level.h"
-#include "Stage2_Level.h"
-
-
 
 UGame_Core::UGame_Core()
 	: UEngineCore()
@@ -31,7 +28,6 @@ void UGame_Core::BeginPlay()
 	CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level 생성
 	
 	ChangeLevel("Stage1_Level"); // 레벨 변경
-	//CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
 }
 
 void UGame_Core::Tick(float _DeltaTime)

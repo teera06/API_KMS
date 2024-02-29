@@ -5,6 +5,8 @@
 class AStage2_Map;
 class AKirby_Player;
 class AKirby_HpBar;
+class AMonster_Base;
+class AMonster_Fire;
 
 class UStage2_Level :public ULevel
 {
@@ -28,5 +30,11 @@ private:
 	AStage2_Map* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
+
+	AMonster_Base* NewBase[4] = {};
+	AMonster_Fire* NewFire[4] = {};
+
+	const int Basesize = 4;
+	const int Firesize = 4;
 };
 

@@ -5,6 +5,7 @@
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
 #include "Monster_Base.h"
+#include "Monster_Fire.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -50,9 +51,28 @@ void UStage2_Level::BeginPlay()
 
 	// 커비와 커비 상태창 Actor 생성
 	NewPlayer=SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,1000 });
+	NewPlayer->SetActorLocation({ 500,1200 });
 
 	NewHpBar=SpawnActor<AKirby_HpBar>();
+
+	for (int i = 0; i <2; i++)
+	{
+		NewBase[i] = SpawnActor<AMonster_Base>();
+		NewBase[i]->SetActorLocation({ 800 + i * 1000,1000 });
+	}
+
+	NewBase[2] = SpawnActor<AMonster_Base>();
+	NewBase[2]->SetActorLocation({ 2800,1000 });
+
+	NewBase[3] = SpawnActor<AMonster_Base>();
+	NewBase[3]->SetActorLocation({ 5000,1000 });
+	
+
+	for (int i = 0; i < Firesize; i++)
+	{
+		NewFire[i] = SpawnActor<AMonster_Fire>();
+		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600});
+	}
 }
 
 void UStage2_Level::Tick(float _DeltaTime)
