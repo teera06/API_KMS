@@ -196,8 +196,13 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_HeadDown_Right", "Fire_Right.png", 8, 9, 0.5f, true);
 	KirbyRenderer->CreateAnimation("FIre_HeadDown_Left", "Fire_Left.png", 8, 9, 0.5f, true);
 
+	// 파이어 숙이기 
+	KirbyRenderer->CreateAnimation("Fire_FireAttack_Right", "Fire_Right.png", 122, 134, 0.03f, true);
+	KirbyRenderer->CreateAnimation("FIre_FireAttack_Left", "Fire_Left.png", 122, 134, 0.03f, true);
+
 	KirbyRenderer->CreateAnimation("Fire_hit_Right", "Fire_Right.png", {115,114,113,112,111,110,109,108,107,106,105,104,103,102,101}, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Fire_hit_Left", "Fire_Left.png", { 115,114,113,112,111,110,109,108,107,106,105,104,103,102,101 }, 0.05f, true);
+
 
 
 	// 파이어 흡수 -> 기본에서 아이스 중간 이미지 
@@ -492,6 +497,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::IceAttack:
 			IceAttackStart();
 			break;
+		case EActorState::FireAttack:
+			FireAttackStart();
+			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
 			break;
@@ -549,6 +557,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			ModeInputTick(_DeltaTime);
 			break;
 		case EActorState::IceAttack: // 아이스 공격
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::FireAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
 			break;
 		default:
@@ -709,6 +720,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		NewIce->SetActive(true, 0.22f);
 		NewIce->SetOwner(EIceOwner::kirby);
 		NewIce->SetActorLocation(this->GetActorLocation());
+		return;
+	}
+	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
+		SkillOn = true;
+		StateAniChange(EActorState::FireAttack);
 		return;
 	}
 
@@ -1139,6 +1155,8 @@ void AKirby_Player::IceAttackStart()
 
 void AKirby_Player::FireAttackStart()
 {
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("FireAttack"));
 }
 
 void AKirby_Player::HeadDownStart()
@@ -1166,6 +1184,9 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	case EAMode::Ice:
 		IceKirby(_DeltaTime);
 		break;
+	case EAMode::Fire:
+		FireKirby(_DeltaTime);
+		break;
 	case EAMode::Mike:
 		break;
 	case EAMode::Sword:
@@ -1177,9 +1198,18 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	}
 }
 
-void AKirby_Player::FireKirby()
+void AKirby_Player::FireKirby(float _DeltaTime)
 {
-	
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		SkillOn = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
+	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::IceKirby(float _DeltaTime)

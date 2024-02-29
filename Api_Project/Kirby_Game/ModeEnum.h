@@ -24,6 +24,7 @@ enum class EActorState
 	hit,
 	Absorption,
 	IceAttack,
+	FireAttack,
 	All_Attack,
 	HeadDown,
 };
