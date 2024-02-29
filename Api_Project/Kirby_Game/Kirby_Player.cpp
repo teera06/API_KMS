@@ -202,8 +202,10 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("FIre_HeadDown_Left", "Fire_Left.png", 8, 9, 0.5f, true);
 
 	// 파이어 숙이기 
-	KirbyRenderer->CreateAnimation("Fire_FireAttack_Right", "Fire_Right.png", 122, 134, 0.03f, true);
-	KirbyRenderer->CreateAnimation("FIre_FireAttack_Left", "Fire_Left.png", 122, 134, 0.03f, true);
+	KirbyRenderer->CreateAnimation("Fire_FireReady_Right", "Fire_Right.png", 122, 128, 0.08f, true);
+	KirbyRenderer->CreateAnimation("FIre_FireReady_Left", "Fire_Left.png", 122, 128, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Fire_FireAttack_Right", "Fire_Right.png", 129, 131, 0.08f, true);
+	KirbyRenderer->CreateAnimation("FIre_FireAttack_Left", "Fire_Left.png", 129, 131, 0.08f, true);
 
 	KirbyRenderer->CreateAnimation("Fire_hit_Right", "Fire_Right.png", {115,114,113,112,111,110,109,108,107,106,105,104,103,102,101}, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Fire_hit_Left", "Fire_Left.png", { 115,114,113,112,111,110,109,108,107,106,105,104,103,102,101 }, 0.05f, true);
@@ -502,6 +504,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::IceAttack:
 			IceAttackStart();
 			break;
+		case EActorState::FireReady:
+			FireReadyStart();
+			break;
 		case EActorState::FireAttack:
 			FireAttackStart();
 			break;
@@ -563,6 +568,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			break;
 		case EActorState::IceAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::FireReady: // 아이스 공격
+			FireReady( _DeltaTime);
 			break;
 		case EActorState::FireAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
@@ -757,7 +765,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
 		SkillOn = true;
-		StateAniChange(EActorState::FireAttack);
+		StateAniChange(EActorState::FireReady);
 		return;
 	}
 
@@ -951,16 +959,18 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 // 몬스터와 충돌하는 경우
 void AKirby_Player::hit(float _DeltaTime)
 {
+	DirCheck();
+
 	FVector Move = FVector::Zero;
 	JumpVector = FVector::Zero; // 점프 도중에 충돌할 경우 -> 점프력 0
 
 	// 몬스터와 반대 방향으로 이동해야하기 위해
 	if (DirState == EActorDir::Left) // 왼쪽일 때는 
 	{
-		Move = FVector::Right * 100.0f * _DeltaTime; // 오른쪽
+		Move = FVector::Right * 60.0f * _DeltaTime; // 오른쪽
 	}
 	else { // 오른쪽일 때는
-		Move = FVector::Left * 100.0f * _DeltaTime; // 왼쪽
+		Move = FVector::Left * 60.0f * _DeltaTime; // 왼쪽
 	}
 
 	
@@ -1186,6 +1196,12 @@ void AKirby_Player::IceAttackStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("IceAttack"));
 }
 
+void AKirby_Player::FireReadyStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("FireReady"));
+}
+
 void AKirby_Player::FireAttackStart()
 {
 	DirCheck();
@@ -1231,11 +1247,29 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	}
 }
 
+void AKirby_Player::FireReady(float _DeltaTime)
+{
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd()) //  해당 애니메이션 종료 후
+	{
+		StateAniChange(EActorState::FireAttack); // 날기로 전환
+		return;
+	}
+}
+
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
 
-	if (true == KirbyRenderer->IsCurAnimationEnd())
+	//if (true == KirbyRenderer->IsCurAnimationEnd())
+	//{
+		//SkillOn = false;
+		//StateAniChange(EActorState::Idle);
+		//return;
+	//}
+
+	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);

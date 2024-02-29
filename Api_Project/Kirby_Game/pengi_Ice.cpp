@@ -299,7 +299,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
 	skillcooldowntime -= _DeltaTime;
-	if (true == IsAtt && skillcooldowntime<0.0f && false == GetBaseOnOff())
+	if (true == IsAtt && skillcooldowntime<0.0f && false == GetBaseOnOff() && false==IsIce)
 	{
 		MovePos = FVector::Zero;
 		IceAtt();

@@ -104,8 +104,13 @@ protected:
 	void HeadDownStart(); // 숙이기
 
 	// 공격 모션
+	void ModeInputTick(float _DeltaTime); // 모드별 입력키
+	void FireReady(float _DeltaTime);
+
 	void AllAttackStart(); // 별 뱉기 공격
 	void IceAttackStart(); // 아이스 공격
+
+	void FireReadyStart();
 	void FireAttackStart(); 
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
@@ -153,7 +158,6 @@ private:
 
 	static int Hp;
 
-	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
 	void GroundUp();
