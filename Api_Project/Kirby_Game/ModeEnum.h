@@ -48,6 +48,7 @@ enum class ERenderOrder
 	State,
 	Base,
 	Ice,
+	Fire,
 	kirby,
 	effect,
 	Menu,

@@ -80,6 +80,13 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		effectRenderer->ActiveOff();
 	}
 
+	{
+		FireRenderer= CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer->SetImage("Fire_Right.png"); // 이미지 Set//
+		//effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		FireRenderer->ActiveOff();
+	}
+
 	manual = CreateImageRenderer(ERenderOrder::Menu); // 이미지 랜더 생성
 	manual->SetImage("menu.png"); // 이미지 Set
 	manual->SetTransform({ {0,-200}, {64 * 10, 64 * 10} }); // 랜더의 위치 크기 
@@ -110,6 +117,8 @@ void AKirby_Player::Tick(float _DeltaTime)
 void AKirby_Player::AniCreate()
 {
 	effectRenderer->CreateAnimation("effect", "Effects.png", { 6,7,6,7,6,7 }, false);
+	FireRenderer->CreateAnimation("Fire_Right", "Fire_Right.png", 140, 156,0.06f, true);
+	FireRenderer->CreateAnimation("Fire_Left", "Fire_Left.png", 140, 156, 0.06f, true);
 	// (오른쪽, 왼쪽)
 	// (1) Base
 	// 기본 서있는 모션(완)
@@ -765,6 +774,16 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
 		SkillOn = true;
+		FireRenderer->SetActive(true, 0.4f);
+		if (DirState == EActorDir::Left)
+		{
+			FireRenderer->ChangeAnimation("Fire_Left");
+			FireRenderer->SetTransform({ { -140,-5 }, { 64*6,64*3 } });
+		}
+		else {
+			FireRenderer->ChangeAnimation("Fire_RIght");
+			FireRenderer->SetTransform({ { 140,-5 }, { 64*6,64*3}});
+		}
 		StateAniChange(EActorState::FireReady);
 		return;
 	}
@@ -1272,6 +1291,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
+		FireRenderer->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
