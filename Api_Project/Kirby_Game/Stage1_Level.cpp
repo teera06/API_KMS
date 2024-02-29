@@ -94,7 +94,7 @@ void UStage1_Level::BeginPlay()
 
 	// 目厚客 目厚 惑怕芒 Actor 积己
 	NewPlayer=SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,600 });
+	NewPlayer->SetActorLocation({ 500,1000 });
 	
 	NewHpBar=SpawnActor<AKirby_HpBar>();
 
@@ -102,21 +102,21 @@ void UStage1_Level::BeginPlay()
 	
 	for (int i = 0; i < Basesize; i++)
 	{
-		NewBase = SpawnActor<AMonster_Base>();
-		NewBase->SetActorLocation({800+i*800,700 });
+		NewBase[i] = SpawnActor<AMonster_Base>();
+		NewBase[i]->SetActorLocation({800 + i * 800,700});
 
 	}
 	
 	for (int i = 0; i < Icesize; i++)
 	{
-		NewIce = SpawnActor<Apengi_Ice>();
-		NewIce->SetActorLocation({ 1100 + i * 800,800 });
+		NewIce[i] = SpawnActor<Apengi_Ice>();
+		NewIce[i]->SetActorLocation({1100 + i * 800,800});
 	}
 
 	for (int i = 0; i < Firesize; i++)
 	{
-		NewFire = SpawnActor<AMonster_Fire>();
-		NewFire->SetActorLocation({ 1000 + i * 1000,600 +i*-150});
+		NewFire[i] = SpawnActor<AMonster_Fire>();
+		NewFire[i]->SetActorLocation({1000 + i * 1000,600 + i * -150});
 	}
 }
 
@@ -141,21 +141,31 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 		NewHpBar->Destroy();
 	}
 
-	if (NewBase != nullptr)
+	for (int i = 0; i < Basesize; i++)
 	{
-		NewBase->Destroy();
+		if (NewBase[i] != nullptr)
+		{
+			NewBase[i]->Destroy();
+		}
+
 	}
 
-	if (NewIce != nullptr)
+	for (int i = 0; i < Icesize; i++)
 	{
-		NewIce->Destroy();
+		if (NewIce[i] != nullptr)
+		{
+			NewIce[i]->Destroy();
+		}
 	}
 
-	if (NewFire != nullptr)
+	for (int i = 0; i < Firesize; i++)
 	{
-		NewFire->Destroy();
+		if (NewFire[i] != nullptr)
+		{
+			NewFire[i]->Destroy();
+		}
 	}
-
+	
 	if (NewMap != nullptr)
 	{
 		NewMap->Destroy();

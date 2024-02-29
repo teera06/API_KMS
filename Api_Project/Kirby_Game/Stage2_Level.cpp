@@ -4,6 +4,7 @@
 #include "Stage2_Map.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
+#include "Monster_Base.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>

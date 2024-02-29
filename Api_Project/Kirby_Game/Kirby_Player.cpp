@@ -617,6 +617,9 @@ void AKirby_Player::Idle(float _DeltaTime)
 		//{
 			//GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level »ý¼º
 		//}
+		
+		//return;
+		StageCheck = 1;
 		GEngine->ChangeLevel("Stage1_Level");
 	}
 
