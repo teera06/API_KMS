@@ -3,6 +3,7 @@
 // Actor
 #include "Stage1_MAP.h" 
 
+#include "Kirby_Player.h"
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
@@ -98,7 +99,8 @@ void UStage1_Level::BeginPlay()
 	NewHpBar=SpawnActor<AKirby_HpBar>();
 
 	// 몬스터 Actor 생성
-	for (int i = 0; i < 4; i++)
+	NewBaseMonster.reserve(Basesize);
+	for (int i = 0; i < Basesize; i++)
 	{
 		NewBase = SpawnActor<AMonster_Base>();
 		NewBase->SetActorLocation({800+i*800,700 });
@@ -106,16 +108,23 @@ void UStage1_Level::BeginPlay()
 		NewBaseMonster.push_back(NewBase);
 	}
 	
+	NewIceMonster.reserve(Icesize);
+	for (int i = 0; i < Icesize; i++)
+	{
+		NewIce = SpawnActor<Apengi_Ice>();
+		NewIce->SetActorLocation({ 1100 + i * 800,800 });
 
-	//SpawnActor<AMonster_Base>()
-		//->SetActorLocation({ 1900,600 });
+		NewIceMonster.push_back(NewIce);
+	}
 
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
-	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,600 });
+	NewFireMonster.reserve(Firesize);
+	for (int i = 0; i < Firesize; i++)
+	{
+		NewFire = SpawnActor<AMonster_Fire>();
+		NewFire->SetActorLocation({ 1000 + i * 1000,600 +i*-150});
 
-	SpawnActor<AMonster_Fire>()->SetActorLocation({ 1000,800 });
-	
+		NewFireMonster.push_back(NewFire);
+	}
 }
 
 void UStage1_Level::Tick(float _DeltaTime)
@@ -132,5 +141,37 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 
 void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
+	ULevel::LevelEnd(_NextLevel);
+
+	if (NewPlayer != nullptr)
+	{
+		NewPlayer->Destroy();
+	}
+
+	if (NewHpBar != nullptr)
+	{
+		NewPlayer->Destroy();
+	}
+
+	if (NewBase != nullptr)
+	{
+		NewBase->Destroy();
+	}
+
+	if (NewIce != nullptr)
+	{
+		NewIce->Destroy();
+	}
+
+	if (NewFire != nullptr)
+	{
+		NewFire->Destroy();
+	}
+
+	NewBaseMonster.clear();
+	
+	NewIceMonster.clear();
+
+	NewFireMonster.clear();
 }
 

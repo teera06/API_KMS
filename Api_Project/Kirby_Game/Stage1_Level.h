@@ -39,5 +39,10 @@ private:
 
 	std::vector<AMonster_Fire*> NewFireMonster;
 	AMonster_Fire* NewFire = nullptr;
+
+	const int Basesize = 4;
+	const int Icesize = 3;
+	const int Firesize=3;
+
 };
 
