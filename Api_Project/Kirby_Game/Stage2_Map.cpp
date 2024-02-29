@@ -4,15 +4,15 @@
 
 #include "ActorCommon.h" // ActorCommon::ColMapImage = Image; -> 픽셀 충돌할 맵 이미지 설정
 
-Stage2_Map::Stage2_Map()
+AStage2_Map::AStage2_Map()
 {
 }
 
-Stage2_Map::~Stage2_Map()
+AStage2_Map::~AStage2_Map()
 {
 }
 
-void Stage2_Map::SetMapImage(std::string_view _MapImageName)
+void AStage2_Map::SetMapImage(std::string_view _MapImageName)
 {
 	MapRenderer->SetImage(_MapImageName); // 이미지 Set
 	UWindowImage* Image = MapRenderer->GetImage(); // Set한 이미지 값을 받고
@@ -21,7 +21,7 @@ void Stage2_Map::SetMapImage(std::string_view _MapImageName)
 	// 이미지의 X축 Y축 절반의 위치에 이미지 크기만 크기만큼 랜더링
 }
 
-void Stage2_Map::SetColMapImage(std::string_view _MapImageName)
+void AStage2_Map::SetColMapImage(std::string_view _MapImageName)
 {
 	MapColRenderer->SetImage(_MapImageName);
 	UWindowImage* Image = MapColRenderer->GetImage();
@@ -30,7 +30,7 @@ void Stage2_Map::SetColMapImage(std::string_view _MapImageName)
 	MapColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }
 
-void Stage2_Map::SwitchDebug()
+void AStage2_Map::SwitchDebug()
 {
 	if (true == MapRenderer->IsActive())
 	{
@@ -44,7 +44,7 @@ void Stage2_Map::SwitchDebug()
 	}
 }
 
-void Stage2_Map::BeginPlay()
+void AStage2_Map::BeginPlay()
 {
 	AActor::BeginPlay();
 
@@ -53,7 +53,7 @@ void Stage2_Map::BeginPlay()
 	MapRenderer->ActiveOff();
 }
 
-void Stage2_Map::Tick(float _DeltaTime)
+void AStage2_Map::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 

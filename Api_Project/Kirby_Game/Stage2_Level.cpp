@@ -5,20 +5,20 @@
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
 
-Stage2_Level::Stage2_Level()
+UStage2_Level::UStage2_Level()
 {
 }
 
-Stage2_Level::~Stage2_Level()
+UStage2_Level::~UStage2_Level()
 {
 }
 
-void Stage2_Level::BeginPlay()
+void UStage2_Level::BeginPlay()
 {
 
 }
 
-void Stage2_Level::Tick(float _DeltaTime)
+void UStage2_Level::Tick(float _DeltaTime)
 {
 
 }
