@@ -40,6 +40,7 @@ enum class ERenderOrder
 	TitleMap,
 	Log,
 	Stage1_Map,
+	Stage2_Map,
 	Monster,
 	HPBar,
 	HPgauge,
