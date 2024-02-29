@@ -56,7 +56,7 @@ private:
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
 
-	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
+	FVector StartDir = FVector::Right; // 몬스터 초반 이동 방향
 
 	FVector IceMove = FVector::Zero; // 얼음 이동 
 	FVector DiePos = FVector::Zero; // 죽음 이동
