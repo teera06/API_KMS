@@ -94,7 +94,7 @@ void AMonster_Fire::BaseMove(float _DeltaTime)
 			WallX = -20;
 		}
 		else if (StartDir.iX() == 1 && IsIce == false) { // 오른쪽 방향에 얼지 않은 상태
-			MonsterRenderer->ChangeAnimation("Move_Right");
+			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = 20;
 		}
 
@@ -266,7 +266,7 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 			WallX = -20;
 		}
 		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
-			MonsterRenderer->ChangeAnimation("Move_Right");
+			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = 20;
 		}
 	}
