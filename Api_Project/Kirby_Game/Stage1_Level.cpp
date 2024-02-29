@@ -2,7 +2,7 @@
 
 // Actor
 #include "Stage1_MAP.h" 
-#include "Kirby_Player.h" 
+
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
@@ -70,7 +70,7 @@ void UStage1_Level::BeginPlay()
 	//NewPath.Move("sound"); // 폴더 이동
 
 	std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
-		// 엔진만의 규칙을 정할거냐.
+	// 엔진만의 규칙을 정할거냐.
 	for (UEngineFile& File : testList)
 	{
 		UEngineSound::Load(File.GetFullPath());
@@ -92,13 +92,23 @@ void UStage1_Level::BeginPlay()
 	Map->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
-	SpawnActor<AKirby_Player>()->SetActorLocation({ 500,1000 });
-	SpawnActor<AKirby_HpBar>();
+	NewPlayer=SpawnActor<AKirby_Player>();
+	NewPlayer->SetActorLocation({ 500,1000 });
+	
+	NewHpBar=SpawnActor<AKirby_HpBar>();
 
 	// 몬스터 Actor 생성
-	SpawnActor<AMonster_Base>()->SetActorLocation({ 800,700 });
-	SpawnActor<AMonster_Base>()->SetActorLocation({ 1400,700 });
-	SpawnActor<AMonster_Base>()->SetActorLocation({ 1900,600 });
+	for (int i = 0; i < 4; i++)
+	{
+		NewBase = SpawnActor<AMonster_Base>();
+		NewBase->SetActorLocation({800+i*800,700 });
+
+		NewBaseMonster.push_back(NewBase);
+	}
+	
+
+	//SpawnActor<AMonster_Base>()
+		//->SetActorLocation({ 1900,600 });
 
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1100,800 });
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1700,800 });
@@ -111,5 +121,16 @@ void UStage1_Level::BeginPlay()
 void UStage1_Level::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
+}
+
+void UStage1_Level::LevelStart(ULevel* _PrevLevel)
+{
+
+	ULevel::LevelStart(_PrevLevel);
+	
+}
+
+void UStage1_Level::LevelEnd(ULevel* _NextLevel)
+{
 }
 

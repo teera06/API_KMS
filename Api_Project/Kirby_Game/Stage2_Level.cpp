@@ -55,3 +55,13 @@ void UStage2_Level::Tick(float _DeltaTime)
 {
 
 }
+
+void UStage2_Level::LevelStart(ULevel* _PrevLevel)
+{
+
+}
+
+void UStage2_Level::LevelEnd(ULevel* _NextLevel)
+{
+
+}

@@ -2,6 +2,12 @@
 #include <EngineCore\Level.h> // »ó¼Ó
 #include <EnginePlatform\EngineSound.h>
 
+class AKirby_Player;
+class AKirby_HpBar;
+class AMonster_Base;
+class Apengi_Ice;
+class AMonster_Fire;
+
 class UStage1_Level:public ULevel
 {
 public:
@@ -18,8 +24,20 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	
+	void LevelStart(ULevel* _PrevLevel)override;
+	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	UEngineSoundPlayer BGMPlayer;
+	AKirby_Player* NewPlayer = nullptr;
+	AKirby_HpBar* NewHpBar = nullptr;
+	
+	std::vector<AMonster_Base*> NewBaseMonster;
+	AMonster_Base* NewBase = nullptr;
+
+	std::vector<Apengi_Ice*> NewIceMonster;
+	Apengi_Ice* NewIce = nullptr;
+
+	std::vector<AMonster_Fire*> NewFireMonster;
+	AMonster_Fire* NewFire = nullptr;
 };
 
