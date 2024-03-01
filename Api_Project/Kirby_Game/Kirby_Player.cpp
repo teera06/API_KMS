@@ -778,11 +778,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		if (DirState == EActorDir::Left)
 		{
 			FireRenderer->ChangeAnimation("Fire_Left");
-			FireRenderer->SetTransform({ { -140,-5 }, { 64*6,64*3 } });
+			FireRenderer->SetTransform({ { -140, 5}, { 64*6,64*4 } });
 		}
 		else {
 			FireRenderer->ChangeAnimation("Fire_RIght");
-			FireRenderer->SetTransform({ { 140,-5 }, { 64*6,64*3}});
+			FireRenderer->SetTransform({ { 140,5}, { 64*6,64*4}});
 		}
 		StateAniChange(EActorState::FireReady);
 		return;
