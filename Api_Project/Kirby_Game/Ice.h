@@ -17,7 +17,7 @@ public:
 	AIce& operator=(const AIce& _Other) = delete; // 디폴트 대입 연산자
 	AIce& operator=(AIce&& _Other) noexcept = delete;
 
-	void SetOwner(EIceOwner _Owner) // 커비 모드 체인지 할때 사용
+	void SetOwner(EIceOwner _Owner) // 커비, 몬스터 사용자가 누군이지 확인
 	{
 		Owner = _Owner;
 	}

@@ -309,6 +309,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 			}
 		}
 		else {
+			AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 			AddActorLocation(IceMove);
 		}
 	}
