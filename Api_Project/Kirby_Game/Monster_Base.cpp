@@ -2,6 +2,7 @@
 #include "ModeEnum.h"
 
 #include "pengi_Ice.h"
+#include "Monster_Fire.h"
 
 AMonster_Base::AMonster_Base()
 {
@@ -117,6 +118,27 @@ void AMonster_Base::IceToMonster(float _DeltaTime)
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+		// 방어코드
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
+		Destroy();
+	}
+	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
 
 		// 방어코드
 
