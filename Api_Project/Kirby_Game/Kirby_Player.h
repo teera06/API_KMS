@@ -59,8 +59,8 @@ public:
 	}
 
 	// 커비의 판단으로 나머지 플레이 레벨 만들자
-	bool CreateStage2 = false;
-	bool CreateStage3 = false;
+	static bool CreateStage2;
+	static bool CreateStage3;
 	bool BossStage = false;
 
 	static int StageCheck;

@@ -26,7 +26,6 @@ void UGame_Core::BeginPlay()
 	// EngineCore에서 std::map<std::string, ULevel*> AllLevel; map으로 관리
 	CreateLevel<UTitleLevel>("TitleLevel"); // 타이틀 Level 생성
 	CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level 생성
-	
 	ChangeLevel("Stage1_Level"); // 레벨 변경
 }
 

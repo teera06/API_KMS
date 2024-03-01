@@ -19,6 +19,8 @@ AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 int AKirby_Player::Hp = 100;
 int AKirby_Player::StageCheck = 1;
+bool AKirby_Player::CreateStage2=false;
+bool AKirby_Player::CreateStage3 = false;
 
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
