@@ -31,10 +31,10 @@ private:
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 
-	AMonster_Base* NewBase[4] = {};
-	AMonster_Fire* NewFire[4] = {};
-
 	const int Basesize = 4;
 	const int Firesize = 4;
+
+	AMonster_Base* NewBase[4] = {};
+	AMonster_Fire* NewFire[4] = {};
 };
 

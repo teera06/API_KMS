@@ -81,43 +81,6 @@ void UStage1_Level::BeginPlay()
 	//BGMPlayer.Loop();
 	// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
 	// BGMPlayer.Off();
-	
-
-	SetCameraPos({ 0,400 }); // 카메라 위치 설정
-
-	// 맵 생성
-	NewMap = SpawnActor<AStage1_MAP>();
-	NewMap->SetMapImage("stage1_map.png");
-	//Map->SetMapImage("stage2_map.png");
-	NewMap->SetColMapImage("cor_map.png");
-	NewMap->SwitchDebug();
-
-	// 커비와 커비 상태창 Actor 생성
-	NewPlayer=SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,1000 });
-	
-	NewHpBar=SpawnActor<AKirby_HpBar>();
-
-	// 몬스터 Actor 생성
-	
-	for (int i = 0; i < Basesize; i++)
-	{
-		NewBase[i] = SpawnActor<AMonster_Base>();
-		NewBase[i]->SetActorLocation({800 + i * 800,700});
-
-	}
-	
-	for (int i = 0; i < Icesize; i++)
-	{
-		NewIce[i] = SpawnActor<Apengi_Ice>();
-		NewIce[i]->SetActorLocation({1100 + i * 800,800});
-	}
-
-	for (int i = 0; i < Firesize; i++)
-	{
-		NewFire[i] = SpawnActor<AMonster_Fire>();
-		NewFire[i]->SetActorLocation({1000 + i * 1000,600 + i * -150});
-	}
 }
 
 void UStage1_Level::Tick(float _DeltaTime)
@@ -129,6 +92,41 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 {
 
 	ULevel::LevelStart(_PrevLevel);
+	SetCameraPos({ 0,400 }); // 카메라 위치 설정
+
+	// 맵 생성
+	NewMap = SpawnActor<AStage1_MAP>();
+	NewMap->SetMapImage("stage1_map.png");
+	//Map->SetMapImage("stage2_map.png");
+	NewMap->SetColMapImage("cor_map.png");
+	NewMap->SwitchDebug();
+
+	// 커비와 커비 상태창 Actor 생성
+	NewPlayer = SpawnActor<AKirby_Player>();
+	NewPlayer->SetActorLocation({ 500,1000 });
+
+	NewHpBar = SpawnActor<AKirby_HpBar>();
+
+	// 몬스터 Actor 생성
+
+	for (int i = 0; i < Basesize; i++)
+	{
+		NewBase[i] = SpawnActor<AMonster_Base>();
+		NewBase[i]->SetActorLocation({ 800 + i * 800,700 });
+
+	}
+
+	for (int i = 0; i < Icesize; i++)
+	{
+		NewIce[i] = SpawnActor<Apengi_Ice>();
+		NewIce[i]->SetActorLocation({ 1100 + i * 800,800 });
+	}
+
+	for (int i = 0; i < Firesize; i++)
+	{
+		NewFire[i] = SpawnActor<AMonster_Fire>();
+		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 + i * -150 });
+	}
 	
 }
 

@@ -40,7 +40,16 @@ void UStage2_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
+}
 
+void UStage2_Level::Tick(float _DeltaTime)
+{
+
+}
+
+void UStage2_Level::LevelStart(ULevel* _PrevLevel)
+{
+	ULevel::LevelStart(_PrevLevel);
 	SetCameraPos({ 0,550 }); // 카메라 위치 설정
 
 	// 맵 생성
@@ -51,12 +60,12 @@ void UStage2_Level::BeginPlay()
 	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
-	NewPlayer=SpawnActor<AKirby_Player>();
+	NewPlayer = SpawnActor<AKirby_Player>();
 	NewPlayer->SetActorLocation({ 500,1200 });
 
-	NewHpBar=SpawnActor<AKirby_HpBar>();
+	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	for (int i = 0; i <2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		NewBase[i] = SpawnActor<AMonster_Base>();
 		NewBase[i]->SetActorLocation({ 800 + i * 1000,1000 });
@@ -67,26 +76,48 @@ void UStage2_Level::BeginPlay()
 
 	NewBase[3] = SpawnActor<AMonster_Base>();
 	NewBase[3]->SetActorLocation({ 5000,1000 });
-	
+
 
 	for (int i = 0; i < Firesize; i++)
 	{
 		NewFire[i] = SpawnActor<AMonster_Fire>();
-		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600});
+		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 });
 	}
-}
-
-void UStage2_Level::Tick(float _DeltaTime)
-{
-
-}
-
-void UStage2_Level::LevelStart(ULevel* _PrevLevel)
-{
-
 }
 
 void UStage2_Level::LevelEnd(ULevel* _NextLevel)
 {
+	ULevel::LevelEnd(_NextLevel);
 
+	if (NewHpBar != nullptr)
+	{
+		NewHpBar->Destroy();
+	}
+
+	for (int i = 0; i < Basesize; i++)
+	{
+		if (NewBase[i] != nullptr)
+		{
+			NewBase[i]->Destroy();
+		}
+
+	}
+
+	for (int i = 0; i < Firesize; i++)
+	{
+		if (NewFire[i] != nullptr)
+		{
+			NewFire[i]->Destroy();
+		}
+	}
+
+	if (NewMap != nullptr)
+	{
+		NewMap->Destroy();
+	}
+
+	if (NewPlayer != nullptr)
+	{
+		NewPlayer->Destroy();
+	}
 }
