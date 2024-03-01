@@ -34,13 +34,14 @@ private:
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 	
+	const int Basesize = 4;
+	const int Icesize = 3;
+	const int Firesize = 3;
+
 	AMonster_Base* NewBase[4] = {};
 	Apengi_Ice* NewIce[3] = {};
 	AMonster_Fire* NewFire[3] = {};
 
-	const int Basesize = 4;
-	const int Icesize = 3;
-	const int Firesize=3;
 
 };
 
