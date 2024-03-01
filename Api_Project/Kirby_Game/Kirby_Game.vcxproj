@@ -39,10 +39,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Fire.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Game_Core.cpp">
       <SubType>
       </SubType>
@@ -107,10 +103,6 @@
     </ClInclude>
     <ClInclude Include="AllStar.h" />
     <ClInclude Include="Base.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Fire.h">
       <SubType>
       </SubType>
     </ClInclude>

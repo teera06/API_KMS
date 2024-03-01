@@ -4,7 +4,6 @@
 #include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
 
 #include "AllStar.h"
-#include "Fire.h"
 #include "Base.h"
 #include "Ice.h"
 
@@ -193,8 +192,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_Idle_Left", "Fire_Left.png", 0,6, 0.2f, true); // 왼쪽 서있기
 
 	// 파이어 걷는 모션
-	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", 32,50, 0.045f, true); // 걷기
-	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", 32,50, 0.045f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Fire_Walk_Right", "Fire_Right.png", 32,50, 0.03f, true); // 걷기
+	KirbyRenderer->CreateAnimation("Fire_Walk_Left", "Fire_Left.png", 32,50, 0.03f, true); // 걷기
 
 	// 파이어 뛰는 모션
 	KirbyRenderer->CreateAnimation("Fire_run_Right", "Fire_Right.png", 53, 59, 0.08f, true);
@@ -618,10 +617,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	// 테스트 모드
-
-
-
-	
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::BlueA);
 	
 	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)
@@ -781,19 +776,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
 		SkillOn = true;
-		FireRenderer->SetActive(true, 0.4f);
-		FireCollision->SetActive(true, 0.6f);
-		if (DirState == EActorDir::Left)
-		{
-			FireRenderer->ChangeAnimation("Fire_Left");
-			FireRenderer->SetTransform({ { -140, 5}, { 64*6,64*4 } });
-			FireCollision->SetTransform({ {-140,-5},{100,70} });
-		}
-		else {
-			FireRenderer->ChangeAnimation("Fire_RIght");
-			FireRenderer->SetTransform({ { 140,5}, { 64*6,64*4}});
-			FireCollision->SetTransform({ {140,-5},{100,70} });
-		}
 		StateAniChange(EActorState::FireReady);
 		return;
 	}
@@ -1280,8 +1262,27 @@ void AKirby_Player::FireReady(float _DeltaTime)
 {
 	DirCheck();
 
+	if (true == UEngineInput::IsUp('X'))
+	{
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
 	if (true == KirbyRenderer->IsCurAnimationEnd()) //  해당 애니메이션 종료 후
 	{
+		FireRenderer->ActiveOn();
+		FireCollision->ActiveOn();
+		if (DirState == EActorDir::Left)
+		{
+			FireRenderer->ChangeAnimation("Fire_Left");
+			FireRenderer->SetTransform({ { -140, 5}, { 64 * 6,64 * 4 } });
+			FireCollision->SetTransform({ {-140,-5},{100,70} });
+		}
+		else {
+			FireRenderer->ChangeAnimation("Fire_RIght");
+			FireRenderer->SetTransform({ { 140,5}, { 64 * 6,64 * 4} });
+			FireCollision->SetTransform({ {140,-5},{100,70} });
+		}
 		StateAniChange(EActorState::FireAttack); // 날기로 전환
 		return;
 	}
@@ -1341,6 +1342,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 		//StateAniChange(EActorState::Idle);
 		//return;
 	//}
+
 	Collisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
