@@ -83,7 +83,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	{
 		FireRenderer= CreateImageRenderer(ERenderOrder::Fire);
 		FireRenderer->SetImage("Fire_Right.png"); // 이미지 Set//
-		//effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
 		FireRenderer->ActiveOff();
 	}
 
@@ -98,6 +97,12 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby); 
 		KirbyCollision->SetScale({ 60, 60 });
 		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
+	}
+
+	{
+		FireCollision= CreateCollision(ECollisionOrder::FireAttack);
+		FireCollision->SetColType(ECollisionType::Rect);
+		FireCollision->ActiveOff();
 	}
 
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
@@ -775,14 +780,17 @@ void AKirby_Player::Idle(float _DeltaTime)
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
 		SkillOn = true;
 		FireRenderer->SetActive(true, 0.4f);
+		FireCollision->SetActive(true, 0.6f);
 		if (DirState == EActorDir::Left)
 		{
 			FireRenderer->ChangeAnimation("Fire_Left");
 			FireRenderer->SetTransform({ { -140, 5}, { 64*6,64*4 } });
+			FireCollision->SetTransform({ {-140,-5},{100,70} });
 		}
 		else {
 			FireRenderer->ChangeAnimation("Fire_RIght");
 			FireRenderer->SetTransform({ { 140,5}, { 64*6,64*4}});
+			FireCollision->SetTransform({ {140,-5},{100,70} });
 		}
 		StateAniChange(EActorState::FireReady);
 		return;
@@ -1292,6 +1300,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		FireRenderer->ActiveOff();
+		FireCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
