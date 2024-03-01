@@ -785,7 +785,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base)
 		)
 	{
-		SkillOn = true;
 		StateAniChange(EActorState::All_Attack);
 		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
 		NewStar->SetActorLocation(this->GetActorLocation());
@@ -1264,6 +1263,7 @@ void AKirby_Player::FireReady(float _DeltaTime)
 
 	if (true == UEngineInput::IsUp('X'))
 	{
+		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -1353,7 +1353,6 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 		return;
 	}
 
-	MoveUpdate(_DeltaTime);
 }
 
 void AKirby_Player::IceKirby(float _DeltaTime)
