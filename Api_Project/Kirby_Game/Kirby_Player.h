@@ -104,8 +104,10 @@ protected:
 	void HeadDownStart(); // 숙이기
 
 	// 공격 모션
+
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void FireReady(float _DeltaTime);
+	void Collisiongather(float _DeltaTime);
 
 	void AllAttackStart(); // 별 뱉기 공격
 	void IceAttackStart(); // 아이스 공격

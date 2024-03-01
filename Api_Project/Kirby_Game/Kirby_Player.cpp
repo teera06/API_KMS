@@ -624,7 +624,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::BlueA);
 	
-	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
 		if (false == CreateStage2)
@@ -1287,6 +1287,50 @@ void AKirby_Player::FireReady(float _DeltaTime)
 	}
 }
 
+void AKirby_Player::Collisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == FireCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
+	else if (true == FireCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
+	else if (true == FireCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
+}
+
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
@@ -1297,7 +1341,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 		//StateAniChange(EActorState::Idle);
 		//return;
 	//}
-
+	Collisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
