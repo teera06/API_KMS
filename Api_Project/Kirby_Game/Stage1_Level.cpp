@@ -134,42 +134,44 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
-	if (NewHpBar != nullptr)
+	if (false==NewHpBar->IsDestroy())
 	{
 		NewHpBar->Destroy();
 	}
 
-	for (int i = 0; i < Basesize; i++)
+	for (int i =0; i <Basesize; i++)
 	{
-		if (NewBase[i] != nullptr)
+		if (false==NewBase[i]->IsDestroy())
 		{
 			NewBase[i]->Destroy();
+			NewBase[i] = nullptr;
 		}
-
 	}
 
 	for (int i = 0; i < Icesize; i++)
 	{
-		if (NewIce[i] != nullptr)
+		if (false==NewIce[i]->IsDestroy())
 		{
 			NewIce[i]->Destroy();
+			NewIce[i]=nullptr;
 		}
 	}
 
 	for (int i = 0; i < Firesize; i++)
 	{
-		if (NewFire[i] != nullptr)
+		if (false==NewFire[i]->IsDestroy())
 		{
 			NewFire[i]->Destroy();
+			NewFire[i] = nullptr;
 		}
 	}
 	
-	if (NewMap != nullptr)
+	if (false==NewMap->IsDestroy())
 	{
 		NewMap->Destroy();
 	}
 
-	if (NewPlayer != nullptr)
+	if (false==NewPlayer->IsDestroy())
 	{
 		NewPlayer->Destroy();
 	}

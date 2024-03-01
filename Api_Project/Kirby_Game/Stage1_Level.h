@@ -38,9 +38,9 @@ private:
 	const int Icesize = 3;
 	const int Firesize = 3;
 
-	AMonster_Base* NewBase[4] = {};
-	Apengi_Ice* NewIce[3] = {};
-	AMonster_Fire* NewFire[3] = {};
+	AMonster_Base* NewBase[5] = { nullptr,nullptr,nullptr,nullptr };
+	Apengi_Ice* NewIce[4] = { nullptr,nullptr,nullptr};
+	AMonster_Fire* NewFire[4] = { nullptr,nullptr,nullptr};
 
 
 };
