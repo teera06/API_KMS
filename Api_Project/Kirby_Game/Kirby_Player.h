@@ -77,6 +77,7 @@ protected:
 	void Idle(float _DeltaTime); // 서있기
 	void Walk(float _DeltaTime); // 걷기
 	void Run(float _DeltaTime); // 달리기
+	void Stop(float _DeltaTime);
 	void Jump(float _DeltaTime); // 점프
 	void FlyReady(float _DeltaTime); // 날기 전 준비상태
 	void Fly(float _DeltaTime); // 날기
@@ -100,6 +101,7 @@ protected:
 	void FlyStart(); // 날기
 	void FlyFallStart(); // 날다가 떨어질 때
 	void RunStart(); // 달리기
+	void StopStart();
 	void AbsorptionStart(); // 흡수 
 	void HeadDownStart(); // 숙이기
 
@@ -161,6 +163,7 @@ private:
 	bool SkillOn = false; // 스킬 사용 중인 상태
 	bool transform = false;
 	bool RunState = false;
+	EActorDir RunRL = EActorDir::None;
 
 	static int Hp;
 

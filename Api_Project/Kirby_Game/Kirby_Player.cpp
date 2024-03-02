@@ -138,6 +138,8 @@ void AKirby_Player::AniCreate()
 	// 기본 뛰는 모션(완)
 	KirbyRenderer->CreateAnimation("Base_run_Right", "kirby_Right.png", 20, 27, 0.04f, true);
 	KirbyRenderer->CreateAnimation("Base_run_Left", "kirby_Left.png", 20, 27, 0.04f, true);
+	KirbyRenderer->CreateAnimation("Base_Stop_Right", "kirby_Left.png", 28, 28, 0.1f, true);
+	KirbyRenderer->CreateAnimation("Base_Stop_Left", "kirby_Right.png", 28, 28, 0.1f, true);
 
 	// 기본 점프 모션(완)
 	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 51, 0.06f, true);
@@ -493,6 +495,13 @@ void AKirby_Player::StateAniChange(EActorState _State)
 				RunStart();
 			}
 			break;
+		case EActorState::Stop:
+			if (true == EatState && KirbyMode == EAMode::Base)
+			{
+				return;
+			}// 동일
+			StopStart();
+			break;
 		case EActorState::Jump:
 			if (true == EatState && KirbyMode == EAMode::Base) // 동일
 			{
@@ -559,6 +568,13 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			break;
 		case EActorState::Run: // 걷기
 			Run(_DeltaTime);
+			break;
+		case EActorState::Stop: // 걷기
+			if (true == EatState && KirbyMode == EAMode::Base)
+			{
+				return;
+			}// 동일
+			Stop(_DeltaTime);
 			break;
 		case EActorState::Jump: // 점프
 			Jump(_DeltaTime);
@@ -1059,10 +1075,13 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 void AKirby_Player::Run(float _DeltaTime)
 {
-	DirCheck();
 	
 
-	
+	RunRL = DirState;
+
+	DirCheck();
+
+
 	if (UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		RunState = false;
@@ -1070,7 +1089,10 @@ void AKirby_Player::Run(float _DeltaTime)
 		return;
 	}
 
+	
 	FVector MovePos = FVector::Zero;
+
+	
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
@@ -1081,9 +1103,25 @@ void AKirby_Player::Run(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
+	if (RunRL != DirState)
+	{
+		MovePos = FVector::Zero;
+		StateAniChange(EActorState::Stop);
+		return;
+	}
+
 	MoveUpdate(_DeltaTime, MovePos);
 
 	CamYMove();
+}
+
+void AKirby_Player::Stop(float _DeltaTime)
+{
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		StateAniChange(EActorState::Run);
+		return;
+	}
 }
 
 void AKirby_Player::Absorption(float _DeltaTime)
@@ -1197,6 +1235,12 @@ void AKirby_Player::RunStart()
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Run"));
 	
+}
+
+void AKirby_Player::StopStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Stop"));
 }
 
 void AKirby_Player::AbsorptionStart()

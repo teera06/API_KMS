@@ -17,6 +17,7 @@ enum class EActorState
 	Idle,
 	Walk,
 	Run,
+	Stop,
 	Jump,
 	FlyReady,
 	Fly,
@@ -32,6 +33,7 @@ enum class EActorState
 
 enum class EActorDir
 {
+	None,
 	Left,
 	Right,
 };
