@@ -701,19 +701,23 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDoubleClick(VK_RIGHT,0.3f)
 		)
 	{
+		RunState = true;
 		StateAniChange(EActorState::Run);
 		return;
 	}
 
-	if (
-		true == UEngineInput::IsPress(VK_LEFT) ||
-		true == UEngineInput::IsPress(VK_RIGHT)
-		)
+	if (false == RunState)
 	{
-		StateAniChange(EActorState::Walk);
-		return;
+		if (
+			true == UEngineInput::IsPress(VK_LEFT) ||
+			true == UEngineInput::IsPress(VK_RIGHT)
+			)
+		{
+			StateAniChange(EActorState::Walk);
+			return;
+		}
 	}
-
+	
 	// มกวม
 	if (
 		true == UEngineInput::IsDown('S') 
@@ -1061,6 +1065,7 @@ void AKirby_Player::Run(float _DeltaTime)
 	
 	if (UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
+		RunState = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
