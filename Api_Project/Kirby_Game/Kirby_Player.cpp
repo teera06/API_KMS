@@ -881,7 +881,15 @@ void AKirby_Player::Jump(float _DeltaTime)
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
 		JumpVector = FVector::Zero; // 점프력 힘은 0
-		StateAniChange(EActorState::Idle); // Idle 변화
+
+		if (true == RunState)
+		{
+			StateAniChange(EActorState::Run); // Idle 변화
+		}
+		else {
+			StateAniChange(EActorState::Idle); // Idle 변화
+		}
+		
 		return;
 	}
 }
@@ -909,6 +917,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (UEngineInput::IsDown('X'))
 	{
 		FlyState = false;
+		RunState = false;
 		StateAniChange(EActorState::Flyfall);
 		return;
 	}
@@ -940,6 +949,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	if (ColorM == Color8Bit(255, 0, 255, 0) )
 	{
 		FlyState = false;
+		RunState = false;
 		StateAniChange(EActorState::Flyfall);
 	    return;
 	}
@@ -950,6 +960,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	{
 
 		FlyState = false;
+		RunState = false;
 		StateAniChange(EActorState::Flyfall);
 		return;
 	}
@@ -980,6 +991,7 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		JumpVector = FVector::Zero;
+		RunState = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -1031,6 +1043,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		hitState = false;
+		RunState = false;
 		KirbyRenderer->SetAlpha(1.0f);
 		KirbyCollision->SetActive(true, 0.1f);
 		
@@ -1111,6 +1124,13 @@ void AKirby_Player::Run(float _DeltaTime)
 	{
 		MovePos = FVector::Zero;
 		StateAniChange(EActorState::Stop);
+		return;
+	}
+
+	if (true == UEngineInput::IsDown('S'))
+	{
+		JumpVector = JumpPowerMove;
+		StateAniChange(EActorState::Jump);
 		return;
 	}
 
