@@ -180,6 +180,7 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 		}
 		else {// 일반적인 플레이와의 충돌
 			Player->Sethitstate(true); // 플레이어 충돌 체크
+			Player->SetHitDir(MonsterDirNormal * FVector::Right);
 			Player->GetKirbyRender()->SetAlpha(0.5f);
 			Player->GetKirbyCollision()->ActiveOff();
 			Player->AddHP(-20);

@@ -1019,15 +1019,8 @@ void AKirby_Player::hit(float _DeltaTime)
 	FVector Move = FVector::Zero;
 	JumpVector = FVector::Zero; // 점프 도중에 충돌할 경우 -> 점프력 0
 
-	// 몬스터와 반대 방향으로 이동해야하기 위해
-	if (DirState == EActorDir::Left) // 왼쪽일 때는 
-	{
-		Move = FVector::Right * 60.0f * _DeltaTime; // 오른쪽
-	}
-	else { // 오른쪽일 때는
-		Move = FVector::Left * 60.0f * _DeltaTime; // 왼쪽
-	}
-
+	
+	Move = HitDir * 60.0f * _DeltaTime; // 오른쪽
 	
 	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::GreenA);
 	//Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);

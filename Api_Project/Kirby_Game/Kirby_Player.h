@@ -33,6 +33,10 @@ public:
 		return KirbyCollision;
 	}
 
+	void SetHitDir(const FVector& _HitDir)
+	{
+		HitDir = _HitDir;
+	}
 
 	void HitStart(); // 몬스터와 충돌시 시작
 	void IcehitStart();
@@ -183,6 +187,7 @@ private:
 
 	FVector CurY = FVector::Zero; // Camera Y Move
 
+	FVector HitDir = FVector::Zero;
 
 	static AKirby_Player* MainPlayer;
 	
