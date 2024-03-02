@@ -697,6 +697,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// °È±â
 	if (
+		true == UEngineInput::IsDoubleClick(VK_LEFT,0.3f) ||
+		true == UEngineInput::IsDoubleClick(VK_RIGHT,0.3f)
+		)
+	{
+		StateAniChange(EActorState::Run);
+		return;
+	}
+
+	if (
 		true == UEngineInput::IsPress(VK_LEFT) ||
 		true == UEngineInput::IsPress(VK_RIGHT)
 		)
@@ -1030,11 +1039,6 @@ void AKirby_Player::Walk(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime*checkSpeed;
 	}
 
-	if (UEngineInput::IsPress(VK_SHIFT))
-	{
-		StateAniChange(EActorState::Run);
-		return;
-	}
 
 	if (true == UEngineInput::IsDown('S'))
 	{
@@ -1054,24 +1058,20 @@ void AKirby_Player::Run(float _DeltaTime)
 	DirCheck();
 	
 
-	if (UEngineInput::IsFree(VK_SHIFT))
-	{
-		StateAniChange(EActorState::Walk);
-		return;
-	}
-	else if (UEngineInput::IsPress(VK_SHIFT) && UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
+	
+	if (UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		StateAniChange(EActorState::Idle);
 		return;
 	}
 
 	FVector MovePos = FVector::Zero;
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SHIFT))
+	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SHIFT))
+	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
