@@ -7,7 +7,7 @@ enum class EAMode
 	Ice,
 	Fire,
 	Mike,
-	Sword,
+	Sir,
 	Hammer,
 };
 
@@ -61,6 +61,7 @@ enum class ECollisionOrder
 	Monster,
 	iceMonster,
 	FireMonster,
+	SirMonster,
 	IceAttack,
 	FireAttack,
 	AllStar,

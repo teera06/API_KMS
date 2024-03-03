@@ -1316,7 +1316,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 		break;
 	case EAMode::Mike:
 		break;
-	case EAMode::Sword:
+	case EAMode::Sir:
 		break;
 	case EAMode::Hammer:
 		break;
