@@ -136,6 +136,7 @@ void AMonster_Fire::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Flamer_Right.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("die_Left", "Flamer_Left.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
+	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)
@@ -159,7 +160,8 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -180,7 +182,8 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -201,7 +204,8 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 }
 
@@ -308,7 +312,8 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 		if (true == IsIce)
 		{
 			IceMove = FVector::Zero;
-			Destroy();
+			MonsterRenderer->ChangeAnimation("Effect");
+			IsDie = true;
 		}
 	}
 

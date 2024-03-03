@@ -67,6 +67,7 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // Á×À½ 
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // Á×À½ 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // ¾óÀ½
+	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 }
 
 void Apengi_Ice::IceToMonster(float _DeltaTime)
@@ -91,7 +92,8 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -112,7 +114,8 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -133,7 +136,8 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 }
 
@@ -206,7 +210,8 @@ void Apengi_Ice::CalResult(float _DeltaTime)
 		if (true == IsIce)
 		{
 			IceMove = FVector::Zero;
-			Destroy();
+			MonsterRenderer->ChangeAnimation("Effect");
+			IsDie = true;
 		}
 
 		MovePos = FVector::Zero;
