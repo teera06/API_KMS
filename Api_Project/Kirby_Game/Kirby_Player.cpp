@@ -277,7 +277,7 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 
 	// Sir 커비
-	if (StageCheck==2)
+	if (StageCheck>=2)
 	{
 		// 파이어 흡수 -> 기본에서 아이스 중간 이미지 
 		KirbyRenderer->CreateAnimation("Sir_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
@@ -318,7 +318,44 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Sir_SirAttack_Right", "Sir_Right.png", 88,92, 0.05f, true);
 	}
 	
+	if (StageCheck >= 3) 
+	{
+		// 기본 서있는 모션(완)
+		KirbyRenderer->CreateAnimation("Mike_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Mike_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
 
+		// 기본 걷는 모션(완)
+		KirbyRenderer->CreateAnimation("Mike_Walk_Right", "kirby_Right.png", 10, 19, 0.07f, true); // 걷기
+		KirbyRenderer->CreateAnimation("Mike_Walk_Left", "kirby_Left.png", 10, 19, 0.07f, true); // 걷기
+
+		// 기본 뛰는 모션(완)
+		KirbyRenderer->CreateAnimation("Mike_run_Right", "kirby_Right.png", 20, 27, 0.04f, true);
+		KirbyRenderer->CreateAnimation("Mike_run_Left", "kirby_Left.png", 20, 27, 0.04f, true);
+		KirbyRenderer->CreateAnimation("Mike_Stop_Right", "kirby_Left.png", 28, 28, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_Stop_Left", "kirby_Right.png", 28, 28, 0.1f, true);
+
+		// 기본 점프 모션(완)
+		KirbyRenderer->CreateAnimation("Mike_Jump_Right", "kirby_Right.png", 38, 51, 0.06f, true);
+		KirbyRenderer->CreateAnimation("Mike_Jump_Left", "kirby_Left.png", 38, 51, 0.06f, true);
+
+		// 기본 나는 모션
+		KirbyRenderer->CreateAnimation("Mike_FlyReady_Right", "kirby_Right.png", 53, 57, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Mike_FlyReady_Left", "kirby_Left.png", 53, 57, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Mike_Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_Fly_Left", "kirby_Left.png", 58, 65, 0.1f, true);
+
+		// 기본 떨어지는 모션
+		KirbyRenderer->CreateAnimation("Mike_fall_Right", "kirby_Right.png", { 66,67,35,36,37 }, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Mike_fall_Left", "kirby_Left.png", { 66,67,35,36,37 }, 0.1f, false);
+
+		// 기본 숙이기 
+		KirbyRenderer->CreateAnimation("Mike_HeadDown_Right", "kirby_Right.png", 2, 3, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Mike_HeadDown_Left", "kirby_Left.png", 2, 3, 0.5f, true);
+
+		// 충돌 애니메이션
+		KirbyRenderer->CreateAnimation("Mike_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
+		KirbyRenderer->CreateAnimation("Mike_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
+	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
