@@ -266,13 +266,11 @@ void ASir::Collisiongather(float _DeltaTime)
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 		{
-			Destroy();
-		}
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
 
-		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
-
-		if (ColorR == Color8Bit(255, 0, 0, 0))
-		{
+			Monster->SetSirUse(false);
 			Destroy();
 		}
 	}

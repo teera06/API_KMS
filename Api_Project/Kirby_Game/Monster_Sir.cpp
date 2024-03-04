@@ -80,8 +80,14 @@ void AMonster_Sir::MoveUpdate(float _DeltaTime)
 	if (true == IsAtt && skillcooldowntime < 0.0f && false == GetBaseOnOff() && false == IsIce)
 	{
 		SirAtt();
+		SirUse = true;
 	}
 	else {
+
+		if (true == SirUse)
+		{
+			return;
+		}
 		CalDir();
 		Collisiongather(_DeltaTime);
 		CalResult(_DeltaTime);

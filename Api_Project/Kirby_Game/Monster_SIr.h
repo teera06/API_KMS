@@ -43,6 +43,11 @@ public:
 	{
 		DiePos = _DiePos;
 	}
+
+	void SetSirUse(const bool& _SirUse)
+	{
+		SirUse = _SirUse;
+	}
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -73,6 +78,7 @@ private:
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
 	bool IsAtt = false;
+	bool SirUse = false;
 	bool checkLocation = false; // 현재 위치 체크
 
 
