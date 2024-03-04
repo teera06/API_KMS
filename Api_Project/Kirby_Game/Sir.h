@@ -40,9 +40,12 @@ private:
 
 	FVector StartPos = FVector::Zero;
 	FVector StartDir = FVector::Right;
+	FVector DelX = FVector::Zero;
+	
 	float RangeX = 450.0f; // 이동 단위
 
 	bool skillOn = false;
+	bool LRCheck = false; // false::Left, true=right
 	void AniCreate(); // 애니메이션 관리
 
 	void CalDir();

@@ -76,6 +76,8 @@ void ASir::SkillDir(float _DeltaTime)
 			skillOn = true;
 			StartDir = FVector::Left;
 		}
+		LRCheck = true;
+		DelX = FVector::Right*MainPlayer->GetActorLocation();
 		SirRenderer->ChangeAnimation("Sir_Right");
 	}
 	else
@@ -85,6 +87,8 @@ void ASir::SkillDir(float _DeltaTime)
 			skillOn = true;
 			StartDir = FVector::Right;
 		}
+		LRCheck = false;
+		DelX = FVector::Right * MainPlayer->GetActorLocation();
 		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 
@@ -215,6 +219,20 @@ void ASir::Collisiongather(float _DeltaTime)
 		}
 		
 		
+		
+		FVector XL = DelX + FVector::Left * 250.0f; // 몬스터 왼쪽 플레이어 인식 시야 X축
+		FVector XR = DelX + FVector::Right * 250.0f; // 몬스터 오른쪽 플레이어 인식 시야 X축
+
+		if (true==LRCheck && XR.iX()<GetActorLocation().iX()) 
+		{
+			MainPlayer->SetSirUse(false); 
+			Destroy();
+		}
+		else if (false==LRCheck &&  XL.iX()>GetActorLocation().iX())
+		{
+			MainPlayer->SetSirUse(false);
+			Destroy();
+		}
 		
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{

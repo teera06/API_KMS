@@ -220,8 +220,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("FIre_HeadDown_Left", "Fire_Left.png", 8, 9, 0.5f, true);
 
 	// 파이어 숙이기 
-	KirbyRenderer->CreateAnimation("Fire_FireReady_Right", "Fire_Right.png", 122, 128, 0.08f, true);
-	KirbyRenderer->CreateAnimation("FIre_FireReady_Left", "Fire_Left.png", 122, 128, 0.08f, true);
+	KirbyRenderer->CreateAnimation("Fire_FireReady_Right", "Fire_Right.png", 122, 128, 0.05f, true);
+	KirbyRenderer->CreateAnimation("FIre_FireReady_Left", "Fire_Left.png", 122, 128, 0.05f, true);
 	KirbyRenderer->CreateAnimation("Fire_FireAttack_Right", "Fire_Right.png", 129, 131, 0.08f, true);
 	KirbyRenderer->CreateAnimation("FIre_FireAttack_Left", "Fire_Left.png", 129, 131, 0.08f, true);
 
@@ -942,7 +942,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
-		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base)
+		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base) && false==SirUse
 		)
 	{
 		StateAniChange(EActorState::All_Attack);
