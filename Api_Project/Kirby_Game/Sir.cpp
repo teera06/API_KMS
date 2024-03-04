@@ -56,7 +56,7 @@ void ASir::AniCreate()
 void ASir::CalDir()
 {
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
-	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터를 향해 날리는 방향
 
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
@@ -66,43 +66,43 @@ void ASir::SkillDir(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
 	FVector CurX = GetActorLocation() * FVector::Right;
-	FVector RangeXL = StartPos + (FVector::Left * RangeX);
-	FVector RangeXR = StartPos + (FVector::Right * RangeX);
-	//StartDir = GetDir();
-	if (GetDir().iX() == FVector::Left.iX())
+	FVector RangeXL = StartPos + (FVector::Left * RangeX); // 부메랑의 던지 방향의 이동 범위 계산 (왼쪽으로 던질 경우)
+	FVector RangeXR = StartPos + (FVector::Right * RangeX); // (오른쪽으로 던질 경우)
+
+	if (GetDir().iX() == FVector::Left.iX()) // 왼쪽 방향
 	{
-		if (false == skillOn)
+		if (false == skillOn) // 스킬을 사용하지 않은 경우에만 
 		{
 			skillOn = true;
-			StartDir = FVector::Left;
+			StartDir = FVector::Left; // 부메랑 이동 방향
 		}
-		LRCheck = true;
-		DelX = FVector::Right*MainPlayer->GetActorLocation();
+		LRCheck = true; // 부메랑은 왼쪽에서 오른쪽으로 이동 -> True=Right
+		DelX = FVector::Right*MainPlayer->GetActorLocation(); // 플레이어의 X축 위치를 저장
 		SirRenderer->ChangeAnimation("Sir_Right");
 	}
-	else
+	else // 오른쪽 방향
 	{
 		if (false == skillOn)
 		{
 			skillOn = true;
 			StartDir = FVector::Right;
 		}
-		LRCheck = false;
+		LRCheck = false; // 부메랑은 오른쪽에서 왼쪽으로 이동 -> false=Left
 		DelX = FVector::Right * MainPlayer->GetActorLocation();
 		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 
-	if (RangeXR.iX() <= CurX.iX() && GetDir().iX() == FVector::Right.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	if (RangeXR.iX() <= CurX.iX() && GetDir().iX() == FVector::Right.iX())  // 오른쪽으로 던질때 
 	{
-		StartDir = StartDir * FVector::Left;
-		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
+		StartDir = StartDir * FVector::Left; // 돌아오는 방향은 왼쪽
+		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); 
 		return;
 	}
 	
-	if (RangeXL.iX() >= CurX.iX() && GetDir().iX() == FVector::Left.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	if (RangeXL.iX() >= CurX.iX() && GetDir().iX() == FVector::Left.iX()) // 왼쪽으로 던질때 
 	{
-		StartDir = StartDir * FVector::Left;
-		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
+		StartDir = StartDir * FVector::Left; // 돌아오는 방향은 반대 방향인 오른쪽
+		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); 
 		return;
 	}
 	
@@ -220,28 +220,28 @@ void ASir::Collisiongather(float _DeltaTime)
 		
 		
 		
-		FVector XL = DelX + FVector::Left * 250.0f; // 몬스터 왼쪽 플레이어 인식 시야 X축
-		FVector XR = DelX + FVector::Right * 250.0f; // 몬스터 오른쪽 플레이어 인식 시야 X축
+		// 부메랑을 받지 못하고 범위가 크게 벗어날때
+		FVector XL = DelX + FVector::Left * 500.0f; // 몬스터 왼쪽 플레이어 인식 시야 X축
+		FVector XR = DelX + FVector::Right * 500.0f; // 몬스터 오른쪽 플레이어 인식 시야 X축
 
-		if (true==LRCheck && XR.iX()<GetActorLocation().iX()) 
+		if (true==LRCheck && XR.iX()<GetActorLocation().iX()) // 돌아오는 방향은 오른쪽 -> 부메랑이 오른쪽 방향으로 설정한 범위보다 커질때 동작
 		{
 			MainPlayer->SetSirUse(false); 
 			Destroy();
 		}
-		else if (false==LRCheck &&  XL.iX()>GetActorLocation().iX())
+		else if (false==LRCheck &&  XL.iX()>GetActorLocation().iX()) // 돌아오는 방향은 왼쪽 -> 부메랑이 왼쪽 방향으로 설정한 범위보다 작을 때 동작
 		{
 			MainPlayer->SetSirUse(false);
 			Destroy();
 		}
 		
+		// 커비가 받아낼때
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
 			MainPlayer->SetSirUse(false);
 			Destroy();
 				
 		}
-
-
 
 		// 픽셀 충돌
 		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);

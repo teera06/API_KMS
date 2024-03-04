@@ -36,16 +36,17 @@ private:
 	UImageRenderer* SirRenderer = nullptr;
 	UCollision* SirCollision = nullptr;
 
-	ESirOwner Owner = ESirOwner::None;
+	ESirOwner Owner = ESirOwner::None; // 누가 주인인지 -> 커비 Or 몬스터
 
-	FVector StartPos = FVector::Zero;
-	FVector StartDir = FVector::Right;
-	FVector DelX = FVector::Zero;
+	FVector StartPos = FVector::Zero; // 부메랑의 던지 방향의 이동 범위 계산 (왼쪽으로 던질 경우) 범위
+	FVector StartDir = FVector::Right; // 부메랑의 이동 방향
+
+	FVector DelX = FVector::Zero; // 커비가 받아내지 못하는 경우 대비 -> 범위 계산을 위한 플레이어 위치 저장 용
 	
-	float RangeX = 450.0f; // 이동 단위
+	float RangeX = 450.0f; // 던지는 방향의 이동 범위
 
-	bool skillOn = false;
-	bool LRCheck = false; // false::Left, true=right
+	bool skillOn = false; // 스킬 On/Off 구분
+	bool LRCheck = false; // false::Left, true=right -> 부메랑이 돌아오는 방향
 	void AniCreate(); // 애니메이션 관리
 
 	void CalDir();
