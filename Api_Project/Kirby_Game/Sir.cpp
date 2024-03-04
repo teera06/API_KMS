@@ -63,7 +63,14 @@ void ASir::SkillDir(float _DeltaTime)
 	}
 
 	//if (RangeXL.iX() >= CurX.iX() || RangeXR.iX() <= CurX.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
-	if (RangeXR.iX() <= CurX.iX() && StartDir.iX() == 1) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	if (RangeXR.iX() <= CurX.iX() && GetDir().iX() == FVector::Right.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	{
+		StartDir = StartDir * FVector::Left;
+		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 800.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
+		return;
+	}
+	
+	if (RangeXL.iX() >= CurX.iX() && GetDir().iX() == FVector::Left.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	{
 		StartDir = StartDir * FVector::Left;
 		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 800.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
