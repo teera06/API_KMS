@@ -2,6 +2,7 @@
 
 // Actor
 #include "Stage1_MAP.h" 
+#include "Stage2_Level.h"
 
 #include "Kirby_Player.h"
 #include "Monster_Base.h"
@@ -128,6 +129,7 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 + i * -150 });
 	}
 	
+	GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 
 void UStage1_Level::LevelEnd(ULevel* _NextLevel)

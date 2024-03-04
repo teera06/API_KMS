@@ -63,10 +63,6 @@ public:
 	}
 
 	// 커비의 판단으로 나머지 플레이 레벨 만들자
-	static bool CreateStage2;
-	static bool CreateStage3;
-	bool BossStage = false;
-
 	static int StageCheck;
 protected:
 	// TickObject (Level2) 오버라이드

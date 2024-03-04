@@ -8,7 +8,6 @@
 #include "Ice.h"
 #include "Sir.h" // 테스트
 
-#include "Stage2_Level.h"
 // 테스트
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
@@ -19,8 +18,6 @@ AKirby_Player* AKirby_Player::MainPlayer = nullptr;
 
 int AKirby_Player::Hp = 100;
 int AKirby_Player::StageCheck = 1;
-bool AKirby_Player::CreateStage2=false;
-bool AKirby_Player::CreateStage3 = false;
 
 
 AKirby_Player* AKirby_Player::GetMainPlayer()
@@ -279,7 +276,7 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 
 	// Sir 커비
-	if (true == CreateStage2)
+	if (StageCheck==2)
 	{
 		// 파이어 흡수 -> 기본에서 아이스 중간 이미지 
 		KirbyRenderer->CreateAnimation("Sir_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
@@ -687,24 +684,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
-		if (false == CreateStage2)
-		{
-			CreateStage2 = true;
-			GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
-		}
 		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
-	}else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2)// 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
-	{
-		// && ColorB != Color8Bit(0, 0, 255, 0)
-		//if (false == CreateStage2)
-		//{
-			//GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage1_Level 생성
-		//}
-		
-		//return;
-		StageCheck = 1;
-		GEngine->ChangeLevel("Stage1_Level");
 	}
 
 	if (true == UEngineInput::IsDown('1'))
