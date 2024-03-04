@@ -291,8 +291,8 @@ void AKirby_Player::AniCreate()
 
 		KirbyRenderer->CreateAnimation("Sir_Run_Right", "Sir_Right.png", 12, 19, 0.05f, true); // 오른쪽 서 있기
 		KirbyRenderer->CreateAnimation("Sir_Run_Left", "Sir_Left.png", 12, 19, 0.05f, true); // 왼쪽 서있기
-		KirbyRenderer->CreateAnimation("Sir_Stop_Right", "Sir_Right.png", 48, 48, 0.1f, true); // 오른쪽 서 있기
-		KirbyRenderer->CreateAnimation("Sir_Stop_Left", "Sir_Left.png", 48, 48, 0.1f, true); // 왼쪽 서있기
+		KirbyRenderer->CreateAnimation("Sir_Stop_Right", "Sir_Left.png", 48, 48, 0.1f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Stop_Left", "Sir_Right.png", 48, 48, 0.1f, true); // 왼쪽 서있기
 
 		KirbyRenderer->CreateAnimation("Sir_Jump_Right", "Sir_Right.png", 20, 26, 0.06f, true); // 오른쪽 서 있기
 		KirbyRenderer->CreateAnimation("Sir_Jump_Left", "Sir_Left.png", 20, 26, 0.06f, true); // 왼쪽 서있기
