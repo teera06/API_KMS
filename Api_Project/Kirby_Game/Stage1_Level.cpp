@@ -134,7 +134,7 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
-	GEngine->DestroyLevel("Stage1_Level");
+	GEngine->DestroyLevel("Stage1_Level"); // Level Á¤¸®
 
 }
 
