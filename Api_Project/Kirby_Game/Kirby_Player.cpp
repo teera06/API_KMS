@@ -12,6 +12,7 @@
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
+#include "Monster_Sir.h"
 
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
@@ -308,6 +309,9 @@ void AKirby_Player::AniCreate()
 
 		KirbyRenderer->CreateAnimation("Sir_hit_Left", "Sir_Left.png", { 36,35,34,33,32,31,30,29,28,27,26}, 0.05f, true);
 		KirbyRenderer->CreateAnimation("Sir_hit_Right", "Sir_Right.png", { 36,35,34,33,32,31,30,29,28,27,26 }, 0.05f, true);
+
+		KirbyRenderer->CreateAnimation("Sir_SirAttack_Left", "Sir_Left.png", 88,92, 0.05f, true);
+		KirbyRenderer->CreateAnimation("Sir_SirAttack_Right", "Sir_Right.png", 88,92, 0.05f, true);
 	}
 	
 
@@ -580,6 +584,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::FireAttack:
 			FireAttackStart();
 			break;
+		case EActorState::SirAttack:
+			SirAttackStart();
+			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
 			break;
@@ -650,6 +657,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			FireReady( _DeltaTime);
 			break;
 		case EActorState::FireAttack: // 아이스 공격
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::SirAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
 			break;
 		default:
@@ -736,6 +746,19 @@ void AKirby_Player::Idle(float _DeltaTime)
 		}
 		else {
 			GetWorld()->SpawnActor<AMonster_Fire>()->SetActorLocation({ GetActorLocation().iX() + 300,700 });
+		}
+		Hp = 100;
+		return;
+	}
+
+	if (true == UEngineInput::IsDown('5') && StageCheck==2)
+	{
+		if (DirState == EActorDir::Left)
+		{
+			GetWorld()->SpawnActor<AMonster_Sir>()->SetActorLocation({ GetActorLocation().iX() - 200,700 });
+		}
+		else {
+			GetWorld()->SpawnActor<AMonster_Sir>()->SetActorLocation({ GetActorLocation().iX() + 300,700 });
 		}
 		Hp = 100;
 		return;
@@ -837,6 +860,24 @@ void AKirby_Player::Idle(float _DeltaTime)
 		SkillOn = true;
 		StateAniChange(EActorState::FireReady);
 		return;
+	}else if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Sir // 테스트
+		)
+	{
+		SkillOn = true;
+		StateAniChange(EActorState::SirAttack);
+		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+		NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);
+		NewSir->SetActorLocation(this->GetActorLocation());
+		NewSir->SetOwner(ESirOwner::kirby);
+		if (DirState == EActorDir::Left)
+		{
+			NewSir->SetDir(FVector::Left);
+		}
+		else {
+			NewSir->SetDir(FVector::Right);
+		}
+		return;
 	}
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
@@ -854,25 +895,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		}
 		else {
 			NewStar->SetDir(FVector::Right);
-		}
-		return;
-	}
-
-	if (
-		true == UEngineInput::IsDown('D') // 테스트
-		)
-	{
-		//StateAniChange(EActorState::Sir);
-		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
-		NewSir->SetStartPos(this->GetActorLocation()*FVector::Right);
-		NewSir->SetActorLocation(this->GetActorLocation());
-		NewSir->SetOwner(ESirOwner::kirby);
-		if (DirState == EActorDir::Left)
-		{
-			NewSir->SetDir(FVector::Left);
-		}
-		else {
-			NewSir->SetDir(FVector::Right);
 		}
 		return;
 	}
@@ -1331,6 +1353,12 @@ void AKirby_Player::FireAttackStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("FireAttack"));
 }
 
+void AKirby_Player::SirAttackStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("SirAttack"));
+}
+
 void AKirby_Player::HeadDownStart()
 {
 	DirCheck();
@@ -1362,6 +1390,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	case EAMode::Mike:
 		break;
 	case EAMode::Sir:
+		SirKirby(_DeltaTime);
 		break;
 	case EAMode::Hammer:
 		break;
@@ -1449,13 +1478,6 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
 
-	//if (true == KirbyRenderer->IsCurAnimationEnd())
-	//{
-		//SkillOn = false;
-		//StateAniChange(EActorState::Idle);
-		//return;
-	//}
-
 	Collisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
@@ -1469,6 +1491,20 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 }
 
 void AKirby_Player::IceKirby(float _DeltaTime)
+{
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		SkillOn = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
+
+	MoveUpdate(_DeltaTime);
+}
+
+void AKirby_Player::SirKirby(float _DeltaTime)
 {
 	DirCheck();
 
