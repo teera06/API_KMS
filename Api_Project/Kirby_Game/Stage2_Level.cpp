@@ -57,11 +57,10 @@ void UStage2_Level::Tick(float _DeltaTime)
 void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	SetCameraPos({ 0,550 }); // 카메라 위치 설정
+	SetCameraPos({ 0,590 }); // 카메라 위치 설정
 
 	// 맵 생성
 	NewMap = SpawnActor<AStage2_Map>();
-	//NewMap->SetMapImage("stage2_map.png");
 	NewMap->SetMapImage("stage2_map.png");
 	NewMap->SetColMapImage("cor2_map.png");
 	NewMap->SwitchDebug();
