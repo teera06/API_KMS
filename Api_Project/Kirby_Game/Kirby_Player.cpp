@@ -278,10 +278,46 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 	KirbyRenderer->CreateAnimation("Ice_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 
+	// Sir 커비
+	if (true == CreateStage2)
+	{
+		KirbyRenderer->CreateAnimation("Sir_Idle_Right", "Sir_Right.png", 0, 0, 0.5f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Idle_Left", "Sir_Left.png", 0, 0, 0.5f, true); // 왼쪽 서있기
+
+		KirbyRenderer->CreateAnimation("Sir_Walk_Right", "Sir_Right.png", 2, 11, 0.075f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Walk_Left", "Sir_Left.png", 2, 11, 0.075f, true); // 왼쪽 서있기
+
+		KirbyRenderer->CreateAnimation("Sir_Run_Right", "Sir_Right.png", 12, 19, 0.05f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Run_Left", "Sir_Left.png", 12, 19, 0.05f, true); // 왼쪽 서있기
+		KirbyRenderer->CreateAnimation("Sir_Stop_Right", "Sir_Right.png", 48, 48, 0.1f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Stop_Left", "Sir_Left.png", 48, 48, 0.1f, true); // 왼쪽 서있기
+
+		KirbyRenderer->CreateAnimation("Sir_Jump_Right", "Sir_Right.png", 20, 26, 0.06f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Jump_Left", "Sir_Left.png", 20, 26, 0.06f, true); // 왼쪽 서있기
+
+		KirbyRenderer->CreateAnimation("Sir_FlyReady_Right", "Sir_Right.png", {39,38,37,82}, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Sir_FlyReady_Left", "Sir_Left.png", { 39,38,37,82 }, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Sir_Fly_Right", "Sir_Right.png", 82, 87, 0.08f, true);
+		KirbyRenderer->CreateAnimation("Sir_Fly_Left", "Sir_Left.png", 82, 87, 0.08f, true);
+
+		KirbyRenderer->CreateAnimation("Sir_fall_Right", "Sir_Right.png", {41,42,43,26,27,28}, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Sir_fall_Left", "Sir_Left.png", { 41,42,43,26,27,28 }, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Sir_HeadDown_Right", "Sir_Right.png", 1, 1, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Sir_HeadDown_Left", "Sir_Left.png", 1, 1, 0.5f, true);
+
+		//->CreateAnimation("Ice_hit_Right", "Ice_Right.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
+		//KirbyRenderer->CreateAnimation("Ice_hit_Left", "Ice_Left.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
+	}
+	
+
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
 	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
 	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 52, 0.03f, false);
+
+
+
+
 }
 
 // 커비 모드 체인지 관리
@@ -296,6 +332,10 @@ void AKirby_Player::KirbyModeCheck()
 		else if (std::string(GetModeName()) == "Fire_") // 소드 문자열이면
 		{
 			SetMode(EAMode::Fire); // 소드 형태로
+		}
+		else if (std::string(GetModeName()) == "Sir_") // 소드 문자열이면
+		{
+			SetMode(EAMode::Sir); // 소드 형태로
 		}
 	}
 }

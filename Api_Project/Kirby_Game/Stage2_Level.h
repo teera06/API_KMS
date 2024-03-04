@@ -7,6 +7,7 @@ class AKirby_Player;
 class AKirby_HpBar;
 class AMonster_Base;
 class AMonster_Fire;
+class AMonster_Sir;
 
 class UStage2_Level :public ULevel
 {
@@ -36,5 +37,6 @@ private:
 
 	AMonster_Base* NewBase[5] = {nullptr,nullptr,nullptr,nullptr};
 	AMonster_Fire* NewFire[5] = { nullptr,nullptr,nullptr,nullptr };
+	AMonster_Sir* NewSir = nullptr;
 };
 

@@ -6,6 +6,7 @@
 #include "Kirby_HpBar.h"
 #include "Monster_Base.h"
 #include "Monster_Fire.h"
+#include "Monster_Sir.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -89,6 +90,9 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 		NewFire[i] = SpawnActor<AMonster_Fire>();
 		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 });
 	}
+
+	NewSir= SpawnActor<AMonster_Sir>();
+	NewSir->SetActorLocation({1000,1000 });
 }
 
 void UStage2_Level::LevelEnd(ULevel* _NextLevel)

@@ -37,7 +37,7 @@ void AMonster_Sir::BeginPlay()
 
 	// 콜리전
 	{
-		MonsterCollision = CreateCollision(ECollisionOrder::Monster);
+		MonsterCollision = CreateCollision(ECollisionOrder::SirMonster);
 		MonsterCollision->SetScale({ 60, 60 });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
@@ -133,11 +133,12 @@ void AMonster_Sir::AniCreate()
 {
 	// 기본 걷는 모션
 
-	MonsterRenderer->CreateAnimation("Move_Right", "Dee_Right.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Move_Left", "Dee_Left.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Right", "SirMonster_Right.png", 4, 8, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Left", "SirMonster_Left.png", 4, 8, 0.1f, true); // 걷기
+
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
-	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 4, 4, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 4, 4, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
