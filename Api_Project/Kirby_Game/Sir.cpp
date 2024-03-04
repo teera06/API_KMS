@@ -39,6 +39,7 @@ void ASir::BeginPlay()
 		SirCollision = CreateCollision(ECollisionOrder::SirAttack);
 		SirCollision->SetScale({ 100,70 });
 		SirCollision->SetColType(ECollisionType::CirCle);
+		SirCollision->SetActive(true, 0.3f);
 	}
 
 	AniCreate();
@@ -193,6 +194,17 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
 			Monster->Destroy(0.3f);
+		}
+		
+		
+		
+		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			
+			int a = 0;
+			//FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+			
 		}
 
 
