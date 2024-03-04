@@ -1,5 +1,10 @@
 #include "Sir.h"
 
+#include "ModeEnum.h"
+#include "Monster_Base.h"
+#include "pengi_Ice.h"
+#include "Monster_Fire.h"
+
 ASir::ASir()
 {
 }
@@ -15,7 +20,7 @@ void ASir::Tick(float _DeltaTime)
 	SkillDir(_DeltaTime);
 
 
-	//Collisiongather(_DeltaTime);
+	Collisiongather(_DeltaTime);
 
 
 	//SirRenderer->Destroy(0.1f);
@@ -98,5 +103,65 @@ void ASir::SkillDir(float _DeltaTime)
 
 void ASir::Collisiongather(float _DeltaTime)
 {
+	std::vector<UCollision*> Result;
+	if (Owner == ESirOwner::kirby)
+	{
+		if (true == SirCollision->CollisionCheck(ECollisionOrder::Monster, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			SirCollision->Destroy();
+			Monster->IceState();
+		}
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			SirCollision->Destroy();
+			Monster->IceState();
+		}
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			SirCollision->Destroy();
+			Monster->IceState();
+		}
+	}
+	else if (Owner == ESirOwner::SirMonster)
+	{
+		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+		{
+
+			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+			MainPlayer->SetHitDir(GetDir());
+			MainPlayer->GetKirbyCollision()->ActiveOff();
+			MainPlayer->AddHP(-20);
+			MainPlayer->HitStart(); // hit 상태 스타트
+
+			SirCollision->Destroy();
+		}
+	}
 
 }

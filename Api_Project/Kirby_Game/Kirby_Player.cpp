@@ -885,7 +885,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
 		NewSir->SetStartPos(this->GetActorLocation()*FVector::Right);
 		NewSir->SetActorLocation(this->GetActorLocation());
-
+		NewSir->SetOwner(ESirOwner::kirby);
 		if (DirState == EActorDir::Left)
 		{
 			NewSir->SetDir(FVector::Left);
