@@ -23,7 +23,7 @@ public:
 		Dir = _Dir;
 	}
 
-	FVector GetDir() const
+	FVector GetDir() 
 	{
 		return Dir;
 	}

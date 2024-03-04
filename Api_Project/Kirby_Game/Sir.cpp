@@ -18,7 +18,7 @@ void ASir::Tick(float _DeltaTime)
 	//Collisiongather(_DeltaTime);
 
 
-	SirRenderer->Destroy(0.1f);
+	//SirRenderer->Destroy(0.1f);
 }
 
 void ASir::BeginPlay()
@@ -36,8 +36,7 @@ void ASir::BeginPlay()
 	}
 
 	AniCreate();
-
-	Destroy(0.5f);
+	//Destroy(0.5f);
 }
 
 void ASir::AniCreate()
@@ -49,6 +48,11 @@ void ASir::AniCreate()
 
 void ASir::SkillDir(float _DeltaTime)
 {
+	FVector Move = FVector::Zero;
+	FVector CurX = GetActorLocation() * FVector::Right;
+	FVector RangeXL = StartPos + (FVector::Left * RangeX);
+	FVector RangeXR = StartPos + (FVector::Right * RangeX);
+	//StartDir = GetDir();
 	if (GetDir().iX() == FVector::Left.iX())
 	{
 		SirRenderer->ChangeAnimation("Sir_Right");
@@ -58,7 +62,17 @@ void ASir::SkillDir(float _DeltaTime)
 		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 
-	AddActorLocation(GetDir() * 500.0f * _DeltaTime);
+	if (RangeXL.iX() >= CurX.iX() || RangeXR.iX() <= CurX.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
+	{
+		StartDir = StartDir * FVector::Left;
+		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 800.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
+		return;
+	}
+	
+	AddActorLocation(StartDir * 500.0f * _DeltaTime);
+	
+
+	//AddActorLocation(GetDir() * 500.0f * _DeltaTime);
 
 	//SirCollision->SetPosition({ GetDir().iX() * 120,0 });
 	//SirRenderer->SetPosition({ GetDir().iX() * 125,-5 });

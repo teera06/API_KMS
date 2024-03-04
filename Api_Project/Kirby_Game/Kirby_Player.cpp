@@ -839,6 +839,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	{
 		//StateAniChange(EActorState::Sir);
 		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+		NewSir->SetStartPos(this->GetActorLocation()*FVector::Right);
 		NewSir->SetActorLocation(this->GetActorLocation());
 
 		if (DirState == EActorDir::Left)

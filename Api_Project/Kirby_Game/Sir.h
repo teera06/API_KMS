@@ -21,6 +21,12 @@ public:
 	{
 		Owner = _Owner;
 	}
+
+	void SetStartPos(const FVector& _StartPos)
+	{
+		StartPos = _StartPos;
+	}
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
@@ -31,6 +37,10 @@ private:
 	UCollision* SirCollision = nullptr;
 
 	ESirOwner Owner = ESirOwner::None;
+
+	FVector StartPos = FVector::Zero;
+	FVector StartDir = FVector::Right;
+	float RangeX = 300.0f; // 이동 단위
 
 	void AniCreate(); // 애니메이션 관리
 	void SkillDir(float _DeltaTime);
