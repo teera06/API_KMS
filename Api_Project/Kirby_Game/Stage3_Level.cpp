@@ -52,8 +52,8 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	// 甘 积己
 	NewMap = SpawnActor<AStage3_Map>();
-	NewMap->SetMapImage("stage2_map.png");
-	NewMap->SetColMapImage("cor2_map.png");
+	NewMap->SetMapImage("Stage3_Map.png");
+	//NewMap->SetColMapImage("cor3_Map.png");
 	NewMap->SwitchDebug();
 
 	// 目厚客 目厚 惑怕芒 Actor 积己

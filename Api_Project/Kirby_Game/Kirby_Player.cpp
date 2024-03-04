@@ -714,6 +714,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
 	}
+	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2)
+	{
+		StageCheck = 3;
+		GEngine->ChangeLevel("Stage3_Level");
+	}
 
 	if (true == UEngineInput::IsDown('1'))
 	{
