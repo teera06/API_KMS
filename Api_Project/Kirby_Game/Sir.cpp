@@ -55,10 +55,20 @@ void ASir::SkillDir(float _DeltaTime)
 	//StartDir = GetDir();
 	if (GetDir().iX() == FVector::Left.iX())
 	{
+		if (false == skillOn)
+		{
+			skillOn = true;
+			StartDir = FVector::Left;
+		}
 		SirRenderer->ChangeAnimation("Sir_Right");
 	}
 	else
 	{
+		if (false == skillOn)
+		{
+			skillOn = true;
+			StartDir = FVector::Right;
+		}
 		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 

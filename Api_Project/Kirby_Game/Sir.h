@@ -42,6 +42,7 @@ private:
 	FVector StartDir = FVector::Right;
 	float RangeX = 300.0f; // 이동 단위
 
+	bool skillOn = false;
 	void AniCreate(); // 애니메이션 관리
 	void SkillDir(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
