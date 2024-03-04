@@ -281,6 +281,10 @@ void AKirby_Player::AniCreate()
 	// Sir 커비
 	if (true == CreateStage2)
 	{
+		// 파이어 흡수 -> 기본에서 아이스 중간 이미지 
+		KirbyRenderer->CreateAnimation("Sir_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
+		KirbyRenderer->CreateAnimation("Sir_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
+
 		KirbyRenderer->CreateAnimation("Sir_Idle_Right", "Sir_Right.png", 0, 0, 0.5f, true); // 오른쪽 서 있기
 		KirbyRenderer->CreateAnimation("Sir_Idle_Left", "Sir_Left.png", 0, 0, 0.5f, true); // 왼쪽 서있기
 
@@ -305,8 +309,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Right", "Sir_Right.png", 1, 1, 0.5f, true);
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Left", "Sir_Left.png", 1, 1, 0.5f, true);
 
-		//->CreateAnimation("Ice_hit_Right", "Ice_Right.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
-		//KirbyRenderer->CreateAnimation("Ice_hit_Left", "Ice_Left.png", { 90,89,88,87,86,85,84,83,82,81,80,79 }, 0.05f, true);
+		KirbyRenderer->CreateAnimation("Sir_hit_Left", "Sir_Left.png", { 36,35,34,33,32,31,30,29,28,27,26}, 0.05f, true);
+		KirbyRenderer->CreateAnimation("Sir_hit_Right", "Sir_Right.png", { 36,35,34,33,32,31,30,29,28,27,26 }, 0.05f, true);
 	}
 	
 
