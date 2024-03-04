@@ -964,8 +964,11 @@ void AKirby_Player::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime,MovePos); // 최종 움직임
 
-	CamYMove(); // 카메라 Y축 계산
-	
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
+
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // 픽셀 충돌 -> 점프 후 착지할때
@@ -1042,7 +1045,10 @@ void AKirby_Player::SirJump(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
-	CamYMove();
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 	// 추락해서 바닥과 충돌할 경우
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
@@ -1103,7 +1109,10 @@ void AKirby_Player::Fly(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
-	CamYMove();
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 	// 천장 픽셀 충돌 -> 추락
 	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-40, Color8Bit::MagentaA);
 	if (ColorM == Color8Bit(255, 0, 255, 0) )
@@ -1164,7 +1173,10 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
-	CamYMove();
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 	// 추락해서 바닥과 충돌할 경우
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
@@ -1211,7 +1223,10 @@ void AKirby_Player::hit(float _DeltaTime)
 	FireRenderer->ActiveOff();
 	FireCollision->ActiveOff();
 	CamstopMove += Move;
-	CamYMove(); // Y축
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 
 	// 애니메이션 종료 시 다시 원래 상태로 돌아감
 	if (true == KirbyRenderer->IsCurAnimationEnd())
@@ -1261,7 +1276,10 @@ void AKirby_Player::Walk(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime, MovePos);
 
-	CamYMove();
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 }
 
 void AKirby_Player::Run(float _DeltaTime)
@@ -1310,7 +1328,10 @@ void AKirby_Player::Run(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime, MovePos);
 
-	CamYMove();
+	if (StageCheck < 3)
+	{
+		CamYMove(); // 카메라 Y축 계산
+	}
 }
 
 void AKirby_Player::Stop(float _DeltaTime)
