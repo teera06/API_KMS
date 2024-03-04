@@ -75,3 +75,10 @@ enum class EIceOwner
 	iceMonster,
 	kirby
 };
+
+enum class ESirOwner
+{
+	None,
+	SirMonster,
+	kirby
+};

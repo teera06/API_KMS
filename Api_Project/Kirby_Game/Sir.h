@@ -17,6 +17,10 @@ public:
 	ASir& operator=(const ASir& _Other) = delete; // 디폴트 대입 연산자
 	ASir& operator=(ASir&& _Other) noexcept = delete;
 
+	void SetOwner(ESirOwner _Owner) // 커비, 몬스터 사용자가 누군이지 확인
+	{
+		Owner = _Owner;
+	}
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
@@ -26,10 +30,10 @@ private:
 	UImageRenderer* SirRenderer = nullptr;
 	UCollision* SirCollision = nullptr;
 
-	EIceOwner Owner = EIceOwner::None;
+	ESirOwner Owner = ESirOwner::None;
 
 	void AniCreate(); // 애니메이션 관리
-	void SkillDir();
+	void SkillDir(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 };
 

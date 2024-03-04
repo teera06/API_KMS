@@ -10,6 +10,15 @@ ASir::~ASir()
 
 void ASir::Tick(float _DeltaTime)
 {
+	AActor::Tick(_DeltaTime);
+
+	SkillDir(_DeltaTime);
+
+
+	//Collisiongather(_DeltaTime);
+
+
+	SirRenderer->Destroy(0.1f);
 }
 
 void ASir::BeginPlay()
@@ -38,19 +47,21 @@ void ASir::AniCreate()
 	SirRenderer->ChangeAnimation("Sir_Right");
 }
 
-void ASir::SkillDir()
+void ASir::SkillDir(float _DeltaTime)
 {
 	if (GetDir().iX() == FVector::Left.iX())
 	{
-		SirRenderer->ChangeAnimation("Ice_Right");
+		SirRenderer->ChangeAnimation("Sir_Right");
 	}
 	else
 	{
-		SirRenderer->ChangeAnimation("Ice_Left");
+		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 
-	SirCollision->SetPosition({ GetDir().iX() * 120,0 });
-	SirRenderer->SetPosition({ GetDir().iX() * 125,-5 });
+	AddActorLocation(GetDir() * 500.0f * _DeltaTime);
+
+	//SirCollision->SetPosition({ GetDir().iX() * 120,0 });
+	//SirRenderer->SetPosition({ GetDir().iX() * 125,-5 });
 }
 
 void ASir::Collisiongather(float _DeltaTime)
