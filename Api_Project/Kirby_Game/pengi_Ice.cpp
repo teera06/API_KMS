@@ -2,6 +2,7 @@
 #include "ModeEnum.h"
 #include "Monster_Base.h"
 #include "Monster_Fire.h"
+#include "Monster_Sir.h"
 #include "Ice.h"
 
 #include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
@@ -123,6 +124,28 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
+
+		// 방어코드
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
+	}
+	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
 
 		// 방어코드
 

@@ -4,6 +4,7 @@
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
+#include "Monster_Sir.h"
 
 AIce::AIce()
 {
@@ -106,6 +107,20 @@ void AIce::Collisiongather(float _DeltaTime)
 			UCollision* Collision = Result[0];
 			AActor* Ptr = Collision->GetOwner();
 			AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
+
+			if (nullptr == Monster)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+			IceCollision->Destroy();
+			Monster->IceState();
+		}
+		else if (true == IceCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
 
 			if (nullptr == Monster)
 			{
