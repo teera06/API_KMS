@@ -91,8 +91,12 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 });
 	}
 
-	NewSir= SpawnActor<AMonster_Sir>();
-	NewSir->SetActorLocation({1000,1000 });
+	for (int i = 0; i < Sirsize; i++)
+	{
+		NewSir[i] = SpawnActor<AMonster_Sir>();
+		NewSir[i]->SetActorLocation({1000+i*1000,800});
+	}
+	
 }
 
 void UStage2_Level::LevelEnd(ULevel* _NextLevel)

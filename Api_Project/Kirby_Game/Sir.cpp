@@ -213,13 +213,12 @@ void ASir::Collisiongather(float _DeltaTime)
 	{
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
-
+			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(GetDir());
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
 			MainPlayer->HitStart(); // hit 상태 스타트
-			//SirCollision->Destroy();
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 		{
@@ -231,7 +230,6 @@ void ASir::Collisiongather(float _DeltaTime)
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
 			Destroy();
-
 		}
 	}
 
