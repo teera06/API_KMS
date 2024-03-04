@@ -89,6 +89,7 @@ protected:
 	void Run(float _DeltaTime); // 달리기
 	void Stop(float _DeltaTime);
 	void Jump(float _DeltaTime); // 점프
+	void SirJump(float _DeltaTime);
 	void FlyReady(float _DeltaTime); // 날기 전 준비상태
 	void Fly(float _DeltaTime); // 날기
 	void Flyfall(float _DeltaTime); // 날다가 떨어질 때
@@ -128,6 +129,7 @@ protected:
 	void FireAttackStart(); 
 
 	void SirAttackStart(); // 아이스 공격
+	void SirJumpStart();
 
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck(); // 오른쪽, 왼쪽 방향 체크

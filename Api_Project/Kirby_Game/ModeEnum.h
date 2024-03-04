@@ -19,6 +19,7 @@ enum class EActorState
 	Run,
 	Stop,
 	Jump,
+	SirJump,
 	FlyReady,
 	Fly,
 	Flyfall,

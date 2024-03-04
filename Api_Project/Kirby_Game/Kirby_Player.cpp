@@ -304,6 +304,10 @@ void AKirby_Player::AniCreate()
 
 		KirbyRenderer->CreateAnimation("Sir_fall_Right", "Sir_Right.png", {41,42,43,26,27,28}, 0.1f, false);
 		KirbyRenderer->CreateAnimation("Sir_fall_Left", "Sir_Left.png", { 41,42,43,26,27,28 }, 0.1f, false);
+
+		KirbyRenderer->CreateAnimation("Sir_SirJump_Right", "Sir_Right.png", 25,26, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Sir_SirJump_Left", "Sir_Left.png", 25,26, 0.1f, false);
+
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Right", "Sir_Right.png", 1, 1, 0.5f, true);
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Left", "Sir_Left.png", 1, 1, 0.5f, true);
 
@@ -562,6 +566,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 				JumpStart();
 			}
 			break;
+		case EActorState::SirJump:
+			SirJumpStart();
+			break;
 		case EActorState::FlyReady:
 			FlyReadyStart();
 			break;
@@ -631,6 +638,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			break;
 		case EActorState::Jump: // 점프
 			Jump(_DeltaTime);
+			break;
+		case EActorState::SirJump: // 점프
+			SirJump(_DeltaTime);
 			break;
 		case EActorState::FlyReady: // 날기 준비
 			FlyReady(_DeltaTime);
@@ -958,6 +968,56 @@ void AKirby_Player::Jump(float _DeltaTime)
 			StateAniChange(EActorState::Idle); // Idle 변화
 		}
 		
+		return;
+	}
+
+	if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Sir && false == SirUse // 테스트
+		)
+	{
+		SkillOn = true;
+		SirUse = true;
+		StateAniChange(EActorState::SirAttack);
+		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+		NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);
+		NewSir->SetActorLocation(this->GetActorLocation());
+		NewSir->SetOwner(ESirOwner::kirby);
+		if (DirState == EActorDir::Left)
+		{
+			NewSir->SetDir(FVector::Left);
+		}
+		else {
+			NewSir->SetDir(FVector::Right);
+		}
+		return;
+	}
+}
+
+void AKirby_Player::SirJump(float _DeltaTime)
+{
+	DirCheck();
+
+	FVector MovePos = FVector::Zero;
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		MovePos += FVector::Left * _DeltaTime * checkSpeed;
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		MovePos += FVector::Right * _DeltaTime * checkSpeed;
+	}
+
+	MoveUpdate(_DeltaTime, MovePos);
+	CamYMove();
+	// 추락해서 바닥과 충돌할 경우
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		JumpVector = FVector::Zero;
+		RunState = false;
+		StateAniChange(EActorState::Idle);
 		return;
 	}
 }
@@ -1360,6 +1420,12 @@ void AKirby_Player::SirAttackStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("SirAttack"));
 }
 
+void AKirby_Player::SirJumpStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("SirJump"));
+}
+
 void AKirby_Player::HeadDownStart()
 {
 	DirCheck();
@@ -1512,7 +1578,7 @@ void AKirby_Player::SirKirby(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
-		StateAniChange(EActorState::Idle);
+		StateAniChange(EActorState::SirJump);
 		return;
 	}
 
