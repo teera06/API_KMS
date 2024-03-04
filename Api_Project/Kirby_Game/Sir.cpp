@@ -219,8 +219,19 @@ void ASir::Collisiongather(float _DeltaTime)
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
 			MainPlayer->HitStart(); // hit 상태 스타트
+			//SirCollision->Destroy();
+		}
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
+		{
+			Destroy();
+		}
 
-			SirCollision->Destroy();
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			Destroy();
+
 		}
 	}
 

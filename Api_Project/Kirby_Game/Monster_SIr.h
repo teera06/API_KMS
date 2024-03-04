@@ -64,6 +64,7 @@ private:
 
 	void AniCreate(); // 애니메이션 관리
 
+	void SirAtt();
 	void IceToMonster(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 	void CalDir();
@@ -74,7 +75,11 @@ private:
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
+	bool SirUse = false;
+	bool IsAtt = false;
 	bool checkLocation = false; // 현재 위치 체크
+	
+	float skillcooldowntime = 0.0f;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 

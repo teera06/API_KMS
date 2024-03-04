@@ -6,6 +6,9 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 
+#include "Sir.h"
+
+
 AMonster_Sir::AMonster_Sir()
 {
 }
@@ -31,7 +34,7 @@ void AMonster_Sir::BeginPlay()
 	// 랜더링
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
-		MonsterRenderer->SetImage("Dee_Right.png"); // 이미지 Set
+		MonsterRenderer->SetImage("SirMonster_Right.png"); // 이미지 Set
 		MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
@@ -73,10 +76,16 @@ void AMonster_Sir::Tick(float _DeltaTime)
 void AMonster_Sir::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
-
-	CalDir();
-	Collisiongather(_DeltaTime);
-	CalResult(_DeltaTime);
+	skillcooldowntime -= _DeltaTime;
+	if (true == IsAtt && skillcooldowntime < 0.0f && false == GetBaseOnOff() && false == IsIce)
+	{
+		SirAtt();
+	}
+	else {
+		CalDir();
+		Collisiongather(_DeltaTime);
+		CalResult(_DeltaTime);
+	}
 }
 
 void AMonster_Sir::BaseMove(float _DeltaTime)
@@ -86,6 +95,11 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 
 	if (RangeXL.iX() >= CurX.iX() || RangeXR.iX() <= CurX.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	{
+		if (false == IsAtt)
+		{
+			IsAtt= true;
+			//SirAtt();
+		}
 		StartDir.X *= -1;
 		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 100.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴
 		return;
@@ -137,9 +151,37 @@ void AMonster_Sir::AniCreate()
 	MonsterRenderer->CreateAnimation("Move_Left", "SirMonster_Left.png", 4, 8, 0.1f, true); // 걷기
 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
-	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 4, 4, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 4, 4, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Right", "SirMonster_Right.png", 4, 4, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Left", "SIrMonster_Left.png", 4, 4, 0.2f, false); // 죽는 애니메이션
+	
+	MonsterRenderer->CreateAnimation("Att_Right", "SirMonster_Right.png", 9, 13, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("Att_Left", "SIrMonster_Left.png", 9, 13, 0.2f, false); // 죽는 애니메이션
+
 	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+}
+
+void AMonster_Sir::SirAtt()
+{
+	ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+	NewSir->SetOwner(ESirOwner::SirMonster);
+
+	if (MonsterDirNormal.iX() == -1 ) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att_Left");
+		NewSir->SetDir(FVector::Left);
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att_Right");
+		NewSir->SetDir(FVector::Right);
+	}
+
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);
+		NewSir->SetActorLocation(this->GetActorLocation());
+		IsAtt = false;
+		skillcooldowntime = 6.0f;
+	}
 }
 
 void AMonster_Sir::IceToMonster(float _DeltaTime)
