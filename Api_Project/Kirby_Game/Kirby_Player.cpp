@@ -6,6 +6,7 @@
 #include "AllStar.h"
 #include "Base.h"
 #include "Ice.h"
+#include "Sir.h" // 테스트
 
 #include "Stage2_Level.h"
 // 테스트
@@ -828,6 +829,24 @@ void AKirby_Player::Idle(float _DeltaTime)
 		}
 		else {
 			NewStar->SetDir(FVector::Right);
+		}
+		return;
+	}
+
+	if (
+		true == UEngineInput::IsDown('D') // 테스트
+		)
+	{
+		//StateAniChange(EActorState::Sir);
+		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+		NewSir->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewSir->SetDir(FVector::Left);
+		}
+		else {
+			NewSir->SetDir(FVector::Right);
 		}
 		return;
 	}

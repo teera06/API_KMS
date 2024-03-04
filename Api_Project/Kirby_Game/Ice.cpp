@@ -40,11 +40,16 @@ void AIce::BeginPlay()
 		IceCollision->SetColType(ECollisionType::Rect);
 	}
 
-	IceRenderer->CreateAnimation("Ice_Right", "Ice_Right.png", {104,105,106,107,109,110,111}, 0.05f, true);
-	IceRenderer->CreateAnimation("Ice_Left", "Ice_Left.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
-	IceRenderer->ChangeAnimation("Ice_Right");
+	AniCreate();
 
 	Destroy(0.5f);
+}
+
+void AIce::AniCreate()
+{
+	IceRenderer->CreateAnimation("Ice_Right", "Ice_Right.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
+	IceRenderer->CreateAnimation("Ice_Left", "Ice_Left.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
+	IceRenderer->ChangeAnimation("Ice_Right");
 }
 
 void AIce::SkillDir()

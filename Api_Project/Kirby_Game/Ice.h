@@ -32,6 +32,7 @@ private:
 
 	EIceOwner Owner = EIceOwner::None;
 
+	void AniCreate(); // 局聪皋捞记 包府
 	void SkillDir();
 	void Collisiongather(float _DeltaTime);
 };

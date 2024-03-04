@@ -23,11 +23,12 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
-	UImageRenderer* IceRenderer = nullptr;
-	UCollision* IceCollision = nullptr;
+	UImageRenderer* SirRenderer = nullptr;
+	UCollision* SirCollision = nullptr;
 
 	EIceOwner Owner = EIceOwner::None;
 
+	void AniCreate(); // 애니메이션 관리
 	void SkillDir();
 	void Collisiongather(float _DeltaTime);
 };
