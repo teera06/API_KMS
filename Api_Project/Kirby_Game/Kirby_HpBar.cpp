@@ -64,6 +64,10 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	{
 		StateRenderer->ChangeAnimation("Fire_");
 	}
+	else if (std::string(GetModeName()) == "Sir_")
+	{
+		StateRenderer->ChangeAnimation("Sir_");
+	}
 }
 
 void AKirby_HpBar::BeginPlay()
@@ -87,7 +91,7 @@ void AKirby_HpBar::BeginPlay()
 	StateRenderer->CreateAnimation("Fire_", "changeHUD.png", 1, 1, true);
 	StateRenderer->CreateAnimation("Ice_", "changeHUD.png", 2, 2, true);
 	StateRenderer->CreateAnimation("Hamer_", "changeHUD.png", 3, 3, true);
-	StateRenderer->CreateAnimation("Sword_", "changeHUD.png", 4, 4, true);
+	StateRenderer->CreateAnimation("Sir_", "changeHUD.png", 4, 4, true);
 	StateRenderer->CreateAnimation("Mike_", "changeHUD.png", 55, 5, true);
 
 	//StateRenderer->ChangeAnimation("Base_");
