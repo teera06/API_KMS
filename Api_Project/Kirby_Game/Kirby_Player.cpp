@@ -1009,6 +1009,26 @@ void AKirby_Player::SirJump(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
+	// 점프 도중 Fly
+	if (UEngineInput::IsDown('S'))
+	{
+		switch (KirbyMode)
+		{
+		case EAMode::Base:
+			// Base에서는 EatState가 true이면 날지 못한다.
+			if (false == EatState)
+			{
+				StateAniChange(EActorState::FlyReady);
+				return;
+			}
+			break;
+		default:
+			StateAniChange(EActorState::FlyReady);
+			return;
+			break;
+		}
+	}
+
 	MoveUpdate(_DeltaTime, MovePos);
 	CamYMove();
 	// 추락해서 바닥과 충돌할 경우
