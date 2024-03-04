@@ -48,17 +48,17 @@ void UStage3_Level::Tick(float _DeltaTime)
 void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	SetCameraPos({ 0,590 }); // 카메라 위치 설정
+	SetCameraPos({ 0,0 }); // 카메라 위치 설정
 
 	// 맵 생성
 	NewMap = SpawnActor<AStage3_Map>();
 	NewMap->SetMapImage("Stage3_Map.png");
-	//NewMap->SetColMapImage("cor3_Map.png");
+	NewMap->SetColMapImage("cor3_Map.png");
 	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
 	NewPlayer = SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,1200 });
+	NewPlayer->SetActorLocation({ 500,300 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 }
