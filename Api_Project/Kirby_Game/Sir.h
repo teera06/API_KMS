@@ -4,23 +4,19 @@
 
 #include "Kirby_Player.h"
 
-class AIce :public AActor, public UActorCommon
+class ASir :public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
-	AIce(); // 디폴트 생성자
-	~AIce(); // 디폴트 소멸자
+	ASir(); // 디폴트 생성자
+	~ASir(); // 디폴트 소멸자
 
 	// delete Function
-	AIce(const AIce& _Other) = delete; // 디폴트 복사 생성자
-	AIce(AIce&& _Other) noexcept = delete; 
-	AIce& operator=(const AIce& _Other) = delete; // 디폴트 대입 연산자
-	AIce& operator=(AIce&& _Other) noexcept = delete;
+	ASir(const ASir& _Other) = delete; // 디폴트 복사 생성자
+	ASir(ASir&& _Other) noexcept = delete; 
+	ASir& operator=(const ASir& _Other) = delete; // 디폴트 대입 연산자
+	ASir& operator=(ASir&& _Other) noexcept = delete;
 
-	void SetOwner(EIceOwner _Owner) // 커비, 몬스터 사용자가 누군이지 확인
-	{
-		Owner = _Owner;
-	}
 protected:
 	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;

@@ -50,6 +50,9 @@
     <ClCompile Include="Stage2_Map.cpp">
       <Filter>Stage_Actor\Stage_Map</Filter>
     </ClCompile>
+    <ClCompile Include="Sir.cpp">
+      <Filter>Stage_Actor\Kirby</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="Stage2_Map.h">
       <Filter>Stage_Actor\Stage_Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Sir.h">
+      <Filter>Stage_Actor\Kirby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

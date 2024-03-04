@@ -30,6 +30,35 @@ void AIce::Tick(float _DeltaTime)
 	IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
 
 
+	Collisiongather(_DeltaTime);
+	
+
+	IceRenderer->Destroy(0.1f);
+}
+
+void AIce::BeginPlay()
+{
+	AActor::BeginPlay();
+	{
+		IceRenderer = CreateImageRenderer(ERenderOrder::Ice); // 이미지 랜더 생성
+		IceRenderer->SetImage("Ice_Right.png"); // 이미지 Set
+		IceRenderer->SetTransform({ {0,0}, {128*3, 128*2} }); // 랜더의 위치 크기 
+	}
+	{
+		IceCollision = CreateCollision(ECollisionOrder::IceAttack);
+		IceCollision->SetScale({ 100,70 });
+		IceCollision->SetColType(ECollisionType::Rect);
+	}
+
+	IceRenderer->CreateAnimation("Ice_Right", "Ice_Right.png", {104,105,106,107,109,110,111}, 0.05f, true);
+	IceRenderer->CreateAnimation("Ice_Left", "Ice_Left.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
+	IceRenderer->ChangeAnimation("Ice_Right");
+
+	Destroy(0.5f);
+}
+
+void AIce::Collisiongather(float _DeltaTime)
+{
 	std::vector<UCollision*> Result;
 	if (Owner == EIceOwner::kirby)
 	{
@@ -80,7 +109,7 @@ void AIce::Tick(float _DeltaTime)
 	{
 		if (true == IceCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
-		
+
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(GetDir());
 			MainPlayer->GetKirbyCollision()->ActiveOff();
@@ -90,28 +119,4 @@ void AIce::Tick(float _DeltaTime)
 			IceCollision->Destroy();
 		}
 	}
-	
-
-	IceRenderer->Destroy(0.1f);
-}
-
-void AIce::BeginPlay()
-{
-	AActor::BeginPlay();
-	{
-		IceRenderer = CreateImageRenderer(ERenderOrder::Ice); // 이미지 랜더 생성
-		IceRenderer->SetImage("Ice_Right.png"); // 이미지 Set
-		IceRenderer->SetTransform({ {0,0}, {128*3, 128*2} }); // 랜더의 위치 크기 
-	}
-	{
-		IceCollision = CreateCollision(ECollisionOrder::IceAttack);
-		IceCollision->SetScale({ 100,70 });
-		IceCollision->SetColType(ECollisionType::Rect);
-	}
-
-	IceRenderer->CreateAnimation("Ice_Right", "Ice_Right.png", {104,105,106,107,109,110,111}, 0.05f, true);
-	IceRenderer->CreateAnimation("Ice_Left", "Ice_Left.png", { 104,105,106,107,109,110,111 }, 0.05f, true);
-	IceRenderer->ChangeAnimation("Ice_Right");
-
-	Destroy(0.5f);
 }
