@@ -67,6 +67,13 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	else if (std::string(GetModeName()) == "Sir_")
 	{
 		StateRenderer->ChangeAnimation("Sir_");
+		if (false == MainPlayer->GetSirUse())
+		{
+			StateRenderer->ActiveOn();
+		}
+		else {
+			StateRenderer->ActiveOff();
+		}
 	}
 }
 
