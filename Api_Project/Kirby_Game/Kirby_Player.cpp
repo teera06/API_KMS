@@ -861,10 +861,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		StateAniChange(EActorState::FireReady);
 		return;
 	}else if (
-		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Sir // 테스트
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Sir && false==SirUse // 테스트
 		)
 	{
 		SkillOn = true;
+		SirUse = true;
 		StateAniChange(EActorState::SirAttack);
 		ASir* NewSir = GetWorld()->SpawnActor<ASir>();
 		NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);

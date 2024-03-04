@@ -47,6 +47,16 @@ public:
 		hitState = _hitState;
 	}
 
+	void SetSirUse(const bool& _SirUse)
+	{
+		SirUse = _SirUse;
+	}
+
+	bool GetSirUse() const
+	{
+		return SirUse;
+	}
+
 	static void SetHp(const int& _Hp)
 	{
 		Hp = _Hp;
@@ -163,6 +173,8 @@ private:
 	bool FlyState = false; // 나는 상태
 	bool hitState = false; // 충돌 상태
 	bool SkillOn = false; // 스킬 사용 중인 상태
+	bool SirUse = false; // Sir Kirby 한정
+
 	bool transform = false;
 	bool RunState = false;
 	EActorDir RunRL = EActorDir::None;

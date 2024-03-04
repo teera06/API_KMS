@@ -43,7 +43,6 @@ void ASir::BeginPlay()
 	}
 
 	AniCreate();
-	//Destroy(0.5f);
 }
 
 void ASir::AniCreate()
@@ -88,7 +87,6 @@ void ASir::SkillDir(float _DeltaTime)
 		SirRenderer->ChangeAnimation("Sir_Left");
 	}
 
-	//if (RangeXL.iX() >= CurX.iX() || RangeXR.iX() <= CurX.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	if (RangeXR.iX() <= CurX.iX() && GetDir().iX() == FVector::Right.iX()) // 기본 몬스터 이동 방향 좌우 +-100 그 범위 벗어나는 경우 -> 방향 변환
 	{
 		StartDir = StartDir * FVector::Left;
@@ -104,12 +102,6 @@ void ASir::SkillDir(float _DeltaTime)
 	}
 	
 	AddActorLocation(StartDir * 500.0f * _DeltaTime);
-	
-
-	//AddActorLocation(GetDir() * 500.0f * _DeltaTime);
-
-	//SirCollision->SetPosition({ GetDir().iX() * 120,0 });
-	//SirRenderer->SetPosition({ GetDir().iX() * 125,-5 });
 }
 
 void ASir::Collisiongather(float _DeltaTime)
@@ -200,11 +192,9 @@ void ASir::Collisiongather(float _DeltaTime)
 		
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
-			// 이런식으로 상대를 사용할수 있다.
-			
-			int a = 0;
-			//FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-			
+			MainPlayer->SetSirUse(false);
+			Destroy();
+				
 		}
 
 
@@ -214,7 +204,9 @@ void ASir::Collisiongather(float _DeltaTime)
 
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
+			MainPlayer->SetSirUse(false);
 			Destroy();
+			
 		}
 	}
 	else if (Owner == ESirOwner::SirMonster)
