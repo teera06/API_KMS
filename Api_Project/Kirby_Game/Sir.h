@@ -44,6 +44,8 @@ private:
 
 	bool skillOn = false;
 	void AniCreate(); // 局聪皋捞记 包府
+
+	void CalDir();
 	void SkillDir(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 };

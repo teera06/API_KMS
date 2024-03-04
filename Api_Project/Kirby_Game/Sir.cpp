@@ -17,6 +17,7 @@ void ASir::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
+	CalDir();
 	SkillDir(_DeltaTime);
 
 
@@ -49,6 +50,15 @@ void ASir::AniCreate()
 	SirRenderer->CreateAnimation("Sir_Right", "Sir_Right.png", 95,98, 0.05f, true);
 	SirRenderer->CreateAnimation("Sir_Left", "Sir_Left.png", 95,98, 0.05f, true);
 	SirRenderer->ChangeAnimation("Sir_Right");
+}
+
+void ASir::CalDir()
+{
+	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
+	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
+
+	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
+	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 }
 
 void ASir::SkillDir(float _DeltaTime)
@@ -113,12 +123,24 @@ void ASir::Collisiongather(float _DeltaTime)
 			AActor* Ptr = Collision->GetOwner();
 			AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
 
+
 			if (nullptr == Monster)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-			SirCollision->Destroy();
-			Monster->IceState();
+
+			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+			{
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
+			}
+			else {
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			}
+			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+			Monster->SetIsDie(true);
+			Monster->SetDiePos(DiePos);
+			Monster->Destroy(0.3f);
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 		{
@@ -127,12 +149,24 @@ void ASir::Collisiongather(float _DeltaTime)
 			AActor* Ptr = Collision->GetOwner();
 			Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
 
+
 			if (nullptr == Monster)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-			SirCollision->Destroy();
-			Monster->IceState();
+
+			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+			{
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
+			}
+			else {
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			}
+			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+			Monster->SetIsDie(true);
+			Monster->SetDiePos(DiePos);
+			Monster->Destroy(0.3f);
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 		{
@@ -141,12 +175,34 @@ void ASir::Collisiongather(float _DeltaTime)
 			AActor* Ptr = Collision->GetOwner();
 			AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
 
+
 			if (nullptr == Monster)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-			SirCollision->Destroy();
-			Monster->IceState();
+
+			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+			{
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
+			}
+			else {
+				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+			}
+			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+			Monster->SetIsDie(true);
+			Monster->SetDiePos(DiePos);
+			Monster->Destroy(0.3f);
+		}
+
+
+
+		// 픽셀 충돌
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			Destroy();
 		}
 	}
 	else if (Owner == ESirOwner::SirMonster)
