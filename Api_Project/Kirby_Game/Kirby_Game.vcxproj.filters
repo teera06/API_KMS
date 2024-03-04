@@ -53,6 +53,9 @@
     <ClCompile Include="Sir.cpp">
       <Filter>Stage_Actor\Kirby</Filter>
     </ClCompile>
+    <ClCompile Include="Stage3_Level.cpp">
+      <Filter>ContentsLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="Sir.h">
       <Filter>Stage_Actor\Kirby</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage3_Level.h">
+      <Filter>ContentsLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
