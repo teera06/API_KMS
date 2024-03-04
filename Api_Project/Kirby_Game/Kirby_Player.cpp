@@ -483,7 +483,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 
 	if (ColorBend == Color8Bit(0, 0, 0, 0)) 
 	{
-		GetWorld()->SetCameraPos({ 0,655 }); // 카메라 위치 설정
+		GetWorld()->SetCameraPos({ 0,585 }); // 카메라 위치 설정
 		SetActorLocation({ 500,1200 });
 	}
 }
