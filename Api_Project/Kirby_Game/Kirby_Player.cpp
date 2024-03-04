@@ -305,8 +305,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Sir_fall_Right", "Sir_Right.png", {41,42,43,26,27,28}, 0.1f, false);
 		KirbyRenderer->CreateAnimation("Sir_fall_Left", "Sir_Left.png", { 41,42,43,26,27,28 }, 0.1f, false);
 
-		KirbyRenderer->CreateAnimation("Sir_SirJump_Right", "Sir_Right.png", 25,26, 0.1f, false);
-		KirbyRenderer->CreateAnimation("Sir_SirJump_Left", "Sir_Left.png", 25,26, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Sir_SirJump_Right", "Sir_Right.png", 20,26, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Sir_SirJump_Left", "Sir_Left.png", 20,26, 0.1f, false);
 
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Right", "Sir_Right.png", 1, 1, 0.5f, true);
 		KirbyRenderer->CreateAnimation("Sir_HeadDown_Left", "Sir_Left.png", 1, 1, 0.5f, true);
@@ -1130,6 +1130,25 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
+	}
+
+	if (UEngineInput::IsDown('S'))
+	{
+		switch (KirbyMode)
+		{
+		case EAMode::Base:
+			// Base에서는 EatState가 true이면 날지 못한다.
+			if (false == EatState)
+			{
+				StateAniChange(EActorState::FlyReady);
+				return;
+			}
+			break;
+		default:
+			StateAniChange(EActorState::FlyReady);
+			return;
+			break;
+		}
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);
