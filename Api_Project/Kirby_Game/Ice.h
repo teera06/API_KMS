@@ -32,6 +32,7 @@ private:
 
 	EIceOwner Owner = EIceOwner::None;
 
+	void SkillDir();
 	void Collisiongather(float _DeltaTime);
 };
 

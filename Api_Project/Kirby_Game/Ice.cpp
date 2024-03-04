@@ -17,17 +17,7 @@ void AIce::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
-	if (GetDir().iX() == FVector::Left.iX())
-	{
-		IceRenderer->ChangeAnimation("Ice_Right");
-	}
-	else
-	{
-		IceRenderer->ChangeAnimation("Ice_Left");
-	}
-
-	IceCollision->SetPosition({ GetDir().iX() * 120,0 });
-	IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
+	SkillDir();
 
 
 	Collisiongather(_DeltaTime);
@@ -55,6 +45,21 @@ void AIce::BeginPlay()
 	IceRenderer->ChangeAnimation("Ice_Right");
 
 	Destroy(0.5f);
+}
+
+void AIce::SkillDir()
+{
+	if (GetDir().iX() == FVector::Left.iX())
+	{
+		IceRenderer->ChangeAnimation("Ice_Right");
+	}
+	else
+	{
+		IceRenderer->ChangeAnimation("Ice_Left");
+	}
+
+	IceCollision->SetPosition({ GetDir().iX() * 120,0 });
+	IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
 }
 
 void AIce::Collisiongather(float _DeltaTime)
