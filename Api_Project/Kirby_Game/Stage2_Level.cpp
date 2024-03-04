@@ -1,6 +1,6 @@
 #include "Stage2_Level.h"
 
-
+#include "Stage3_Level.h"
 #include "Stage2_Map.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
@@ -97,6 +97,7 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 	NewSir[1] = SpawnActor<AMonster_Sir>();
 	NewSir[1]->SetActorLocation({ 4800,1000 });
 	
+	GEngine->CreateLevel<UStage3_Level>("Stage3_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 
 void UStage2_Level::LevelEnd(ULevel* _NextLevel)
