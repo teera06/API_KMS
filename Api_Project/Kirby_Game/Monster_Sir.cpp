@@ -98,7 +98,7 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 		if (false == IsAtt)
 		{
 			IsAtt= true;
-			//SirAtt();
+			return;
 		}
 		StartDir.X *= -1;
 		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 100.0f); // 해당 범위 벗어나야 아래의 else문을 실행할 수 있기에 다시 범위안으로 옮기고 리턴

@@ -72,30 +72,28 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	for (int i = 0; i < 2; i++)
-	{
-		NewBase[i] = SpawnActor<AMonster_Base>();
-		NewBase[i]->SetActorLocation({ 800 + i * 1000,1000 });
-	}
-
-	NewBase[2] = SpawnActor<AMonster_Base>();
-	NewBase[2]->SetActorLocation({ 2800,1000 });
-
-	NewBase[3] = SpawnActor<AMonster_Base>();
-	NewBase[3]->SetActorLocation({ 5000,1000 });
-
-
+	
+	NewBase = SpawnActor<AMonster_Base>();
+	NewBase->SetActorLocation({ 1800,1000 });
+	
 	for (int i = 0; i < Firesize; i++)
 	{
 		NewFire[i] = SpawnActor<AMonster_Fire>();
 		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 });
 	}
 
-	for (int i = 0; i < Sirsize; i++)
-	{
-		NewSir[i] = SpawnActor<AMonster_Sir>();
-		NewSir[i]->SetActorLocation({1000+i*1000,800});
-	}
+	NewFire[5]= SpawnActor<AMonster_Fire>();
+	NewFire[5]->SetActorLocation({ 3600,1000 });
+
+	
+	NewSir[0] = SpawnActor<AMonster_Sir>();
+	NewSir[0]->SetActorLocation({1000,800});
+	
+	NewSir[1] = SpawnActor<AMonster_Sir>();
+	NewSir[1]->SetActorLocation({ 2800,1000 });
+
+	NewSir[1] = SpawnActor<AMonster_Sir>();
+	NewSir[1]->SetActorLocation({ 4800,1000 });
 	
 }
 

@@ -32,12 +32,11 @@ private:
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 
-	const int Basesize = 4;
 	const int Firesize = 4;
 	const int Sirsize = 3;
 
-	AMonster_Base* NewBase[5] = {nullptr,nullptr,nullptr,nullptr};
-	AMonster_Fire* NewFire[5] = { nullptr,nullptr,nullptr,nullptr };
+	AMonster_Base* NewBase=nullptr;
+	AMonster_Fire* NewFire[6] = { nullptr,nullptr,nullptr,nullptr, nullptr };
 	AMonster_Sir* NewSir[4] = { nullptr ,nullptr,nullptr};
 };
 
