@@ -776,8 +776,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// °È±â
 	if (
-		true == UEngineInput::IsDoubleClick(VK_LEFT,0.1f) ||
-		true == UEngineInput::IsDoubleClick(VK_RIGHT,0.1f)
+		true == UEngineInput::IsDoubleClick(VK_LEFT,0.2f) ||
+		true == UEngineInput::IsDoubleClick(VK_RIGHT,0.2f)
 		)
 	{
 		RunState = true;

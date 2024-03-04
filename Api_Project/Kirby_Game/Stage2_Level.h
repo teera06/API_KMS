@@ -35,7 +35,7 @@ private:
 	const int Firesize = 4;
 	const int Sirsize = 3;
 
-	AMonster_Base* NewBase=nullptr;
+	AMonster_Base* NewBase[3] = { nullptr,nullptr };
 	AMonster_Fire* NewFire[6] = { nullptr,nullptr,nullptr,nullptr, nullptr };
 	AMonster_Sir* NewSir[4] = { nullptr ,nullptr,nullptr};
 };
