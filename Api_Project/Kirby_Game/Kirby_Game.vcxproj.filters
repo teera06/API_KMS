@@ -59,6 +59,9 @@
     <ClCompile Include="Stage3_Map.cpp">
       <Filter>Stage_Actor\Stage_Map</Filter>
     </ClCompile>
+    <ClCompile Include="SubBoss.cpp">
+      <Filter>Stage_Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="Stage3_Map.h">
       <Filter>Stage_Actor\Stage_Map</Filter>
     </ClInclude>
+    <ClInclude Include="SubBoss.h">
+      <Filter>Stage_Actor\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">
@@ -142,6 +148,9 @@
     </Filter>
     <Filter Include="Stage_Actor\Stage_Map">
       <UniqueIdentifier>{388753aa-3ca4-49fa-b4e2-52c9771ae44c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Boss">
+      <UniqueIdentifier>{bdaf016d-8c89-421e-9330-806555a37b94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
