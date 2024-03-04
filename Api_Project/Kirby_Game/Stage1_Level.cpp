@@ -141,28 +141,25 @@ void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 
 	for (int i =0; i <Basesize; i++)
 	{
-		if (false==NewBase[i]->IsDestroy())
+		if (false==NewBase[i]->GetIsDie())
 		{
 			NewBase[i]->Destroy();
-			NewBase[i] = nullptr;
 		}
 	}
 
 	for (int i = 0; i < Icesize; i++)
 	{
-		if (false==NewIce[i]->IsDestroy())
+		if (false==NewIce[i]->GetIsDie())
 		{
 			NewIce[i]->Destroy();
-			NewIce[i]=nullptr;
 		}
 	}
 
 	for (int i = 0; i < Firesize; i++)
 	{
-		if (false==NewFire[i]->IsDestroy())
+		if (false==NewFire[i]->GetIsDie())
 		{
 			NewFire[i]->Destroy();
-			NewFire[i] = nullptr;
 		}
 	}
 	

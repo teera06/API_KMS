@@ -39,6 +39,11 @@ public:
 		IsDie = _IsDie;
 	}
 
+	bool GetIsDie()
+	{
+		return IsDie;
+	}
+
 	void SetDiePos(const FVector& _DiePos)
 	{
 		DiePos = _DiePos;
