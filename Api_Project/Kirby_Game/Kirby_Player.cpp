@@ -1648,6 +1648,19 @@ void AKirby_Player::Collisiongather(float _DeltaTime)
 		}
 		Monster->Destroy();
 	}
+	else if (true == FireCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
 }
 
 void AKirby_Player::FireKirby(float _DeltaTime)
