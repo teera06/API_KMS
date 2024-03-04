@@ -8,11 +8,11 @@
 //UEngineResourcesManager UEngineResourcesManager::Inst;
 //UEngineResourcesManager* UEngineResourcesManager::pInst = nullptr;
 
-UEngineResourcesManager::UEngineResourcesManager()
+UEngineResourcesManager::UEngineResourcesManager() 
 {
 }
 
-UEngineResourcesManager::~UEngineResourcesManager()
+UEngineResourcesManager::~UEngineResourcesManager() 
 {
 	for (std::pair<const std::string, UWindowImage*>& Pair : Images)
 	{

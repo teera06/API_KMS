@@ -83,7 +83,7 @@ void UCollision::DebugRender(FVector _CameraPos)
 	{
 	case ECollisionType::Point:
 	{
-		ThisTransform.SetScale({ 10, 10 });
+		ThisTransform.SetScale({10, 10});
 		GEngine->MainWindow.GetBackBufferImage()->DrawEllipse(ThisTransform);
 		break;
 	}

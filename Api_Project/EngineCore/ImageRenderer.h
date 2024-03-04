@@ -65,11 +65,11 @@ public:
 	}
 
 	void CreateAnimation(
-		std::string_view _AnimationName,
-		std::string_view _ImageName,
-		int _Start,
-		int _End,
-		float _Inter,
+		std::string_view _AnimationName, 
+		std::string_view _ImageName, 
+		int _Start, 
+		int _End, 
+		float _Inter, 
 		bool _Loop = true
 	);
 
@@ -124,7 +124,7 @@ public:
 		return Image;
 	}
 
-	void CameraEffectOff()
+	void CameraEffectOff() 
 	{
 		CameraEffect = false;
 	}

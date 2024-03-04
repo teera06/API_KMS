@@ -7,12 +7,12 @@
 bool UEngineCore::IsDebugValue = false;
 UEngineCore* GEngine = nullptr;
 
-UEngineCore::UEngineCore()
+UEngineCore::UEngineCore() 
 	: MainWindow()
 {
 }
 
-UEngineCore::~UEngineCore()
+UEngineCore::~UEngineCore() 
 {
 }
 
@@ -50,7 +50,7 @@ void UEngineCore::CoreTick()
 		if (CurFrameTime <= FrameTime)
 		{
 			return;
-		}
+		} 
 
 		//  0.0167         0.016666675
 		CurFrameTime -= FrameTime;
@@ -89,6 +89,20 @@ void UEngineCore::CoreTick()
 		CurFrameTime = 0.0f;
 	}
 
+	for (size_t i = 0; i < DestroyLevelName.size(); i++)
+	{
+		std::string UpperName = UEngineString::ToUpper(DestroyLevelName[i]);
+
+		ULevel* Level = AllLevel[UpperName];
+		if (nullptr != Level)
+		{
+			delete Level;
+			Level = nullptr;
+		}
+
+		AllLevel.erase(DestroyLevelName[i]);
+	}
+	DestroyLevelName.clear();
 
 	if (nullptr == CurLevel)
 	{
@@ -147,7 +161,7 @@ void UEngineCore::EngineStart(HINSTANCE _hInstance)
 {
 	GEngine = this;
 	MainTimer.TimeCheckStart();
-	CoreInit(_hInstance);
+	CoreInit(_hInstance); 
 	BeginPlay();
 	UEngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
 }
@@ -204,4 +218,16 @@ void UEngineCore::LevelInit(ULevel* _Level, std::string_view _Name)
 {
 	_Level->SetName(_Name);
 	_Level->BeginPlay();
+}
+
+void UEngineCore::DestroyLevel(std::string_view _Name)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (false == AllLevel.contains(UpperName))
+	{
+		MsgBoxAssert(std::string(_Name) + "존재하지 않는 레벨을 파괴할수는 없습니다");
+	}
+
+	DestroyLevelName.push_back(UpperName);
 }

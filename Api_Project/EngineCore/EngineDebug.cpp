@@ -4,7 +4,7 @@
 
 namespace UEngineDebug
 {
-	struct TextOutData
+	struct TextOutData 
 	{
 	public:
 		std::string Text;
@@ -32,7 +32,7 @@ namespace UEngineDebug
 		{
 			TextOutData& Data = PrintText[i];
 			_Image->TextCopyFormat(Data.Text, "±Ã¼­", stringFormat, Data._Size, Trans, Color);
-			Trans.AddPosition({ 0.0f, Data._Size });
+			Trans.AddPosition({0.0f, Data._Size });
 		}
 
 		PrintText.clear();

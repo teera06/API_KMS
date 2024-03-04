@@ -81,7 +81,7 @@ public:
 
 protected:
 
-private:
+private: 
 	// constrcuter destructer
 	UEngineResourcesManager();
 	~UEngineResourcesManager();

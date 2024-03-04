@@ -144,7 +144,7 @@ void UImageRenderer::CreateAnimation(
 	bool _Loop/* = true*/
 )
 {
-
+	
 	std::vector<float> Inters;
 	//          12         0
 	int Size = static_cast<int>(_Indexs.size());
@@ -274,7 +274,7 @@ void UImageRenderer::ImageRender(float _DeltaTime)
 	{
 	case EImageSortType::Left:
 	{
-		RendererTrans.AddPosition({ RendererTrans.GetScale().hX() , 0.0f });
+		RendererTrans.AddPosition({ RendererTrans.GetScale().hX() , 0.0f});
 		break;
 	}
 	default:
@@ -297,7 +297,7 @@ void UImageRenderer::ImageRender(float _DeltaTime)
 		{
 			GEngine->MainWindow.GetBackBufferImage()->AlphaCopy(Image, RendererTrans, InfoIndex, TransColor);
 		}
-		else
+		else 
 		{
 			GEngine->MainWindow.GetBackBufferImage()->PlgCopy(Image, RendererTrans, InfoIndex, Angle * UEngineMath::DToR);
 		}
