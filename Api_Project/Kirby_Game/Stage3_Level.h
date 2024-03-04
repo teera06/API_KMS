@@ -29,7 +29,7 @@ protected:
 private:
 	UEngineSoundPlayer BGMPlayer;
 
-	/AStage1_MAP* NewMap = nullptr;
+	//AStage1_MAP* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 };
