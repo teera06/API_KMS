@@ -40,6 +40,12 @@ void UStage2_Level::BeginPlay()
 		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 	}
+
+	// 이미지 컷팅 -> 커비 관련 이미지
+	UEngineResourcesManager::GetInst().CuttingImage("Sir_Right.png", 10, 10);
+	UEngineResourcesManager::GetInst().CuttingImage("Sir_Left.png", 10, 10);
+	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Right.png", 5, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Left.png", 5, 5);
 }
 
 void UStage2_Level::Tick(float _DeltaTime)
