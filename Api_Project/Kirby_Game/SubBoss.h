@@ -5,18 +5,18 @@
 
 #include "Kirby_Player.h" // MainPlayer
 
-class SubBoss : public AActor, public UActorCommon
+class ASubBoss : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
-	SubBoss(); // 디폴트 생성자
-	~SubBoss(); // 디폴트 소멸자
+	ASubBoss(); // 디폴트 생성자
+	~ASubBoss(); // 디폴트 소멸자
 
 	// delete Function
-	SubBoss(const SubBoss& _Other) = delete; // 디폴트 복사 생성자
-	SubBoss(SubBoss&& _Other) noexcept = delete; 
-	SubBoss& operator=(const SubBoss& _Other) = delete; // 디폴트 대입 연산자
-	SubBoss& operator=(SubBoss&& _Other) noexcept = delete;
+	ASubBoss(const ASubBoss& _Other) = delete; // 디폴트 복사 생성자
+	ASubBoss(ASubBoss&& _Other) noexcept = delete; 
+	ASubBoss& operator=(const ASubBoss& _Other) = delete; // 디폴트 대입 연산자
+	ASubBoss& operator=(ASubBoss&& _Other) noexcept = delete;
 
 	UImageRenderer* GetMonsterRenderer()
 	{

@@ -1,18 +1,18 @@
 #include "SubBoss.h"
 
-SubBoss::SubBoss()
+ASubBoss::ASubBoss()
 {
 }
 
-SubBoss::~SubBoss()
+ASubBoss::~ASubBoss()
 {
 }
 
-void SubBoss::BeginPlay()
+void ASubBoss::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	scale = 5;
+	scale = 6;
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("Tock_Right.png"); // 이미지 Set
@@ -29,7 +29,7 @@ void SubBoss::BeginPlay()
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
-void SubBoss::Tick(float _DeltaTime)
+void ASubBoss::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	GroundUp();
@@ -42,7 +42,7 @@ void SubBoss::Tick(float _DeltaTime)
 	}
 }
 
-void SubBoss::CalDir(float _DeltaTime)
+void ASubBoss::CalDir(float _DeltaTime)
 {
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
@@ -75,16 +75,16 @@ void SubBoss::CalDir(float _DeltaTime)
 	}
 }
 
-void SubBoss::Att()
+void ASubBoss::Att()
 {
 }
 
-void SubBoss::Collisiongather(float _DeltaTime)
+void ASubBoss::Collisiongather(float _DeltaTime)
 {
 
 }
 
-void SubBoss::CalResult(float _DeltaTime)
+void ASubBoss::CalResult(float _DeltaTime)
 {
 	
 	if (true == IsDie) // 죽으면
@@ -98,7 +98,7 @@ void SubBoss::CalResult(float _DeltaTime)
 	}
 }
 
-void SubBoss::GroundUp()
+void ASubBoss::GroundUp()
 {
 	while (true)
 	{
@@ -114,7 +114,7 @@ void SubBoss::GroundUp()
 	}
 }
 
-void SubBoss::MoveUpdate(float _DeltaTime)
+void ASubBoss::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
@@ -131,7 +131,7 @@ void SubBoss::MoveUpdate(float _DeltaTime)
 	}
 }
 
-void SubBoss::AniCreate()
+void ASubBoss::AniCreate()
 {
 	MonsterRenderer->CreateAnimation("Move_Right", "Tock_Right.png", 7, 9, 0.3f, true);
 	MonsterRenderer->CreateAnimation("Move_Left", "Tock_Left.png", 7, 9, 0.3f, true);
