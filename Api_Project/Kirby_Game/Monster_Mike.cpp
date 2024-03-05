@@ -134,11 +134,11 @@ void AMonster_Mike::AniCreate()
 {
 	// 기본 걷는 모션
 
-	MonsterRenderer->CreateAnimation("Move_Right", "MikeMonster_Right.png", 0, 4, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("Move_Left", "MikeMonster_Left.png", 0, 4, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Right", "MikeMonster_Right.png", { 0,1,2,5,6 }, 0.1f, true); // 걷기
+	MonsterRenderer->CreateAnimation("Move_Left", "MikeMonster_Left.png", {0,1,2,5,6}, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("MonsterIce", "MikeMonster_Right.png", 108, 108, false); // 얼음
-	MonsterRenderer->CreateAnimation("die_Right", "MikeMonster_Right.png", 5, 5, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("die_Left", "MikeMonster_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Right", "MikeMonster_Right.png", 4, 4, 0.2f, false); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("die_Left", "MikeMonster_Left.png", 4, 4, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 

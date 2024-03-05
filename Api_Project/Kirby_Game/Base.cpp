@@ -153,8 +153,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		Monster->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
-
-		SetModeName("Mike_");
+		SetModeName("Base_");
 
 		Destroy(0.1f);
 	}

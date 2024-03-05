@@ -320,6 +320,8 @@ void AKirby_Player::AniCreate()
 	
 	if (StageCheck >= 3) 
 	{
+		KirbyRenderer->CreateAnimation("Mike_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
+		KirbyRenderer->CreateAnimation("Mike_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 		// 기본 서있는 모션(완)
 		KirbyRenderer->CreateAnimation("Mike_Idle_Right", "kirby_Right.png", 0, 1, 0.5f, true); // 오른쪽 서 있기
 		KirbyRenderer->CreateAnimation("Mike_Idle_Left", "kirby_Left.png", 0, 1, 0.5f, true); // 왼쪽 서있기
@@ -391,6 +393,10 @@ void AKirby_Player::KirbyModeCheck()
 		else if (std::string(GetModeName()) == "Sir_") // 소드 문자열이면
 		{
 			SetMode(EAMode::Sir); // 소드 형태로
+		}
+		else if (std::string(GetModeName()) == "Mike_") // 소드 문자열이면
+		{
+			SetMode(EAMode::Mike); // 소드 형태로
 		}
 	}
 }

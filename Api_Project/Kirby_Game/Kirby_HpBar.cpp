@@ -75,6 +75,10 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 			StateRenderer->ActiveOff();
 		}
 	}
+	else if (std::string(GetModeName()) == "Mike_")
+	{
+		StateRenderer->ChangeAnimation("Mike_");
+	}
 }
 
 void AKirby_HpBar::BeginPlay()
