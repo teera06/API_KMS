@@ -75,11 +75,6 @@ void ASubBoss::CalDir(float _DeltaTime)
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
 
-	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 인식 시야 X축
-	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 인식 시야 X축
-
-	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
-
 	FVector MonsterDir = PlayerPos - MonsterPos; // 플레이어 위치 - 몬스터 위치 = 방향 ex) 몬스터가 플레이어에게 향하는 방향
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 
@@ -95,12 +90,6 @@ void ASubBoss::CalDir(float _DeltaTime)
 		WallX = 20;
 	}
 	MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
-
-	// 플레이어를 향해 공격
-	if (AttXL.iX() < PlayerX.iX() && AttXR.iX() > PlayerX.iX() && MainPlayer->GetActorLocation().iY() >= GetActorLocation().iY() - 30) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
-	{
-		IsAtt = true;
-	}
 }
 
 void ASubBoss::Att1(float _DeltaTime)
@@ -246,7 +235,7 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
 	skillcooldowntime -= _DeltaTime;
-	if (true == IsAtt && skillcooldowntime < 0.0f)
+	if (skillcooldowntime < 0.0f)
 	{
 
 		MovePos = FVector::Zero;
