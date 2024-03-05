@@ -131,6 +131,8 @@ protected:
 	void SirAttackStart(); // 아이스 공격
 	void SirJumpStart();
 
+	void MikeAttackStart();
+
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck(); // 오른쪽, 왼쪽 방향 체크
 
@@ -212,6 +214,7 @@ private:
 	void FireKirby(float _DeltaTime); // 불 커비
 	void IceKirby(float _DeltaTime); // 아이스 커비
 	void SirKirby(float _DeltaTime);
+	void MikeKirby(float _DeltaTime);
 	
 	// 카메라 Y축 제어 함수
 	void CamYMove();

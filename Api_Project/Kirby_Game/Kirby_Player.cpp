@@ -355,6 +355,15 @@ void AKirby_Player::AniCreate()
 		// 충돌 애니메이션
 		KirbyRenderer->CreateAnimation("Mike_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 		KirbyRenderer->CreateAnimation("Mike_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
+
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Left", "Mike_Left.png", 0, 12, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Right", "Mike_Right.png", 0, 12, 0.1f, true);
+
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Left", "Mike_Left.png", 14, 22, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Right", "Mike_Right.png", 14, 22, 0.1f, true);
+
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.1f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -1535,6 +1544,12 @@ void AKirby_Player::SirJumpStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("SirJump"));
 }
 
+void AKirby_Player::MikeAttackStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack"));
+}
+
 void AKirby_Player::HeadDownStart()
 {
 	DirCheck();
@@ -1694,6 +1709,20 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 }
 
 void AKirby_Player::SirKirby(float _DeltaTime)
+{
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		SkillOn = false;
+		StateAniChange(EActorState::SirJump);
+		return;
+	}
+
+	MoveUpdate(_DeltaTime);
+}
+
+void AKirby_Player::MikeKirby(float _DeltaTime)
 {
 	DirCheck();
 

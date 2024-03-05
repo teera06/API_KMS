@@ -65,6 +65,7 @@ enum class ECollisionOrder
 	iceMonster,
 	FireMonster,
 	SirMonster,
+	MikeMonster,
 	IceAttack,
 	FireAttack,
 	SirAttack,

@@ -5,6 +5,7 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
+#include "Monster_Mike.h"
 
 #include "Kirby_Player.h"
 
@@ -135,6 +136,25 @@ void ABase::Collisiongather(float _DeltaTime)
 		Monster->SetBaseOnOff(true);
 
 		SetModeName("Sir_");
+
+		Destroy(0.1f);
+	}
+	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Mike* Monster = dynamic_cast<AMonster_Mike*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
+		Monster->SetEatState(true);
+		Monster->SetBaseOnOff(true);
+
+		SetModeName("Mike_");
 
 		Destroy(0.1f);
 	}
