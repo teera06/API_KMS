@@ -4,6 +4,7 @@
 #include "Stage3_Map.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
+#include "Monster_Mike.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -67,6 +68,9 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 	NewPlayer->SetActorLocation({ 500,300 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
+
+	SpawnActor<AMonster_Mike>()->SetActorLocation({ 700,300 });
+
 }
 
 void UStage3_Level::LevelEnd(ULevel* _NextLevel)

@@ -6,18 +6,18 @@
 #include "Kirby_Player.h" // MainPlayer
 
 
-class Monster_Mike : public AActor, public UActorCommon
+class AMonster_Mike : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
-	Monster_Mike(); // 디폴트 생성자
-	~Monster_Mike(); // 디폴트 소멸자
+	AMonster_Mike(); // 디폴트 생성자
+	~AMonster_Mike(); // 디폴트 소멸자
 
 	// delete Function
-	Monster_Mike(const Monster_Mike& _Other) = delete; // 디폴트 복사 생성자
-	Monster_Mike(Monster_Mike&& _Other) noexcept = delete; 
-	Monster_Mike& operator=(const Monster_Mike& _Other) = delete; // 디폴트 대입 연산자
-	Monster_Mike& operator=(Monster_Mike&& _Other) noexcept = delete;
+	AMonster_Mike(const AMonster_Mike& _Other) = delete; // 디폴트 복사 생성자
+	AMonster_Mike(AMonster_Mike&& _Other) noexcept = delete; 
+	AMonster_Mike& operator=(const AMonster_Mike& _Other) = delete; // 디폴트 대입 연산자
+	AMonster_Mike& operator=(AMonster_Mike&& _Other) noexcept = delete;
 
 	void IceState();
 

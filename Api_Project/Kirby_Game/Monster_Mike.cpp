@@ -7,15 +7,15 @@
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
 
-Monster_Mike::Monster_Mike()
+AMonster_Mike::AMonster_Mike()
 {
 }
 
-Monster_Mike::~Monster_Mike()
+AMonster_Mike::~AMonster_Mike()
 {
 }
 
-void Monster_Mike::IceState()
+void AMonster_Mike::IceState()
 {
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
@@ -23,11 +23,11 @@ void Monster_Mike::IceState()
 	IsIce = true;
 }
 
-void Monster_Mike::BeginPlay()
+void AMonster_Mike::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	scale = 3; // 평소 크기
+	scale = 2; // 평소 크기
 	// 랜더링
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
@@ -49,7 +49,7 @@ void Monster_Mike::BeginPlay()
 
 }
 
-void Monster_Mike::Tick(float _DeltaTime)
+void AMonster_Mike::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	GroundUp();
@@ -71,7 +71,7 @@ void Monster_Mike::Tick(float _DeltaTime)
 	}
 }
 
-void Monster_Mike::MoveUpdate(float _DeltaTime)
+void AMonster_Mike::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
@@ -80,7 +80,7 @@ void Monster_Mike::MoveUpdate(float _DeltaTime)
 	CalResult(_DeltaTime);
 }
 
-void Monster_Mike::BaseMove(float _DeltaTime)
+void AMonster_Mike::BaseMove(float _DeltaTime)
 {
 	FVector Move = FVector::Zero;
 	FVector CurX = GetActorLocation() * FVector::Right;
@@ -130,7 +130,7 @@ void Monster_Mike::BaseMove(float _DeltaTime)
 	}
 }
 
-void Monster_Mike::AniCreate()
+void AMonster_Mike::AniCreate()
 {
 	// 기본 걷는 모션
 
@@ -142,7 +142,7 @@ void Monster_Mike::AniCreate()
 	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
-void Monster_Mike::IceToMonster(float _DeltaTime)
+void AMonster_Mike::IceToMonster(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
@@ -234,7 +234,7 @@ void Monster_Mike::IceToMonster(float _DeltaTime)
 	}
 }
 
-void Monster_Mike::Collisiongather(float _DeltaTime)
+void AMonster_Mike::Collisiongather(float _DeltaTime)
 {
 	// 콜리전 
 	std::vector<UCollision*> Result;
@@ -290,7 +290,7 @@ void Monster_Mike::Collisiongather(float _DeltaTime)
 	}
 }
 
-void Monster_Mike::CalDir()
+void AMonster_Mike::CalDir()
 {
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
@@ -299,7 +299,7 @@ void Monster_Mike::CalDir()
 	MonsterDirNormal = MonsterDir.Normalize2DReturn();  // 해당값을 정규화 
 }
 
-void Monster_Mike::CalResult(float _DeltaTime)
+void AMonster_Mike::CalResult(float _DeltaTime)
 {
 	if (true == IsIce)
 	{
@@ -333,7 +333,7 @@ void Monster_Mike::CalResult(float _DeltaTime)
 	}
 }
 
-void Monster_Mike::GroundUp()
+void AMonster_Mike::GroundUp()
 {
 	while (true)
 	{
