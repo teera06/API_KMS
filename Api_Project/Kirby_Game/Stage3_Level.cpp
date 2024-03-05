@@ -45,6 +45,8 @@ void UStage3_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Mike_Left.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("MikeMonster_Right.png", 5, 3);
 	UEngineResourcesManager::GetInst().CuttingImage("MikeMonster_Left.png", 5, 3);
+	UEngineResourcesManager::GetInst().CuttingImage("Tock_Right.png", 10, 3);
+	UEngineResourcesManager::GetInst().CuttingImage("Tock_Left.png", 10, 3);
 }
 
 void UStage3_Level::Tick(float _DeltaTime)
