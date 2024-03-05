@@ -47,18 +47,18 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	SetCameraPos({ 0,400 }); // 카메라 위치 설정
+	SetCameraPos({25,0 }); // 카메라 위치 설정
 
 	// 맵 생성
 	NewMap = SpawnActor < ALast_Map > ();
 	NewMap->SetMapImage("LastMap.png");
 	
-	//NewMap->SetColMapImage("cor_map.png");
+	NewMap->SetColMapImage("Cor4_Map.png");
 	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
 	NewPlayer = SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,1000 });
+	NewPlayer->SetActorLocation({ 700,400 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 }
