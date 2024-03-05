@@ -1,6 +1,6 @@
 #include "SubBoss.h"
 
-
+#include <EngineBase\EngineRandom.h>
 ASubBoss* ASubBoss::MainSubBoss = nullptr;
 
 ASubBoss* ASubBoss::GetMainSubBoss()
@@ -99,7 +99,7 @@ void ASubBoss::CalDir(float _DeltaTime)
 	}
 }
 
-void ASubBoss::Att(float _DeltaTime)
+void ASubBoss::Att1(float _DeltaTime)
 {
 	AttRenderer->ActiveOn();
 	AttCollision->ActiveOn();
@@ -216,8 +216,9 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 	skillcooldowntime -= _DeltaTime;
 	if (true == IsAtt && skillcooldowntime < 0.0f)
 	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
 		MovePos = FVector::Zero;
-		Att(_DeltaTime);
+		Att1(_DeltaTime);
 	}
 	else {
 		AttRenderer->ActiveOff();

@@ -1,6 +1,7 @@
 #pragma once
 // 상속
 #include <EngineCore\Actor.h>
+
 #include "ActorCommon.h"
 
 #include "Kirby_Player.h" // MainPlayer
@@ -49,12 +50,11 @@ private:
 	void AniCreate(); // 애니메이션 관리
 
 	void CalDir(float _DeltaTime);
-	void Att(float _DeltaTime);
+	void Att1(float _DeltaTime);
 
 	void AttCollisiongather(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
-
 
 	void GroundUp();
 
@@ -65,6 +65,7 @@ private:
 	float skillcooldowntime = 0.0f;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
+	int RandomAtt = 0;
 
 	float MoveSpeed = 50.0f; // 몬스터 스피드
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
