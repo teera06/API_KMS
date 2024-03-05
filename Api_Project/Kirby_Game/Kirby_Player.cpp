@@ -367,14 +367,14 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Mike_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 		KirbyRenderer->CreateAnimation("Mike_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Left", "Mike_Left.png", 0, 12, 0.125f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Right", "Mike_Right.png", 0, 12, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Left", "Mike_Left.png", 0, 12, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Right", "Mike_Right.png", 0, 12, 0.1f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Left", "Mike_Left.png", 14, 22, 0.125f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Right", "Mike_Right.png", 14, 22, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Left", "Mike_Left.png", 14, 22, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Right", "Mike_Right.png", 14, 22, 0.1f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.125f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.1f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -504,9 +504,9 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		SubBossWall = true; // 벽 생김
 
 		// 위치 조정
-		GetWorld()->SetCameraPos({1780,0}); // 카메라 위치
+		GetWorld()->SetCameraPos({1800,0}); // 카메라 위치
 		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
-		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 300, 500});
+		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 800, 500});
 		return;
 	}
 	//
