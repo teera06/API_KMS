@@ -1,5 +1,13 @@
 #include "SubBoss.h"
 
+
+ASubBoss* ASubBoss::MainSubBoss = nullptr;
+
+ASubBoss* ASubBoss::GetMainSubBoss()
+{
+	return MainSubBoss;
+}
+
 ASubBoss::ASubBoss()
 {
 }
@@ -12,6 +20,7 @@ void ASubBoss::BeginPlay()
 {
 	AActor::BeginPlay();
 
+	MainSubBoss = this; // 다른 클래스가 사용하기 위해 본인을 넣는다.
 	scale = 6;
 	{
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성

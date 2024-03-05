@@ -18,6 +18,8 @@ public:
 	ASubBoss& operator=(const ASubBoss& _Other) = delete; // 디폴트 대입 연산자
 	ASubBoss& operator=(ASubBoss&& _Other) noexcept = delete;
 
+	static ASubBoss* GetMainSubBoss(); // 몬스터나 상태창이 플레이어에 대한 정보를 알아야 할 때 사용
+
 	UImageRenderer* GetMonsterRenderer()
 	{
 		return MonsterRenderer;
@@ -29,6 +31,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
+
+	static ASubBoss* MainSubBoss;
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
