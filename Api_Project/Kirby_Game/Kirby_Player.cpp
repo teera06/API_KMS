@@ -14,6 +14,7 @@
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
 #include "Monster_Mike.h"
+#include "SubBoss.h"
 
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
@@ -1590,6 +1591,37 @@ void AKirby_Player::SirJumpStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("SirJump"));
 }
 
+void AKirby_Player::SoundCollisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == MikeCollision->CollisionCheck(ECollisionOrder::SubBoss, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		ASubBoss* Monster = dynamic_cast<ASubBoss*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
+	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Mike* Monster = dynamic_cast<AMonster_Mike*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Monster->Destroy();
+	}
+}
+
 void AKirby_Player::MikeAttackStart()
 {
 	DirCheck();
@@ -1680,7 +1712,7 @@ void AKirby_Player::FireReady(float _DeltaTime)
 	}
 }
 
-void AKirby_Player::Collisiongather(float _DeltaTime)
+void AKirby_Player::FireCollisiongather(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
 	if (true == FireCollision->CollisionCheck(ECollisionOrder::Monster, Result))
@@ -1741,7 +1773,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
 
-	Collisiongather(_DeltaTime);
+	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
@@ -1785,6 +1817,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 {
 	DirCheck();
 
+	SoundCollisiongather(_DeltaTime);
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;

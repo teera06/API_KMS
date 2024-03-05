@@ -120,7 +120,9 @@ protected:
 
 	void ModeInputTick(float _DeltaTime); // 모드별 입력키
 	void FireReady(float _DeltaTime);
-	void Collisiongather(float _DeltaTime);
+	void FireCollisiongather(float _DeltaTime);
+
+
 
 	void AllAttackStart(); // 별 뱉기 공격
 	void IceAttackStart(); // 아이스 공격
@@ -131,6 +133,7 @@ protected:
 	void SirAttackStart(); // 아이스 공격
 	void SirJumpStart();
 
+	void SoundCollisiongather(float _DeltaTime);
 	void MikeAttackStart();
 	int MikeOrder = 1;
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
