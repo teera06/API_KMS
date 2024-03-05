@@ -139,6 +139,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
 			Monster->Destroy(0.3f);
+			StartDir = StartDir * FVector::Left;
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 		{
@@ -165,6 +166,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
 			Monster->Destroy(0.3f);
+			StartDir = StartDir * FVector::Left;
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 		{
@@ -191,6 +193,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
 			Monster->Destroy(0.3f);
+			StartDir = StartDir * FVector::Left;
 		}else if (true == SirCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 		{
 			// 이런식으로 상대를 사용할수 있다.
@@ -216,6 +219,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
 			Monster->Destroy(0.3f);
+			StartDir = StartDir * FVector::Left;
 		}
 		
 		
@@ -263,6 +267,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			MainPlayer->GetKirbyCollision()->ActiveOff();
 			MainPlayer->AddHP(-20);
 			MainPlayer->HitStart(); // hit 상태 스타트
+			StartDir = StartDir * FVector::Left;
 		}
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 		{
