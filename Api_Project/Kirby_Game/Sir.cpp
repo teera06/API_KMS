@@ -278,6 +278,14 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->SetSirUse(false);
 			Destroy();
 		}
+
+		// ÇÈ¼¿ Ãæµ¹
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+		if (ColorR == Color8Bit(255, 0, 0, 0))
+		{
+			StartDir = StartDir * FVector::Left;
+		}
 	}
 
 }
