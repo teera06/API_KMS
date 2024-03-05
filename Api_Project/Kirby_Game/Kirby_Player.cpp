@@ -816,13 +816,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		GEngine->ChangeLevel("LastBoss_Level");
 	}
 
-	if (true == UEngineInput::IsDown('1'))
-	{
-		
-		SubBossWall = false;
-		GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0});
-	}
-
 	if (true == UEngineInput::IsDown('2'))
 	{
 		if (DirState == EActorDir::Left)
