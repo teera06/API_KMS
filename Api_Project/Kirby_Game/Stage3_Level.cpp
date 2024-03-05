@@ -74,7 +74,6 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
 	SpawnActor<AMonster_Mike>()->SetActorLocation({ 700,300 });
-	SpawnActor<ASubBoss>()->SetActorLocation({ 900,300 });
 	
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
