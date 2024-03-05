@@ -478,6 +478,9 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	CamCheckPos.Y -= checkposY;
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::RedA);
+	Color8Bit ColorY = UActorCommon::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::YellowA);
+
+
 	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::GreenA);
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
 	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
@@ -488,9 +491,29 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		MovePos = FVector::Zero;
 	}
 
+	// 3스테이지 어거지 방법 이벤트
+	if (ColorY == Color8Bit(255, 255, 0, 0) && true == SubBossWall && StageCheck == 3) // 3스테이지 특정 이벤트 한정 벽 추가
+	{
+		MovePos = FVector::Zero;
+	}
+
+	if (ColorY == Color8Bit(255, 255, 0, 0) && StageCheck==3 && false==SubBossEvent) // 처음만 실행후 그뒤로는 실행 안함 
+	{
+		// 노란색 픽셀 충돌, 3스테이지, 최초 bool값 -> 한번만 실행되고 그뒤로는 실행 안됨
+		SubBossEvent = true;
+		SubBossWall = true; // 벽 생김
+
+		// 위치 조정
+		GetWorld()->SetCameraPos({1780,0}); // 카메라 위치
+		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
+		return;
+	}
+	//
+
 	AddActorLocation(MovePos + (PlayMove * _DeltaTime)); // 최종 Kirby 움직임 계산 X축(게임 조작을 통한 값)과 Y축 (중력, 점프)
 
-	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0)) // 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+
+	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0) && false==SubBossWall) // 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
 	{
 		// 카메라 최종 이동
 		FVector Move = (MovePos * FVector::Right) + CamstopMove; // 
@@ -795,14 +818,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown('1'))
 	{
 		
-		if (true == manual->IsActive())
-		{
-			manual->ActiveOff();
-		}
-		else
-		{
-			manual->ActiveOn();
-		}
+		SubBossWall = false;
+		GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0});
 	}
 
 	if (true == UEngineInput::IsDown('2'))

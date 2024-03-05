@@ -188,6 +188,10 @@ private:
 	bool RunState = false;
 	EActorDir RunRL = EActorDir::None;
 
+	// 3스테이지 한정 변수
+	bool SubBossEvent=false;
+	bool SubBossWall = false;
+
 	static int Hp;
 
 	void AniCreate(); // 애니메이션 생성
