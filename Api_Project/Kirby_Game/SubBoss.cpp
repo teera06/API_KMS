@@ -141,6 +141,35 @@ void ASubBoss::AttCollisiongather(float _DeltaTime)
 	}
 }
 
+void ASubBoss::Collisiongather(float _DeltaTime)
+{
+	// 콜리전 
+	std::vector<UCollision*> Result;
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	{
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
+
+		// 방어코드
+		if (nullptr == Player)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+
+		Player->Sethitstate(true); // 플레이어 충돌 체크
+		Player->SetHitDir(MonsterDirNormal * FVector::Right);
+		Player->GetKirbyRender()->SetAlpha(0.5f);
+		Player->GetKirbyCollision()->ActiveOff();
+		Player->AddHP(-20);
+		Player->HitStart(); // hit 상태 스타트
+
+		//IsDie = true; // 죽음 체크
+
+	}
+}
+
 void ASubBoss::CalResult(float _DeltaTime)
 {
 	
@@ -184,6 +213,7 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 	else {
 		AttRenderer->ActiveOff();
 		CalDir(_DeltaTime);
+		Collisiongather(_DeltaTime);
 		CalResult(_DeltaTime);
 	}
 }

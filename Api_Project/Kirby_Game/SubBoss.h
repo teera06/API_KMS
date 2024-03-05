@@ -48,6 +48,7 @@ private:
 	void Att(float _DeltaTime);
 
 	void AttCollisiongather(float _DeltaTime);
+	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
 
 
