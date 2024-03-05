@@ -48,6 +48,7 @@ enum class ERenderOrder
 	Stage1_Map,
 	Stage2_Map,
 	Stage3_Map,
+	Last_Map,
 	Monster,
 	HPBar,
 	HPgauge,

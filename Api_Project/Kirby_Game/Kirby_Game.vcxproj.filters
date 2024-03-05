@@ -68,6 +68,9 @@
     <ClCompile Include="LastBoss_Level.cpp">
       <Filter>ContentsLevel</Filter>
     </ClCompile>
+    <ClCompile Include="Last_Map.cpp">
+      <Filter>Stage_Actor\Stage_Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="LastBoss_Level.h">
       <Filter>ContentsLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Last_Map.h">
+      <Filter>Stage_Actor\Stage_Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
