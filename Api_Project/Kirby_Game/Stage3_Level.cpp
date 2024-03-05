@@ -42,6 +42,8 @@ void UStage3_Level::BeginPlay()
 	// 이미지 컷팅 -> 커비 관련 이미지
 	UEngineResourcesManager::GetInst().CuttingImage("Mike_Right.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("Mike_Left.png", 10, 4);
+	UEngineResourcesManager::GetInst().CuttingImage("MikeMonster_Right.png", 5, 3);
+	UEngineResourcesManager::GetInst().CuttingImage("MikeMonster_Left.png", 5, 3);
 }
 
 void UStage3_Level::Tick(float _DeltaTime)
