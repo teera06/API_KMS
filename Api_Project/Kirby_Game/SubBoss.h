@@ -45,9 +45,9 @@ private:
 	void AniCreate(); // 局聪皋捞记 包府
 
 	void CalDir(float _DeltaTime);
-	void Att();
+	void Att(float _DeltaTime);
 
-	void Collisiongather(float _DeltaTime);
+	void AttCollisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
 
 

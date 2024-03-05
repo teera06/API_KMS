@@ -90,7 +90,7 @@ void ASubBoss::CalDir(float _DeltaTime)
 	}
 }
 
-void ASubBoss::Att()
+void ASubBoss::Att(float _DeltaTime)
 {
 	AttRenderer->ActiveOn();
 	AttCollision->ActiveOn();
@@ -103,14 +103,16 @@ void ASubBoss::Att()
 	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
 	}
+	AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 6.0f;
 	}
 }
 
-void ASubBoss::Collisiongather(float _DeltaTime)
+void ASubBoss::AttCollisiongather(float _DeltaTime)
 {
 	// 콜리전 
 	std::vector<UCollision*> Result;
@@ -177,13 +179,11 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 	if (true == IsAtt && skillcooldowntime < 0.0f)
 	{
 		MovePos = FVector::Zero;
-		Att();
+		Att(_DeltaTime);
 	}
 	else {
 		AttRenderer->ActiveOff();
 		CalDir(_DeltaTime);
-		Collisiongather(_DeltaTime);
-		AttCollision->ActiveOff();
 		CalResult(_DeltaTime);
 	}
 }
