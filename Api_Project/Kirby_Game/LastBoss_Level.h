@@ -2,21 +2,23 @@
 #include <EngineCore\Level.h> // 상속
 #include <EnginePlatform\EngineSound.h>
 
+class ALast_Map;
 class AKirby_Player;
 class AKirby_HpBar;
 
-class LastBoss_Level :public ULevel
+
+class ULastBoss_Level :public ULevel
 {
 public:
 	// constrcuter destructer
-	LastBoss_Level(); // 디폴트 생성자
-	~LastBoss_Level(); // 디폴트 소멸자
+	ULastBoss_Level(); // 디폴트 생성자
+	~ULastBoss_Level(); // 디폴트 소멸자
 
 	// delete Function
-	LastBoss_Level(const LastBoss_Level& _Other) = delete; // 디폴트 복사 생성자
-	LastBoss_Level(LastBoss_Level&& _Other) noexcept = delete; 
-	LastBoss_Level& operator=(const LastBoss_Level& _Other) = delete; // 디폴트 대입 연산자
-	LastBoss_Level& operator=(LastBoss_Level&& _Other) noexcept = delete;
+	ULastBoss_Level(const ULastBoss_Level& _Other) = delete; // 디폴트 복사 생성자
+	ULastBoss_Level(ULastBoss_Level&& _Other) noexcept = delete; 
+	ULastBoss_Level& operator=(const ULastBoss_Level& _Other) = delete; // 디폴트 대입 연산자
+	ULastBoss_Level& operator=(ULastBoss_Level&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

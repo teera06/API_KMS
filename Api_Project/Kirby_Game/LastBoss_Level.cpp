@@ -6,15 +6,15 @@
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
-LastBoss_Level::LastBoss_Level()
+ULastBoss_Level::ULastBoss_Level()
 {
 }
 
-LastBoss_Level::~LastBoss_Level()
+ULastBoss_Level::~ULastBoss_Level()
 {
 }
 
-void LastBoss_Level::BeginPlay()
+void ULastBoss_Level::BeginPlay()
 {
 	ULevel::BeginPlay();
 
@@ -37,12 +37,12 @@ void LastBoss_Level::BeginPlay()
 	}
 }
 
-void LastBoss_Level::Tick(float _DeltaTime)
+void ULastBoss_Level::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
 }
 
-void LastBoss_Level::LevelStart(ULevel* _PrevLevel)
+void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
 	//SetCameraPos({ 0,400 }); // 카메라 위치 설정
@@ -61,7 +61,7 @@ void LastBoss_Level::LevelStart(ULevel* _PrevLevel)
 	//NewHpBar = SpawnActor<AKirby_HpBar>();
 }
 
-void LastBoss_Level::LevelEnd(ULevel* _NextLevel)
+void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
