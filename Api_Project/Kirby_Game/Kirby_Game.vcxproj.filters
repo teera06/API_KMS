@@ -71,6 +71,9 @@
     <ClCompile Include="Last_Map.cpp">
       <Filter>Stage_Actor\Stage_Map</Filter>
     </ClCompile>
+    <ClCompile Include="BossHpBar.cpp">
+      <Filter>Stage_Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Last_Map.h">
       <Filter>Stage_Actor\Stage_Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BossHpBar.h">
+      <Filter>Stage_Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
