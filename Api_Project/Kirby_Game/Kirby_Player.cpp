@@ -506,6 +506,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		// 위치 조정
 		GetWorld()->SetCameraPos({1780,0}); // 카메라 위치
 		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
+		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 300, 500});
 		return;
 	}
 	//
@@ -1622,6 +1623,8 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
+		SubBossWall = false;
+		GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 		Monster->Destroy();
 	}
 	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
