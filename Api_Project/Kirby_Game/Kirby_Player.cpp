@@ -13,6 +13,7 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
+#include "Monster_Mike.h"
 
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
@@ -839,6 +840,18 @@ void AKirby_Player::Idle(float _DeltaTime)
 		}
 		else {
 			GetWorld()->SpawnActor<AMonster_Sir>()->SetActorLocation({ GetActorLocation().iX() + 300,700 });
+		}
+		Hp = 100;
+		return;
+	}
+	if (true == UEngineInput::IsDown('6') && StageCheck == 3)
+	{
+		if (DirState == EActorDir::Left)
+		{
+			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX() - 200,700 });
+		}
+		else {
+			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX() + 300,700 });
 		}
 		Hp = 100;
 		return;
