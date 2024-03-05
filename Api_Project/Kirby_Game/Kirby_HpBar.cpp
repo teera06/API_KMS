@@ -104,6 +104,4 @@ void AKirby_HpBar::BeginPlay()
 	StateRenderer->CreateAnimation("Hamer_", "changeHUD.png", 3, 3, true);
 	StateRenderer->CreateAnimation("Sir_", "changeHUD.png", 4, 4, true);
 	StateRenderer->CreateAnimation("Mike_", "changeHUD.png", 5, 5, true);
-
-	//StateRenderer->ChangeAnimation("Base_");
 }

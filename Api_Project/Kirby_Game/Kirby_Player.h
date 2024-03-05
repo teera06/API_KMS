@@ -132,7 +132,7 @@ protected:
 	void SirJumpStart();
 
 	void MikeAttackStart();
-
+	int MikeOrder = 1;
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck(); // 오른쪽, 왼쪽 방향 체크
 

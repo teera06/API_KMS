@@ -358,14 +358,14 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Mike_hit_Right", "kirby_Right.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 		KirbyRenderer->CreateAnimation("Mike_hit_Left", "kirby_Left.png", { 51,50,49,48,47,46,45,44,43,42,41,40 }, 0.04f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Left", "Mike_Left.png", 0, 12, 0.1f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Right", "Mike_Right.png", 0, 12, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Left", "Mike_Left.png", 0, 12, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack1_Right", "Mike_Right.png", 0, 12, 0.125f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Left", "Mike_Left.png", 14, 22, 0.1f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Right", "Mike_Right.png", 14, 22, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Left", "Mike_Left.png", 14, 22, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack2_Right", "Mike_Right.png", 14, 22, 0.125f, true);
 
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.1f, true);
-		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.125f, true);
+		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.125f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -653,6 +653,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::SirAttack:
 			SirAttackStart();
 			break;
+		case EActorState::MikeAttack:
+			MikeAttackStart();
+			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
 			break;
@@ -729,6 +732,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			ModeInputTick(_DeltaTime);
 			break;
 		case EActorState::SirAttack: // 아이스 공격
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::MikeAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
 			break;
 		default:
@@ -952,6 +958,14 @@ void AKirby_Player::Idle(float _DeltaTime)
 		else {
 			NewSir->SetDir(FVector::Right);
 		}
+		return;
+	}
+	else if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Mike  // 테스트
+		)
+	{
+		SirUse = true;
+		StateAniChange(EActorState::MikeAttack);
 		return;
 	}
 
@@ -1553,7 +1567,19 @@ void AKirby_Player::SirJumpStart()
 void AKirby_Player::MikeAttackStart()
 {
 	DirCheck();
-	KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack"));
+	
+	if (MikeOrder == 1)
+	{
+		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack1"));
+	}
+	else if (MikeOrder == 2)
+	{
+		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack2"));
+	}
+	else if (MikeOrder == 3)
+	{
+		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack3"));
+	}
 }
 
 void AKirby_Player::HeadDownStart()
@@ -1736,9 +1762,18 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
-		StateAniChange(EActorState::SirJump);
+		++MikeOrder;
+		if (MikeOrder > 3)
+		{
+			EatState = false;
+			SetModeName("Base_");
+			SetMode(EAMode::Base);
+			MikeOrder = 1;
+		}
+		StateAniChange(EActorState::Idle);
 		return;
 	}
+
 
 	MoveUpdate(_DeltaTime);
 }
