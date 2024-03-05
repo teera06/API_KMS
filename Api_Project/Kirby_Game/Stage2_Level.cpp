@@ -51,7 +51,7 @@ void UStage2_Level::BeginPlay()
 
 void UStage2_Level::Tick(float _DeltaTime)
 {
-
+	ULevel::Tick(_DeltaTime);
 }
 
 void UStage2_Level::LevelStart(ULevel* _PrevLevel)
