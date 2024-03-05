@@ -21,8 +21,15 @@ void ASubBoss::BeginPlay()
 
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::SubBoss);
-		MonsterCollision->SetScale({ 60, 60 });
+		MonsterCollision->SetTransform({ {0,-20}, {120, 120} });
 		MonsterCollision->SetColType(ECollisionType::Rect);
+	}
+
+	{
+		AttCollision = CreateCollision(ECollisionOrder::SubBossAtt);
+		AttCollision->SetTransform({ {0,-20}, {200, 120} });
+		AttCollision->SetColType(ECollisionType::Rect);
+		AttCollision->ActiveOff();
 	}
 
 	AniCreate();
@@ -77,6 +84,7 @@ void ASubBoss::CalDir(float _DeltaTime)
 
 void ASubBoss::Att()
 {
+
 }
 
 void ASubBoss::Collisiongather(float _DeltaTime)

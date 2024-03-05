@@ -68,6 +68,7 @@ enum class ECollisionOrder
 	SirMonster,
 	MikeMonster,
 	SubBoss,
+	SubBossAtt,
 	MainBoss,
 	IceAttack,
 	FireAttack,

@@ -33,6 +33,7 @@ private:
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
+	UCollision* AttCollision = nullptr;
 
 	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
 	FVector MovePos = FVector::Zero;
