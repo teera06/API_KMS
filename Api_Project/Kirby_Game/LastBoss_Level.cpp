@@ -1,6 +1,8 @@
 #include "LastBoss_Level.h"
 
-
+#include "Last_Map.h"
+#include "Kirby_Player.h" 
+#include "Kirby_HpBar.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -45,25 +47,25 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	//SetCameraPos({ 0,400 }); // 카메라 위치 설정
+	SetCameraPos({ 0,400 }); // 카메라 위치 설정
 
 	// 맵 생성
-	//NewMap = SpawnActor<AStage1_MAP>();
-	//NewMap->SetMapImage("stage1_map.png");
-	//Map->SetMapImage("stage2_map.png");
+	NewMap = SpawnActor < ALast_Map > ();
+	NewMap->SetMapImage("LastMap.png");
+	
 	//NewMap->SetColMapImage("cor_map.png");
-	//NewMap->SwitchDebug();
+	NewMap->SwitchDebug();
 
 	// 커비와 커비 상태창 Actor 생성
-	//NewPlayer = SpawnActor<AKirby_Player>();
-	//NewPlayer->SetActorLocation({ 500,1000 });
+	NewPlayer = SpawnActor<AKirby_Player>();
+	NewPlayer->SetActorLocation({ 500,1000 });
 
-	//NewHpBar = SpawnActor<AKirby_HpBar>();
+	NewHpBar = SpawnActor<AKirby_HpBar>();
 }
 
 void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
-	//GEngine->DestroyLevel("LastBoss_Level"); // Level 정리
+	GEngine->DestroyLevel("LastBoss_Level"); // Level 정리
 }

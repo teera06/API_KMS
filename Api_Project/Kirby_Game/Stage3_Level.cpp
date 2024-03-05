@@ -2,6 +2,7 @@
 
 
 #include "Stage3_Map.h"
+#include "LastBoss_Level.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
 #include "Monster_Mike.h"
@@ -74,7 +75,8 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	SpawnActor<AMonster_Mike>()->SetActorLocation({ 700,300 });
 	SpawnActor<ASubBoss>()->SetActorLocation({ 900,300 });
-
+	
+	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 
 void UStage3_Level::LevelEnd(ULevel* _NextLevel)
