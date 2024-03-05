@@ -41,10 +41,8 @@ private:
 
 	void AniCreate(); // 局聪皋捞记 包府
 
-	void IceToMonster(float _DeltaTime);
-
 	void CalDir(float _DeltaTime);
-	void IceAtt();
+	void Att();
 
 	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);

@@ -10,12 +10,36 @@ SubBoss::~SubBoss()
 
 void SubBoss::BeginPlay()
 {
+	AActor::BeginPlay();
 
+	scale = 5;
+	{
+		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
+		MonsterRenderer->SetImage("Tock_Right.png"); // 이미지 Set
+		MonsterRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+	}
+
+	{
+		MonsterCollision = CreateCollision(ECollisionOrder::SubBoss);
+		MonsterCollision->SetScale({ 60, 60 });
+		MonsterCollision->SetColType(ECollisionType::Rect);
+	}
+
+	AniCreate();
+	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
 void SubBoss::Tick(float _DeltaTime)
 {
-
+	AActor::Tick(_DeltaTime);
+	GroundUp();
+	if (false == IsDie) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
+	{
+		MoveUpdate(_DeltaTime);
+	}
+	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		//AddActorLocation(DiePos); // 죽으면서 이동
+	}
 }
 
 void SubBoss::CalDir(float _DeltaTime)
@@ -51,16 +75,27 @@ void SubBoss::CalDir(float _DeltaTime)
 	}
 }
 
-void SubBoss::IceAtt()
+void SubBoss::Att()
 {
 }
 
 void SubBoss::Collisiongather(float _DeltaTime)
 {
+
 }
 
 void SubBoss::CalResult(float _DeltaTime)
 {
+	
+	if (true == IsDie) // 죽으면
+	{
+		Destroy(0.3f); // 0.3f 뒤에 삭제
+	}
+	else {
+		
+		AddActorLocation(MovePos);
+		
+	}
 }
 
 void SubBoss::GroundUp()
@@ -81,6 +116,19 @@ void SubBoss::GroundUp()
 
 void SubBoss::MoveUpdate(float _DeltaTime)
 {
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
+
+	skillcooldowntime -= _DeltaTime;
+	if (true == IsAtt && skillcooldowntime < 0.0f)
+	{
+		MovePos = FVector::Zero;
+		Att();
+	}
+	else {
+		CalDir(_DeltaTime);
+		Collisiongather(_DeltaTime);
+		CalResult(_DeltaTime);
+	}
 }
 
 void SubBoss::AniCreate()
