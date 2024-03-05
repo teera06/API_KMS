@@ -1,5 +1,11 @@
 #pragma once
-class SubBoss
+// 상속
+#include <EngineCore\Actor.h>
+#include "ActorCommon.h"
+
+#include "Kirby_Player.h" // MainPlayer
+
+class SubBoss : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
@@ -13,7 +19,18 @@ public:
 	SubBoss& operator=(SubBoss&& _Other) noexcept = delete;
 
 protected:
-
+	// TickObject (Level2) 오버라이드
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
+
+	// 몬스터 랜더링, 콜리전
+	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UCollision* MonsterCollision = nullptr;
+
+	void CalDir();
+
+	void GroundUp();
 };
 
