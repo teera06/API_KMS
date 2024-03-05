@@ -65,6 +65,9 @@
     <ClCompile Include="Monster_Mike.cpp">
       <Filter>Stage_Actor\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="LastBoss_Level.cpp">
+      <Filter>ContentsLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Monster_Mike.h">
       <Filter>Stage_Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="LastBoss_Level.h">
+      <Filter>ContentsLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
