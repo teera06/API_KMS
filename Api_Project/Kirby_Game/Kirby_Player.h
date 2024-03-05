@@ -151,15 +151,17 @@ private:
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* FireRenderer = nullptr; // 커비 랜더링 (이미지)
-
+	
 	UCollision* KirbyCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* FireCollision = nullptr; // 커비 콜리전 (충돌)
+	UCollision* MikeCollision = nullptr; // 커비 콜리전 (충돌)
+
 	UImageRenderer* manual = nullptr;
 	// 행동별 속도 정리
 	float checkSpeed = 0.0f; // 최종 스피드
 
 	float WalkSpeed = 200.0f; // 걷는 속도
-	float RunSpeed = 250.0f; // 뛰는 속도
+	float RunSpeed = 280.0f; // 뛰는 속도
 
 	float FlySpeed = 180.0f; // 나는 속도
 

@@ -70,6 +70,7 @@ enum class ECollisionOrder
 	IceAttack,
 	FireAttack,
 	SirAttack,
+	MikeAttack,
 	AllStar,
 	kirby
 };

@@ -106,6 +106,13 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		FireCollision->ActiveOff();
 	}
 
+	{
+		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
+		MikeCollision->SetScale({ 500, 500 });
+		MikeCollision->SetColType(ECollisionType::Rect);
+		MikeCollision->ActiveOff();
+	}
+
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
 	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
@@ -977,7 +984,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Mike  // 테스트
 		)
 	{
-		SirUse = true;
+		SkillOn = true;
+		MikeCollision->SetActive(true, 0.2f);
 		StateAniChange(EActorState::MikeAttack);
 		return;
 	}
@@ -1783,6 +1791,8 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			SetMode(EAMode::Base);
 			MikeOrder = 1;
 		}
+
+		MikeCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
