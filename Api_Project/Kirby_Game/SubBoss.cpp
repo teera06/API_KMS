@@ -1,6 +1,10 @@
 #include "SubBoss.h"
 
 #include <EngineBase\EngineRandom.h>
+#include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
+
+#include "Monster_Mike.h"
+
 ASubBoss* ASubBoss::MainSubBoss = nullptr;
 
 ASubBoss* ASubBoss::GetMainSubBoss()
@@ -105,20 +109,48 @@ void ASubBoss::Att1(float _DeltaTime)
 	AttCollision->ActiveOn();
 	AttRenderer->ChangeAnimation("AttEffect");
 
-	if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+	if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att_Left");
 	}
-	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
 	}
 	AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
 		AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 6.0f;
 	}
+
+	return;
+}
+
+void ASubBoss::Att2()
+{
+	if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att2_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att2_Right");
+	}
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
+		if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+		{
+			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX()-100,200 });
+		}
+		else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX()+100,200 });
+		}
+		IsAtt = false;
+		skillcooldowntime = 6.0f;
+	}
+	return;
 }
 
 void ASubBoss::AttCollisiongather(float _DeltaTime)
@@ -216,9 +248,20 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 	skillcooldowntime -= _DeltaTime;
 	if (true == IsAtt && skillcooldowntime < 0.0f)
 	{
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
+
 		MovePos = FVector::Zero;
-		Att1(_DeltaTime);
+
+		if (RandomAtt == 1 or RandomAtt == 0)
+		{
+			Att1(_DeltaTime);
+		}
+		
+		if (RandomAtt == 2)
+		{
+			Att2();
+		}
+
+		//Att1(_DeltaTime);
 	}
 	else {
 		AttRenderer->ActiveOff();
@@ -234,6 +277,8 @@ void ASubBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Move_Left", "Tock_Left.png", 7, 9, 0.3f, true);
 	MonsterRenderer->CreateAnimation("Att_Right", "Tock_Right.png", 4, 6, 0.5f, false);
 	MonsterRenderer->CreateAnimation("Att_Left", "Tock_Left.png", 4, 6, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Right", "Tock_Right.png", {4, 5, 10}, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Left", "Tock_Left.png", {4,5,10}, 0.5f, false);
 
 	AttRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 },0.1f, true);
 
