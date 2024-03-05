@@ -55,6 +55,7 @@ enum class ERenderOrder
 	Base,
 	Ice,
 	Fire,
+	Sound,
 	kirby,
 	effect,
 	Menu,

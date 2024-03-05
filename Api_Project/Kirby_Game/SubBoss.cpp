@@ -20,6 +20,14 @@ void ASubBoss::BeginPlay()
 	}
 
 	{
+		AttRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
+		AttRenderer->SetImage("Tock_Right.png"); // 이미지 Set
+		AttRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
+		AttRenderer->ActiveOff();
+	}
+
+	{
 		MonsterCollision = CreateCollision(ECollisionOrder::SubBoss);
 		MonsterCollision->SetTransform({ {0,-20}, {120, 120} });
 		MonsterCollision->SetColType(ECollisionType::Rect);
@@ -84,7 +92,25 @@ void ASubBoss::CalDir(float _DeltaTime)
 
 void ASubBoss::Att()
 {
+	AttRenderer->ActiveOn();
+	AttRenderer->ChangeAnimation("AttEffect");
 
+	if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att_Right");
+	}
+
+	AttCollision->ActiveOn();
+
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		AttCollision->ActiveOff();
+		IsAtt = false;
+		skillcooldowntime = 6.0f;
+	}
 }
 
 void ASubBoss::Collisiongather(float _DeltaTime)
@@ -133,6 +159,7 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 		Att();
 	}
 	else {
+		AttRenderer->ActiveOff();
 		CalDir(_DeltaTime);
 		Collisiongather(_DeltaTime);
 		CalResult(_DeltaTime);
@@ -143,8 +170,11 @@ void ASubBoss::AniCreate()
 {
 	MonsterRenderer->CreateAnimation("Move_Right", "Tock_Right.png", 7, 9, 0.3f, true);
 	MonsterRenderer->CreateAnimation("Move_Left", "Tock_Left.png", 7, 9, 0.3f, true);
-	MonsterRenderer->CreateAnimation("Att_Right", "Tock_Right.png", 4, 6, 0.15f, false);
-	MonsterRenderer->CreateAnimation("Att_Left", "Tock_Left.png", 4, 6, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att_Right", "Tock_Right.png", 4, 6, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att_Left", "Tock_Left.png", 4, 6, 0.5f, false);
+
+	AttRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 },0.1f, true);
+
 
 	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", 11, 13, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",11, 13, 0.3f, true); // 죽음 
