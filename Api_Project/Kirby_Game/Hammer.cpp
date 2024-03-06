@@ -31,7 +31,7 @@ void AHammer::BeginPlay()
 void AHammer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY()+50, _DeltaTime)); // 중력 작용
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY()+80, _DeltaTime)); // 중력 작용
 	GroundUp();
 }
 
