@@ -91,10 +91,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		FireRenderer->ActiveOff();
 	}
 
-	manual = CreateImageRenderer(ERenderOrder::Menu); // 이미지 랜더 생성
-	manual->SetImage("menu.png"); // 이미지 Set
-	manual->SetTransform({ {0,-200}, {64 * 10, 64 * 10} }); // 랜더의 위치 크기 
-	manual->ActiveOff();
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -112,7 +108,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	{
 		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
-		MikeCollision->SetScale({ 1000, 500 });
+		//MikeCollision->SetScale({ 1000, 500 });
 		MikeCollision->SetColType(ECollisionType::Rect);
 		MikeCollision->ActiveOff();
 	}
@@ -505,7 +501,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		// 노란색 픽셀 충돌, 3스테이지, 최초 bool값 -> 한번만 실행되고 그뒤로는 실행 안됨
 		SubBossEvent = true;
 		SubBossWall = true; // 벽 생김
-		SuBBossDie = true;
+		SuBBossActive = true;
 
 		// 위치 조정
 		GetWorld()->SetCameraPos({1800,30}); // 카메라 위치
@@ -1851,6 +1847,15 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 {
 	DirCheck();
 
+	if (DirState == EActorDir::Left)
+	{
+		
+		MikeCollision->SetTransform({ {-140,-5},{1000,200} });
+	}
+	else {
+		MikeCollision->SetTransform({ {140,-5},{1000,200} });
+	}
+
 	MikeCollision->ActiveOn();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
@@ -1865,7 +1870,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		}
 
 		SoundCollisiongather(_DeltaTime);
-		if (true == SuBBossDie)
+		if (true == SuBBossActive)
 		{
 			if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
 			{
@@ -1874,7 +1879,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			else {
 				SubBossWall = false;
 				GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-				SuBBossDie = false;
+				SuBBossActive = false;
 			}
 		}
 
