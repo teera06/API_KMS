@@ -48,7 +48,7 @@ void ASubBoss::BeginPlay()
 
 	{
 		AttCollision = CreateCollision(ECollisionOrder::SubBossAtt);
-		AttCollision->SetTransform({ {0,-20}, {800, 120} });
+		AttCollision->SetTransform({ {0,-100}, {800, 500} });
 		AttCollision->SetColType(ECollisionType::Rect);
 		AttCollision->ActiveOff();
 	}

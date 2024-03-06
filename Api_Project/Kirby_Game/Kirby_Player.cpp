@@ -1862,7 +1862,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		++MikeOrder;
-		if (MikeOrder >3)
+		if (MikeOrder >3) // 콜리전 콤보가 3보다 클 경우 상태 초기화
 		{
 			EatState = false;
 			SetModeName("Base_");
@@ -1870,17 +1870,18 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			MikeOrder = 1;
 		}
 
-		SoundCollisiongather(_DeltaTime);
+		SoundCollisiongather(_DeltaTime); // 사운드 콜리전 -> 사운드 공격은 사운드 몬스터에게만 통한다.
+
 		if (true == SuBBossActive)
 		{
-			if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
+			if (ASubBoss::GetMainSubBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
 			{
-				ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
+				ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn(); // 콜리전이 꺼져 있는 경우 다시 콜리전 온
 			}
-			else {
+			else { // 보스와 전투 끝난후 -> 카메라 셋팅
 				SubBossWall = false;
-				GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 				SuBBossActive = false;
+				GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 			}
 		}
 
