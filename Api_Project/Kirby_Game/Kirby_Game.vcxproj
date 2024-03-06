@@ -19,17 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">
-      <Project>{639157cb-4415-4ad1-b9e4-f9fad2b6fe09}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
-      <Project>{9072a0ed-5df8-43d9-bf12-36286ed75d64}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\EnginePlatform\EnginePlatform.vcxproj">
-      <Project>{a182d20b-c605-4e40-b6ff-58eb5f10b7da}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="ActorCommon.cpp">
       <SubType>
       </SubType>
@@ -227,6 +216,17 @@
       <SubType>
       </SubType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">
+      <Project>{ea197215-13bb-4729-9573-db483a0ee1a3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
+      <Project>{35fa176c-16bb-4c2a-a672-f4ff30c1bea5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EnginePlatform\EnginePlatform.vcxproj">
+      <Project>{f0716ec2-0bc5-43ea-9046-b203e0985a67}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
