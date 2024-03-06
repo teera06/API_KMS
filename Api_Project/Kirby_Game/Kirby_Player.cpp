@@ -1331,6 +1331,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	SkillOn = false;
 	FireRenderer->ActiveOff();
 	FireCollision->ActiveOff();
+	MikeCollision->ActiveOff();
 	CamstopMove += Move;
 	if (StageCheck < 3)
 	{
@@ -1622,8 +1623,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		int a = BossHp;
-		if (BossHp == 0)
+		if (BossHp < 0 && true==SuBBossDie)
 		{
 			SubBossWall = false;
 			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
@@ -1633,17 +1633,17 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		if (MikeOrder == 1)
 		{
 			BossHp -= 20;
-			MikeCollision->ActiveOff();
+			return;
 		}
 		else if (MikeOrder == 2)
 		{
 			BossHp -= 40;
-			MikeCollision->ActiveOff();
+			return;
 		}
 		else if (MikeOrder == 3)
 		{
 			BossHp -= 40;
-			MikeCollision->ActiveOff();
+			return;
 		}
 	}
 	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
@@ -1867,6 +1867,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		++MikeOrder;
 		if (MikeOrder > 3)
 		{
+			SuBBossDie = true;
 			EatState = false;
 			SetModeName("Base_");
 			SetMode(EAMode::Base);
