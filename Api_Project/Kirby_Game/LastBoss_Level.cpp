@@ -3,6 +3,8 @@
 #include "Last_Map.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
+#include "Hammer.h"
+
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -61,6 +63,8 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 	NewPlayer->SetActorLocation({ 400,400 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
+
+	SpawnActor<AHammer>()->SetActorLocation({600,350});
 }
 
 void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)
