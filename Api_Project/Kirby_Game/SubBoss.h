@@ -31,6 +31,16 @@ public:
 		return Hp;
 	}
 
+	void SetHp(const int& _Hp)
+	{
+		Hp = _Hp;
+	}
+
+	void AddHP(const int& _Value)
+	{
+		Hp += _Value;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

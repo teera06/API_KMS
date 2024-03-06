@@ -510,6 +510,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		GetWorld()->SetCameraPos({1800,30}); // 카메라 위치
 		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
 		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 800, 500});
+		BossHp = ASubBoss::GetMainSubBoss()->GetHp();
 		GetWorld()->SpawnActor<ABossHpBar>();
 		return;
 	}
@@ -1620,9 +1621,30 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		SubBossWall = false;
-		GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-		Monster->Destroy();
+
+		int a = BossHp;
+		if (BossHp == 0)
+		{
+			SubBossWall = false;
+			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
+			Monster->Destroy();
+		}
+
+		if (MikeOrder == 1)
+		{
+			BossHp -= 20;
+			MikeCollision->ActiveOff();
+		}
+		else if (MikeOrder == 2)
+		{
+			BossHp -= 40;
+			MikeCollision->ActiveOff();
+		}
+		else if (MikeOrder == 3)
+		{
+			BossHp -= 40;
+			MikeCollision->ActiveOff();
+		}
 	}
 	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
 	{
@@ -1837,6 +1859,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 {
 	DirCheck();
 
+	MikeCollision->ActiveOn();
 	SoundCollisiongather(_DeltaTime);
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{

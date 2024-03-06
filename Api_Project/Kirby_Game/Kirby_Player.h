@@ -199,6 +199,7 @@ private:
 	static int StageCheck;
 
 	static int Hp;
+	int BossHp = 0;
 
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
