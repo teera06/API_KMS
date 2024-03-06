@@ -5,7 +5,9 @@
 #include "LastBoss_Level.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
-#include "Monster_Mike.h"
+#include "Monster_Base.h"
+#include "pengi_Ice.h"
+
 #include "SubBoss.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
@@ -73,7 +75,8 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<AMonster_Mike>()->SetActorLocation({ 700,300 });
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
+	SpawnActor<AMonster_Base>()->SetActorLocation({ 900,300 });
 	
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
