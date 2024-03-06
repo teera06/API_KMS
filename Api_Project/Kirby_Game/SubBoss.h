@@ -66,7 +66,6 @@ private:
 	UImageRenderer* AttRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* AttCollision = nullptr;
 
-	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
 	FVector MovePos = FVector::Zero;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
@@ -84,7 +83,6 @@ private:
 
 	void GroundUp();
 
-	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool Ishit = false; // 죽은 상태 인지 확인
 	bool IsAtt = false;
 

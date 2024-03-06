@@ -24,5 +24,37 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
+
+	// 몬스터 랜더링, 콜리전
+	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UCollision* MonsterCollision = nullptr;
+
+	FVector MovePos = FVector::Zero;
+
+	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
+
+	void AniCreate(); // 애니메이션 관리
+
+	void CalDir(float _DeltaTime);
+	//void Att1(float _DeltaTime);
+	//void Att2();
+
+	//void AttCollisiongather(float _DeltaTime);
+	//void Collisiongather(float _DeltaTime);
+	//void CalResult(float _DeltaTime);
+	//void hitEvent();
+
+	void GroundUp();
+
+	bool Ishit = false; // 죽은 상태 인지 확인
+	bool IsAtt = false;
+
+	int WallX = 0; // 벽에 충돌할때 X축 범위
+	int RandomAtt = 0;
+	int Hp = 100;
+
+	float skillcooldowntime = 3.0f;
+	float MoveSpeed = 50.0f; // 몬스터 스피드
 };
 
