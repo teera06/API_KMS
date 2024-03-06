@@ -8,13 +8,16 @@
 #include "Ice.h"
 #include "Sir.h" // 테스트
 
-// 테스트
+// 특정 이벤트 때 커비가 만들어줘야 하는것들
+#include "BossHpBar.h"
+#include "SubBoss.h"
+
+// 테스트 -> 나중에 지우기
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
 #include "Monster_Mike.h"
-#include "SubBoss.h"
 
 
 AKirby_Player* AKirby_Player::MainPlayer = nullptr;
@@ -507,6 +510,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		GetWorld()->SetCameraPos({1800,0}); // 카메라 위치
 		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
 		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 800, 500});
+		GetWorld()->SpawnActor<ABossHpBar>();
 		return;
 	}
 	//

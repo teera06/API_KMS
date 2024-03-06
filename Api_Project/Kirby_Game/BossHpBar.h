@@ -8,18 +8,18 @@
 #include "Kirby_Player.h"
 #include "SubBoss.h"
 
-class BossHpBar : public AActor, public UActorCommon // ActorCommon(중력)
+class ABossHpBar : public AActor, public UActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer
-	BossHpBar(); // 디폴트 생성자
-	~BossHpBar(); // 디폴트 소멸자
+	ABossHpBar(); // 디폴트 생성자
+	~ABossHpBar(); // 디폴트 소멸자
 
 	// delete Function
-	BossHpBar(const BossHpBar& _Other) = delete; // 디폴트 복사 생성자
-	BossHpBar(BossHpBar&& _Other) noexcept = delete; 
-	BossHpBar& operator=(const BossHpBar& _Other) = delete; // 디폴트 대입 연산자
-	BossHpBar& operator=(BossHpBar&& _Other) noexcept = delete;
+	ABossHpBar(const ABossHpBar& _Other) = delete; // 디폴트 복사 생성자
+	ABossHpBar(ABossHpBar&& _Other) noexcept = delete; 
+	ABossHpBar& operator=(const ABossHpBar& _Other) = delete; // 디폴트 대입 연산자
+	ABossHpBar& operator=(ABossHpBar&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
