@@ -85,7 +85,6 @@ private:
 
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 	bool IsDie = false; // 죽은 상태 인지 확인
-	bool IsIce = false; // 얼음 상태인지 확인
 	bool IsAtt = false;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위

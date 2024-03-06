@@ -85,7 +85,7 @@ void ASubBoss::CalDir(float _DeltaTime)
 		MonsterRenderer->ChangeAnimation("Move_Left");
 		WallX = -20;
 	}
-	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Move_Right");
 		WallX = 20;
 	}
