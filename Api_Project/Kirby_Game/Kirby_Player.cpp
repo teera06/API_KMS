@@ -1392,8 +1392,13 @@ void AKirby_Player::hit(float _DeltaTime)
 	SkillOn = false;
 	FireRenderer->ActiveOff();
 	FireCollision->ActiveOff();
-	MikeCollision->ActiveOff();
-	SoundRenderer->ActiveOff();
+
+	if (StageCheck == 3)
+	{
+		MikeCollision->ActiveOff();
+		SoundRenderer->ActiveOff();
+	}
+
 	CamstopMove += Move;
 	if (StageCheck < 3)
 	{
