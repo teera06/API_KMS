@@ -27,10 +27,9 @@ void ABossHpBar::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 
 	SetActorLocation({ GetWorld()->GetCameraPos().iX() + 880, GetWorld()->GetCameraPos().iY() + 650 });
-	
 	if (MainPlayer->GetStageCheck() == 3)
 	{
-
+		int Hp = SubBoss->GetHp();
 		if (Hp == 0)
 		{
 			HpAddRenderer->SetTransform({ {36,15}, {2 * 192, 64 * 5} }); // 랜더의 위치 크기 

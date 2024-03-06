@@ -21,21 +21,6 @@ public:
 	ABossHpBar& operator=(const ABossHpBar& _Other) = delete; // 디폴트 대입 연산자
 	ABossHpBar& operator=(ABossHpBar&& _Other) noexcept = delete;
 
-	int GetHp() const
-	{
-		return Hp;
-	}
-
-	void SetHp(const int& _Hp)
-	{
-		Hp = _Hp;
-	}
-
-	void AddHP(const int& _Value)
-	{
-		Hp += _Value;
-	}
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -48,6 +33,5 @@ private:
 
 	FVector Move = FVector::Zero;
 
-	int Hp = 100;
 };
 
