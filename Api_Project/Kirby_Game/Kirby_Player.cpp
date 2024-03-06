@@ -1629,7 +1629,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 			Monster->Destroy();
 		}
 
-		if (MikeOrder == 1)
+		if (MikeOrder ==1)
 		{
 			Monster->AddHP(-20);
 		}
@@ -1637,7 +1637,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			Monster->AddHP(-40);
 		}
-		else if (MikeOrder == 3)
+		else
 		{
 			Monster->AddHP(-40);
 		}
@@ -1863,20 +1863,24 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		++MikeOrder;
-		if (MikeOrder > 3)
+		if (MikeOrder >3)
 		{
-			SuBBossDie = true;
 			EatState = false;
 			SetModeName("Base_");
 			SetMode(EAMode::Base);
 			MikeOrder = 1;
 		}
 
-		if (false == SuBBossDie)
+		if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
 		{
 			ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
 		}
-
+		else {
+			SubBossWall = false;
+			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
+			ASubBoss::GetMainSubBoss()->Destroy();
+		}
+		
 		MikeCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
