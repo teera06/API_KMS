@@ -510,7 +510,6 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		GetWorld()->SetCameraPos({1800,30}); // 카메라 위치
 		AddActorLocation(FVector::Right * 30.0f); // 플레이어 위치
 		GetWorld()->SpawnActor<ASubBoss>()->SetActorLocation({ GetActorLocation().iX() + 800, 500});
-		BossHp = ASubBoss::GetMainSubBoss()->GetHp();
 		GetWorld()->SpawnActor<ABossHpBar>();
 		return;
 	}

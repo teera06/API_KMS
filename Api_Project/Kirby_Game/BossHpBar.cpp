@@ -30,7 +30,6 @@ void ABossHpBar::Tick(float _DeltaTime)
 	
 	if (MainPlayer->GetStageCheck() == 3)
 	{
-		Hp=SubBoss->GetHp();
 
 		if (Hp == 0)
 		{
