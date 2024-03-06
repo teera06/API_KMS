@@ -24,4 +24,6 @@ void BossHpBar::BeginPlay()
 void BossHpBar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
+
+
 }

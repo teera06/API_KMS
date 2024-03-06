@@ -5,7 +5,8 @@
 #include "ModeEnum.h"
 #include "ActorCommon.h"
 
-//#include "Kirby_Player.h"
+#include "Kirby_Player.h"
+#include "SubBoss.h"
 
 class BossHpBar : public AActor, public UActorCommon // ActorCommon(중력)
 {
@@ -27,6 +28,9 @@ private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
 	
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
+	ASubBoss* SubBoss = ASubBoss::GetMainSubBoss();
+
 	FVector Move = FVector::Zero;
 };
 

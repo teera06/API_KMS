@@ -72,8 +72,11 @@ public:
 		return Hp;
 	}
 
-	// 커비의 판단으로 나머지 플레이 레벨 만들자
-	static int StageCheck;
+	static int GetStageCheck()
+	{
+		return StageCheck;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -191,6 +194,9 @@ private:
 	// 3스테이지 한정 변수
 	bool SubBossEvent=false;
 	bool SubBossWall = false;
+
+	// 커비의 판단으로 나머지 플레이 레벨 만들자
+	static int StageCheck;
 
 	static int Hp;
 
