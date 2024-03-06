@@ -1622,7 +1622,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		if (BossHp < 0 && true==SuBBossDie)
+		if (Monster->GetHp()<=0)
 		{
 			SubBossWall = false;
 			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
@@ -1631,17 +1631,17 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 
 		if (MikeOrder == 1)
 		{
-			BossHp -= 20;
+			Monster->AddHP(-20);
 			return;
 		}
 		else if (MikeOrder == 2)
 		{
-			BossHp -= 40;
+			Monster->AddHP(-40);
 			return;
 		}
 		else if (MikeOrder == 3)
 		{
-			BossHp -= 40;
+			Monster->AddHP(-40);
 			return;
 		}
 	}
