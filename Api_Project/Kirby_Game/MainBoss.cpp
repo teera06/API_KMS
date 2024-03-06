@@ -37,6 +37,12 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 void AMainBoss::AniCreate()
 {
+	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 4, 7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", 4, 7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Att_Right", "King_Right.png", 4, 6, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att_Left", "King_Left.png", 4, 6, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", { 4, 5, 10 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", { 4,5,10 }, 0.5f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
