@@ -25,5 +25,5 @@ void ABossHpBar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
-	SetActorLocation({ GetWorld()->GetCameraPos().iX()+800, GetWorld()->GetCameraPos().iY() + 650 });
+	SetActorLocation({ GetWorld()->GetCameraPos().iX()+880, GetWorld()->GetCameraPos().iY() + 650 });
 }
