@@ -1,5 +1,13 @@
 #pragma once
-class BossHpBar
+// 상속
+#include <EngineCore/Actor.h>
+
+#include "ModeEnum.h"
+#include "ActorCommon.h"
+
+//#include "Kirby_Player.h"
+
+class BossHpBar : public AActor, public UActorCommon // ActorCommon(중력)
 {
 public:
 	// constrcuter destructer
@@ -13,7 +21,12 @@ public:
 	BossHpBar& operator=(BossHpBar&& _Other) noexcept = delete;
 
 protected:
-
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
+	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
+	
+	FVector Move = FVector::Zero;
 };
 

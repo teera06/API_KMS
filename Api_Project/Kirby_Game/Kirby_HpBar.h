@@ -2,7 +2,6 @@
 #include <EngineCore/Actor.h>
 #include "ModeEnum.h"
 #include "ActorCommon.h"
-#include <EngineCore/Level.h>
 
 #include "Kirby_Player.h"
 
@@ -22,8 +21,8 @@ public:
 
 
 protected:
-	void Tick(float _DeltaTime) override;
 	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
