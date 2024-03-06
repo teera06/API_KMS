@@ -18,16 +18,11 @@ public:
 	AMonster_Base& operator=(const AMonster_Base& _Other) = delete; // 디폴트 대입 연산자
 	AMonster_Base& operator=(AMonster_Base&& _Other) noexcept = delete;
 
-	void IceState();
+	void IceState(); // 아이스 공격을 당했을 때
 
-	void SetBaseOnOff(const bool& _BaseOn)
+	void SetBaseOnOff(const bool& _BaseOn) // 베이스 공격 당했을 때 값 확인 Set
 	{
 		BaseOn = _BaseOn;
-	}
-
-	bool GetBaseOnOff() const
-	{
-		return BaseOn;
 	}
 
 	UImageRenderer* GetMonsterRenderer()
@@ -40,11 +35,7 @@ public:
 		IsDie = _IsDie;
 	}
 
-	bool GetIsDie()
-	{
-		return IsDie;
-	}
-
+	
 	void SetDiePos(const FVector& _DiePos)
 	{
 		DiePos = _DiePos;

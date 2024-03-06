@@ -189,29 +189,17 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
-
-		// 방어코드
-		if (nullptr == Player)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
-		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
+		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
-			Player->Sethitstate(true); // 플레이어 충돌 체크
-			Player->SetHitDir(MonsterDirNormal * FVector::Right);
-			Player->GetKirbyRender()->SetAlpha(0.5f);
-			Player->GetKirbyCollision()->ActiveOff();
-			Player->AddHP(-20);
-			Player->HitStart(); // hit 상태 스타트
+			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+			MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
+			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+			MainPlayer->GetKirbyCollision()->ActiveOff();
+			MainPlayer->AddHP(-20);
+			MainPlayer->HitStart(); // hit 상태 스타트
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
 				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
