@@ -112,12 +112,12 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 	}
 	else
 	{
-		if (StartDir.iX() == -1 && IsIce == false) // 왼쪽 방향에 얼지 않은 상태
+		if (StartDir.iX() == -1) // 왼쪽 방향에 얼지 않은 상태
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
-		else if (StartDir.iX() == 1 && IsIce == false) { // 오른쪽 방향에 얼지 않은 상태
+		else if (StartDir.iX() == 1) { // 오른쪽 방향에 얼지 않은 상태
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
@@ -126,23 +126,13 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 
 		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽 픽셀 충돌
 		{
-			if (true == IsIce) // 얼음 상태일 경우
-			{
-				IceMove = FVector::Zero; // 움직임 0
-				Destroy(); // 죽음
-			}
-			else { // 아닌 경우는 방향 전환
-				StartDir.X *= -1;
-				checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
-			}
+		
+			StartDir.X *= -1;
+			checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
+			
 		}
 		else { // 충돌하지 않은 경우
 			Move += StartDir * _DeltaTime * MoveSpeed;
-		}
-
-		if (true == IsIce) // 얼음 상태일 경우 기존 얼지 않은 상태의 움직임을 해서는 안된다.
-		{
-			Move = FVector::Zero;
 		}
 
 		AddActorLocation(Move); // 최종 움직임 계산
@@ -176,7 +166,7 @@ void AMonster_Sir::SirAtt()
 		MonsterRenderer->ChangeAnimation("Att_Left");
 		NewSir->SetDir(FVector::Left);
 	}
-	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+	else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
 		NewSir->SetDir(FVector::Right);
 	}
@@ -266,29 +256,17 @@ void AMonster_Sir::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
-
-		// 방어코드
-		if (nullptr == Player)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
 		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
-			Player->Sethitstate(true); // 플레이어 충돌 체크
-			Player->SetHitDir(MonsterDirNormal * FVector::Right);
-			Player->GetKirbyRender()->SetAlpha(0.5f);
-			Player->GetKirbyCollision()->ActiveOff();
-			Player->AddHP(-20);
-			Player->HitStart(); // hit 상태 스타트
+			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+			MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
+			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+			MainPlayer->GetKirbyCollision()->ActiveOff();
+			MainPlayer->AddHP(-20);
+			MainPlayer->HitStart(); // hit 상태 스타트
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
 				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
