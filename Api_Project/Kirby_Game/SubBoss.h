@@ -26,6 +26,11 @@ public:
 		return MonsterRenderer;
 	}
 
+	int GetHp() const
+	{ 
+		return Hp;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;

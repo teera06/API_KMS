@@ -28,9 +28,11 @@ private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
 
-	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
+	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 스테이지 확인용
 	ASubBoss* SubBoss = ASubBoss::GetMainSubBoss();
 
 	FVector Move = FVector::Zero;
+
+	int Hp = 0;
 };
 
