@@ -315,23 +315,13 @@ void AMonster_Base::BaseMove(float _DeltaTime)
 		
 		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽 픽셀 충돌
 		{
-			if (true == IsIce) // 얼음 상태일 경우
-			{
-				IceMove = FVector::Zero; // 움직임 0
-				Destroy(); // 죽음
-			}
-			else { // 아닌 경우는 방향 전환
-				StartDir.X *= -1;
-				checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
-			}
+			
+			StartDir.X *= -1;
+			checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
+			
 		}
 		else { // 충돌하지 않은 경우
 			Move += StartDir * _DeltaTime * MoveSpeed;
-		}
-
-		if (true == IsIce) // 얼음 상태일 경우 기존 얼지 않은 상태의 움직임을 해서는 안된다.
-		{
-			Move = FVector::Zero;
 		}
 
 		AddActorLocation(Move); // 최종 움직임 계산
