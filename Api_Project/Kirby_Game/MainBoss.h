@@ -20,7 +20,9 @@ public:
 	AMainBoss& operator=(AMainBoss&& _Other) noexcept = delete;
 
 protected:
-
+	// TickObject (Level2) 오버라이드
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
 };
 

@@ -77,6 +77,9 @@
     <ClCompile Include="MainBoss.cpp">
       <Filter>Stage_Actor\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Hammer.cpp">
+      <Filter>Stage_Actor\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -156,6 +159,9 @@
     <ClInclude Include="MainBoss.h">
       <Filter>Stage_Actor\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Hammer.h">
+      <Filter>Stage_Actor\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsLevel">
@@ -181,6 +187,9 @@
     </Filter>
     <Filter Include="Stage_Actor\Boss">
       <UniqueIdentifier>{bdaf016d-8c89-421e-9330-806555a37b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage_Actor\Object">
+      <UniqueIdentifier>{69359cfd-45e1-4424-952f-8ebc2c01997b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
