@@ -170,29 +170,18 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
-
-		// 방어코드
-		if (nullptr == Player)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
+		
 		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
-			Player->Sethitstate(true); // 플레이어 충돌 체크
-			Player->SetHitDir(MonsterDirNormal*FVector::Right);
-			Player->AddHP(-20);
-			Player->HitStart(); // hit 상태 스타트
-			Player->GetKirbyRender()->SetAlpha(0.5f);
-			Player->GetKirbyCollision()->ActiveOff();
+			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+			MainPlayer->SetHitDir(MonsterDirNormal*FVector::Right);
+			MainPlayer->AddHP(-20);
+			MainPlayer->HitStart(); // hit 상태 스타트
+			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+			MainPlayer->GetKirbyCollision()->ActiveOff();
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
 				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
@@ -276,12 +265,12 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 
 	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
-		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		if (MonsterDirNormal.iX() == -1  && IsIce == false) // 왼쪽 방향
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
-		else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+		else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0 && IsIce == false) { // 오른쪽 방향
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
