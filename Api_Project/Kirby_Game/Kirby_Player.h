@@ -157,6 +157,7 @@ private:
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* FireRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* SoundRenderer = nullptr; // 커비 랜더링 (이미지)
 	
 	UCollision* KirbyCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* FireCollision = nullptr; // 커비 콜리전 (충돌)

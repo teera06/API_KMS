@@ -91,6 +91,17 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		FireRenderer->ActiveOff();
 	}
 
+	if (StageCheck >= 3)
+	{
+		
+		SoundRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
+		SoundRenderer->SetImage("Tock_Right.png"); // 이미지 Set
+		SoundRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
+		SoundRenderer->ActiveOff();
+		
+	}
+
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -374,6 +385,8 @@ void AKirby_Player::AniCreate()
 
 		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Left", "Mike_Left.png", 23, 38, 0.1f, true);
 		KirbyRenderer->CreateAnimation("Mike_MikeAttack3_Right", "Mike_Right.png", 23, 38, 0.1f, true);
+
+		SoundRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 }, 0.1f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -1328,6 +1341,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	FireRenderer->ActiveOff();
 	FireCollision->ActiveOff();
 	MikeCollision->ActiveOff();
+	SoundRenderer->ActiveOff();
 	CamstopMove += Move;
 	if (StageCheck < 3)
 	{
@@ -1858,6 +1872,8 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 	}
 
 	MikeCollision->ActiveOn();
+	SoundRenderer->ChangeAnimation("AttEffect");
+	SoundRenderer->ActiveOn();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
@@ -1886,6 +1902,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		}
 
 		MikeCollision->ActiveOff();
+		SoundRenderer->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
