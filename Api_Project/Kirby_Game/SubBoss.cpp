@@ -110,7 +110,7 @@ void ASubBoss::Att1(float _DeltaTime)
 	AttCollision->ActiveOn();
 	AttRenderer->ChangeAnimation("AttEffect");
 
-	if (MonsterDirNormal.iX() == -1 or MonsterDirNormal.iX() == 0) // 哭率 规氢
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 哭率 规氢
 	{
 		MonsterRenderer->ChangeAnimation("Att_Left");
 	}
