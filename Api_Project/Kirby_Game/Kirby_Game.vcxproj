@@ -56,6 +56,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MainBoss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Monster_Base.cpp">
       <SubType>
       </SubType>
@@ -152,6 +156,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Last_Map.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MainBoss.h">
       <SubType>
       </SubType>
     </ClInclude>
