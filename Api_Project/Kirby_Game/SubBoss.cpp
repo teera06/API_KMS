@@ -288,8 +288,8 @@ void ASubBoss::AniCreate()
 
 	AttRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 },0.1f, true);
 
-	MonsterRenderer->CreateAnimation("hit_Right", "Tock_Left.png", 11,11, 0.3f, true); // 히트
-	MonsterRenderer->CreateAnimation("hit_Left", "Tock_Right.png",  11,11, 0.3f, true); // 히트 
+	MonsterRenderer->CreateAnimation("hit_Right", "Tock_Right.png", {10,1}, 0.5f, true); // 히트
+	MonsterRenderer->CreateAnimation("hit_Left", "Tock_Left.png", {10,1}, 0.5f, true); // 히트 
 	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", {11,13,12}, 0.5f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",{11, 13, 12}, 0.5f, true); // 죽음 
 }
