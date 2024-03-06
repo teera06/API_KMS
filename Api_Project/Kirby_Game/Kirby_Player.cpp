@@ -505,6 +505,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		// 노란색 픽셀 충돌, 3스테이지, 최초 bool값 -> 한번만 실행되고 그뒤로는 실행 안됨
 		SubBossEvent = true;
 		SubBossWall = true; // 벽 생김
+		SuBBossDie = true;
 
 		// 위치 조정
 		GetWorld()->SetCameraPos({1800,30}); // 카메라 위치
@@ -1864,14 +1865,19 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		}
 
 		SoundCollisiongather(_DeltaTime);
-		if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
+		if (true == SuBBossDie)
 		{
-			ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
+			if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
+			{
+				ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
+			}
+			else {
+				SubBossWall = false;
+				GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
+				SuBBossDie = false;
+			}
 		}
-		else {
-			SubBossWall = false;
-			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-		}
+
 		MikeCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
