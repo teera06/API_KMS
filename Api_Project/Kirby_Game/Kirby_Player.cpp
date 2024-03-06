@@ -389,9 +389,46 @@ void AKirby_Player::AniCreate()
 		SoundRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 }, 0.1f, true);
 	}
 
+	if (StageCheck >= 4)
+	{
+		KirbyRenderer->CreateAnimation("Hammer_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
+		KirbyRenderer->CreateAnimation("Hammer_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
+		// 기본 서있는 모션(완)
+		KirbyRenderer->CreateAnimation("Hammer_Idle_Right", "Hammer_Right.png", 0, 2, 0.5f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Hammer_Idle_Left", "Hammer_Left.png", 0, 2, 0.5f, true); // 왼쪽 서있기
+
+		// 기본 걷는 모션(완)
+		KirbyRenderer->CreateAnimation("Hammer_Walk_Right", "Hammer_Right.png", 6, 15, 0.07f, true); // 걷기
+		KirbyRenderer->CreateAnimation("Hammer_Walk_Left", "Hammer_Left.png", 6, 15, 0.07f, true); // 걷기
+
+		// 기본 뛰는 모션(완)
+		KirbyRenderer->CreateAnimation("Hammer_run_Right", "Hammer_Right.png", 16, 23, 0.04f, true);
+		KirbyRenderer->CreateAnimation("Hammer_run_Left", "Hammer_Left.png", 16, 23, 0.04f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Stop_Right", "Hammer_Left.png", 25, 25, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Stop_Left", "Hammer_Right.png", 25, 25, 0.1f, true);
+
+		// 기본 점프 모션(완)
+		KirbyRenderer->CreateAnimation("Hammer_Jump_Right", "Hammer_Right.png", 26, 34, 0.06f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Jump_Left", "Hammer_Left.png", 26, 34, 0.06f, true);
+
+		// 기본 나는 모션
+		KirbyRenderer->CreateAnimation("Hammer_FlyReady_Right", "Hammer_Right.png", {40,41,42,48}, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Hammer_FlyReady_Left", "Hammer_Left.png", { 40,41,42,48 }, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Hammer_Fly_Right", "Hammer_Right.png", 49, 53, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Fly_Left", "Hammer_Left.png", 49, 53, 0.1f, true);
+
+		// 기본 떨어지는 모션
+		KirbyRenderer->CreateAnimation("Hammer_fall_Right", "Hammer_Right.png", { 45,46,47,33,34 }, 0.1f, false);
+		KirbyRenderer->CreateAnimation("Hammer_fall_Left", "Hammer_Left.png", { 45,46,47,33,34 }, 0.1f, false);
+
+		// 기본 숙이기 
+		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Right", "Hammer_Right.png", 2, 3, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Left", "Hammer_Left.png", 2, 3, 0.5f, true);
+	}
+
 	// 모든 커비모드에서 사용 가능한 애니메이션
-	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 42, 52, 0.03f, false);
-	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 42, 52, 0.03f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 4, 6, 0.03f, false);
+	KirbyRenderer->CreateAnimation("AllAttack_Left", "kirby2_Left.png", 4, 6, 0.03f, false);
 
 
 
@@ -405,19 +442,28 @@ void AKirby_Player::KirbyModeCheck()
 	{
 		if (std::string(GetModeName()) == "Ice_") // 아이스 문자열이면
 		{
+			scale = 3;
 			SetMode(EAMode::Ice); // 아이스 형태로
 		}
 		else if (std::string(GetModeName()) == "Fire_") // 소드 문자열이면
 		{
+			scale = 3;
 			SetMode(EAMode::Fire); // 소드 형태로
 		}
 		else if (std::string(GetModeName()) == "Sir_") // 소드 문자열이면
 		{
+			scale = 3;
 			SetMode(EAMode::Sir); // 소드 형태로
 		}
 		else if (std::string(GetModeName()) == "Mike_") // 소드 문자열이면
 		{
+			scale = 3;
 			SetMode(EAMode::Mike); // 소드 형태로
+		}
+		else if (std::string(GetModeName()) == "Hammer_") // 소드 문자열이면
+		{
+			scale = 2;
+			SetMode(EAMode::Hammer); // 소드 형태로
 		}
 	}
 }
