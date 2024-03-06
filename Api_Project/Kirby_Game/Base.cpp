@@ -6,6 +6,7 @@
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
 #include "Monster_Mike.h"
+#include "Hammer.h"
 
 #include "Kirby_Player.h"
 
@@ -154,6 +155,24 @@ void ABase::Collisiongather(float _DeltaTime)
 		Monster->SetEatState(true);
 		Monster->SetBaseOnOff(true);
 		SetModeName("Mike_");
+
+		Destroy(0.1f);
+	}
+	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::Hammer, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AHammer* Object = dynamic_cast<AHammer*>(Ptr);
+
+		if (nullptr == Object)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		Object->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
+		Object->SetEatState(true);
+		//Monster->SetBaseOnOff(true);
+		SetModeName("Hammer_");
 
 		Destroy(0.1f);
 	}

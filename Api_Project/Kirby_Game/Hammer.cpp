@@ -23,7 +23,7 @@ void AHammer::BeginPlay()
 	// ÄÝ¸®Àü
 	{
 		Collision = CreateCollision(ECollisionOrder::Hammer);
-		Collision->SetScale({ 60, 60 });
+		Collision->SetTransform({ { -10,20},{100,100} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 }
