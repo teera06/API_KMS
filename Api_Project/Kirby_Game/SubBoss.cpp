@@ -259,12 +259,12 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 
 		MovePos = FVector::Zero;
 
-		if (RandomAtt == 1 or RandomAtt == 0)
+		if (RandomAtt == 1)
 		{
 			Att1(_DeltaTime);
 		}
 		
-		if (RandomAtt == 2)
+		if (RandomAtt == 2 or RandomAtt == 0)
 		{
 			Att2();
 		}
