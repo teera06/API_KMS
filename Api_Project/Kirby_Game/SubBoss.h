@@ -94,7 +94,5 @@ private:
 
 	float skillcooldowntime = 3.0f;
 	float MoveSpeed = 50.0f; // 몬스터 스피드
-	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
-	const float sight = 250.0f; // 몬스터 시야
 };
 
