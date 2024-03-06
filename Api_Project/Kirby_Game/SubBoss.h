@@ -63,11 +63,12 @@ private:
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
 	bool IsAtt = false;
-	float skillcooldowntime = 3.0f;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 	int RandomAtt = 0;
+	int Hp = 100;
 
+	float skillcooldowntime = 3.0f;
 	float MoveSpeed = 50.0f; // 몬스터 스피드
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 	const float sight = 250.0f; // 몬스터 시야

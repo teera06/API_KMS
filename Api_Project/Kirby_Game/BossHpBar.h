@@ -27,7 +27,7 @@ protected:
 private:
 	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
-	
+
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 	ASubBoss* SubBoss = ASubBoss::GetMainSubBoss();
 
