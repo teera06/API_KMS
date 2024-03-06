@@ -26,6 +26,11 @@ public:
 		return MonsterRenderer;
 	}
 
+	UCollision* GetMonsterCollision()
+	{
+		return MonsterCollision;
+	}
+
 	int GetHp() const
 	{
 		return Hp;

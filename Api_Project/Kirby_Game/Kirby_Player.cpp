@@ -1622,28 +1622,27 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
-		if (Monster->GetHp()<=0)
+		if (Monster->GetHp()>0)
 		{
-			SubBossWall = false;
-			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-			Monster->Destroy();
+			//SubBossWall = false;
+			//GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
+			//Monster->Destroy();
 		}
 
 		if (MikeOrder == 1)
 		{
 			Monster->AddHP(-20);
-			return;
 		}
 		else if (MikeOrder == 2)
 		{
 			Monster->AddHP(-40);
-			return;
 		}
 		else if (MikeOrder == 3)
 		{
 			Monster->AddHP(-40);
-			return;
 		}
+
+		Monster->GetMonsterCollision()->ActiveOff();
 	}
 	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
 	{
@@ -1873,6 +1872,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			MikeOrder = 1;
 		}
 
+		ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
 		MikeCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
