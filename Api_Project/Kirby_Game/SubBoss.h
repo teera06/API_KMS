@@ -46,9 +46,9 @@ public:
 		Hp += _Value;
 	}
 
-	void SetIsDie(const bool& _IsDie)
+	void SetIshit(const bool& _Ishit)
 	{
-		IsDie = _IsDie;
+		Ishit = _Ishit;
 	}
 protected:
 	// TickObject (Level2) 오버라이드
@@ -80,11 +80,12 @@ private:
 	void AttCollisiongather(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
+	void hitEvent();
 
 	void GroundUp();
 
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
-	bool IsDie = false; // 죽은 상태 인지 확인
+	bool Ishit = false; // 죽은 상태 인지 확인
 	bool IsAtt = false;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위

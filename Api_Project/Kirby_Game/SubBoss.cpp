@@ -61,12 +61,24 @@ void ASubBoss::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	GroundUp();
-	if (false == IsDie) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
+
+	if (Hp == 0) // 죽으면
 	{
-		MoveUpdate(_DeltaTime);
+		MonsterRenderer->ChangeAnimation("die_Right");
+
+		if (true == MonsterRenderer->IsCurAnimationEnd())
+		{
+			Destroy(); // 0.3f 뒤에 삭제
+		}
 	}
-	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-		//AddActorLocation(DiePos); // 죽으면서 이동
+	else {
+		if (false == Ishit) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
+		{
+			MoveUpdate(_DeltaTime);
+		}
+		else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+			//AddActorLocation(DiePos); // 죽으면서 이동
+		}
 	}
 }
 
@@ -203,15 +215,24 @@ void ASubBoss::Collisiongather(float _DeltaTime)
 void ASubBoss::CalResult(float _DeltaTime)
 {
 	
-	if (Hp==0) // 죽으면
+	
+	
+	AddActorLocation(MovePos);
+		
+	
+}
+
+void ASubBoss::hitEvent()
+{
+	if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 	{
-		Destroy(0.3f); // 0.3f 뒤에 삭제
+		MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
+
 	}
 	else {
-		
-		AddActorLocation(MovePos);
-		
+		MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
 	}
+	Ishit = false; // 죽음 체크
 }
 
 void ASubBoss::GroundUp()
@@ -270,6 +291,6 @@ void ASubBoss::AniCreate()
 	AttRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 },0.1f, true);
 
 
-	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", 11, 13, 0.3f, true); // 죽음 
-	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",11, 13, 0.3f, true); // 죽음 
+	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", {11,13,12}, 0.3f, true); // 죽음 
+	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",{11, 13, 12}, 0.3f, true); // 죽음 
 }

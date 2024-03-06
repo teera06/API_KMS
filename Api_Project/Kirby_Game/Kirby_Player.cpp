@@ -1851,7 +1851,6 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 	DirCheck();
 
 	MikeCollision->ActiveOn();
-	SoundCollisiongather(_DeltaTime);
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
@@ -1864,6 +1863,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			MikeOrder = 1;
 		}
 
+		SoundCollisiongather(_DeltaTime);
 		if (ASubBoss::GetMainSubBoss()->GetHp() > 0)
 		{
 			ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn();
@@ -1872,7 +1872,6 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			SubBossWall = false;
 			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 		}
-		
 		MikeCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
