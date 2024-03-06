@@ -304,7 +304,7 @@ void Apengi_Ice::IceAtt()
 		MonsterRenderer->ChangeAnimation("Att_Left");
 		NewIce->SetDir(FVector::Left);
 	}
-	else if (MonsterDirNormal.iX() == 1 && IsIce == false) { // 오른쪽 방향
+	else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0 && IsIce == false) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
 		NewIce->SetDir(FVector::Right);
 	}
