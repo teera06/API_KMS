@@ -462,10 +462,14 @@ void AKirby_Player::KirbyModeCheck()
 		}
 		else if (std::string(GetModeName()) == "Hammer_") // 소드 문자열이면
 		{
-			scale = 2;
+			scale = 5;
 			SetMode(EAMode::Hammer); // 소드 형태로
 		}
 	}
+	else {
+		scale = 3;
+	}
+	KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 }
 
 void AKirby_Player::GroundUp()
@@ -1072,6 +1076,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base) && false==SirUse
 		)
 	{
+		scale = 3;
+		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 		StateAniChange(EActorState::All_Attack);
 		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
 		NewStar->SetActorLocation(this->GetActorLocation());
