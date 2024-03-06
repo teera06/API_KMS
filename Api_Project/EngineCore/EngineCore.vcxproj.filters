@@ -90,7 +90,4 @@
       <UniqueIdentifier>{1daca306-475a-4a7b-a108-30681a09be54}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
 </Project>
