@@ -422,8 +422,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Hammer_fall_Left", "Hammer_Left.png", { 45,46,47,33,34 }, 0.1f, false);
 
 		// 기본 숙이기 
-		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Right", "Hammer_Right.png", 2, 3, 0.5f, true);
-		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Left", "Hammer_Left.png", 2, 3, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Right", "Hammer_Right.png", 4, 6, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Left", "Hammer_Left.png", 4, 6, 0.5f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
