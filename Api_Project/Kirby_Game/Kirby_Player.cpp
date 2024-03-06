@@ -112,7 +112,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	{
 		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
-		MikeCollision->SetScale({ 500, 500 });
+		MikeCollision->SetScale({ 1000, 500 });
 		MikeCollision->SetColType(ECollisionType::Rect);
 		MikeCollision->ActiveOff();
 	}
@@ -1620,13 +1620,6 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		if (nullptr == Monster)
 		{
 			MsgBoxAssert("터져야겠지....");
-		}
-
-		if (Monster->GetHp()<=0)
-		{
-			SubBossWall = false;
-			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-			Monster->Destroy();
 		}
 
 		if (MikeOrder ==1)

@@ -249,8 +249,6 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 		{
 			Att2();
 		}
-
-		//Att1(_DeltaTime);
 	}
 	else {
 		AttRenderer->ActiveOff();
@@ -274,6 +272,4 @@ void ASubBoss::AniCreate()
 
 	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", 11, 13, 0.3f, true); // Á×À½ 
 	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",11, 13, 0.3f, true); // Á×À½ 
-	
-	//MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 }

@@ -46,6 +46,10 @@ public:
 		Hp += _Value;
 	}
 
+	void SetIsDie(const bool& _IsDie)
+	{
+		IsDie = _IsDie;
+	}
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
