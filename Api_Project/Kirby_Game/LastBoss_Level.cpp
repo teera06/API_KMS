@@ -42,6 +42,8 @@ void ULastBoss_Level::BeginPlay()
 	// 이미지 컷팅 -> 커비 관련 이미지
 	UEngineResourcesManager::GetInst().CuttingImage("Hammer_Right.png", 10, 13);
 	UEngineResourcesManager::GetInst().CuttingImage("Hammer_Left.png", 10, 13);
+	UEngineResourcesManager::GetInst().CuttingImage("King_Right.png", 10, 8);
+	UEngineResourcesManager::GetInst().CuttingImage("King_Left.png", 10, 8);
 }
 
 void ULastBoss_Level::Tick(float _DeltaTime)
