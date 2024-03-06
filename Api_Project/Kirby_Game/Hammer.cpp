@@ -32,6 +32,7 @@ void AHammer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY()+80, _DeltaTime)); // 중력 작용
+	Collisiongather();
 	GroundUp();
 }
 
@@ -47,6 +48,31 @@ void AHammer::GroundUp()
 		else
 		{
 			break;
+		}
+	}
+}
+
+void AHammer::Collisiongather()
+{
+	// 콜리전 
+	std::vector<UCollision*> Result;
+	if (true == Collision->CollisionCheck(ECollisionOrder::kirby, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AKirby_Player* Player = dynamic_cast<AKirby_Player*>(Ptr);
+
+		// 방어코드
+		if (nullptr == Player)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
+		{
+			Destroy();
 		}
 	}
 }

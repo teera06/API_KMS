@@ -17,6 +17,15 @@ public:
 	AHammer& operator=(const AHammer& _Other) = delete; // 디폴트 대입 연산자
 	AHammer& operator=(AHammer&& _Other) noexcept = delete;
 
+	void SetBaseOnOff(const bool& _BaseOn)
+	{
+		BaseOn = _BaseOn;
+	}
+
+	bool GetBaseOnOff() const
+	{
+		return BaseOn;
+	}
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -29,5 +38,8 @@ private:
 	UCollision* Collision = nullptr;
 
 	void GroundUp();
+	void Collisiongather();
+
+	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
 };
 

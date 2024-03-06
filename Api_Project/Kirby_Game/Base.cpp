@@ -171,7 +171,7 @@ void ABase::Collisiongather(float _DeltaTime)
 		}
 		Object->AddActorLocation(GetDir() * FVector::Left * Power * _DeltaTime);
 		Object->SetEatState(true);
-		//Monster->SetBaseOnOff(true);
+		Object->SetBaseOnOff(true);
 		SetModeName("Hammer_");
 
 		Destroy(0.1f);
