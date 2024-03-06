@@ -48,7 +48,7 @@ void ASubBoss::BeginPlay()
 
 	{
 		AttCollision = CreateCollision(ECollisionOrder::SubBossAtt);
-		AttCollision->SetTransform({ {0,-20}, {500, 120} });
+		AttCollision->SetTransform({ {0,-20}, {800, 120} });
 		AttCollision->SetColType(ECollisionType::Rect);
 		AttCollision->ActiveOff();
 	}
@@ -77,7 +77,7 @@ void ASubBoss::Tick(float _DeltaTime)
 			MoveUpdate(_DeltaTime);
 		}
 		else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-			//AddActorLocation(DiePos); // 죽으면서 이동
+			hitEvent();
 		}
 	}
 }
@@ -214,25 +214,23 @@ void ASubBoss::Collisiongather(float _DeltaTime)
 
 void ASubBoss::CalResult(float _DeltaTime)
 {
-	
-	
-	
 	AddActorLocation(MovePos);
-		
-	
 }
 
 void ASubBoss::hitEvent()
 {
 	if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 	{
-		MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
-
+		MonsterRenderer->ChangeAnimation("hit_Left"); // 죽는 애니메이션
 	}
 	else {
-		MonsterRenderer->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		MonsterRenderer->ChangeAnimation("hit_Right"); // 죽는 애니메이션
 	}
-	Ishit = false; // 죽음 체크
+
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		Ishit = false; // 죽음 체크
+	}
 }
 
 void ASubBoss::GroundUp()
@@ -290,7 +288,8 @@ void ASubBoss::AniCreate()
 
 	AttRenderer->CreateAnimation("AttEffect", "Tock_Right.png", { 16,17,18,19,20,14 },0.1f, true);
 
-
-	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", {11,13,12}, 0.3f, true); // 죽음 
-	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",{11, 13, 12}, 0.3f, true); // 죽음 
+	MonsterRenderer->CreateAnimation("hit_Right", "Tock_Left.png", 11,11, 0.3f, true); // 히트
+	MonsterRenderer->CreateAnimation("hit_Left", "Tock_Right.png",  11,11, 0.3f, true); // 히트 
+	MonsterRenderer->CreateAnimation("die_Right", "Tock_Left.png", {11,13,12}, 0.5f, true); // 죽음 
+	MonsterRenderer->CreateAnimation("die_Left", "Tock_Right.png",{11, 13, 12}, 0.5f, true); // 죽음 
 }

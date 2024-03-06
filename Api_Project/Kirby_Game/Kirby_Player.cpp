@@ -1618,6 +1618,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
+		Monster->SetIshit(true);
 
 		if (MikeOrder ==1)
 		{
