@@ -1871,7 +1871,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		else {
 			SubBossWall = false;
 			GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
-			ASubBoss::GetMainSubBoss()->Destroy();
+			//ASubBoss::GetMainSubBoss()->Destroy();
 		}
 		
 		MikeCollision->ActiveOff();

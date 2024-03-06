@@ -203,7 +203,7 @@ void ASubBoss::Collisiongather(float _DeltaTime)
 void ASubBoss::CalResult(float _DeltaTime)
 {
 	
-	if (true == IsDie) // 죽으면
+	if (Hp==0) // 죽으면
 	{
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
