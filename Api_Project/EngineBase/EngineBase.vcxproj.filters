@@ -78,22 +78,28 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">
-      <UniqueIdentifier>{ea60ea82-d972-47a4-908a-30b028cf2c5c}</UniqueIdentifier>
+      <UniqueIdentifier>{1c97b366-8de6-4ed7-9b20-544536aab4f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="String">
-      <UniqueIdentifier>{d36d8566-8375-4c7d-9acf-d52aa5584e58}</UniqueIdentifier>
+      <UniqueIdentifier>{affc2336-4936-4e93-86cd-32ff000866b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math">
-      <UniqueIdentifier>{6433c1ac-63fc-4f99-837a-120169c99bce}</UniqueIdentifier>
+      <UniqueIdentifier>{6510af30-ea9a-408b-b251-a60cdf8ffe5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Time">
-      <UniqueIdentifier>{502612d7-5baf-46c6-b5e0-c42db45d41b3}</UniqueIdentifier>
+      <UniqueIdentifier>{d7f83226-046b-4713-9ec4-b2f570449b2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="IO">
-      <UniqueIdentifier>{18a5300c-f54d-40f9-92d6-e36ddb43825e}</UniqueIdentifier>
+      <UniqueIdentifier>{088f05d2-1bc2-45ca-b095-f9c8eb2c1f24}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
-      <UniqueIdentifier>{954a936a-9edc-4a3d-92b6-7ab97976d526}</UniqueIdentifier>
+      <UniqueIdentifier>{40dd519c-dfec-4e66-90e0-bf938d9a56ca}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\포폴계획예제.txt" />
   </ItemGroup>
 </Project>

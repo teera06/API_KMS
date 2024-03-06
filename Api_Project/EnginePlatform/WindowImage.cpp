@@ -79,7 +79,7 @@ bool UWindowImage::Load(UWindowImage* _Image)
 		//int cx, // 이미지를 로드할 크기 X 0을 넣으면 전체 크기로 로드
 		//int cy, // 이미지를 로드할 크기 Y 0을 넣으면 전체 크기로 로드
 		//UINT fuLoad 로드 옵션
-
+		
 		// 비트맵을 제어할수 있는 핸들입니다.
 		// 비트맵을 그릴수 있는 핸들은 아닙니다.
 		// 그린다는 목적을 가진 핸들과
@@ -151,7 +151,7 @@ bool UWindowImage::Load(UWindowImage* _Image)
 	UImageInfo Info;
 	Info.hBitMap = hBitMap;
 	Info.ImageDC = ImageDC;
-	Info.CuttingTrans.SetPosition({ 0,0 });
+	Info.CuttingTrans.SetPosition({0,0});
 	Info.CuttingTrans.SetScale(GetScale());
 	Info.ImageType = ImageType;
 	Infos.push_back(Info);
@@ -320,8 +320,8 @@ void UWindowImage::TransCopy(UWindowImage* _CopyImage, const FTransform& _Trans,
 	int RenderScaleX = _Trans.GetScale().iX();
 	int RenderScaleY = _Trans.GetScale().iY();
 
-	int ImageLeft = ImageTrans.GetPosition().iX();
-	int ImageTop = ImageTrans.GetPosition().iY();
+	int ImageLeft   = ImageTrans.GetPosition().iX();
+	int ImageTop    = ImageTrans.GetPosition().iY();
 	int ImageScaleX = ImageTrans.GetScale().iX();
 	int ImageScaleY = ImageTrans.GetScale().iY();
 

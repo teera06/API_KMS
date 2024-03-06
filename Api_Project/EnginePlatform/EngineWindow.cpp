@@ -34,11 +34,11 @@ void UEngineWindow::Init(HINSTANCE _hInst)
 
 
 
-UEngineWindow::UEngineWindow()
+UEngineWindow::UEngineWindow() 
 {
 }
 
-UEngineWindow::~UEngineWindow()
+UEngineWindow::~UEngineWindow() 
 {
 	if (nullptr != BackBufferImage)
 	{
@@ -51,7 +51,7 @@ UEngineWindow::~UEngineWindow()
 		delete WindowImage;
 		WindowImage = nullptr;
 	}
-
+	
 }
 
 void UEngineWindow::Open(std::string_view _Title /*= "Title"*/)
@@ -173,7 +173,7 @@ void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
 	Scale = _Scale;
-
+	
 
 	// window크기만한 이미지를 만들거라고 했는데.
 	// Load랑 다르다.
@@ -218,7 +218,7 @@ void UEngineWindow::ScreenClear()
 void UEngineWindow::ScreenUpdate()
 {
 	FTransform CopyTrans;
-	CopyTrans.SetPosition({ Scale.ihX(), Scale.ihY() });
+	CopyTrans.SetPosition({Scale.ihX(), Scale.ihY()});
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);

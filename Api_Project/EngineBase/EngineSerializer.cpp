@@ -1,10 +1,10 @@
 #include "EngineSerializer.h"
 
-UEngineSerializer::UEngineSerializer()
+UEngineSerializer::UEngineSerializer() 
 {
 }
 
-UEngineSerializer::~UEngineSerializer()
+UEngineSerializer::~UEngineSerializer() 
 {
 }
 

@@ -1,55 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{1677204a-63c4-4f85-8b2c-767bd5bdf736}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{62b2aed8-460d-40b5-ad9d-66340851a1ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Actor">
-      <UniqueIdentifier>{9e6dba00-e737-4449-a654-2c8788bdbfff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Component">
-      <UniqueIdentifier>{8e91b12c-a8c6-4de7-a239-260e5838c15e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Component\Renderer">
-      <UniqueIdentifier>{f85299d1-2bad-4f11-b7d1-402a856df701}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{79ee55a0-459d-44dc-a916-bc30c2fb7dc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Component\Collision">
-      <UniqueIdentifier>{ebac629b-f699-4a95-83b8-1765b675f74d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Debug">
-      <UniqueIdentifier>{5fc99766-d746-4d18-aec1-b8505848b9cc}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="EngineCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="TickObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageRenderer.h">
+      <Filter>Object\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineResourcesManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Object\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Object\Actor</Filter>
     </ClCompile>
     <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="ActorComponent.cpp">
+    <ClCompile Include="SceneComponent.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SceneComponent.cpp">
+    <ClCompile Include="ActorComponent.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="ImageRenderer.cpp">
       <Filter>Object\Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="EngineResourcesManager.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Component\Collision</Filter>
@@ -59,35 +65,32 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineCore.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Object\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="TickObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponent.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneComponent.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageRenderer.h">
-      <Filter>Object\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineResourcesManager.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Object\Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineDebug.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
+    <Filter Include="Core">
+      <UniqueIdentifier>{763fad0a-15c2-4f64-b738-5c302d021ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{991c1818-9423-4f5a-919b-cd6b24d452f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{bf945d53-4e73-4093-b8cd-6a1d25945812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{13ce2f56-ddb5-4f77-b5e4-e63dc5a93b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Renderer">
+      <UniqueIdentifier>{76df3fb7-13b1-4f27-864b-d0cd91d3c698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{45c67245-afdb-466c-86ac-3ecb73df4bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Collision">
+      <UniqueIdentifier>{3dd3f830-096c-4368-b101-2477a1fe5115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{1daca306-475a-4a7b-a108-30681a09be54}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

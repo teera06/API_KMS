@@ -19,7 +19,7 @@ FMOD::System* SoundSystem = nullptr;
 class ResControl
 {
 public:
-	ResControl()
+	ResControl() 
 	{
 		if (FMOD_RESULT::FMOD_OK != FMOD::System_Create(&SoundSystem))
 		{
@@ -33,7 +33,7 @@ public:
 			return;
 		}
 	}
-	~ResControl()
+	~ResControl() 
 	{
 		UEngineSound::ResourcesRelease();
 		SoundSystem->release();
@@ -53,11 +53,11 @@ void UEngineSound::ResourcesRelease()
 	Resources.clear();
 }
 
-UEngineSound::UEngineSound()
+UEngineSound::UEngineSound() 
 {
 }
 
-UEngineSound::~UEngineSound()
+UEngineSound::~UEngineSound() 
 {
 }
 
@@ -69,7 +69,7 @@ void UEngineSound::ResLoad(std::string_view _Path)
 	SoundSystem->createSound(_Path.data(), FMOD_LOOP_NORMAL, nullptr, &SoundHandle);
 	if (nullptr == SoundHandle)
 	{
-		MsgBoxAssert("사운드 로드에 실패했습니다.");
+		MsgBoxAssert("사운드 로드에 실패했습니다." + std::string(_Path));
 		return;
 	}
 

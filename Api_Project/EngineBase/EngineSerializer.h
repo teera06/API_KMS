@@ -23,7 +23,7 @@ public:
 
 	void Write(void* _Data, unsigned int _Size);
 
-	void operator<<(int& _Data)
+	void operator<<(int& _Data) 
 	{
 		Write(&_Data, sizeof(int));
 	}

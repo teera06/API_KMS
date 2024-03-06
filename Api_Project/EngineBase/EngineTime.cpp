@@ -1,12 +1,12 @@
 #include "EngineTime.h"
 #include <Windows.h>
 
-EngineTime::EngineTime()
+EngineTime::EngineTime() 
 {
 	TimeCheckStart();
 }
 
-EngineTime::~EngineTime()
+EngineTime::~EngineTime() 
 {
 }
 
