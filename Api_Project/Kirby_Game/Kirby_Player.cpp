@@ -1707,11 +1707,11 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		}
 		Monster->SetIshit(true);
 
-		if (MikeOrder ==1)
+		if (MikeOrder ==2)
 		{
 			Monster->AddHP(-20);
 		}
-		else if (MikeOrder == 2)
+		else if (MikeOrder == 3)
 		{
 			Monster->AddHP(-40);
 		}

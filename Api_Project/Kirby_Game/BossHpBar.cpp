@@ -33,30 +33,20 @@ void ABossHpBar::Tick(float _DeltaTime)
 		
 		if (Hp == 0)
 		{
-			Destroy();
-		}
-		else if (Hp < 20 && Hp>0) {
-			HpAddRenderer->SetTransform({ {-50,0}, {100 * 162, 300} }); // 랜더의 위치 크기 80
-		}
-		else if (Hp < 40 && Hp >= 20)
+			HpAddRenderer->SetTransform({ {-100,12}, {500, 350} }); // 랜더의 위치 크기 80
+			Destroy(0.1f);
+		}else if(Hp ==80)
 		{
-			HpAddRenderer->SetTransform({ {-50,0}, {2 * 132,300 } }); // 랜더의 위치 크기 60 
-		}
-		else if (Hp < 60 && Hp >= 40)
+
+			HpAddRenderer->SetTransform({ {-20,12}, {2 * 42, 350} }); // 랜더의 위치 크기 80
+		}else if (Hp == 40)
 		{
-			HpAddRenderer->SetTransform({ {-50,0}, {2 * 102, 300} }); // 랜더의 위치 크기 80
-		}
-		else if (Hp < 80 && Hp >= 60)
-		{
-			HpAddRenderer->SetTransform({ {-128,12}, {2 * 72, 350} }); // 랜더의 위치 크기 80
-		}
-		else if (Hp < 100 && Hp >= 80)
-		{
-			HpAddRenderer->SetTransform({ {-50,0}, {2 * 42, 350} }); // 랜더의 위치 크기 80
+
+			HpAddRenderer->SetTransform({ {-40,12}, {200, 350} }); // 랜더의 위치 크기 80
 		}
 		else
 		{
-			HpAddRenderer->SetTransform({ {-50,0}, {0, 64 * 5} }); // 랜더의 위치 크기 80
+			HpAddRenderer->SetTransform({ {-20,12}, {0, 350} }); // 랜더의 위치 크기 80
 		}
 	}
 	else if (MainPlayer->GetStageCheck() == 4)
