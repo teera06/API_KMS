@@ -1090,6 +1090,15 @@ void AKirby_Player::Idle(float _DeltaTime)
 		StateAniChange(EActorState::MikeAttack);
 		return;
 	}
+	else if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
+		)
+	{
+		//SkillOn = true;
+		//MikeCollision->SetActive(true, 0.2f);
+		//StateAniChange(EActorState::HammerAttack);
+		return;
+	}
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (

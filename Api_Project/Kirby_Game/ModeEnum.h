@@ -30,6 +30,7 @@ enum class EActorState
 	FireAttack,
 	SirAttack,
 	MikeAttack,
+	HammerAttack,
 	All_Attack,
 	HeadDown,
 };
