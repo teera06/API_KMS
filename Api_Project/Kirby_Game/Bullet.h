@@ -1,20 +1,22 @@
 #pragma once
 #include <EngineCore\Actor.h>
 
+#include "ActorCommon.h"
+
 #include "Kirby_Player.h" // MainPlayer
 
-class Bullet : public AActor
+class ABullet : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer
-	Bullet(); // 디폴트 생성자
-	~Bullet(); // 디폴트 소멸자
+	ABullet(); // 디폴트 생성자
+	~ABullet(); // 디폴트 소멸자
 
 	// delete Function
-	Bullet(const Bullet& _Other) = delete; // 디폴트 복사 생성자
-	Bullet(Bullet&& _Other) noexcept = delete; 
-	Bullet& operator=(const Bullet& _Other) = delete; // 디폴트 대입 연산자
-	Bullet& operator=(Bullet&& _Other) noexcept = delete;
+	ABullet(const ABullet& _Other) = delete; // 디폴트 복사 생성자
+	ABullet(ABullet&& _Other) noexcept = delete; 
+	ABullet& operator=(const ABullet& _Other) = delete; // 디폴트 대입 연산자
+	ABullet& operator=(ABullet&& _Other) noexcept = delete;
 
 protected:
 	// TickObject (Level2) 오버라이드

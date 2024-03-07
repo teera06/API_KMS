@@ -2,6 +2,9 @@
 
 #include <EngineBase\EngineRandom.h>
 
+
+#include "Bullet.h"
+
 AMainBoss::AMainBoss()
 {
 }
@@ -133,16 +136,21 @@ void AMainBoss::Att1()
 
 void AMainBoss::Att2()
 {
+	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>();
+	
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att2_Left");
+		NewBullet->SetDir(FVector::Left);
 	}
-	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+	else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att2_Right");
+		NewBullet->SetDir(FVector::Right);
 	}
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		NewBullet->SetActorLocation(this->GetActorLocation());
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
 		//AttCollision->ActiveOff();
 		IsAtt = false;

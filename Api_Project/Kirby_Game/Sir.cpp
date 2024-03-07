@@ -50,7 +50,6 @@ void ASir::AniCreate()
 {
 	SirRenderer->CreateAnimation("Sir_Right", "Sir_Right.png", 95,98, 0.05f, true);
 	SirRenderer->CreateAnimation("Sir_Left", "Sir_Left.png", 95,98, 0.05f, true);
-	SirRenderer->ChangeAnimation("Sir_Right");
 }
 
 void ASir::CalDir()
