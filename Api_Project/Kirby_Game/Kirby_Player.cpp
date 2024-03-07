@@ -1104,6 +1104,14 @@ void AKirby_Player::Idle(float _DeltaTime)
 		StateAniChange(EActorState::HammerAttack);
 		return;
 	}
+	else if (
+		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  // 테스트
+		)
+	{
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
+		return;
+	}
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
