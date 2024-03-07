@@ -136,7 +136,10 @@ protected:
 	void SirAttackStart(); // 아이스 공격
 	void SirJumpStart();
 
-	void HammerStart();
+	void HammerAttStart1();
+	void HammerAttStart2();
+	void HammerAttStart3();
+	int Attcheck = 0;
 
 	void SoundCollisiongather(float _DeltaTime);
 	void MikeAttackStart();

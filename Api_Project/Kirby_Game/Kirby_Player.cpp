@@ -428,6 +428,14 @@ void AKirby_Player::AniCreate()
 		// 기본 숙이기 
 		KirbyRenderer->CreateAnimation("Hammer_Att1_Right", "Hammer_Right.png", 59, 64, 0.1f, true);
 		KirbyRenderer->CreateAnimation("Hammer_Att1_Left", "Hammer_Left.png", 59, 64, 0.1f, true);
+
+		// 기본 숙이기 
+		KirbyRenderer->CreateAnimation("Hammer_Att2_Right", "Hammer_Right.png", 87, 123, 0.07f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Att2_Left", "Hammer_Left.png", 87, 123, 0.07f, true);
+
+		// 기본 숙이기 
+		KirbyRenderer->CreateAnimation("Hammer_Att3_Right", "Hammer_Right.png", 78, 86, 0.07f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Att3_Left", "Hammer_Left.png",78, 86, 0.07f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -758,7 +766,18 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			MikeAttackStart();
 			break;
 		case EActorState::HammerAttack:
-			HammerStart();
+			if (Attcheck == 1)
+			{
+				HammerAttStart1();
+			}
+			else if (Attcheck == 2)
+			{
+				HammerAttStart2();
+			}
+			else if (Attcheck == 3)
+			{
+				HammerAttStart3();
+			}
 			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
@@ -1097,9 +1116,19 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (
+		true == UEngineInput::IsDoubleClick('X',0.2f) && KirbyMode == EAMode::Hammer  // 테스트
+		)
+	{
+		Attcheck = 3;
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
+		return;
+	}
+	else if (
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
+		Attcheck = 1;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1108,6 +1137,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
+		Attcheck = 2;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1717,10 +1747,22 @@ void AKirby_Player::SirJumpStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("SirJump"));
 }
 
-void AKirby_Player::HammerStart()
+void AKirby_Player::HammerAttStart1()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att1"));
+}
+
+void AKirby_Player::HammerAttStart2()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Att2"));
+}
+
+void AKirby_Player::HammerAttStart3()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Att3"));
 }
 
 
@@ -2021,6 +2063,13 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 void AKirby_Player::HammerKirby(float _DeltaTime)
 {
 	DirCheck();
+
+	if (true == UEngineInput::IsUp('X') && Attcheck==2)
+	{
+		SkillOn = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
