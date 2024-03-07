@@ -26,11 +26,6 @@ public:
 		BaseOn = _BaseOn;
 	}
 
-	bool GetBaseOnOff() const
-	{
-		return BaseOn;
-	}
-
 	UImageRenderer* GetMonsterRenderer()
 	{
 		return MonsterRenderer;

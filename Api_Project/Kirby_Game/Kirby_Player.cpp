@@ -1718,6 +1718,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right");
 		FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
