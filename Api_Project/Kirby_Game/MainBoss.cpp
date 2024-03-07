@@ -70,21 +70,42 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		}
 	}
 	else {
-		CalDir(_DeltaTime);
-		CalResult(_DeltaTime);
+
+		if (true == Att3Delay)
+		{
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+			{
+				MonsterRenderer->ChangeAnimation("Delay_Left");
+			}
+			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+				MonsterRenderer->ChangeAnimation("Delay_Right");
+			}
+
+			if (true == MonsterRenderer->IsCurAnimationEnd())
+			{
+				Att3Delay = false;;
+			}
+		}
+		else {
+			CalDir(_DeltaTime);
+			CalResult(_DeltaTime);
+		}
 	}
 }
 
 void AMainBoss::AniCreate()
 {
-	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 3,7, 0.3f, true);
-	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", 3,7, 0.3f, true);
-	MonsterRenderer->CreateAnimation("Att1_Right", "King_Right.png", {26,29,30,31,32}, 0.2f, false);
+	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 3, 7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", 3, 7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Att1_Right", "King_Right.png", { 26,29,30,31,32 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att1_Left", "King_Left.png", { 26,29,30,31,32 }, 0.2f, false);
-	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", 32,35, 0.5f, false);
-	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png",  32,35, 0.5f, false);
-	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png",37,60, 0.2f, false);
-	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", 37, 60, 0.2f, false);
+	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", 32, 35, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", 32, 35, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png", { 37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 }, 0.05f, false);
+	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", { 37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 }, 0.05f, false);
+
+	MonsterRenderer->CreateAnimation("Delay_Right", "King_Right.png", 54, 60,0.1f, false);
+	MonsterRenderer->CreateAnimation("Delay_Left", "King_Left.png", 54, 60,0.1f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
@@ -173,11 +194,11 @@ void AMainBoss::Att3()
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
-		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
+		Att3Delay = true;
+		//AttCollision->ActiveOff();
 	}
-
 	return;
 }
 
