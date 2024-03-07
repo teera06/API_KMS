@@ -2073,13 +2073,16 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (Attcheck == 3)
 	{
+		FVector Move = FVector::Zero;
 		if (DirState == EActorDir::Left)
 		{
-			AddActorLocation(FVector::Left * checkSpeed * _DeltaTime);
+			Move=FVector::Left * checkSpeed * _DeltaTime;
 		}
 		else {
-			AddActorLocation(FVector::Right * checkSpeed * _DeltaTime);
+			Move = FVector::Right * checkSpeed * _DeltaTime;
 		}
+		GetWorld()->AddCameraPos(Move);
+		AddActorLocation(Move);
 	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
