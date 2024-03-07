@@ -45,7 +45,7 @@ void AMainBoss::Tick(float _DeltaTime)
 
 void AMainBoss::MoveUpdate(float _DeltaTime)
 {
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY()+90, _DeltaTime)); // 중력 작용
 
 	skillcooldowntime -= _DeltaTime;
 
