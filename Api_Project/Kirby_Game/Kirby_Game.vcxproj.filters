@@ -80,6 +80,9 @@
     <ClCompile Include="Hammer.cpp">
       <Filter>Stage_Actor\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Stage_Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Hammer.h">
       <Filter>Stage_Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Stage_Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

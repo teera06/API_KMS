@@ -32,7 +32,7 @@ void ASir::BeginPlay()
 {
 	AActor::BeginPlay();
 	{
-		SirRenderer = CreateImageRenderer(ERenderOrder::Ice); // 이미지 랜더 생성
+		SirRenderer = CreateImageRenderer(ERenderOrder::Sir); // 이미지 랜더 생성
 		SirRenderer->SetImage("Sir_Right.png"); // 이미지 Set
 		SirRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	}

@@ -54,6 +54,7 @@ enum class ERenderOrder
 	Hammer,
 	Base,
 	Ice,
+	Sir,
 	Fire,
 	Sound,
 	kirby,
