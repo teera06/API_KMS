@@ -19,7 +19,7 @@ void ABossHpBar::BeginPlay()
 
 	HpAddRenderer = CreateImageRenderer(ERenderOrder::HPgauge);
 	HpAddRenderer->SetSortType(EImageSortType::Left);
-	HpAddRenderer->SetImage("GaugeHUD.png");
+	HpAddRenderer->SetImage("BossHp.png");
 }
 
 void ABossHpBar::Tick(float _DeltaTime)
@@ -48,11 +48,11 @@ void ABossHpBar::Tick(float _DeltaTime)
 		}
 		else if (Hp < 80 && Hp >= 60)
 		{
-			HpAddRenderer->SetTransform({ {-50,0}, {2 * 72, 300} }); // 랜더의 위치 크기 80
+			HpAddRenderer->SetTransform({ {-128,12}, {2 * 72, 350} }); // 랜더의 위치 크기 80
 		}
 		else if (Hp < 100 && Hp >= 80)
 		{
-			HpAddRenderer->SetTransform({ {-50,0}, {2 * 42, 300} }); // 랜더의 위치 크기 80
+			HpAddRenderer->SetTransform({ {-50,0}, {2 * 42, 350} }); // 랜더의 위치 크기 80
 		}
 		else
 		{
