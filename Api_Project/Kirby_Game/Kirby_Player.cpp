@@ -861,20 +861,36 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 
 	// 테스트 모드
-	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::BlueA);
-	
-	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1)
+	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::BlueA);
+	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1 && ColorB == Color8Bit(0, 0, 255, 0))
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
 		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
 	}
-	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2)
+	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2 &&ColorB == Color8Bit(0, 0, 255, 0))
 	{
 		StageCheck = 3;
 		GEngine->ChangeLevel("Stage3_Level");
 	}
-	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 3)
+	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 3 && ColorB == Color8Bit(0, 0, 255, 0))
+	{
+		StageCheck = 4;
+		GEngine->ChangeLevel("LastBoss_Level");
+	}
+
+	if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 1)
+	{
+		// && ColorB != Color8Bit(0, 0, 255, 0)
+		StageCheck = 2;
+		GEngine->ChangeLevel("Stage2_Level");
+	}
+	else if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 2)
+	{
+		StageCheck = 3;
+		GEngine->ChangeLevel("Stage3_Level");
+	}
+	else if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 3)
 	{
 		StageCheck = 4;
 		GEngine->ChangeLevel("LastBoss_Level");
@@ -1719,9 +1735,7 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right");
-		FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 		Monster->SetIsDie(true);
-		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
 	}
 }
