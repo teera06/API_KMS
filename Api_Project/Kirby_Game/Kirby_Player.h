@@ -168,6 +168,8 @@ private:
 	UCollision* FireCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* MikeCollision = nullptr; // 커비 콜리전 (충돌)
 
+
+
 	UImageRenderer* manual = nullptr;
 	// 행동별 속도 정리
 	float checkSpeed = 0.0f; // 최종 스피드
@@ -206,6 +208,7 @@ private:
 	static int StageCheck;
 
 	static int Hp;
+	int HammerAtt = 0;
 
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
