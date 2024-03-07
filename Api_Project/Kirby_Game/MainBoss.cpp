@@ -1,5 +1,7 @@
 #include "MainBoss.h"
 
+#include <EngineBase\EngineRandom.h>
+
 AMainBoss::AMainBoss()
 {
 }
@@ -43,7 +45,21 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
 	skillcooldowntime -= _DeltaTime;
-	
+
+	if (skillcooldowntime < 0.0f)
+	{
+
+		MovePos = FVector::Zero;
+
+		if (RandomAtt == 1 || RandomAtt == 0)
+		{
+			Att1();
+		}
+	}
+	else {
+		CalDir(_DeltaTime);
+		CalResult(_DeltaTime);
+	}
 	
 	CalDir(_DeltaTime);
 	CalResult(_DeltaTime);
@@ -92,15 +108,15 @@ void AMainBoss::Att1()
 
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
-		MonsterRenderer->ChangeAnimation("Att_Left");
+		MonsterRenderer->ChangeAnimation("Att1_Left");
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-		MonsterRenderer->ChangeAnimation("Att_Right");
+		MonsterRenderer->ChangeAnimation("Att1_Right");
 	}
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		//RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;

@@ -85,7 +85,6 @@ private:
 	void GroundUp();
 
 	bool Ishit = false; // 죽은 상태 인지 확인
-	bool IsAtt = false;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 	int RandomAtt = 0;

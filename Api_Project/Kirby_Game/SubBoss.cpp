@@ -121,7 +121,6 @@ void ASubBoss::Att1(float _DeltaTime)
 	{
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
 		AttCollision->ActiveOff();
-		IsAtt = false;
 		skillcooldowntime = 4.0f;
 	}
 
@@ -147,7 +146,6 @@ void ASubBoss::Att2()
 		else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX()+100,200 });
 		}
-		IsAtt = false;
 		skillcooldowntime = 4.0f;
 	}
 	return;
