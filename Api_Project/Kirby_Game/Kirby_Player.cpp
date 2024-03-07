@@ -1703,10 +1703,11 @@ void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 		{
 			Monster->AddHP(-40);
 		}
-
+		Monster->GetMonsterRenderer()->SetAlpha(0.5f);
 		Monster->GetMonsterCollision()->ActiveOff();
 	}
-	else if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
+	
+	if (true == MikeCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result))
 	{
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];

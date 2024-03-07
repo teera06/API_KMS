@@ -76,7 +76,7 @@ void ASubBoss::Tick(float _DeltaTime)
 		{
 			MoveUpdate(_DeltaTime);
 		}
-		else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		else { 
 			hitEvent();
 		}
 	}
@@ -229,7 +229,8 @@ void ASubBoss::hitEvent()
 
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		Ishit = false; // 죽음 체크
+		Ishit = false; 
+		MonsterRenderer->SetAlpha(1.0f);
 	}
 }
 
