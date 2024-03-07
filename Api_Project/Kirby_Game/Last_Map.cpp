@@ -17,7 +17,7 @@ void ALast_Map::SetMapImage(std::string_view _MapImageName)
 	MapRenderer->SetImage(_MapImageName); // 이미지 Set
 	UWindowImage* Image = MapRenderer->GetImage(); // Set한 이미지 값을 받고
 	FVector ImageScale = Image->GetScale(); // 이미지 크기를 저장
-	MapRenderer->SetTransform({ ImageScale.Half2D(), {ImageScale.iX(),ImageScale.iY()+180}});
+	MapRenderer->SetTransform({ ImageScale.Half2D(), {ImageScale.iX(),ImageScale.iY()+200}});
 	// 이미지의 X축 Y축 절반의 위치에 이미지 크기만 크기만큼 랜더링
 }
 
@@ -27,7 +27,7 @@ void ALast_Map::SetColMapImage(std::string_view _MapImageName)
 	UWindowImage* Image = MapColRenderer->GetImage();
 	UActorCommon::ColMapImage = Image; // 픽셀 충돌할 맵 설정
 	FVector ImageScale = Image->GetScale();
-	MapColRenderer->SetTransform({ ImageScale.Half2D(), {ImageScale.iX(),ImageScale.iY() + 180} });
+	MapColRenderer->SetTransform({ ImageScale.Half2D(), {ImageScale.iX(),ImageScale.iY() + 200} });
 }
 
 void ALast_Map::SwitchDebug()

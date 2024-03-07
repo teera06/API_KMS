@@ -605,7 +605,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 		CamstopMove += (MovePos * FVector::Right);
 	}
 
-	if (ColorBend == Color8Bit(0, 0, 0, 0)) 
+	if (ColorBend == Color8Bit(0, 0, 0, 0) && StageCheck==2) 
 	{
 		GetWorld()->SetCameraPos({ 0,585 }); // 카메라 위치 설정
 		SetActorLocation({ 500,1200 });
