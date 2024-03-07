@@ -757,6 +757,9 @@ void AKirby_Player::StateAniChange(EActorState _State)
 		case EActorState::MikeAttack:
 			MikeAttackStart();
 			break;
+		case EActorState::HammerAttack:
+			HammerStart();
+			break;
 		case EActorState::HeadDown:
 			HeadDownStart();
 			break;
@@ -833,6 +836,9 @@ void AKirby_Player::StateUpdate(float _DeltaTime)
 			ModeInputTick(_DeltaTime);
 			break;
 		case EActorState::SirAttack: // 아이스 공격
+			ModeInputTick(_DeltaTime);
+			break;
+		case EActorState::HammerAttack: // 아이스 공격
 			ModeInputTick(_DeltaTime);
 			break;
 		case EActorState::MikeAttack: // 아이스 공격
@@ -1094,9 +1100,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		//SkillOn = true;
-		//MikeCollision->SetActive(true, 0.2f);
-		//StateAniChange(EActorState::HammerAttack);
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
 		return;
 	}
 
@@ -1813,6 +1818,7 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 		SirKirby(_DeltaTime);
 		break;
 	case EAMode::Hammer:
+		HammerKirby(_DeltaTime);
 		break;
 	default:
 		break;
