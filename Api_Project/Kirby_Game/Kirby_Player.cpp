@@ -96,7 +96,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		
 		SoundRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
 		SoundRenderer->SetImage("Tock_Right.png"); // 이미지 Set
-		SoundRenderer->SetTransform({ {0,0}, {64 * 5, 64 * 5} }); // 랜더의 위치 크기 
+		SoundRenderer->SetTransform({ {0,0}, {64 * 8, 64 * 8} }); // 랜더의 위치 크기 
 
 		SoundRenderer->ActiveOff();
 		

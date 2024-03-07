@@ -35,7 +35,7 @@ void ASubBoss::BeginPlay()
 	{
 		AttRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
 		AttRenderer->SetImage("Tock_Right.png"); // 이미지 Set
-		AttRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		AttRenderer->SetTransform({ {0,0}, {64 * 12, 64 * 12} }); // 랜더의 위치 크기 
 
 		AttRenderer->ActiveOff();
 	}
