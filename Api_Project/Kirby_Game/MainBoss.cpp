@@ -35,7 +35,7 @@ void AMainBoss::BeginPlay()
 
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::MainBoss);
-		MonsterCollision->SetTransform({ {0,-20}, {120, 120} });
+		MonsterCollision->SetTransform({ {0,-20}, {10, 10} });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 
@@ -67,12 +67,12 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 			Att1();
 		}
 
-		if (RandomAtt == 2 || RandomAtt == 3)
+		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
 			Att2();
 		}
 
-		if (RandomAtt == 5 || RandomAtt == 4)
+		if (RandomAtt == 5 )
 		{
 			Att3();
 		}
