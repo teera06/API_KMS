@@ -1512,7 +1512,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 		Attcheck = 3;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
-		
+		return;
 	}
 
 	if (true == UEngineInput::IsDown('S'))
@@ -1559,16 +1559,6 @@ void AKirby_Player::Run(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
-	}
-
-	if (
-		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // Å×½ºÆ®
-		)
-	{
-		Attcheck = 3;
-		SkillOn = true;
-		StateAniChange(EActorState::HammerAttack);
-
 	}
 
 	if (RunRL != DirState)
