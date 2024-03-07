@@ -1116,15 +1116,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (
-		true == UEngineInput::IsDoubleClick('X',0.2f) && KirbyMode == EAMode::Hammer  // 테스트
-		)
-	{
-		Attcheck = 3;
-		SkillOn = true;
-		StateAniChange(EActorState::HammerAttack);
-		return;
-	}
-	else if (
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
@@ -1514,6 +1505,15 @@ void AKirby_Player::Walk(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime*checkSpeed;
 	}
 
+	if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
+		)
+	{
+		Attcheck = 3;
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
+		
+	}
 
 	if (true == UEngineInput::IsDown('S'))
 	{
@@ -1559,6 +1559,16 @@ void AKirby_Player::Run(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
+	}
+
+	if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
+		)
+	{
+		Attcheck = 3;
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
+
 	}
 
 	if (RunRL != DirState)
@@ -2069,6 +2079,17 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
+	}
+
+	if (Attcheck == 3)
+	{
+		if (DirState == EActorDir::Left)
+		{
+			AddActorLocation(FVector::Left * checkSpeed * _DeltaTime);
+		}
+		else {
+			AddActorLocation(FVector::Right * checkSpeed * _DeltaTime);
+		}
 	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
