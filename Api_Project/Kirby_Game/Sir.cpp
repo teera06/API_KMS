@@ -24,8 +24,6 @@ void ASir::Tick(float _DeltaTime)
 
 	Collisiongather(_DeltaTime);
 
-
-	//SirRenderer->Destroy(0.1f);
 }
 
 void ASir::BeginPlay()

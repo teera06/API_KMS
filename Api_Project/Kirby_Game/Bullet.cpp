@@ -33,16 +33,43 @@ void ABullet::Tick(float _DeltaTime)
 
 void ABullet::AniCreate()
 {
-	bulletRenderer->CreateAnimation("Move_Right", "king_Right.png", 7, 9, 0.3f, true);
-	bulletRenderer->CreateAnimation("Move_Left", "King_Left.png", 7, 9, 0.3f, true);
+	bulletRenderer->CreateAnimation("Bullet_Right", "king_Right.png", 61, 66, 0.02f, false);
+	bulletRenderer->CreateAnimation("Bullet_Left", "King_Left.png", 61, 66, 0.02f, false);
 }
 
 void ABullet::SkillDir(float _DeltaTime)
 {
-
+	if (GetDir().iX() == FVector::Left.iX()) // 왼쪽 방향
+	{
+		bulletRenderer->ChangeAnimation("Bullet_Left");
+		AddActorLocation(GetDir() * Speed * _DeltaTime);
+	}
+	else // 오른쪽 방향
+	{
+		bulletRenderer->ChangeAnimation("Bullet_Right");
+		AddActorLocation(GetDir() * Speed * _DeltaTime);
+	}
 }
 
 void ABullet::Collisiongather(float _DeltaTime)
 {
+	std::vector<UCollision*> Result;
+	if (true == bulletCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+	{
+		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+		MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+		MainPlayer->SetHitDir(GetDir());
+		MainPlayer->GetKirbyCollision()->ActiveOff();
+		MainPlayer->AddHP(-20);
+		MainPlayer->HitStart(); // hit 상태 스타트
+		Destroy();
+	}
+	
+	// 픽셀 충돌
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 20, Color8Bit::RedA);
 
+	if (ColorR == Color8Bit(255, 0, 0, 0))
+	{
+		Destroy();
+	}
 }
