@@ -51,9 +51,19 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 		MovePos = FVector::Zero;
 
-		if (RandomAtt == 1 || RandomAtt == 0 || RandomAtt == 2)
+		if (RandomAtt == 1 || RandomAtt == 0)
 		{
 			Att1();
+		}
+
+		if (RandomAtt == 2)
+		{
+			Att2();
+		}
+
+		if (RandomAtt == 3 || RandomAtt == 4)
+		{
+			Att3();
 		}
 	}
 	else {
@@ -70,8 +80,8 @@ void AMainBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Att1_Left", "King_Left.png", { 26,29,30,31,32 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
 	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
-	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png",37,60, 0.5f, false);
-	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", 37, 60, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png",37,60, 0.2f, false);
+	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", 37, 60, 0.2f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
@@ -112,7 +122,7 @@ void AMainBoss::Att1()
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
@@ -123,6 +133,44 @@ void AMainBoss::Att1()
 
 void AMainBoss::Att2()
 {
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att2_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att2_Right");
+	}
+	//AttCollisiongather(_DeltaTime);
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
+		//AttCollision->ActiveOff();
+		IsAtt = false;
+		skillcooldowntime = 4.0f;
+	}
+
+	return;
+}
+
+void AMainBoss::Att3()
+{
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att3_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att3_Right");
+	}
+	//AttCollisiongather(_DeltaTime);
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
+		//AttCollision->ActiveOff();
+		IsAtt = false;
+		skillcooldowntime = 4.0f;
+	}
+
+	return;
 }
 
 void AMainBoss::CalResult(float _DeltaTime)
