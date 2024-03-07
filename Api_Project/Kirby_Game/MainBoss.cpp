@@ -82,6 +82,14 @@ void AMainBoss::CalDir(float _DeltaTime)
 	MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 }
 
+void AMainBoss::Att1()
+{
+}
+
+void AMainBoss::Att2()
+{
+}
+
 void AMainBoss::CalResult(float _DeltaTime)
 {
 	AddActorLocation(MovePos);

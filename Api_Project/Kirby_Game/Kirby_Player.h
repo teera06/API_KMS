@@ -136,6 +136,8 @@ protected:
 	void SirAttackStart(); // 아이스 공격
 	void SirJumpStart();
 
+	void HammerStart();
+
 	void SoundCollisiongather(float _DeltaTime);
 	void MikeAttackStart();
 	int MikeOrder = 1;
@@ -232,6 +234,7 @@ private:
 	void IceKirby(float _DeltaTime); // 아이스 커비
 	void SirKirby(float _DeltaTime);
 	void MikeKirby(float _DeltaTime);
+	void HammerKirby(float _DeltaTime);
 	
 	// 카메라 Y축 제어 함수
 	void CamYMove();

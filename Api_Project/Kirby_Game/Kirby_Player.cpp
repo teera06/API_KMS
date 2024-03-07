@@ -424,6 +424,10 @@ void AKirby_Player::AniCreate()
 		// 기본 숙이기 
 		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Right", "Hammer_Right.png", 4, 6, 0.5f, true);
 		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Left", "Hammer_Left.png", 4, 6, 0.5f, true);
+
+		// 기본 숙이기 
+		KirbyRenderer->CreateAnimation("Hammer_Att1_Right", "Hammer_Right.png", 59, 64, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Att1_Left", "Hammer_Left.png", 59, 64, 0.1f, true);
 	}
 
 	// 모든 커비모드에서 사용 가능한 애니메이션
@@ -1691,6 +1695,13 @@ void AKirby_Player::SirJumpStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("SirJump"));
 }
 
+void AKirby_Player::HammerStart()
+{
+	DirCheck();
+	KirbyRenderer->ChangeAnimation(GetAnimationName("Att1"));
+}
+
+
 void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
@@ -1980,6 +1991,20 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 		return;
 	}
 
+
+	MoveUpdate(_DeltaTime);
+}
+
+void AKirby_Player::HammerKirby(float _DeltaTime)
+{
+	DirCheck();
+
+	if (true == KirbyRenderer->IsCurAnimationEnd())
+	{
+		SkillOn = false;
+		StateAniChange(EActorState::Idle);
+		return;
+	}
 
 	MoveUpdate(_DeltaTime);
 }
