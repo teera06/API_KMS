@@ -104,8 +104,8 @@ void AMainBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png", { 37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 }, 0.05f, false);
 	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", { 37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 }, 0.05f, false);
 
-	MonsterRenderer->CreateAnimation("Delay_Right", "King_Right.png", 54, 60,0.1f, false);
-	MonsterRenderer->CreateAnimation("Delay_Left", "King_Left.png", 54, 60,0.1f, false);
+	MonsterRenderer->CreateAnimation("Delay_Right", "King_Right.png", 54, 60,0.5f, false);
+	MonsterRenderer->CreateAnimation("Delay_Left", "King_Left.png", 54, 60,0.5f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
