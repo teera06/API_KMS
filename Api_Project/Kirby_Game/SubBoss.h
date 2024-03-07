@@ -1,5 +1,6 @@
 #pragma once
 // »ó¼Ó
+#include <EngineBase\EngineRandom.h>
 #include <EngineCore\Actor.h>
 
 #include "ActorCommon.h"

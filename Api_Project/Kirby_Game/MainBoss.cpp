@@ -84,6 +84,27 @@ void AMainBoss::CalDir(float _DeltaTime)
 
 void AMainBoss::Att1()
 {
+	//AttRenderer->ActiveOn();
+	//AttCollision->ActiveOn();
+	//AttRenderer->ChangeAnimation("AttEffect");
+
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att_Right");
+	}
+	//AttCollisiongather(_DeltaTime);
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		//RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
+		//AttCollision->ActiveOff();
+		IsAtt = false;
+		skillcooldowntime = 4.0f;
+	}
+
+	return;
 }
 
 void AMainBoss::Att2()

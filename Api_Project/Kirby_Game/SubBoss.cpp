@@ -1,6 +1,5 @@
 #include "SubBoss.h"
 
-#include <EngineBase\EngineRandom.h>
 #include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
 
 #include "Monster_Mike.h"
