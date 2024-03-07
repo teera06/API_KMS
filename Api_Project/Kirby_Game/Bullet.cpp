@@ -16,12 +16,13 @@ void ABullet::BeginPlay()
 		bulletRenderer = CreateImageRenderer(ERenderOrder::Bullet); // 이미지 랜더 생성
 		bulletRenderer->SetImage("King_Right.png"); // 이미지 Set
 		bulletRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
+		bulletRenderer -> SetActive(true, 0.1f);
 	}
 	{
 		bulletCollision = CreateCollision(ECollisionOrder::MainBossAtt);
 		bulletCollision->SetScale({ 100,70 });
 		bulletCollision->SetColType(ECollisionType::CirCle);
-		bulletCollision->SetActive(true, 0.3f);
+		bulletCollision->SetActive(true, 0.1f);
 	}
 
 	AniCreate();
@@ -29,6 +30,10 @@ void ABullet::BeginPlay()
 
 void ABullet::Tick(float _DeltaTime)
 {
+	AActor::Tick(_DeltaTime);
+	
+	SkillDir(_DeltaTime);
+	Collisiongather(_DeltaTime);
 }
 
 void ABullet::AniCreate()
@@ -61,7 +66,7 @@ void ABullet::Collisiongather(float _DeltaTime)
 		MainPlayer->SetHitDir(GetDir());
 		MainPlayer->GetKirbyCollision()->ActiveOff();
 		MainPlayer->AddHP(-20);
-		MainPlayer->HitStart(); // hit 상태 스타트
+		//MainPlayer->HitStart(); // hit 상태 스타트
 		Destroy();
 	}
 	
