@@ -99,7 +99,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		SoundRenderer->SetTransform({ {0,0}, {64 * 8, 64 * 8} }); // 랜더의 위치 크기 
 
 		SoundRenderer->ActiveOff();
-		
 	}
 
 	AniCreate(); // 애니메이션 종합 관리
@@ -119,9 +118,14 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	{
 		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
-		//MikeCollision->SetScale({ 1000, 500 });
 		MikeCollision->SetColType(ECollisionType::Rect);
 		MikeCollision->ActiveOff();
+	}
+
+	{
+		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
+		HammerCollision->SetColType(ECollisionType::Rect);
+		HammerCollision->ActiveOff();
 	}
 
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
@@ -886,7 +890,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 		transform = false;
 		GetWorld()->SetAllTimeScale(1.0f);
 		effectRenderer->ActiveOff();
-		
+	}
+
+	if (true == HammerCollision->IsActive())
+	{
+		HammerCollision->ActiveOff();
 	}
 
 	// 테스트 모드
@@ -2064,6 +2072,15 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 {
 	DirCheck();
 
+	if (DirState == EActorDir::Left)
+	{
+
+		HammerCollision->SetTransform({ {-50,-5},{100,100} });
+	}
+	else {
+		HammerCollision->SetTransform({ {50,-5},{100,100} });
+	}
+
 	if (true == UEngineInput::IsUp('X') && Attcheck==2)
 	{
 		SkillOn = false;
@@ -2088,6 +2105,7 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
+		HammerCollision->ActiveOn();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
