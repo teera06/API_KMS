@@ -54,10 +54,12 @@ void AMainBoss::AniCreate()
 {
 	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 3,7, 0.3f, true);
 	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", 3,7, 0.3f, true);
-	//MonsterRenderer->CreateAnimation("Att_Right", "King_Right.png", 21, 31, 0.5f, false);
-	//MonsterRenderer->CreateAnimation("Att_Left", "King_Left.png", 21, 31, 0.5f, false);
-	//MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
-	//MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att1_Right", "King_Right.png", {26,29,30,31,32}, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att1_Left", "King_Left.png", { 26,29,30,31,32 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", { 32,33,34,35,34,33,32 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png",37,60, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Att3_Left", "King_Left.png", 37, 60, 0.5f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
