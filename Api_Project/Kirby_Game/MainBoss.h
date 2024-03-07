@@ -42,7 +42,7 @@ private:
 
 	//void AttCollisiongather(float _DeltaTime);
 	//void Collisiongather(float _DeltaTime);
-	//void CalResult(float _DeltaTime);
+	void CalResult(float _DeltaTime);
 	//void hitEvent();
 
 	void GroundUp();
