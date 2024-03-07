@@ -394,12 +394,12 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Hammer_Absorption_Right", "kirby2_Right.png", 0, 9, 0.06f, false);
 		KirbyRenderer->CreateAnimation("Hammer_Absorption_Left", "kirby2_Left.png", 0, 9, 0.06f, false);
 		// 기본 서있는 모션(완)
-		KirbyRenderer->CreateAnimation("Hammer_Idle_Right", "Hammer_Right.png", 0, 2, 0.1f, true); // 오른쪽 서 있기
-		KirbyRenderer->CreateAnimation("Hammer_Idle_Left", "Hammer_Left.png", 0, 2, 0.1f, true); // 왼쪽 서있기
+		KirbyRenderer->CreateAnimation("Hammer_Idle_Right", "Hammer_Right.png", 0, 2, 0.5f, true); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Hammer_Idle_Left", "Hammer_Left.png", 0, 2, 0.5f, true); // 왼쪽 서있기
 
 		// 기본 걷는 모션(완)
-		KirbyRenderer->CreateAnimation("Hammer_Walk_Right", "Hammer_Right.png", 6, 15, 0.07f, true); // 걷기
-		KirbyRenderer->CreateAnimation("Hammer_Walk_Left", "Hammer_Left.png", 6, 15, 0.07f, true); // 걷기
+		KirbyRenderer->CreateAnimation("Hammer_Walk_Right", "Hammer_Right.png", {6,7,9,10,11,12,14,15}, 0.08f, true); // 걷기
+		KirbyRenderer->CreateAnimation("Hammer_Walk_Left", "Hammer_Left.png", { 6,7,9,10,11,12,14,15 }, 0.08f, true); // 걷기
 
 		// 기본 뛰는 모션(완)
 		KirbyRenderer->CreateAnimation("Hammer_run_Right", "Hammer_Right.png", 16, 23, 0.04f, true);
