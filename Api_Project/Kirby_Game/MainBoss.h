@@ -18,6 +18,18 @@ public:
 	AMainBoss(AMainBoss&& _Other) noexcept = delete; 
 	AMainBoss& operator=(const AMainBoss& _Other) = delete; // 디폴트 대입 연산자
 	AMainBoss& operator=(AMainBoss&& _Other) noexcept = delete;
+	
+	static AMainBoss* GetMainBoss(); // 몬스터나 상태창이 플레이어에 대한 정보를 알아야 할 때 사용
+
+	int GetHp() const
+	{
+		return Hp;
+	}
+
+	void AddHP(const int& _Value)
+	{
+		Hp += _Value;
+	}
 
 protected:
 	// TickObject (Level2) 오버라이드
@@ -29,6 +41,8 @@ private:
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
+	
+	static AMainBoss* MainBoss;
 
 	FVector MovePos = FVector::Zero;
 

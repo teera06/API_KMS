@@ -7,6 +7,7 @@
 
 #include "Kirby_Player.h"
 #include "SubBoss.h"
+#include "MainBoss.h"
 
 class ABossHpBar : public AActor, public UActorCommon // ActorCommon(중력)
 {
@@ -30,6 +31,7 @@ private:
 
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 스테이지 확인용
 	ASubBoss* SubBoss = ASubBoss::GetMainSubBoss();
+	AMainBoss* MainBoss = AMainBoss::GetMainBoss();
 
 	FVector Move = FVector::Zero;
 

@@ -51,7 +51,28 @@ void ABossHpBar::Tick(float _DeltaTime)
 	}
 	else if (MainPlayer->GetStageCheck() == 4)
 	{
-		return;// 추후 추가
+		int Hp = MainBoss->GetHp();
+
+		if (Hp == 0)
+		{
+			HpAddRenderer->SetTransform({ {-100,12}, {500, 350} }); // 랜더의 위치 크기 80
+			Destroy(0.1f);
+		}
+		else if (Hp == 80)
+		{
+
+			HpAddRenderer->SetTransform({ {-20,12}, {2 * 42, 350} }); // 랜더의 위치 크기 80
+		}
+		else if (Hp == 40)
+		{
+
+			HpAddRenderer->SetTransform({ {-40,12}, {200, 350} }); // 랜더의 위치 크기 80
+		}
+		else
+		{
+			HpAddRenderer->SetTransform({ {-20,12}, {0, 350} }); // 랜더의 위치 크기 80
+		}
+	
 	}
 
 }

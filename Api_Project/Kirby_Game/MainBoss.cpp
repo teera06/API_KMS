@@ -13,10 +13,18 @@ AMainBoss::~AMainBoss()
 {
 }
 
+AMainBoss* AMainBoss::GetMainBoss()
+{
+	return MainBoss;
+}
+
+AMainBoss* AMainBoss::MainBoss = nullptr;
+
 void AMainBoss::BeginPlay()
 {
 	AActor::BeginPlay();
 
+	MainBoss = this;
 
 	scale = 6;
 	{
