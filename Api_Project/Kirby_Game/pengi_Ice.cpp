@@ -270,7 +270,7 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
-		else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0 && IsIce == false) { // 오른쪽 방향
+		else if ((MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) && IsIce == false) { // 오른쪽 방향
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}

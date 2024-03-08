@@ -84,19 +84,21 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att4(_DeltaTime);
+			Att2();
 			//Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att4(_DeltaTime);
+			Att2();
+			//Att4(_DeltaTime);
 			//Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att4(_DeltaTime);
+			Att2();
+			//Att4(_DeltaTime);
 			//Att1(_DeltaTime);
 			//Att3(_DeltaTime);
 		}
