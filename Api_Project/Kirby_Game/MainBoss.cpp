@@ -76,17 +76,17 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att1();
+			Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att1();
+			Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att1();
+			Att1(_DeltaTime);
 			//Att3(_DeltaTime);
 		}
 	}
@@ -124,6 +124,26 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
 				Att2Delay = false;;
+			}
+		}
+		else if (true == Att1Ready)
+		{
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+			{
+				MonsterRenderer->ChangeAnimation("Att1_Left");
+			}
+			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+				MonsterRenderer->ChangeAnimation("Att1_Right");
+			}
+
+			//if (true == Att2Renderer->IsCurAnimationEnd())
+			//{
+				//Att2Renderer->ActiveOff();
+			//}
+
+			if (true == MonsterRenderer->IsCurAnimationEnd())
+			{
+				Att1Ready = false;;
 			}
 		}
 		else {
@@ -184,7 +204,7 @@ void AMainBoss::CalDir(float _DeltaTime)
 	MovePos += MonsterDirNormal * _DeltaTime * MoveSpeed * FVector::Right; // 몬스터가 플레이어의 Y축도 인식할 수 있으니 FVector::Right 를 곱해 X축만 추격
 }
 
-void AMainBoss::Att1()
+void AMainBoss::Att1(float _DeltaTime)
 {
 	//AttRenderer->ActiveOn();
 	//AttCollision->ActiveOn();
@@ -192,10 +212,12 @@ void AMainBoss::Att1()
 
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
-		MonsterRenderer->ChangeAnimation("Att1_Left");
+		MonsterRenderer->ChangeAnimation("Att1Ready_Left");
+		AddActorLocation(FVector::Left * _DeltaTime * 70.0f);
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-		MonsterRenderer->ChangeAnimation("Att1_Right");
+		MonsterRenderer->ChangeAnimation("Att1Ready_Right");
+		AddActorLocation(FVector::Right * _DeltaTime * 70.0f);
 	}
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
@@ -204,6 +226,7 @@ void AMainBoss::Att1()
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
+		Att1Ready = true;
 	}
 
 	return;
