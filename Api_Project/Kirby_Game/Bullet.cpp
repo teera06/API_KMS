@@ -15,7 +15,7 @@ void ABullet::BeginPlay()
 	{
 		bulletRenderer = CreateImageRenderer(ERenderOrder::Bullet); // 이미지 랜더 생성
 		bulletRenderer->SetImage("King_Right.png"); // 이미지 Set
-		bulletRenderer->SetTransform({ {0,14}, {64 * 7, 64 * 7} }); // 랜더의 위치 크기 
+		bulletRenderer->SetTransform({ {0,14}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 		bulletRenderer -> SetActive(true, 0.2f);
 	}
 	{
@@ -49,6 +49,7 @@ void ABullet::SkillDir(float _DeltaTime)
 
 	if (true == hit)
 	{
+		bulletRenderer->SetTransform({ {0,14}, {64 * 12, 64 * 12} }); // 랜더의 위치 크기 
 		if (GetDir().iX() == FVector::Left.iX()) // 왼쪽 방향
 		{
 			bulletRenderer->ChangeAnimation("hit_Left");
