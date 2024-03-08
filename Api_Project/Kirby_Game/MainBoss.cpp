@@ -41,7 +41,7 @@ void AMainBoss::BeginPlay()
 
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::MainBoss);
-		MonsterCollision->SetTransform({ {0,-20}, {10, 10} });
+		MonsterCollision->SetTransform({ {0,50}, {100, 150} });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 
