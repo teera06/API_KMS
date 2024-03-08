@@ -40,6 +40,7 @@ private:
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* Att2Renderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
 	
 	static AMainBoss* MainBoss;
