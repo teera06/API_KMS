@@ -285,7 +285,7 @@ void AMainBoss::Att2()
 				Att2Renderer->ChangeAnimation("Att2Effect_Left");
 				NewBullet->SetDir(FVector::Left);
 			}
-			else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
+			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 				MonsterRenderer->ChangeAnimation("Att2_Right");
 				Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
 				Att2Renderer->ChangeAnimation("Att2Effect_Right");
@@ -352,14 +352,14 @@ void AMainBoss::Att4(float _DeltaTime)
 			AIce* NewIce = GetWorld()->SpawnActor<AIce>();
 			NewIce->SetOwner(EIceOwner::Boss);
 			NewIce->SetActorLocation(this->GetActorLocation());
-			if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 			{
 				//MonsterRenderer->ChangeAnimation("Att2_Left");
 				//Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
 				//Att2Renderer->ChangeAnimation("Att2Effect_Left");
 				NewIce->SetDir(FVector::Left);
 			}
-			else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
+			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 				//MonsterRenderer->ChangeAnimation("Att2_Right");
 				//Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
 				//Att2Renderer->ChangeAnimation("Att2Effect_Right");
