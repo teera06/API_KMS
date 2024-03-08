@@ -49,7 +49,7 @@ private:
 	static AMainBoss* MainBoss;
 
 	FVector MovePos = FVector::Zero;
-	FVector JumpVector = FVector::Up;
+	FVector JumpVector = FVector::Up*750.0f;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
@@ -59,6 +59,7 @@ private:
 	void Att1(float _DeltaTime);
 	void Att2();
 	void Att3(float _DeltaTime);
+	void Att4(float _DeltaTime);
 
 	//void AttCollisiongather(float _DeltaTime);
 	//void Collisiongather(float _DeltaTime);

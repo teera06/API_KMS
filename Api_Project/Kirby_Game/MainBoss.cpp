@@ -84,17 +84,20 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att1(_DeltaTime);
+			Att4(_DeltaTime);
+			//Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att1(_DeltaTime);
+			Att4(_DeltaTime);
+			//Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att1(_DeltaTime);
+			Att4(_DeltaTime);
+			//Att1(_DeltaTime);
 			//Att3(_DeltaTime);
 		}
 	}
@@ -189,6 +192,9 @@ void AMainBoss::AniCreate()
 	
 	Att2Renderer->CreateAnimation("Att2Effect_Left", "King_Left.png", 61, 61, 0.1f, false);
 	Att2Renderer->CreateAnimation("Att2Effect_Right", "King_RIght.png", 61, 61, 0.1f, false);
+
+	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", {13,14,14,14,15,15,16}, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 13,14,14,14,15,15,16 }, 0.15f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
@@ -294,6 +300,33 @@ void AMainBoss::Att3(float _DeltaTime)
 		MonsterCollision->ActiveOn();
 		Att3Collision->ActiveOff();
 	}
+	return;
+}
+
+void AMainBoss::Att4(float _DeltaTime)
+{
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att4_Left");
+		AddActorLocation((FVector::Left * _DeltaTime * 50.0f)+JumpVector* _DeltaTime);
+		//Att1Collision->SetTransform({ {-100,80}, {100, 100} });
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att4_Right");
+		AddActorLocation((FVector::Right * _DeltaTime * 50.0f) + JumpVector* _DeltaTime);
+		//Att1Collision->SetTransform({ {100,80}, {100, 100} });
+	}
+	//AttCollisiongather(_DeltaTime);
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
+		//AttCollision->ActiveOff();
+		IsAtt = false;
+		skillcooldowntime = 4.0f;
+		//Att1Ready = true;
+		//Att1Collision->SetActive(true, 0.25f);
+	}
+
 	return;
 }
 
