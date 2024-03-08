@@ -91,12 +91,11 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
-void AMonster_Base::IceToMonster(float _DeltaTime)
+void AMonster_Base::IceToMonster(float _DeltaTime) // 얼음인 상태에서 다른 몬스터와의 충돌 관리
 {
 	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 일반 몬스터인 경우
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
@@ -107,17 +106,18 @@ void AMonster_Base::IceToMonster(float _DeltaTime)
 		{
 			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
 		}
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
@@ -227,7 +227,7 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 	}
 }
 
-void AMonster_Base::CalDir()
+void AMonster_Base::CalDir() // 플레이어 위치 확인
 {
 	FVector PlayerPos = MainPlayer->GetActorLocation();  // 플레이어 위치
 	FVector MonsterPos = GetActorLocation(); // 몬스터 위치
@@ -245,14 +245,11 @@ void AMonster_Base::CalResult(float _DeltaTime)
 
 	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
+	if (ColorR == Color8Bit(255, 0, 0, 0) && true==IsIce)
 	{
-		if (true == IsIce)
-		{
-			IceMove = FVector::Zero;
-			MonsterRenderer->ChangeAnimation("Effect");
-			IsDie = true;
-		}
+		IceMove = FVector::Zero;
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 
 	if (true == IsDie) // 죽으면
