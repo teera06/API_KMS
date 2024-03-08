@@ -2098,7 +2098,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		else {
 			Move = FVector::Right * checkSpeed * _DeltaTime;
 		}
-		GetWorld()->AddCameraPos(Move);
 		AddActorLocation(Move);
 	}
 
