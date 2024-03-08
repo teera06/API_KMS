@@ -76,17 +76,18 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att3(_DeltaTime);
+			Att1();
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att3(_DeltaTime);
+			Att1();
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att3(_DeltaTime);
+			Att1();
+			//Att3(_DeltaTime);
 		}
 	}
 	else {
@@ -134,10 +135,12 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 void AMainBoss::AniCreate()
 {
-	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 3, 7, 0.3f, true);
-	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", 3, 7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", {3,4,5,6,7,21,22,23,24}, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", { 3,4,5,6,7,21,22,23,24 }, 0.3f, true);
 	MonsterRenderer->CreateAnimation("Att1_Right", "King_Right.png", { 26,29,30,31,32 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att1_Left", "King_Left.png", { 26,29,30,31,32 }, 0.2f, false);
+
+
 	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", 32, 35, 0.3f, false);
 	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", 32, 35, 0.3f, false);
 

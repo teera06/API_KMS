@@ -47,6 +47,7 @@ private:
 	static AMainBoss* MainBoss;
 
 	FVector MovePos = FVector::Zero;
+	FVector JumpVector = FVector::Up;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
