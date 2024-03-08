@@ -81,6 +81,7 @@ private:
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
 	bool IsAtt = false;
+	bool IceAttcheck = false;
 	float skillcooldowntime = 0.0f;
 
 	int WallX = 0; // 벽에 충돌할때 X축 범위

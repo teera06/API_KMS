@@ -297,21 +297,26 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 
 void Apengi_Ice::IceAtt()
 {
-	AIce* NewIce = GetWorld()->SpawnActor<AIce>();
-	NewIce->SetActorLocation(this->GetActorLocation());
-	NewIce->SetOwner(EIceOwner::iceMonster);
-	if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+
+	if (false == IceAttcheck)
 	{
-		MonsterRenderer->ChangeAnimation("Att_Left");
-		NewIce->SetDir(FVector::Left);
+		IceAttcheck = true;
+		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+		NewIce->SetActorLocation(this->GetActorLocation());
+		NewIce->SetOwner(EIceOwner::iceMonster);
+		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
+		{
+			MonsterRenderer->ChangeAnimation("Att_Left");
+			NewIce->SetDir(FVector::Left);
+		}
+		else if ((MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) && IsIce == false) { // 오른쪽 방향
+			MonsterRenderer->ChangeAnimation("Att_Right");
+			NewIce->SetDir(FVector::Right);
+		}
 	}
-	else if ((MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0)  && IsIce == false) { // 오른쪽 방향
-		MonsterRenderer->ChangeAnimation("Att_Right");
-		NewIce->SetDir(FVector::Right);
-	}
+
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		NewIce->ActiveOn();
 		IsAtt = false;
 		skillcooldowntime = 6.0f;
 	}
@@ -344,6 +349,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 		IceAtt();
 	}
 	else {
+		IceAttcheck = false;
 		CalDir(_DeltaTime);
 		Collisiongather(_DeltaTime);
 		CalResult(_DeltaTime);
