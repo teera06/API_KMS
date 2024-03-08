@@ -1448,6 +1448,7 @@ void AKirby_Player::hit(float _DeltaTime)
 {
 	DirCheck();
 
+	KirbyRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	FVector Move = FVector::Zero;
 	JumpVector = FVector::Zero; // 점프 도중에 충돌할 경우 -> 점프력 0
 
@@ -1483,6 +1484,11 @@ void AKirby_Player::hit(float _DeltaTime)
 		RunState = false;
 		KirbyRenderer->SetAlpha(1.0f);
 		KirbyCollision->SetActive(true, 0.3f);
+
+		if (KirbyMode == EAMode::Hammer)
+		{
+			KirbyRenderer->SetTransform({ {0,0}, {64 * 5, 64 * 5} }); // 랜더의 위치 크기 
+		}
 		
 	}
 	StateAniChange(EActorState::Idle);
