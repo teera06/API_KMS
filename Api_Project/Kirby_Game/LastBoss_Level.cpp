@@ -56,7 +56,7 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	SetCameraPos({50,45 }); // 카메라 위치 설정
+	SetCameraPos({100,-30 }); // 카메라 위치 설정
 
 	// 맵 생성
 	NewMap = SpawnActor < ALast_Map > ();
