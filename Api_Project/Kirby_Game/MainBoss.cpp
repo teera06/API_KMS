@@ -45,6 +45,13 @@ void AMainBoss::BeginPlay()
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 
+	{
+		Att3Collision = CreateCollision(ECollisionOrder::MainBossAtt);
+		Att3Collision->SetTransform({ {0,50}, {300, 150} });
+		Att3Collision->SetColType(ECollisionType::CirCle);
+		Att3Collision->ActiveOff();
+	}
+
 	AniCreate();
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
@@ -228,6 +235,7 @@ void AMainBoss::Att2()
 
 void AMainBoss::Att3()
 {
+	MonsterCollision->ActiveOff();
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att3_Left");
@@ -235,6 +243,7 @@ void AMainBoss::Att3()
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att3_Right");
 	}
+	Att3Collision->ActiveOn();
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
@@ -242,7 +251,8 @@ void AMainBoss::Att3()
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
 		Att3Delay = true;
-		//AttCollision->ActiveOff();
+		MonsterCollision->ActiveOn();
+		Att3Collision->ActiveOff();
 	}
 	return;
 }
