@@ -91,8 +91,8 @@ void ABullet::Collisiongather(float _DeltaTime)
 		MainPlayer->AddHP(-20);
 		hit = true;
 		bulletCollision->ActiveOff();
-		//MainPlayer->HitStart(); // hit 상태 스타트
-		//Destroy();
+		MainPlayer->hothitStart();
+		
 	}
 	
 	// 픽셀 충돌
@@ -102,6 +102,5 @@ void ABullet::Collisiongather(float _DeltaTime)
 	{
 		hit = true;
 		bulletCollision->ActiveOff();
-		//Destroy();
 	}
 }
