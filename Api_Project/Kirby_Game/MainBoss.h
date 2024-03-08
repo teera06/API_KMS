@@ -55,7 +55,7 @@ private:
 	void CalDir(float _DeltaTime);
 	void Att1();
 	void Att2();
-	void Att3();
+	void Att3(float _DeltaTime);
 
 	//void AttCollisiongather(float _DeltaTime);
 	//void Collisiongather(float _DeltaTime);

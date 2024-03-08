@@ -76,17 +76,17 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att3();
+			Att3(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att3();
+			Att3(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att3();
+			Att3(_DeltaTime);
 		}
 	}
 	else {
@@ -233,15 +233,17 @@ void AMainBoss::Att2()
 	return;
 }
 
-void AMainBoss::Att3()
+void AMainBoss::Att3(float _DeltaTime)
 {
 	MonsterCollision->ActiveOff();
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att3_Left");
+		AddActorLocation(FVector::Left* _DeltaTime*100.0f);
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att3_Right");
+		AddActorLocation(FVector::Right* _DeltaTime*100.0f);
 	}
 	Att3Collision->ActiveOn();
 	//AttCollisiongather(_DeltaTime);
