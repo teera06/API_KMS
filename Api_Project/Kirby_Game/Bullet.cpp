@@ -15,8 +15,8 @@ void ABullet::BeginPlay()
 	{
 		bulletRenderer = CreateImageRenderer(ERenderOrder::Bullet); // 이미지 랜더 생성
 		bulletRenderer->SetImage("King_Right.png"); // 이미지 Set
-		bulletRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
-		bulletRenderer -> SetActive(true, 0.1f);
+		bulletRenderer->SetTransform({ {0,14}, {64 * 4, 64 * 4} }); // 랜더의 위치 크기 
+		bulletRenderer -> SetActive(true, 0.2f);
 	}
 	{
 		bulletCollision = CreateCollision(ECollisionOrder::MainBossAtt);
@@ -38,8 +38,8 @@ void ABullet::Tick(float _DeltaTime)
 
 void ABullet::AniCreate()
 {
-	bulletRenderer->CreateAnimation("Bullet_Right", "king_Right.png", 61, 66, 0.02f, false);
-	bulletRenderer->CreateAnimation("Bullet_Left", "King_Left.png", 61, 66, 0.02f, false);
+	bulletRenderer->CreateAnimation("Bullet_Right", "king_Right.png", 61, 66, 0.05f, false);
+	bulletRenderer->CreateAnimation("Bullet_Left", "King_Left.png", 61, 66, 0.05f, false);
 }
 
 void ABullet::SkillDir(float _DeltaTime)

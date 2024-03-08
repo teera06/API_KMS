@@ -34,7 +34,7 @@ void ABossHpBar::Tick(float _DeltaTime)
 		if (Hp == 0)
 		{
 			HpAddRenderer->SetTransform({ {-100,12}, {500, 350} }); // 랜더의 위치 크기 80
-			Destroy(0.1f);
+			Destroy();
 		}else if(Hp ==80)
 		{
 
