@@ -64,7 +64,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att1();
+			Att2();
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
@@ -74,7 +74,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 		if (RandomAtt == 5 )
 		{
-			Att3();
+			Att2();
 		}
 	}
 	else {

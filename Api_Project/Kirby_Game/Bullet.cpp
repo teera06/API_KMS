@@ -15,7 +15,7 @@ void ABullet::BeginPlay()
 	{
 		bulletRenderer = CreateImageRenderer(ERenderOrder::Bullet); // 이미지 랜더 생성
 		bulletRenderer->SetImage("King_Right.png"); // 이미지 Set
-		bulletRenderer->SetTransform({ {0,14}, {64 * 4, 64 * 4} }); // 랜더의 위치 크기 
+		bulletRenderer->SetTransform({ {0,14}, {64 * 7, 64 * 7} }); // 랜더의 위치 크기 
 		bulletRenderer -> SetActive(true, 0.2f);
 	}
 	{
@@ -40,10 +40,32 @@ void ABullet::AniCreate()
 {
 	bulletRenderer->CreateAnimation("Bullet_Right", "king_Right.png", 61, 66, 0.05f, false);
 	bulletRenderer->CreateAnimation("Bullet_Left", "King_Left.png", 61, 66, 0.05f, false);
+	bulletRenderer->CreateAnimation("hit_Right", "king_Right.png", 67, 72, 0.1f, false);
+	bulletRenderer->CreateAnimation("hit_Left", "king_Left.png", 67, 72, 0.1f, false);
 }
 
 void ABullet::SkillDir(float _DeltaTime)
 {
+
+	if (true == hit)
+	{
+		if (GetDir().iX() == FVector::Left.iX()) // 왼쪽 방향
+		{
+			bulletRenderer->ChangeAnimation("hit_Left");
+		}
+		else // 오른쪽 방향
+		{
+			bulletRenderer->ChangeAnimation("hit_Right");
+		}
+		AddActorLocation(FVector::Zero);
+
+		if (true == bulletRenderer->IsCurAnimationEnd())
+		{
+			Destroy();
+		}
+		return;
+	}
+	
 	if (GetDir().iX() == FVector::Left.iX()) // 왼쪽 방향
 	{
 		bulletRenderer->ChangeAnimation("Bullet_Left");
@@ -66,8 +88,10 @@ void ABullet::Collisiongather(float _DeltaTime)
 		MainPlayer->SetHitDir(GetDir());
 		MainPlayer->GetKirbyCollision()->ActiveOff();
 		MainPlayer->AddHP(-20);
+		hit = true;
+		bulletCollision->ActiveOff();
 		//MainPlayer->HitStart(); // hit 상태 스타트
-		Destroy();
+		//Destroy();
 	}
 	
 	// 픽셀 충돌
@@ -75,6 +99,8 @@ void ABullet::Collisiongather(float _DeltaTime)
 
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
-		Destroy();
+		hit = true;
+		bulletCollision->ActiveOff();
+		//Destroy();
 	}
 }
