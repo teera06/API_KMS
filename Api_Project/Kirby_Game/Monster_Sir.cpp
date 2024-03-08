@@ -77,7 +77,7 @@ void AMonster_Sir::MoveUpdate(float _DeltaTime)
 {
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 	skillcooldowntime -= _DeltaTime;
-	if (true == IsAtt && skillcooldowntime < 0.0f && false == GetBaseOnOff() && false == IsIce)
+	if (true == IsAtt && skillcooldowntime < 0.0f && false == BaseOn && false == IsIce)
 	{
 		SirAtt();
 		SirUse = true;
@@ -88,6 +88,7 @@ void AMonster_Sir::MoveUpdate(float _DeltaTime)
 		{
 			return;
 		}
+		SIrAttackCheck = false;
 		CalDir();
 		Collisiongather(_DeltaTime);
 		CalResult(_DeltaTime);
@@ -158,23 +159,34 @@ void AMonster_Sir::AniCreate()
 
 void AMonster_Sir::SirAtt()
 {
-	ASir* NewSir = GetWorld()->SpawnActor<ASir>();
-	NewSir->SetOwner(ESirOwner::SirMonster);
-
-	if (MonsterDirNormal.iX() == -1 ) // 왼쪽 방향
+	
+	if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att_Left");
-		NewSir->SetDir(FVector::Left);
 	}
 	else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att_Right");
-		NewSir->SetDir(FVector::Right);
 	}
+
 
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);
-		NewSir->SetActorLocation(this->GetActorLocation());
+		if (false == SIrAttackCheck)
+		{
+			SIrAttackCheck = true;
+			ASir* NewSir = GetWorld()->SpawnActor<ASir>();
+			NewSir->SetStartPos(this->GetActorLocation() * FVector::Right);
+			NewSir->SetActorLocation(this->GetActorLocation());
+			NewSir->SetOwner(ESirOwner::SirMonster);
+
+			if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+			{
+				NewSir->SetDir(FVector::Left);
+			}
+			else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
+				NewSir->SetDir(FVector::Right);
+			}
+		}
 		IsAtt = false;
 		skillcooldowntime = 6.0f;
 	}
@@ -256,7 +268,7 @@ void AMonster_Sir::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
+		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
