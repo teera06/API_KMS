@@ -90,6 +90,7 @@ enum class EIceOwner
 {
 	None,
 	iceMonster,
+	Boss,
 	kirby
 };
 

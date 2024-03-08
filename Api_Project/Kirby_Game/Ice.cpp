@@ -66,8 +66,17 @@ void AIce::SkillDir()
 		IceRenderer->ChangeAnimation("Ice_Left");
 	}
 
-	IceCollision->SetPosition({ GetDir().iX() * 120,0 });
-	IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
+	if (Owner == EIceOwner::Boss)
+	{
+		IceCollision->SetPosition({ GetDir().iX() * 200,70 });
+		IceRenderer->SetPosition({ GetDir().iX() * 200,70 });
+		IceRenderer->SetScale({128 * 5, 128 * 3} ); // 랜더의 위치 크기 
+	}
+	else {
+		IceCollision->SetPosition({ GetDir().iX() * 120,0 });
+		IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
+		IceRenderer->SetScale({128 * 3, 128 * 2}); // 랜더의 위치 크기 
+	}
 }
 
 void AIce::Collisiongather(float _DeltaTime)
@@ -133,6 +142,20 @@ void AIce::Collisiongather(float _DeltaTime)
 		}
 	}
 	else if (Owner == EIceOwner::iceMonster)
+	{
+		if (true == IceCollision->CollisionCheck(ECollisionOrder::kirby, Result))
+		{
+
+			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+			MainPlayer->SetHitDir(GetDir());
+			MainPlayer->GetKirbyCollision()->ActiveOff();
+			MainPlayer->AddHP(-20);
+			MainPlayer->IcehitStart(); // hit 상태 스타트
+
+			IceCollision->Destroy();
+		}
+	}
+	else if (Owner == EIceOwner::Boss)
 	{
 		if (true == IceCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{

@@ -350,8 +350,9 @@ void AMainBoss::Att4(float _DeltaTime)
 		{
 			IsIce = true;
 			AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+			NewIce->SetOwner(EIceOwner::Boss);
 			NewIce->SetActorLocation(this->GetActorLocation());
-			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 哭率 规氢
+			if (MonsterDirNormal.iX() == -1) // 哭率 规氢
 			{
 				//MonsterRenderer->ChangeAnimation("Att2_Left");
 				//Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
