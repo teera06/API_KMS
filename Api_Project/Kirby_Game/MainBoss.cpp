@@ -36,8 +36,6 @@ void AMainBoss::BeginPlay()
 	{
 		Att2Renderer = CreateImageRenderer(ERenderOrder::effect); // 이미지 랜더 생성
 		Att2Renderer->SetImage("King_Left.png"); // 이미지 Set
-		//Att2Renderer->SetTransform({ {0,0}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
-
 		Att2Renderer->ActiveOff();
 	}
 
