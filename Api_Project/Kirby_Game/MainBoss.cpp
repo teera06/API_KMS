@@ -2,8 +2,8 @@
 
 #include <EngineBase\EngineRandom.h>
 
-
 #include "Bullet.h"
+#include "Ice.h"
 
 AMainBoss::AMainBoss()
 {
@@ -84,28 +84,43 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		MovePos = FVector::Zero;
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
-			Att2();
-			//Att1(_DeltaTime);
+			//Att2();
+			Att4(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
-			Att2();
-			//Att4(_DeltaTime);
+			//Att2();
+			Att4(_DeltaTime);
 			//Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
-			Att2();
-			//Att4(_DeltaTime);
+			//Att2();
+			Att4(_DeltaTime);
 			//Att1(_DeltaTime);
 			//Att3(_DeltaTime);
 		}
 	}
 	else {
+		if (true == Att4Ready)
+		{
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+			{
+				MonsterRenderer->ChangeAnimation("Att4_Left");
+			}
+			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+				MonsterRenderer->ChangeAnimation("Att4_Right");
+			}
 
-		if (true == Att3Delay)
+			if (true == MonsterRenderer->IsCurAnimationEnd())
+			{
+				IsIce = false;
+				Att4Ready = false;;
+			}
+		}
+		else if (true == Att3Delay)
 		{
 			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 			{
@@ -196,8 +211,11 @@ void AMainBoss::AniCreate()
 	Att2Renderer->CreateAnimation("Att2Effect_Left", "King_Left.png", 61, 61, 0.1f, false);
 	Att2Renderer->CreateAnimation("Att2Effect_Right", "King_RIght.png", 61, 61, 0.1f, false);
 
-	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", {13,14,14,14,15,15,16}, 0.15f, false);
-	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 13,14,14,14,15,15,16 }, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att4Ready_Right", "King_Right.png", {13,14,14,14,15,15,16}, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att4Ready_Left", "King_Left.png", { 13,14,14,14,15,15,16 }, 0.15f, false);
+
+	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", { 16,17,18,20 }, 0.15f, false);
+	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 16,17,18,20}, 0.15f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
@@ -316,24 +334,44 @@ void AMainBoss::Att4(float _DeltaTime)
 {
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
-		MonsterRenderer->ChangeAnimation("Att4_Left");
+		MonsterRenderer->ChangeAnimation("Att4Ready_Left");
 		AddActorLocation((FVector::Left * _DeltaTime * 50.0f)+JumpVector* _DeltaTime);
 		//Att1Collision->SetTransform({ {-100,80}, {100, 100} });
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-		MonsterRenderer->ChangeAnimation("Att4_Right");
+		MonsterRenderer->ChangeAnimation("Att4Ready_Right");
 		AddActorLocation((FVector::Right * _DeltaTime * 50.0f) + JumpVector* _DeltaTime);
 		//Att1Collision->SetTransform({ {100,80}, {100, 100} });
 	}
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		if (false == IsIce)
+		{
+			IsIce = true;
+			AIce* NewIce = GetWorld()->SpawnActor<AIce>();
+			NewIce->SetActorLocation(this->GetActorLocation());
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+			{
+				//MonsterRenderer->ChangeAnimation("Att2_Left");
+				//Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
+				//Att2Renderer->ChangeAnimation("Att2Effect_Left");
+				NewIce->SetDir(FVector::Left);
+			}
+			else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
+				//MonsterRenderer->ChangeAnimation("Att2_Right");
+				//Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
+				//Att2Renderer->ChangeAnimation("Att2Effect_Right");
+				NewIce->SetDir(FVector::Right);
+			}
+		}
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
 		//Att1Ready = true;
 		//Att1Collision->SetActive(true, 0.25f);
+		Att4Ready = true;
 	}
 
 	return;
