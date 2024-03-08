@@ -255,8 +255,7 @@ void ASir::Collisiongather(float _DeltaTime)
 
 		if (ColorR == Color8Bit(255, 0, 0, 0))
 		{
-			MainPlayer->SetSirUse(false);
-			Destroy();
+			StartDir = StartDir * FVector::Left;
 			
 		}
 	}
