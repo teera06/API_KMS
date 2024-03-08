@@ -132,6 +132,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 			if (true == Att2Renderer->IsCurAnimationEnd())
 			{
 				Att2Renderer->ActiveOff();
+				IsBullet = false;
 			}
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
@@ -250,31 +251,37 @@ void AMainBoss::Att1(float _DeltaTime)
 
 void AMainBoss::Att2()
 {
-	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>();
-	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
-	{
-		MonsterRenderer->ChangeAnimation("Att2_Left");
-		Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
-		Att2Renderer->ChangeAnimation("Att2Effect_Left");
-		NewBullet->SetDir(FVector::Left);
-	}
-	else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
-		MonsterRenderer->ChangeAnimation("Att2_Right");
-		Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
-		Att2Renderer->ChangeAnimation("Att2Effect_Right");
-		NewBullet->SetDir(FVector::Right);
-	}
+
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		if (false == IsBullet)
+		{
+			IsBullet = true;
+			ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>();
+			NewBullet->SetActorLocation(this->GetActorLocation());
+			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+			{
+				MonsterRenderer->ChangeAnimation("Att2_Left");
+				Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
+				Att2Renderer->ChangeAnimation("Att2Effect_Left");
+				NewBullet->SetDir(FVector::Left);
+			}
+			else if (MonsterDirNormal.iX() == 1 || MonsterDirNormal.iX() == 0) { // 오른쪽 방향
+				MonsterRenderer->ChangeAnimation("Att2_Right");
+				Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
+				Att2Renderer->ChangeAnimation("Att2Effect_Right");
+				NewBullet->SetDir(FVector::Right);
+			}
+		}
 		Att2Renderer->ActiveOn();
-		NewBullet->SetActorLocation(this->GetActorLocation());
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
 		Att2Delay = true;
 	}
+	
 
 	return;
 }

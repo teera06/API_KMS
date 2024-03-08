@@ -18,12 +18,13 @@ void AIce::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
-	SkillDir();
+	if (GetDir().iX() != FVector::Zero.iX())
+	{
+		SkillDir();
 
 
-	Collisiongather(_DeltaTime);
-	
-
+		Collisiongather(_DeltaTime);
+	}
 	IceRenderer->Destroy(0.1f);
 }
 
@@ -34,13 +35,13 @@ void AIce::BeginPlay()
 		IceRenderer = CreateImageRenderer(ERenderOrder::Ice); // 이미지 랜더 생성
 		IceRenderer->SetImage("Ice_Right.png"); // 이미지 Set
 		IceRenderer->SetTransform({ {0,0}, {128*3, 128*2} }); // 랜더의 위치 크기 
-		IceRenderer->SetActive(true, 0.2f);
+		//IceRenderer->SetActive(true, 0.2f);
 	}
 	{
 		IceCollision = CreateCollision(ECollisionOrder::IceAttack);
 		IceCollision->SetScale({ 100,70 });
 		IceCollision->SetColType(ECollisionType::Rect);
-		IceCollision->SetActive(true, 0.2f);
+		//IceCollision->SetActive(true, 0.2f);
 	}
 
 	AniCreate();

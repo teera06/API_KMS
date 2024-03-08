@@ -32,8 +32,11 @@ void ABullet::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	
-	SkillDir(_DeltaTime);
-	Collisiongather(_DeltaTime);
+	if (GetDir().iX() != 0)
+	{
+		SkillDir(_DeltaTime);
+		Collisiongather(_DeltaTime);
+	}
 }
 
 void ABullet::AniCreate()

@@ -70,6 +70,7 @@ private:
 
 	bool Ishit = false; // 죽은 상태 인지 확인
 	bool IsAtt = false;
+	bool IsBullet = false;
 	bool Att1Ready = false;
 	bool Att3Delay = false;
 	bool Att2Delay = false;
