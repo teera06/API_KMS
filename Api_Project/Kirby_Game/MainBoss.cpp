@@ -85,22 +85,25 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		if (RandomAtt == 0 || RandomAtt == 1)
 		{
 			//Att2();
-			Att4(_DeltaTime);
+			//Att4(_DeltaTime);
+			Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 2 || RandomAtt == 3 || RandomAtt == 4)
 		{
 			//Att2();
-			Att4(_DeltaTime);
+			//Att4(_DeltaTime);
 			//Att1(_DeltaTime);
+			Att1(_DeltaTime);
 		}
 
 		if (RandomAtt == 5 )
 		{
 			//Att2();
-			Att4(_DeltaTime);
+			//Att4(_DeltaTime);
 			//Att1(_DeltaTime);
 			//Att3(_DeltaTime);
+			Att1(_DeltaTime);
 		}
 	}
 	else {
@@ -164,11 +167,6 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 				MonsterRenderer->ChangeAnimation("Att1_Right");
 			}
-
-			//if (true == Att2Renderer->IsCurAnimationEnd())
-			//{
-				//Att2Renderer->ActiveOff();
-			//}
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{

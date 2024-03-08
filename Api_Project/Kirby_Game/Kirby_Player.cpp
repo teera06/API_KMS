@@ -125,6 +125,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	{
 		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
 		HammerCollision->SetColType(ECollisionType::Rect);
+		HammerCollision->SetScale({ 60, 20 });
 		HammerCollision->ActiveOff();
 	}
 
@@ -1780,6 +1781,28 @@ void AKirby_Player::HammerAttStart3()
 }
 
 
+void AKirby_Player::HammerCollisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == HammerCollision->CollisionCheck(ECollisionOrder::MainBoss, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMainBoss* Monster = dynamic_cast<AMainBoss*>(Ptr);
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		//Monster->SetIshit(true);
+
+		int a = 0;
+		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
+		//Monster->GetMonsterCollision()->ActiveOff();
+	}
+}
+
 void AKirby_Player::SoundCollisiongather(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
@@ -2078,6 +2101,7 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 {
 	DirCheck();
 
+	HammerCollision->ActiveOn();
 	if (DirState == EActorDir::Left)
 	{
 
@@ -2106,11 +2130,10 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		}
 		AddActorLocation(Move);
 	}
-
+	HammerCollisiongather(_DeltaTime);
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
-		HammerCollision->ActiveOn();
 		StateAniChange(EActorState::Idle);
 		return;
 	}

@@ -141,6 +141,8 @@ protected:
 	void HammerAttStart3();
 	int Attcheck = 0;
 
+	void HammerCollisiongather(float _DeltaTime);
+
 	void SoundCollisiongather(float _DeltaTime);
 	void MikeAttackStart();
 	int MikeOrder = 1;
