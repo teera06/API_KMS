@@ -171,7 +171,7 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
 		
-		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
+		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
@@ -182,6 +182,7 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 			MainPlayer->HitStart(); // hit 상태 스타트
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
+
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
 				MonsterRenderer->ChangeAnimation("die_Left"); // 죽는 애니메이션
@@ -227,6 +228,7 @@ void Apengi_Ice::CalResult(float _DeltaTime)
 		}
 
 		MovePos = FVector::Zero;
+
 	}
 
 	if (true == IsDie) // 죽으면
@@ -253,8 +255,8 @@ void Apengi_Ice::CalDir(float _DeltaTime)
 	FVector MosterXL = MonsterPos + FVector::Left * sight; // 몬스터 왼쪽 플레이어 인식 시야 X축
 	FVector MosterXR = MonsterPos + FVector::Right * sight; // 몬스터 오른쪽 플레이어 인식 시야 X축
 
-	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 인식 시야 X축
-	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 인식 시야 X축
+	FVector AttXL = MonsterPos + FVector::Left * AttRange; // 몬스터 왼쪽 플레이어 공격 범위
+	FVector AttXR = MonsterPos + FVector::Right * AttRange; // 몬스터 오른쪽 플레이어 공격 범위
 
 	FVector PlayerX = PlayerPos * FVector::Right; // 플레이어 위치 X축
 
@@ -343,7 +345,7 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 중력 작용
 
 	skillcooldowntime -= _DeltaTime;
-	if (true == IsAtt && skillcooldowntime<0.0f && false == GetBaseOnOff() && false==IsIce)
+	if (true == IsAtt && skillcooldowntime<0.0f && false == BaseOn && false==IsIce)
 	{
 		MovePos = FVector::Zero;
 		IceAtt();

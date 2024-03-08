@@ -129,11 +129,13 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 			MsgBoxAssert("¸ó½ºÅÍº£ÀÌ½º ÇÃ·¹ÀÌ¾î ÀÎ½Ä ¸øÇÔ");
 		}
 
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // Á×À¸¸é¼­ ÀÌµ¿ÇÏ´Â À§Ä¡ °è»ê
+		
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 	}
@@ -150,12 +152,13 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 		{
 			MsgBoxAssert("¸ó½ºÅÍº£ÀÌ½º ÇÃ·¹ÀÌ¾î ÀÎ½Ä ¸øÇÔ");
 		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // Á×À¸¸é¼­ ÀÌµ¿ÇÏ´Â À§Ä¡ °è»ê
+		
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 	}
@@ -172,12 +175,13 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 		{
 			MsgBoxAssert("¸ó½ºÅÍº£ÀÌ½º ÇÃ·¹ÀÌ¾î ÀÎ½Ä ¸øÇÔ");
 		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // Á×À¸¸é¼­ ÀÌµ¿ÇÏ´Â À§Ä¡ °è»ê
+		
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 	}
