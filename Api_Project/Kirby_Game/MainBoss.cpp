@@ -135,8 +135,12 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 void AMainBoss::AniCreate()
 {
-	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", {3,4,5,6,7,21,22,23,24}, 0.3f, true);
-	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png", { 3,4,5,6,7,21,22,23,24 }, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Right", "King_Right.png", 3,7, 0.3f, true);
+	MonsterRenderer->CreateAnimation("Move_Left", "King_Left.png",3,7, 0.3f, true);
+
+	MonsterRenderer->CreateAnimation("Att1Ready_Right", "King_Right.png",21,24, 0.2f, false);
+	MonsterRenderer->CreateAnimation("Att1Ready_Left", "King_Left.png", 21, 24, 0.2f, false);
+
 	MonsterRenderer->CreateAnimation("Att1_Right", "King_Right.png", { 26,29,30,31,32 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att1_Left", "King_Left.png", { 26,29,30,31,32 }, 0.2f, false);
 
