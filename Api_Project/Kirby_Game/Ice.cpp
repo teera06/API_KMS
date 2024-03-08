@@ -35,13 +35,13 @@ void AIce::BeginPlay()
 		IceRenderer = CreateImageRenderer(ERenderOrder::Ice); // 이미지 랜더 생성
 		IceRenderer->SetImage("Ice_Right.png"); // 이미지 Set
 		IceRenderer->SetTransform({ {0,0}, {128*3, 128*2} }); // 랜더의 위치 크기 
-		//IceRenderer->SetActive(true, 0.2f);
+		IceRenderer->SetActive(true, 0.2f);
 	}
 	{
 		IceCollision = CreateCollision(ECollisionOrder::IceAttack);
 		IceCollision->SetScale({ 100,70 });
 		IceCollision->SetColType(ECollisionType::Rect);
-		//IceCollision->SetActive(true, 0.2f);
+		IceCollision->SetActive(true, 0.2f);
 	}
 
 	AniCreate();
@@ -68,14 +68,16 @@ void AIce::SkillDir()
 
 	if (Owner == EIceOwner::Boss)
 	{
-		IceCollision->SetPosition({ GetDir().iX() * 200,70 });
+		IceCollision->SetPosition({ GetDir().iX() * 210,70 });
 		IceRenderer->SetPosition({ GetDir().iX() * 200,70 });
 		IceRenderer->SetScale({128 * 5, 128 * 3} ); // 랜더의 위치 크기 
+		IceCollision->SetScale({ 300,300 });
 	}
 	else {
 		IceCollision->SetPosition({ GetDir().iX() * 120,0 });
 		IceRenderer->SetPosition({ GetDir().iX() * 125,-5 });
 		IceRenderer->SetScale({128 * 3, 128 * 2}); // 랜더의 위치 크기 
+		IceCollision->SetScale({ 100,70 });
 	}
 }
 
