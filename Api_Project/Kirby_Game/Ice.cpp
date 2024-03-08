@@ -71,7 +71,7 @@ void AIce::SkillDir()
 		IceCollision->SetPosition({ GetDir().iX() * 210,70 });
 		IceRenderer->SetPosition({ GetDir().iX() * 200,70 });
 		IceRenderer->SetScale({128 * 5, 128 * 3} ); // 랜더의 위치 크기 
-		IceCollision->SetScale({ 300,300 });
+		IceCollision->SetScale({ 300,200 });
 	}
 	else {
 		IceCollision->SetPosition({ GetDir().iX() * 120,0 });
