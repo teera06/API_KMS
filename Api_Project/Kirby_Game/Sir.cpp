@@ -259,6 +259,12 @@ void ASir::Collisiongather(float _DeltaTime)
 	}
 	else if (Owner == ESirOwner::SirMonster)
 	{
+		if (false == SirMonsterDelete)
+		{
+			Destroy(3.0f);
+			SirMonsterDelete = true;
+		}
+
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);

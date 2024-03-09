@@ -47,6 +47,8 @@ private:
 
 	bool skillOn = false; // 스킬 On/Off 구분
 	bool LRCheck = false; // false::Left, true=right -> 부메랑이 돌아오는 방향
+	bool SirMonsterDelete = false;
+
 	void AniCreate(); // 애니메이션 관리
 
 	void CalDir();
