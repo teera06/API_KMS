@@ -20,9 +20,9 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	
 	SetActorLocation({ GetWorld()->GetCameraPos().iX()+145, GetWorld()->GetCameraPos().iY()+650 });
 
-	if (Hp == 0)
+	if (Hp <=0)
 	{
-		HpAddRenderer->SetTransform({ {36,15}, {2 * 192, 64 * 5} }); // 랜더의 위치 크기 
+		HpAddRenderer->SetTransform({ {34,15}, {2 * 194, 64 * 5} }); // 랜더의 위치 크기 
 	}
 	else if(Hp==10){
 		HpAddRenderer->SetTransform({ {43,15}, {2 * 178, 64 * 5} }); // 랜더의 위치 크기 80
