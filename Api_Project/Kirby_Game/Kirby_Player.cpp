@@ -1798,7 +1798,9 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		//Monster->SetIshit(true);
-
+		Monster->AddHP(-20);
+		Monster->GetMonsterCollision()->ActiveOff();
+		//HammerCollision->ActiveOff();
 		int a = 0;
 		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
 		//Monster->GetMonsterCollision()->ActiveOff();
@@ -2132,10 +2134,24 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		}
 		AddActorLocation(Move);
 	}
-	HammerCollisiongather(_DeltaTime);
+
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
+		HammerCollisiongather(_DeltaTime);
+
+		if (true == MainBossActive)
+		{
+			if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
+			{
+				AMainBoss::GetMainBoss()->GetMonsterCollision()->ActiveOn(); // 콜리전이 꺼져 있는 경우 다시 콜리전 온
+			}
+			else { // 보스와 전투 끝난후 -> 카메라 셋팅
+				MainBossActive = false;
+				//GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
+			}
+		}
+
 		StateAniChange(EActorState::Idle);
 		return;
 	}

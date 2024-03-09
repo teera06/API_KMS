@@ -21,6 +21,11 @@ public:
 	
 	static AMainBoss* GetMainBoss(); // 몬스터나 상태창이 플레이어에 대한 정보를 알아야 할 때 사용
 
+	UCollision* GetMonsterCollision()
+	{
+		return MonsterCollision;
+	}
+
 	int GetHp() const
 	{
 		return Hp;
