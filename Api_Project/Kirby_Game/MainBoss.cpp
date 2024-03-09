@@ -115,6 +115,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
+				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 				IsIce = false;
 				Att4Ready = false;;
 			}
@@ -131,6 +132,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
+				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 				Att3Delay = false;;
 			}
 		}else if (true == Att2Delay)
@@ -151,6 +153,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
+				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 				Att2Delay = false;;
 			}
 		}
@@ -166,6 +169,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
+				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 				Att1Collision->ActiveOff();
 				Att1Ready = false;;
 			}
@@ -250,7 +254,6 @@ void AMainBoss::Att1(float _DeltaTime)
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
@@ -295,7 +298,6 @@ void AMainBoss::Att2()
 			}
 		}
 		Att2Renderer->ActiveOn();
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 7.0f;
@@ -322,7 +324,6 @@ void AMainBoss::Att3(float _DeltaTime)
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		IsAtt = false;
 		skillcooldowntime = 7.0f;
 		Att3Delay = true;
@@ -368,7 +369,6 @@ void AMainBoss::Att4(float _DeltaTime)
 				NewIce->SetDir(FVector::Right);
 			}
 		}
-		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
