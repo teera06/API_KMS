@@ -27,8 +27,6 @@ void ASir::Tick(float _DeltaTime)
 
 		Collisiongather(_DeltaTime);
 	}
-	
-
 }
 
 void ASir::BeginPlay()
@@ -289,5 +287,4 @@ void ASir::Collisiongather(float _DeltaTime)
 			StartDir = StartDir * FVector::Left;
 		}
 	}
-
 }

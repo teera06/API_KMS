@@ -160,7 +160,8 @@ protected:
 	EActorDir DirState = EActorDir::Right;
 	
 private:
-	
+	static AKirby_Player* MainPlayer;
+
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* FireRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -171,9 +172,21 @@ private:
 	UCollision* MikeCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* HammerCollision = nullptr; // 커비 콜리전 (충돌)
 
+	// 이동 제어
+	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
+	FVector GravityVector = FVector::Zero; // 중력값 받기
 
+	// 점프력 제어
+	FVector JumpPowerIdle = FVector::Up * 400; // 서있는 경우에서 점프력
+	FVector JumpPowerMove = FVector::Up * 500; // 이동할때의 점프력
+	FVector JumpVector = FVector::Zero; // 최종 점프력
 
-	UImageRenderer* manual = nullptr;
+	FVector PlayMove = FVector::Zero; // Kirby Move
+
+	FVector CurY = FVector::Zero; // Camera Y Move
+
+	FVector HitDir = FVector::Zero;
+
 	// 행동별 속도 정리
 	float checkSpeed = 0.0f; // 최종 스피드
 
@@ -192,6 +205,16 @@ private:
 
 	float CamYSpeed = 0.5f; // Y축 CamYMove() 카메라 이동 수치
 	
+	// 커비의 판단으로 나머지 플레이 레벨 만들자
+	static int StageCheck;
+
+	static int Hp;
+	int HammerAtt = 0;
+
+	// 3스테이지 한정 변수
+	bool SubBossEvent = false;
+	bool BossEventWall = false;
+	bool SuBBossActive = false;
 	// 특정 상태별 bool 값
 	bool FlyState = false; // 나는 상태
 	bool hitState = false; // 충돌 상태
@@ -202,37 +225,10 @@ private:
 	bool RunState = false;
 	EActorDir RunRL = EActorDir::None;
 
-	// 3스테이지 한정 변수
-	bool SubBossEvent=false;
-	bool BossEventWall = false;
-	bool SuBBossActive = false;
-
-	// 커비의 판단으로 나머지 플레이 레벨 만들자
-	static int StageCheck;
-
-	static int Hp;
-	int HammerAtt = 0;
-
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
 	void GroundUp();
-	
-	FVector CamstopMove = FVector::Zero; // 카메라 멈췄을 때 캐릭터가 움직인 값
-	FVector GravityVector = FVector::Zero; // 중력값 받기
 
-	// 점프력 제어
-	FVector JumpPowerIdle = FVector::Up * 400; // 서있는 경우에서 점프력
-	FVector JumpPowerMove = FVector::Up * 500; // 이동할때의 점프력
-	FVector JumpVector = FVector::Zero; // 최종 점프력
-
-	FVector PlayMove = FVector::Zero; // Kirby Move
-
-	FVector CurY = FVector::Zero; // Camera Y Move
-
-	FVector HitDir = FVector::Zero;
-
-	static AKirby_Player* MainPlayer;
-	
 	// 움직임 제어 함수
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos= FVector::Zero);
