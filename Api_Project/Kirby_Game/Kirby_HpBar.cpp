@@ -24,12 +24,16 @@ void AKirby_HpBar::Tick(float _DeltaTime)
 	{
 		HpAddRenderer->SetTransform({ {36,15}, {2 * 192, 64 * 5} }); // 랜더의 위치 크기 
 	}
-	else if(Hp<20 && Hp>0){
-		HpAddRenderer->SetTransform({ {50,15}, {2 * 162, 64 * 5} }); // 랜더의 위치 크기 80
+	else if(Hp==10){
+		HpAddRenderer->SetTransform({ {43,15}, {2 * 178, 64 * 5} }); // 랜더의 위치 크기 80
 	}
-	else if (Hp < 40 && Hp >= 20)
+	else if (Hp == 20)
 	{
-		HpAddRenderer->SetTransform({ {64,15}, {2 * 132, 64 * 5} }); // 랜더의 위치 크기 60 
+		HpAddRenderer->SetTransform({ {52,15}, {2 * 158, 64 * 5} }); // 랜더의 위치 크기 60 
+	}
+	else if (Hp == 30)
+	{
+		HpAddRenderer->SetTransform({ {61,15}, {2 * 138, 64 * 5} }); // 랜더의 위치 크기 60 
 	}
 	else if (Hp == 40)
 	{
