@@ -22,7 +22,7 @@ void ABullet::BeginPlay()
 		bulletCollision = CreateCollision(ECollisionOrder::MainBossAtt);
 		bulletCollision->SetTransform({ {0,20},{100,100} });
 		bulletCollision->SetColType(ECollisionType::CirCle);
-		bulletCollision->SetActive(true, 0.1f);
+		bulletCollision->SetActive(true, 0.3f);
 	}
 
 	AniCreate();

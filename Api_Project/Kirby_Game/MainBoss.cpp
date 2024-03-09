@@ -192,8 +192,8 @@ void AMainBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Att2_Right", "King_Right.png", 32, 35, 0.3f, false);
 	MonsterRenderer->CreateAnimation("Att2_Left", "King_Left.png", 32, 35, 0.3f, false);
 
-	MonsterRenderer->CreateAnimation("Delay2_Right", "King_Right.png", {35,35,34,33,32}, 0.5f, false);
-	MonsterRenderer->CreateAnimation("Delay2_Left", "King_Left.png", { 35,35,34,33,32 }, 0.5f, false);
+	MonsterRenderer->CreateAnimation("Delay2_Right", "King_Right.png", {35,35,34,33,32}, 0.3f, false);
+	MonsterRenderer->CreateAnimation("Delay2_Left", "King_Left.png", { 35,35,34,33,32 }, 0.3f, false);
 
 
 	MonsterRenderer->CreateAnimation("Att3_Right", "King_Right.png", { 37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 }, 0.05f, false);
@@ -264,6 +264,20 @@ void AMainBoss::Att1(float _DeltaTime)
 void AMainBoss::Att2()
 {
 
+	
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	{
+		MonsterRenderer->ChangeAnimation("Att2_Left");
+		Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
+		Att2Renderer->ChangeAnimation("Att2Effect_Left");
+	}
+	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+		MonsterRenderer->ChangeAnimation("Att2_Right");
+		Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
+		Att2Renderer->ChangeAnimation("Att2Effect_Right");
+		
+	}
+	
 	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
@@ -274,15 +288,9 @@ void AMainBoss::Att2()
 			NewBullet->SetActorLocation(this->GetActorLocation());
 			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 			{
-				MonsterRenderer->ChangeAnimation("Att2_Left");
-				Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
-				Att2Renderer->ChangeAnimation("Att2Effect_Left");
 				NewBullet->SetDir(FVector::Left);
 			}
 			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-				MonsterRenderer->ChangeAnimation("Att2_Right");
-				Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
-				Att2Renderer->ChangeAnimation("Att2Effect_Right");
 				NewBullet->SetDir(FVector::Right);
 			}
 		}
@@ -290,7 +298,7 @@ void AMainBoss::Att2()
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		//AttCollision->ActiveOff();
 		IsAtt = false;
-		skillcooldowntime = 4.0f;
+		skillcooldowntime = 7.0f;
 		Att2Delay = true;
 	}
 	
@@ -316,7 +324,7 @@ void AMainBoss::Att3(float _DeltaTime)
 	{
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 5);
 		IsAtt = false;
-		skillcooldowntime = 4.0f;
+		skillcooldowntime = 7.0f;
 		Att3Delay = true;
 		MonsterCollision->ActiveOn();
 		Att3Collision->ActiveOff();
