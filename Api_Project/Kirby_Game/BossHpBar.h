@@ -26,14 +26,16 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 private:
-	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
-	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
-
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 스테이지 확인용
 	ASubBoss* SubBoss = ASubBoss::GetMainSubBoss();
 	AMainBoss* MainBoss = AMainBoss::GetMainBoss();
 
+	UImageRenderer* HpRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* HpAddRenderer = nullptr; // 커비 랜더링 (이미지)
+
 	FVector Move = FVector::Zero;
+
+	bool IsHpZero = false;
 
 };
 
