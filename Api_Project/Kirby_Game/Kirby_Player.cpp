@@ -571,7 +571,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	}
 
 	// 3스테이지 어거지 방법 이벤트
-	if (ColorY == Color8Bit(255, 255, 0, 0) && true == SubBossWall && StageCheck == 3) // 3스테이지 특정 이벤트 한정 벽 추가
+	if (ColorY == Color8Bit(255, 255, 0, 0) && true == BossEventWall && StageCheck == 3) // 3스테이지 특정 이벤트 한정 벽 추가
 	{
 		MovePos = FVector::Zero;
 	}
@@ -580,7 +580,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	{
 		// 노란색 픽셀 충돌, 3스테이지, 최초 bool값 -> 한번만 실행되고 그뒤로는 실행 안됨
 		SubBossEvent = true;
-		SubBossWall = true; // 벽 생김
+		BossEventWall = true; // 벽 생김
 		SuBBossActive = true;
 
 		// 위치 조정
@@ -595,7 +595,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	AddActorLocation(MovePos + (PlayMove * _DeltaTime)); // 최종 Kirby 움직임 계산 X축(게임 조작을 통한 값)과 Y축 (중력, 점프)
 
 
-	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0) && false==SubBossWall) // 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
+	if (ColorG != Color8Bit(0, 255, 0, 0) && ColorB != Color8Bit(0, 0, 255, 0) && ColorM != Color8Bit(255, 0, 255, 0) && false==BossEventWall) // 초록, 파랑, 마젠타 픽셀 충돌이 없는 경우
 	{
 		// 카메라 최종 이동
 		FVector Move = (MovePos * FVector::Right) + CamstopMove; // 
@@ -914,6 +914,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 3 && ColorB == Color8Bit(0, 0, 255, 0))
 	{
 		StageCheck = 4;
+		BossEventWall = true;
 		GEngine->ChangeLevel("LastBoss_Level");
 	}
 
@@ -931,6 +932,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	else if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 3)
 	{
 		StageCheck = 4;
+		BossEventWall = true;
 		GEngine->ChangeLevel("LastBoss_Level");
 	}
 
@@ -2081,7 +2083,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 				ASubBoss::GetMainSubBoss()->GetMonsterCollision()->ActiveOn(); // 콜리전이 꺼져 있는 경우 다시 콜리전 온
 			}
 			else { // 보스와 전투 끝난후 -> 카메라 셋팅
-				SubBossWall = false;
+				BossEventWall = false;
 				SuBBossActive = false;
 				GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 			}

@@ -204,7 +204,7 @@ private:
 
 	// 3스테이지 한정 변수
 	bool SubBossEvent=false;
-	bool SubBossWall = false;
+	bool BossEventWall = false;
 	bool SuBBossActive = false;
 
 	// 커비의 판단으로 나머지 플레이 레벨 만들자
