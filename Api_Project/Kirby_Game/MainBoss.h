@@ -56,6 +56,23 @@ private:
 	FVector MovePos = FVector::Zero;
 	FVector JumpVector = FVector::Up*750.0f;
 
+	float skillcooldowntime = 3.0f;
+	float MoveSpeed = 50.0f; // 몬스터 스피드
+
+	int WallX = 0; // 벽에 충돌할때 X축 범위
+	int RandomAtt = 0;
+	int Hp = 100;
+
+
+	bool Ishit = false; // 죽은 상태 인지 확인
+	bool IsAtt = false;
+	bool IsBullet = false;
+	bool IsIce = false;
+	bool Att1Ready = false;
+	bool Att3Delay = false;
+	bool Att2Delay = false;
+	bool Att4Ready = false;
+
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
 	void AniCreate(); // 애니메이션 관리
@@ -72,21 +89,5 @@ private:
 	//void hitEvent();
 
 	void GroundUp();
-
-	bool Ishit = false; // 죽은 상태 인지 확인
-	bool IsAtt = false;
-	bool IsBullet = false;
-	bool IsIce = false;
-	bool Att1Ready = false;
-	bool Att3Delay = false;
-	bool Att2Delay = false;
-	bool Att4Ready = false;
-
-	int WallX = 0; // 벽에 충돌할때 X축 범위
-	int RandomAtt = 0;
-	int Hp = 100;
-
-	float skillcooldowntime = 3.0f;
-	float MoveSpeed = 50.0f; // 몬스터 스피드
 };
 
