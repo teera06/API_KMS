@@ -310,15 +310,30 @@ void AMainBoss::Att2()
 void AMainBoss::Att3(float _DeltaTime)
 {
 	MonsterCollision->ActiveOff();
+
+	FVector Move = FVector::Zero;
+
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att3_Left");
-		AddActorLocation(FVector::Left* _DeltaTime*100.0f);
+		Move+=FVector::Left* _DeltaTime*100.0f;
+		WallX = -20;
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att3_Right");
-		AddActorLocation(FVector::Right* _DeltaTime*100.0f);
+		Move += FVector::Right * _DeltaTime * 100.0f;
+		WallX = 20;
 	}
+
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX()+WallX, GetActorLocation().iY()-20, Color8Bit::RedA);
+	
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
+	{
+		Move = FVector::Zero;
+	}
+
+	AddActorLocation(Move);
+
 	Att3Collision->ActiveOn();
 	Att3Collisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())

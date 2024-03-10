@@ -473,22 +473,22 @@ void AKirby_Player::KirbyModeCheck()
 		else if (std::string(GetModeName()) == "Fire_") // 소드 문자열이면
 		{
 			scale = 3;
-			SetMode(EAMode::Fire); // 소드 형태로
+			SetMode(EAMode::Fire); // 파이어 형태로
 		}
 		else if (std::string(GetModeName()) == "Sir_") // 소드 문자열이면
 		{
 			scale = 3;
-			SetMode(EAMode::Sir); // 소드 형태로
+			SetMode(EAMode::Sir); // 부메랑 형태로
 		}
 		else if (std::string(GetModeName()) == "Mike_") // 소드 문자열이면
 		{
 			scale = 3;
-			SetMode(EAMode::Mike); // 소드 형태로
+			SetMode(EAMode::Mike); //마이크 형태로
 		}
 		else if (std::string(GetModeName()) == "Hammer_") // 소드 문자열이면
 		{
 			scale = 5;
-			SetMode(EAMode::Hammer); // 소드 형태로
+			SetMode(EAMode::Hammer); // 해머 형태로
 		}
 	}
 	else {
