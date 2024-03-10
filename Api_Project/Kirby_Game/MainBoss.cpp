@@ -75,7 +75,7 @@ void AMainBoss::Tick(float _DeltaTime)
 
 		if (true == MonsterRenderer->IsCurAnimationEnd())
 		{
-			MonsterCollision->Destroy(); // 0.3f 第俊 昏力
+			//MonsterCollision->Destroy(); // 0.3f 第俊 昏力
 		}
 	}
 	else 

@@ -125,7 +125,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	{
 		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
 		HammerCollision->SetColType(ECollisionType::Rect);
-		HammerCollision->SetScale({ 60, 20 });
 		HammerCollision->ActiveOff();
 	}
 
@@ -1834,10 +1833,9 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		//Monster->SetIshit(true);
-		Monster->AddHP(-20);
-		Monster->GetMonsterCollision()->ActiveOff();
-		//HammerCollision->ActiveOff();
-		int a = 0;
+		Monster->AddHP(-10);
+		//Monster->GetMonsterCollision()->ActiveOff();
+		HammerCollision->ActiveOff();
 		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
 		//Monster->GetMonsterCollision()->ActiveOff();
 	}
