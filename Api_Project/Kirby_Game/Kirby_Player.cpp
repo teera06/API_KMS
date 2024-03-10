@@ -435,8 +435,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Hammer_HeadDown_Left", "Hammer_Left.png", 4, 6, 0.5f, true);
 		
 		// ±âº» ¼÷ÀÌ±â 
-		KirbyRenderer->CreateAnimation("Hammer_hit_Right", "Hammer_Right.png", 25, 25, 0.5f, true);
-		KirbyRenderer->CreateAnimation("Hammer_hit_Left", "Hammer_Left.png", 25, 25, 0.5f, true);
+		KirbyRenderer->CreateAnimation("Hammer_hit_Right", "kirby_Right.png", {35,36,37,28}, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Hammer_hit_Left", "kirby_Left.png", { 35,36,37,28 }, 0.1f, true);
 
 		// ±âº» ¼÷ÀÌ±â 
 		KirbyRenderer->CreateAnimation("Hammer_Att1_Right", "Hammer_Right.png", 59, 64, 0.1f, true);
