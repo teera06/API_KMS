@@ -57,12 +57,21 @@ private:
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
-	UCollision* MonsterCollision = nullptr;
-
 	UImageRenderer* AttRenderer = nullptr; // 커비 랜더링 (이미지)
+	
+	UCollision* MonsterCollision = nullptr;
 	UCollision* AttCollision = nullptr;
 
 	FVector MovePos = FVector::Zero;
+
+	float skillcooldowntime = 3.0f;
+	float MoveSpeed = 50.0f; // 몬스터 스피드
+
+	int WallX = 0; // 벽에 충돌할때 X축 범위
+	int RandomAtt = 0;
+	int Hp = 100;
+
+	bool Ishit = false; // 죽은 상태 인지 확인
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
@@ -78,14 +87,5 @@ private:
 	void hitEvent();
 
 	void GroundUp();
-
-	bool Ishit = false; // 죽은 상태 인지 확인
-
-	int WallX = 0; // 벽에 충돌할때 X축 범위
-	int RandomAtt = 0;
-	int Hp = 100;
-
-	float skillcooldowntime = 3.0f;
-	float MoveSpeed = 50.0f; // 몬스터 스피드
 };
 
