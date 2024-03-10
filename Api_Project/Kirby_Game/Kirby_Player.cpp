@@ -204,6 +204,10 @@ void AKirby_Player::AniCreate()
 	// Heavy모드 Move
 	KirbyRenderer->CreateAnimation("HeavyJump_Right", "kirby2_Right.png", 34, 41, 0.09f, true);
 	KirbyRenderer->CreateAnimation("HeavyJump_Left", "kirby2_Left.png", 34, 41, 0.09f, true);
+
+	// Heavy모드 Move
+	KirbyRenderer->CreateAnimation("Heavyhit_Right", "hitkirby_Right.png", 10, 13, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Heavyhit_Left", "hitkirby_Left.png", 10, 13, 0.09f, true);
 	
 
 	// 기본 흡수 
@@ -668,7 +672,7 @@ std::string AKirby_Player::GetAnimationName(std::string_view _Name)
 
 	CurAnimationName = _Name;
 
-	if (std::string(_Name) == "AllAttack" || std::string(_Name) == "HeavyIdle" || std::string(_Name) == "HeavyMove" || std::string(_Name) == "HeavyJump" || std::string(_Name) == "Icehit" || std::string(_Name) == "hothit") // AllAttack은 모든 커비모드에서 사용 가능하기에
+	if (std::string(_Name) == "AllAttack" || std::string(_Name) == "HeavyIdle" || std::string(_Name) == "HeavyMove" || std::string(_Name) == "HeavyJump" || std::string(_Name) == "Icehit" || std::string(_Name) == "hothit" || std::string(_Name) == "Heavyhit") // AllAttack은 모든 커비모드에서 사용 가능하기에
 	{
 		return std::string(_Name) + DirName; // // 앞에 GetModeName없이 AllAttack 문자열과 방향만 리턴
 	}
@@ -1459,7 +1463,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	Move = HitDir * 60.0f * _DeltaTime; // 오른쪽
 	
 	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::GreenA);
-	//Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
+
 	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
@@ -1682,7 +1686,15 @@ void AKirby_Player::HeavyJumpStart()
 void AKirby_Player::HitStart()
 {
 	DirCheck();
-	KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
+
+	if (false == EatState)
+	{
+		KirbyRenderer->ChangeAnimation(GetAnimationName("Hit"));
+	}
+	else 
+	{
+		KirbyRenderer->ChangeAnimation(GetAnimationName("Heavyhit"));
+	}
 }
 
 void AKirby_Player::IcehitStart()
