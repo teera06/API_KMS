@@ -75,7 +75,7 @@ void AMainBoss::Tick(float _DeltaTime)
 
 		if (true == MonsterRenderer->IsCurAnimationEnd())
 		{
-			//MonsterCollision->Destroy(); // 0.3f 뒤에 삭제
+			MonsterCollision->ActiveOff();
 		}
 	}
 	else 
@@ -189,6 +189,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		}
 		else {
 			CalDir(_DeltaTime);
+			Collisiongather(_DeltaTime);
 			CalResult(_DeltaTime);
 		}
 	}
@@ -450,6 +451,24 @@ void AMainBoss::Att3Collisiongather(float _DeltaTime)
 		MainPlayer->GetKirbyCollision()->ActiveOff();
 		MainPlayer->AddHP(-10);
 		MainPlayer->HitStart(); // hit 상태 스타트
+	}
+}
+
+void AMainBoss::Collisiongather(float _DeltaTime)
+{
+	// 콜리전 
+	std::vector<UCollision*> Result;
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result)) // 얼지 않은 상태에서 플레이어와 충돌
+	{
+		MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+		MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
+		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+		MainPlayer->GetKirbyCollision()->ActiveOff();
+		MainPlayer->AddHP(-10);
+		MainPlayer->HitStart(); // hit 상태 스타트
+
+		//IsDie = true; // 죽음 체크
+
 	}
 }
 

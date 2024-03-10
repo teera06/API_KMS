@@ -85,7 +85,7 @@ private:
 
 	void Att1Collisiongather(float _DeltaTime);
 	void Att3Collisiongather(float _DeltaTime);
-	//void Collisiongather(float _DeltaTime);
+	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
 	//void hitEvent();
 
