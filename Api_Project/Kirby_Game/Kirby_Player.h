@@ -210,6 +210,7 @@ private:
 
 	static int Hp;
 	int HammerAtt = 0;
+	int hitwallx = 0;
 
 	// 3스테이지 한정 변수
 	bool SubBossEvent = false;

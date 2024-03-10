@@ -1465,8 +1465,28 @@ void AKirby_Player::hit(float _DeltaTime)
 
 	
 	Move = HitDir * 60.0f * _DeltaTime; // 오른쪽
-	
-	Color8Bit ColorG = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::GreenA);
+
+	if (HitDir.iX() == FVector::Left.iX())
+	{
+		hitwallx = -20;
+	}
+	else if (HitDir.iX() == FVector::Right.iX())
+	{
+		hitwallx = 20;
+	}
+
+	Color8Bit ColorY = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX()+hitwallx, GetActorLocation().iY()-30, Color8Bit::YellowA);
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + hitwallx, GetActorLocation().iY() - 30, Color8Bit::RedA);
+	// 3스테이지 어거지 방법 이벤트
+	if (ColorY == Color8Bit(255, 255, 0, 0) && true == BossEventWall && StageCheck == 3) // 3스테이지 특정 이벤트 한정 벽 추가
+	{
+		Move = FVector::Zero;
+	}
+
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // 3스테이지 특정 이벤트 한정 벽 추가
+	{
+		Move = FVector::Zero;
+	}
 
 	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
