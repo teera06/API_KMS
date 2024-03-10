@@ -778,15 +778,15 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			MikeAttackStart();
 			break;
 		case EActorState::HammerAttack:
-			if (MikeAttcheck == 1)
+			if (HammerAttOrder == 1)
 			{
 				HammerAttStart1();
 			}
-			else if (MikeAttcheck == 2)
+			else if (HammerAttOrder == 2)
 			{
 				HammerAttStart2();
 			}
-			else if (MikeAttcheck == 3)
+			else if (HammerAttOrder == 3)
 			{
 				HammerAttStart3();
 			}
@@ -892,6 +892,11 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
 	
+	if (HammerAttCombo > 2)
+	{
+		HammerAttCombo = 0;
+	}
+
 	if (true == transform)
 	{
 		
@@ -1134,23 +1139,24 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (
-		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
+		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  && HammerAttCombo==2// 테스트
 		)
 	{
-		MikeAttcheck = 1;
+		HammerAttOrder = 2;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
 	}
 	else if (
-		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  // 테스트
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		MikeAttcheck = 2;
+		HammerAttOrder = 1;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
 	}
+	
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
@@ -1553,7 +1559,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		MikeAttcheck = 3;
+		HammerAttOrder = 3;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1834,6 +1840,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		}
 		//Monster->SetIshit(true);
 
+	
 		Monster->AddHP(-10);
 		//Monster->GetMonsterCollision()->ActiveOff();
 		HammerCollision->ActiveOff();
@@ -2150,14 +2157,15 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		HammerCollision->SetTransform({ {50,-5},{100,100} });
 	}
 
-	if (true == UEngineInput::IsUp('X') && MikeAttcheck==2)
+	if (true == UEngineInput::IsUp('X') && HammerAttOrder==2)
 	{
+		HammerAttCombo = 0;
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
 
-	if (MikeAttcheck == 3)
+	if (HammerAttOrder == 3)
 	{
 		FVector Move = FVector::Zero;
 		if (DirState == EActorDir::Left)
@@ -2174,7 +2182,7 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		HammerCollisiongather(_DeltaTime);
-
+		++HammerAttCombo;
 		if (true == MainBossActive)
 		{
 			if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 

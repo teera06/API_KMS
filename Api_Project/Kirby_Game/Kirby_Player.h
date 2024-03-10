@@ -139,7 +139,7 @@ protected:
 	void HammerAttStart1();
 	void HammerAttStart2();
 	void HammerAttStart3();
-	int MikeAttcheck = 0;
+	int HammerAttOrder = 0;
 
 	void HammerCollisiongather(float _DeltaTime);
 
@@ -210,6 +210,7 @@ private:
 
 	static int Hp;
 	int HammerAtt = 0;
+	int HammerAttCombo = 0;
 	int hitwallx = 0;
 
 	// 3스테이지 한정 변수
