@@ -778,15 +778,15 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			MikeAttackStart();
 			break;
 		case EActorState::HammerAttack:
-			if (Attcheck == 1)
+			if (MikeAttcheck == 1)
 			{
 				HammerAttStart1();
 			}
-			else if (Attcheck == 2)
+			else if (MikeAttcheck == 2)
 			{
 				HammerAttStart2();
 			}
-			else if (Attcheck == 3)
+			else if (MikeAttcheck == 3)
 			{
 				HammerAttStart3();
 			}
@@ -1137,7 +1137,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		Attcheck = 1;
+		MikeAttcheck = 1;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1146,7 +1146,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		Attcheck = 2;
+		MikeAttcheck = 2;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1553,7 +1553,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
-		Attcheck = 3;
+		MikeAttcheck = 3;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
 		return;
@@ -1833,6 +1833,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		//Monster->SetIshit(true);
+
 		Monster->AddHP(-10);
 		//Monster->GetMonsterCollision()->ActiveOff();
 		HammerCollision->ActiveOff();
@@ -2149,14 +2150,14 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		HammerCollision->SetTransform({ {50,-5},{100,100} });
 	}
 
-	if (true == UEngineInput::IsUp('X') && Attcheck==2)
+	if (true == UEngineInput::IsUp('X') && MikeAttcheck==2)
 	{
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
 	}
 
-	if (Attcheck == 3)
+	if (MikeAttcheck == 3)
 	{
 		FVector Move = FVector::Zero;
 		if (DirState == EActorDir::Left)

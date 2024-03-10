@@ -139,7 +139,7 @@ protected:
 	void HammerAttStart1();
 	void HammerAttStart2();
 	void HammerAttStart3();
-	int Attcheck = 0;
+	int MikeAttcheck = 0;
 
 	void HammerCollisiongather(float _DeltaTime);
 
