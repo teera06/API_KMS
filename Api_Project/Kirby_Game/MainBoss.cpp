@@ -69,7 +69,19 @@ void AMainBoss::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	GroundUp();
 
-	MoveUpdate(_DeltaTime);
+	if (Hp <= 0) // 죽으면
+	{
+		MonsterRenderer->ChangeAnimation("die_Right");
+
+		if (true == MonsterRenderer->IsCurAnimationEnd())
+		{
+			MonsterCollision->Destroy(); // 0.3f 뒤에 삭제
+		}
+	}
+	else 
+	{
+		MoveUpdate(_DeltaTime);
+	}
 }
 
 void AMainBoss::MoveUpdate(float _DeltaTime)
@@ -215,6 +227,9 @@ void AMainBoss::AniCreate()
 
 	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", { 16,17,17,17,18,18,18,20 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 16,17,17,17,18,18,18,20}, 0.2f, false);
+
+	MonsterRenderer->CreateAnimation("die_Right", "King_Right.png", 8, 12, 0.3f, true);
+	MonsterRenderer->CreateAnimation("die_Left", "King_Left.png", 8, 12, 0.3f, true);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)

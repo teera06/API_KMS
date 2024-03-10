@@ -70,6 +70,10 @@ void ABossHpBar::Tick(float _DeltaTime)
 		{
 			HpAddRenderer->SetTransform({ {68,12}, {2 * 42, 350} }); // 랜더의 위치 크기 80
 		}
+		else if (MainBoss->GetHp() == 90)
+		{
+			HpAddRenderer->SetTransform({ {80,12}, {2 * 21, 350} }); // 랜더의 위치 크기 80
+		}
 		else if (MainBoss->GetHp() == 100)
 		{
 			HpAddRenderer->SetTransform({ {-20,12}, {0, 350} }); // 랜더의 위치 크기 80
