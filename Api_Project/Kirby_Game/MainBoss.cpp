@@ -320,7 +320,7 @@ void AMainBoss::Att3(float _DeltaTime)
 		AddActorLocation(FVector::Right* _DeltaTime*100.0f);
 	}
 	Att3Collision->ActiveOn();
-	//AttCollisiongather(_DeltaTime);
+	Att3Collisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		IsAtt = false;
@@ -391,6 +391,20 @@ void AMainBoss::Att1Collisiongather(float _DeltaTime)
 		MainPlayer->AddHP(-10);
 		MainPlayer->HitStart(); // hit 상태 스타트
 		Att1Collision->ActiveOff();
+	}
+}
+
+void AMainBoss::Att3Collisiongather(float _DeltaTime)
+{
+	std::vector<UCollision*> Result;
+	if (true == Att3Collision->CollisionCheck(ECollisionOrder::kirby, Result))
+	{
+		MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
+		MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
+		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
+		MainPlayer->GetKirbyCollision()->ActiveOff();
+		MainPlayer->AddHP(-10);
+		MainPlayer->HitStart(); // hit 상태 스타트
 	}
 }
 
