@@ -1808,12 +1808,14 @@ void AKirby_Player::SirJumpStart()
 void AKirby_Player::HammerAttStart1()
 {
 	DirCheck();
+	HammerAtt = -10;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att1"));
 }
 
 void AKirby_Player::HammerAttStart2()
 {
 	DirCheck();
+	HammerAtt = -30;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att2"));
 }
 
@@ -1841,7 +1843,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		//Monster->SetIshit(true);
 
 	
-		Monster->AddHP(-10);
+		Monster->AddHP(HammerAtt);
 		//Monster->GetMonsterCollision()->ActiveOff();
 		HammerCollision->ActiveOff();
 		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
