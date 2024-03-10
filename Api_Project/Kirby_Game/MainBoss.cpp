@@ -390,6 +390,7 @@ void AMainBoss::Att1Collisiongather(float _DeltaTime)
 		MainPlayer->GetKirbyCollision()->ActiveOff();
 		MainPlayer->AddHP(-10);
 		MainPlayer->HitStart(); // hit 상태 스타트
+		Att1Collision->ActiveOff();
 	}
 }
 
