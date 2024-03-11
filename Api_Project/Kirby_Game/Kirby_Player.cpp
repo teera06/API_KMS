@@ -1848,7 +1848,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		}
 		//Monster->GetMonsterCollision()->ActiveOff();
 		HammerCollision->ActiveOff();
-		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
+		Monster->GetMonsterRenderer()->SetAlpha(0.5f);
 		//Monster->GetMonsterCollision()->ActiveOff();
 	}
 }

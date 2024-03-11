@@ -47,7 +47,6 @@ void AMainBoss::BeginPlay()
 
 	{
 		Att1Collision = CreateCollision(ECollisionOrder::MainBossAtt);
-		//Att1Collision->SetTransform({ {0,50}, {300, 150} });
 		Att1Collision->SetColType(ECollisionType::Rect);
 		Att1Collision->ActiveOff();
 	}
@@ -82,6 +81,7 @@ void AMainBoss::Tick(float _DeltaTime)
 	{
 		if (false == Ishit) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
 		{
+			MonsterRenderer->SetAlpha(1.0f);
 			MoveUpdate(_DeltaTime);
 		}
 		else {
@@ -123,6 +123,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 	else {
 		if (true == Att4Ready)
 		{
+			MonsterCollision->ActiveOn();
 			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 			{
 				MonsterRenderer->ChangeAnimation("Att4_Left");
@@ -389,18 +390,19 @@ void AMainBoss::Att3(float _DeltaTime)
 
 void AMainBoss::Att4(float _DeltaTime)
 {
+
+	MonsterCollision->ActiveOff();
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att4Ready_Left");
 		AddActorLocation((FVector::Left * _DeltaTime * 50.0f)+JumpVector* _DeltaTime);
-		//Att1Collision->SetTransform({ {-100,80}, {100, 100} });
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att4Ready_Right");
 		AddActorLocation((FVector::Right * _DeltaTime * 50.0f) + JumpVector* _DeltaTime);
-		//Att1Collision->SetTransform({ {100,80}, {100, 100} });
 	}
-	//AttCollisiongather(_DeltaTime);
+
+
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		if (false == IsIce)
@@ -411,23 +413,14 @@ void AMainBoss::Att4(float _DeltaTime)
 			NewIce->SetActorLocation(this->GetActorLocation());
 			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 			{
-				//MonsterRenderer->ChangeAnimation("Att2_Left");
-				//Att2Renderer->SetTransform({ {-105,20} ,{64 * 7,64 * 7} });
-				//Att2Renderer->ChangeAnimation("Att2Effect_Left");
 				NewIce->SetDir(FVector::Left);
 			}
 			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-				//MonsterRenderer->ChangeAnimation("Att2_Right");
-				//Att2Renderer->SetTransform({ {105,20} ,{64 * 7,64 * 7} });
-				//Att2Renderer->ChangeAnimation("Att2Effect_Right");
 				NewIce->SetDir(FVector::Right);
 			}
 		}
-		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 4.0f;
-		//Att1Ready = true;
-		//Att1Collision->SetActive(true, 0.25f);
 		Att4Ready = true;
 	}
 
@@ -499,7 +492,6 @@ void AMainBoss::hitEvent()
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		Ishit = false;
-		MonsterRenderer->SetAlpha(1.0f);
 	}
 }
 
