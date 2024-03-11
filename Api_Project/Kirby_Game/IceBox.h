@@ -1,9 +1,10 @@
 #pragma once
 #include <EngineCore\Actor.h>
 
+#include "ActorCommon.h"
 #include "ModeEnum.h"
 
-class AIceBox : public AActor
+class AIceBox : public AActor, public UActorCommon
 {
 public:
 	// constrcuter destructer

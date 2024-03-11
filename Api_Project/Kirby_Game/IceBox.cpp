@@ -1,5 +1,4 @@
 #include "IceBox.h"
-#include "ActorCommon.h"
 
 AIceBox::AIceBox()
 {
@@ -13,12 +12,12 @@ void AIceBox::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	//scale = 5; // 평소 크기
+	scale = 5; // 평소 크기
 	// 랜더링
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
-		Renderer->SetImage("Hammer.png"); // 이미지 Set
-		//Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		Renderer->SetImage("Ice_Right.png"); // 이미지 Set
+		Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
 	// 콜리전
@@ -27,11 +26,16 @@ void AIceBox::BeginPlay()
 		Collision->SetTransform({ { -10,20},{100,100} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
+
+	Renderer->CreateAnimation("IceBox", "Ice_Right.png", 108, 108, true);
+	Renderer->ChangeAnimation("IceBox");
 }
 
 void AIceBox::Tick(float _DeltaTime)
 {
-
+	AActor::Tick(_DeltaTime);
+	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY() + 80, _DeltaTime)); // 중력 작용
+	GroundUp();
 }
 
 void AIceBox::GroundUp()
