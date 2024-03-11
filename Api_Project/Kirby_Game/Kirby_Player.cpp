@@ -1836,6 +1836,8 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		AActor* Ptr = Collision->GetOwner();
 		AMainBoss* Monster = dynamic_cast<AMainBoss*>(Ptr);
 
+		Monster->SetIshit(true);
+
 		if (nullptr == Monster)
 		{
 			MsgBoxAssert("터져야겠지....");
