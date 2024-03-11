@@ -158,7 +158,7 @@ void ABase::Collisiongather(float _DeltaTime)
 
 		Destroy(0.1f);
 	}
-	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::Object, Result))
+	else if (true == BaseCollision->CollisionCheck(ECollisionOrder::Hammer, Result))
 	{
 		// 이런식으로 상대를 사용할수 있다.
 		UCollision* Collision = Result[0];

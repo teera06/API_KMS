@@ -7,6 +7,7 @@
 #include "Kirby_HpBar.h"
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
+#include "IceBox.h"
 
 #include "SubBoss.h"
 
@@ -77,6 +78,7 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
 	SpawnActor<AMonster_Base>()->SetActorLocation({ 900,300 });
+	SpawnActor<AIceBox>()->SetActorLocation({ 900,300 });
 	
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }

@@ -22,7 +22,7 @@ void AIceBox::BeginPlay()
 
 	// ÄÝ¸®Àü
 	{
-		Collision = CreateCollision(ECollisionOrder::Object);
+		Collision = CreateCollision(ECollisionOrder::IceBox);
 		Collision->SetTransform({ { -10,20},{100,100} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
