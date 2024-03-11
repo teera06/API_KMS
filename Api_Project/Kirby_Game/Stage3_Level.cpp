@@ -80,10 +80,15 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
 	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
-	SpawnActor<AIceBox>()->SetActorLocation({ 1200,400 });
-	SpawnActor<AIceBox>()->SetActorLocation({ 1200,100 });
-	SpawnActor<AIceBox>()->SetActorLocation({ 1200,50 });
-	
+	NewIceBox[0] = SpawnActor<AIceBox>();
+	NewIceBox[0]->SetActorLocation({ 1200,400 });
+
+	NewIceBox[1] = SpawnActor<AIceBox>();
+	NewIceBox[1]->SetActorLocation({ 1200,100 });
+
+	NewIceBox[2] = SpawnActor<AIceBox>();
+	NewIceBox[2]->SetActorLocation({ 1200,50 });
+	NewIceBox[2]->SetIsItem(true);
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 

@@ -11,7 +11,7 @@
 // 특정 이벤트 때 커비가 만들어줘야 하는것들
 #include "BossHpBar.h"
 #include "SubBoss.h"
-
+#include "IceBox.h"
 // 테스트 -> 나중에 지우기
 #include "Monster_Base.h"
 #include "pengi_Ice.h"
@@ -2110,6 +2110,22 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		Monster->Destroy();
+	}
+	else if (true == FireCollision->CollisionCheck(ECollisionOrder::IceBox, Result))
+	{
+		// 이런식으로 상대를 사용할수 있다.
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AIceBox* item = dynamic_cast<AIceBox*>(Ptr);
+
+		if (nullptr == item)
+		{
+			MsgBoxAssert("터져야겠지....");
+		}
+		
+		item->SetIsDelete(true);
+
+		
 	}
 }
 

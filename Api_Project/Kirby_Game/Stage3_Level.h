@@ -7,6 +7,7 @@ class AKirby_Player;
 class AKirby_HpBar;
 class AMonster_Sir;
 class Apengi_Ice;
+class AIceBox;
 
 class UStage3_Level :public ULevel
 {
@@ -32,5 +33,7 @@ private:
 	AStage3_Map* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
+
+	AIceBox* NewIceBox[3] = { nullptr,nullptr,nullptr };
 };
 
