@@ -2192,6 +2192,7 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (HammerAttOrder == 3)
 	{
+		HammerCollision->ActiveOff();
 		FVector Move = FVector::Zero;
 		if (DirState == EActorDir::Left)
 		{
