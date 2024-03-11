@@ -321,7 +321,6 @@ void AMainBoss::Att2()
 		
 	}
 	
-	//AttCollisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		if (false == IsBullet)
@@ -338,7 +337,6 @@ void AMainBoss::Att2()
 			}
 		}
 		Att2Renderer->ActiveOn();
-		//AttCollision->ActiveOff();
 		IsAtt = false;
 		skillcooldowntime = 7.0f;
 		Att2Delay = true;
@@ -392,16 +390,28 @@ void AMainBoss::Att4(float _DeltaTime)
 {
 
 	MonsterCollision->ActiveOff();
+	FVector Move = FVector::Zero;
+
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att4Ready_Left");
-		AddActorLocation((FVector::Left * _DeltaTime * 50.0f)+JumpVector* _DeltaTime);
+		WallX = -20;
+		Move+=(FVector::Left * _DeltaTime * 50.0f)+JumpVector* _DeltaTime;
 	}
 	else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
 		MonsterRenderer->ChangeAnimation("Att4Ready_Right");
-		AddActorLocation((FVector::Right * _DeltaTime * 50.0f) + JumpVector* _DeltaTime);
+		WallX = 20;
+		Move += (FVector::Right * _DeltaTime * 50.0f) + JumpVector* _DeltaTime;
 	}
 
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+	if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
+	{
+		Move = FVector::Zero;
+	}
+
+	AddActorLocation(Move);
 
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
