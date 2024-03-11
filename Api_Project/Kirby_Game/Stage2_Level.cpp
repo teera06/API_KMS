@@ -98,7 +98,9 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 	NewSir[1] = SpawnActor<AMonster_Sir>();
 	NewSir[1]->SetActorLocation({ 4800,1000 });
 	
-	SpawnActor<ABox>()->SetActorLocation({ 3370,1000 });;
+	NewBox = SpawnActor<ABox>();
+	NewBox->SetIsItem(true);
+	NewBox->SetActorLocation({ 3370,1000 });;
 	GEngine->CreateLevel<UStage3_Level>("Stage3_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 

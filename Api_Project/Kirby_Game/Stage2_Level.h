@@ -8,6 +8,7 @@ class AKirby_HpBar;
 class AMonster_Base;
 class AMonster_Fire;
 class AMonster_Sir;
+class ABox;
 
 class UStage2_Level :public ULevel
 {
@@ -31,12 +32,14 @@ private:
 	AStage2_Map* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
+	ABox* NewBox = nullptr;
+
+	AMonster_Base* NewBase[3] = { nullptr,nullptr };
+	AMonster_Fire* NewFire[6] = { nullptr,nullptr,nullptr,nullptr, nullptr };
+	AMonster_Sir* NewSir[4] = { nullptr ,nullptr,nullptr };
 
 	const int Firesize = 4;
 	const int Sirsize = 3;
 
-	AMonster_Base* NewBase[3] = { nullptr,nullptr };
-	AMonster_Fire* NewFire[6] = { nullptr,nullptr,nullptr,nullptr, nullptr };
-	AMonster_Sir* NewSir[4] = { nullptr ,nullptr,nullptr};
 };
 

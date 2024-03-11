@@ -5,6 +5,7 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
+#include "Box.h"
 
 ASir::ASir()
 {
@@ -226,6 +227,20 @@ void ASir::Collisiongather(float _DeltaTime)
 		{
 			StartDir = StartDir * FVector::Left;
         }
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::Box, Result))
+		{
+			// 이런식으로 상대를 사용할수 있다.
+			UCollision* Collision = Result[0];
+			AActor* Ptr = Collision->GetOwner();
+			ABox* item = dynamic_cast<ABox*>(Ptr);
+
+			if (nullptr == item)
+			{
+				MsgBoxAssert("터져야겠지....");
+			}
+
+			item->SetIsDelete(true);
+		}
 		
 		
 		
