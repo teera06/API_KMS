@@ -17,13 +17,13 @@ void AIceBox::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
 		Renderer->SetImage("Ice_Right.png"); // 이미지 Set
-		Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		Renderer->SetTransform({ {0,40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
 	// 콜리전
 	{
 		Collision = CreateCollision(ECollisionOrder::IceBox);
-		Collision->SetTransform({ { -10,20},{100,100} });
+		Collision->SetTransform({ { 0,10},{130,130} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 
