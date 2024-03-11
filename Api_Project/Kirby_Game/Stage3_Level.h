@@ -8,6 +8,7 @@ class AKirby_HpBar;
 class AMonster_Sir;
 class Apengi_Ice;
 class AIceBox;
+class ABox;
 
 class UStage3_Level :public ULevel
 {
@@ -35,5 +36,6 @@ private:
 	AKirby_HpBar* NewHpBar = nullptr;
 
 	AIceBox* NewIceBox[5] = { nullptr,nullptr,nullptr,nullptr };
+	ABox* NewBox[4] = { nullptr,nullptr,nullptr};
 };
 

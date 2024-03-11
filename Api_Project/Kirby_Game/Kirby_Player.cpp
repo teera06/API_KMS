@@ -1530,13 +1530,17 @@ void AKirby_Player::hit(float _DeltaTime)
 	}
 
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0))
+	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result, Move + Gravit)
+		|| true == BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result, Move + Gravit)
+		|| true == BoxCollision->CollisionCheck(ECollisionOrder::IceBox, Result, Move + Gravit)
+		|| true == BoxCollision->CollisionCheck(ECollisionOrder::Box, Result, Move + Gravit)
+		)
 	{
 		Gravit = FVector::Zero;
 		Move = FVector::Zero;
 	}
 
-	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result))
+	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		Gravit = FVector::Zero;
 		Move = FVector::Zero;
