@@ -41,7 +41,7 @@ void AMainBoss::BeginPlay()
 
 	{
 		MonsterCollision = CreateCollision(ECollisionOrder::MainBoss);
-		MonsterCollision->SetTransform({ {0,50}, {100, 150} });
+		MonsterCollision->SetTransform({ {0,50}, {70, 150} });
 		MonsterCollision->SetColType(ECollisionType::Rect);
 	}
 
@@ -53,7 +53,7 @@ void AMainBoss::BeginPlay()
 
 	{
 		Att3Collision = CreateCollision(ECollisionOrder::MainBossAtt);
-		Att3Collision->SetTransform({ {0,50}, {300, 150} });
+		Att3Collision->SetTransform({ {0,50}, {300, 120} });
 		Att3Collision->SetColType(ECollisionType::CirCle);
 		Att3Collision->ActiveOff();
 	}
