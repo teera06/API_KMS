@@ -1450,8 +1450,10 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 	DirCheck();
 	KirbyModeCheck();
 
+	KirbyCollision->SetTransform({ {0,10},{60,30} });
 	if (true == UEngineInput::IsFree(VK_DOWN))
 	{
+		KirbyCollision->SetTransform({ {0,0},{60,60} });
 		StateAniChange(EActorState::Idle);
 		return;
 	}
