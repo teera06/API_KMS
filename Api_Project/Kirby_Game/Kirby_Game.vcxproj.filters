@@ -83,6 +83,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Stage_Actor\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <Filter>ContentsLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Stage_Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingLevel.h">
+      <Filter>ContentsLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
