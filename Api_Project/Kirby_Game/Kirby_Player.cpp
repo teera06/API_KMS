@@ -2161,7 +2161,7 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (true == UEngineInput::IsUp('X') && HammerAttOrder==2)
 	{
-		HammerAttCombo = 0;
+		//HammerAttCombo = 0;
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
