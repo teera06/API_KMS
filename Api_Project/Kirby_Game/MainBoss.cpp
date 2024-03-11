@@ -229,8 +229,8 @@ void AMainBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", { 16,17,17,17,18,18,18,20 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 16,17,17,17,18,18,18,20}, 0.2f, false);
 
-	MonsterRenderer->CreateAnimation("die_Right", "King_Right.png", 8, 12, 0.3f, true);
-	MonsterRenderer->CreateAnimation("die_Left", "King_Left.png", 8, 12, 0.3f, true);
+	MonsterRenderer->CreateAnimation("die_Right", "King_Right.png", {8,9,10,12,11}, 0.3f, false);
+	MonsterRenderer->CreateAnimation("die_Left", "King_Left.png", { 8,9,10,12,11 }, 0.3f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
