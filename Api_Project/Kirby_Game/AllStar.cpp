@@ -4,6 +4,11 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
+#include "Monster_Mike.h"
+#include "SubBoss.h"
+#include "IceBox.h"
+
+
 
 AAllStar::AAllStar()
 {
@@ -156,6 +161,10 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		Destroy();
+	}
+	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) || true == AllStarCollision->CollisionCheck(ECollisionOrder::SubBoss, Result))
+	{
 		Destroy();
 	}
 
