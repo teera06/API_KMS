@@ -17,13 +17,13 @@ void AIceBox::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
 		Renderer->SetImage("item.png"); // 이미지 Set
-		Renderer->SetTransform({ {0,40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		Renderer->SetTransform({ {0,-40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
 	// 콜리전
 	{
 		Collision = CreateCollision(ECollisionOrder::IceBox);
-		Collision->SetTransform({ { 0,10},{130,130} });
+		Collision->SetTransform({ { 0,-35},{140,140} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 
@@ -34,7 +34,20 @@ void AIceBox::BeginPlay()
 void AIceBox::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY() + 80, _DeltaTime)); // 중력 작용
+	// 콜리전 
+	
+	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime); // 중력은 계속 가해진다.
+
+	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
+	std::vector<UCollision*> Result;
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == Collision->CollisionCheck(ECollisionOrder::IceBox, Result)) // ColMapImage에서 빨간색과 일치하는 경우
+	{
+		GravityVector = FVector::Zero; // 중력의 힘은 0으로
+	}
+
+	AddActorLocation(GravityVector);
+
+	
 	GroundUp();
 }
 

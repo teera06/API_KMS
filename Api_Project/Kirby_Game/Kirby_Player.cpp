@@ -527,10 +527,12 @@ void AKirby_Player::GroundUp()
 // 중력 제어
 void AKirby_Player::CalGravityVector(float _DeltaTime)
 {
+	
 	GravityVector += GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime); // 중력은 계속 가해진다.
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0)) // ColMapImage에서 빨간색과 일치하는 경우
+	std::vector<UCollision*> Result;
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}
@@ -541,7 +543,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 {
 	// 제로로 만들어서 초기화 시킨다.
 	PlayMove = FVector::Zero; // Kirby 이동 관리
-	
+
 	PlayMove = PlayMove + JumpVector;
 
 	if (false == FlyState) // 날지 않은 경우
@@ -553,7 +555,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	}
 
 	FVector MovePos = _MovePos;
-	
+
 	FVector CheckPos = GetActorLocation(); // Kirby
 	FVector CamCheckPos = GetActorLocation(); // camera
 
@@ -583,6 +585,13 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlueA);
 	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::MagentaA);
 	Color8Bit ColorBend = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlackA);
+
+	std::vector<UCollision*> Result;
+	if (true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos*FVector::Right))
+	{
+		return;
+	}
+
 
 	if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
 	{
@@ -1239,8 +1248,9 @@ void AKirby_Player::Jump(float _DeltaTime)
 	}
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	
-	if (ColorR == Color8Bit(255, 0, 0, 0)) // 픽셀 충돌 -> 점프 후 착지할때
+	// 콜리전 
+	std::vector<UCollision*> Result;
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
 		JumpVector = FVector::Zero; // 점프력 힘은 0
 
@@ -1447,8 +1457,9 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 		CamYMove(); // 카메라 Y축 계산
 	}
 	// 추락해서 바닥과 충돌할 경우
+	std::vector<UCollision*> Result;
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result))
 	{
 		JumpVector = FVector::Zero;
 		RunState = false;

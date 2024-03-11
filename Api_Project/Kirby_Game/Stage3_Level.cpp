@@ -77,9 +77,10 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
-	SpawnActor<AMonster_Base>()->SetActorLocation({ 900,300 });
-	SpawnActor<AIceBox>()->SetActorLocation({ 900,300 });
+	//SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
+	//SpawnActor<AMonster_Base>()->SetActorLocation({ 900,300 });
+	SpawnActor<AIceBox>()->SetActorLocation({ 900,400 });
+	SpawnActor<AIceBox>()->SetActorLocation({ 900,100 });
 	
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
