@@ -1854,7 +1854,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-
+		++HammerAttCombo;
 		Monster->SetIshit(true);
 		Monster->AddHP(HammerAtt);
 		
@@ -2185,7 +2185,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (true == UEngineInput::IsUp('X') && HammerAttOrder==2)
 	{
-		//HammerAttCombo = 0;
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
@@ -2208,7 +2207,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		HammerCollisiongather(_DeltaTime);
-		++HammerAttCombo;
 		if (true == MainBossActive)
 		{
 			if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
