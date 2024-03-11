@@ -36,6 +36,11 @@ public:
 		Hp += _Value;
 	}
 
+	void SetIshit(const bool& _Ishit)
+	{
+		Ishit = _Ishit;
+	}
+
 protected:
 	// TickObject (Level2) 오버라이드
 	void BeginPlay() override;
@@ -64,7 +69,7 @@ private:
 	int Hp = 100;
 
 
-	bool Ishit = false; // 죽은 상태 인지 확인
+	bool Ishit = false; 
 	bool IsAtt = false;
 	bool IsBullet = false;
 	bool IsIce = false;
@@ -87,7 +92,7 @@ private:
 	void Att3Collisiongather(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
 	void CalResult(float _DeltaTime);
-	//void hitEvent();
+	void hitEvent();
 
 	void GroundUp();
 };

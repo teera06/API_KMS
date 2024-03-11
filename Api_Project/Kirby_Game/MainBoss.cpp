@@ -80,7 +80,13 @@ void AMainBoss::Tick(float _DeltaTime)
 	}
 	else 
 	{
-		MoveUpdate(_DeltaTime);
+		if (false == Ishit) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
+		{
+			MoveUpdate(_DeltaTime);
+		}
+		else {
+			hitEvent();
+		}
 	}
 }
 
@@ -229,8 +235,11 @@ void AMainBoss::AniCreate()
 	MonsterRenderer->CreateAnimation("Att4_Right", "King_Right.png", { 16,17,17,17,18,18,18,20 }, 0.2f, false);
 	MonsterRenderer->CreateAnimation("Att4_Left", "King_Left.png", { 16,17,17,17,18,18,18,20}, 0.2f, false);
 
-	MonsterRenderer->CreateAnimation("die_Right", "King_Right.png", {8,9,10,12,11}, 0.3f, false);
-	MonsterRenderer->CreateAnimation("die_Left", "King_Left.png", { 8,9,10,12,11 }, 0.3f, false);
+	MonsterRenderer->CreateAnimation("hit_Right", "King_Right.png", { 8,9,10,12,11 }, 0.3f, false);
+	MonsterRenderer->CreateAnimation("hit_Left", "King_Left.png", { 8,9,10,12,11 }, 0.3f, false);
+
+	MonsterRenderer->CreateAnimation("die_Right", "King_Right.png", 56,56, 0.3f, false);
+	MonsterRenderer->CreateAnimation("die_Left", "King_Left.png", 56,56, 0.3f, false);
 }
 
 void AMainBoss::CalDir(float _DeltaTime)
@@ -475,6 +484,23 @@ void AMainBoss::Collisiongather(float _DeltaTime)
 void AMainBoss::CalResult(float _DeltaTime)
 {
 	AddActorLocation(MovePos);
+}
+
+void AMainBoss::hitEvent()
+{
+	if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
+	{
+		MonsterRenderer->ChangeAnimation("hit_Left"); // 죽는 애니메이션
+	}
+	else {
+		MonsterRenderer->ChangeAnimation("hit_Right"); // 죽는 애니메이션
+	}
+
+	if (true == MonsterRenderer->IsCurAnimationEnd())
+	{
+		Ishit = false;
+		MonsterRenderer->SetAlpha(1.0f);
+	}
 }
 
 void AMainBoss::GroundUp()
