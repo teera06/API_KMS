@@ -51,7 +51,7 @@ enum class ERenderOrder
 	Stage3_Map,
 	Last_Map,
 	Monster,
-	Hammer,
+	Object,
 	Base,
 	Ice,
 	Sir,
@@ -63,7 +63,6 @@ enum class ERenderOrder
 	HPgauge,
 	State,
 	effect,
-	Menu,
 };
 
 enum class ECollisionOrder
@@ -73,7 +72,7 @@ enum class ECollisionOrder
 	FireMonster,
 	SirMonster,
 	MikeMonster,
-	Hammer,
+	Object,
 	SubBoss,
 	MainBoss,
 	SubBossAtt,

@@ -131,7 +131,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	}
 
 	{
-		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
+		HammerCollision = CreateCollision(ECollisionOrder::Object);
 		HammerCollision->SetColType(ECollisionType::Rect);
 		HammerCollision->ActiveOff();
 	}
