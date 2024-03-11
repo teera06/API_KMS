@@ -6,7 +6,6 @@
 #include "Monster_Sir.h"
 #include "Monster_Mike.h"
 #include "SubBoss.h"
-#include "IceBox.h"
 #include "Box.h"
 
 
