@@ -1535,6 +1535,9 @@ void AKirby_Player::hit(float _DeltaTime)
 	SkillOn = false;
 	FireRenderer1->ActiveOff();
 	FireCollision->ActiveOff();
+	FireRenderer2->ActiveOff();
+	FireRenderer3->ActiveOff();
+	
 
 	if (StageCheck == 3)
 	{
