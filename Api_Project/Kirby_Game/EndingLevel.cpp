@@ -1,17 +1,25 @@
 #include "EndingLevel.h"
 
-EndingLevel::EndingLevel()
+UEndingLevel::UEndingLevel()
 {
 }
 
-EndingLevel::~EndingLevel()
+UEndingLevel::~UEndingLevel()
 {
 }
 
-void EndingLevel::BeginPlay()
+void UEndingLevel::BeginPlay()
 {
 }
 
-void EndingLevel::Tick(float _DeltaTime)
+void UEndingLevel::Tick(float _DeltaTime)
+{
+}
+
+void UEndingLevel::LevelStart(ULevel* _Level)
+{
+}
+
+void UEndingLevel::LevelEnd(ULevel* _Level)
 {
 }
