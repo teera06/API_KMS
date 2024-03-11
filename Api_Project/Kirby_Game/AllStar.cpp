@@ -162,7 +162,10 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		Destroy();
 	}
-	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) || true == AllStarCollision->CollisionCheck(ECollisionOrder::SubBoss, Result))
+	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) 
+		|| true == AllStarCollision->CollisionCheck(ECollisionOrder::SubBoss, Result)
+		|| true == AllStarCollision->CollisionCheck(ECollisionOrder::IceBox, Result)
+		)
 	{
 		Destroy();
 	}
