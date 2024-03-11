@@ -1611,6 +1611,16 @@ void AKirby_Player::Run(float _DeltaTime)
 		return;
 	}
 
+	if (
+		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // Å×½ºÆ®
+		)
+	{
+		RunState = false;
+		HammerAttOrder = 3;
+		SkillOn = true;
+		StateAniChange(EActorState::HammerAttack);
+		return;
+	}
 	
 	FVector MovePos = FVector::Zero;
 
