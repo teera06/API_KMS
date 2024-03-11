@@ -84,10 +84,10 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 	NewBox[0]->SetActorLocation({3500,100});
 
 	NewBox[1] = SpawnActor<ABox>();
-	NewBox[1]->SetActorLocation({ 3500,400 });
+	NewBox[1]->SetActorLocation({ 3500,300 });
 
 	NewBox[2] = SpawnActor<ABox>();
-	NewBox[2]->SetActorLocation({ 3800,400 });
+	NewBox[2]->SetActorLocation({ 3800,100 });
 
 	NewIceBox[0] = SpawnActor<AIceBox>();
 	NewIceBox[0]->SetActorLocation({ 800,400 });
