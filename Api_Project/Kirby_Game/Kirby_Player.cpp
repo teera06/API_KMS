@@ -1545,6 +1545,11 @@ void AKirby_Player::hit(float _DeltaTime)
 		SoundRenderer->ActiveOff();
 	}
 
+	if (StageCheck == 4)
+	{
+		HammerCollision->ActiveOff();
+	}
+
 	CamstopMove += Move;
 	if (StageCheck < 3)
 	{
