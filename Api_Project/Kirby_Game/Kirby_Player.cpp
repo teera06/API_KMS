@@ -1058,13 +1058,18 @@ void AKirby_Player::Idle(float _DeltaTime)
 	}
 	
 	// 점프
-	if (
-		true == UEngineInput::IsDown('S') 
-		)
+
+	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 60, Color8Bit::MagentaA);
+	if (ColorM != Color8Bit(255, 0, 255, 0))
 	{
-		JumpVector = JumpPowerIdle;
-		StateAniChange(EActorState::Jump);
-		return;
+		if (
+			true == UEngineInput::IsDown('S')
+			)
+		{
+			JumpVector = JumpPowerIdle;
+			StateAniChange(EActorState::Jump);
+			return;
+		}
 	}
 
 	// 숙이기
@@ -1240,6 +1245,9 @@ void AKirby_Player::Jump(float _DeltaTime)
 		}
 	}
 
+	// 천장 픽셀 충돌 -> 추락
+	
+
 	MoveUpdate(_DeltaTime,MovePos); // 최종 움직임
 
 	if (StageCheck < 3)
@@ -1247,6 +1255,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 		CamYMove(); // 카메라 Y축 계산
 	}
 
+	
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	// 콜리전 
 	std::vector<UCollision*> Result;
@@ -1328,6 +1337,7 @@ void AKirby_Player::SirJump(float _DeltaTime)
 	{
 		CamYMove(); // 카메라 Y축 계산
 	}
+
 	// 추락해서 바닥과 충돌할 경우
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0))
@@ -1590,11 +1600,17 @@ void AKirby_Player::Walk(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('S'))
+	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 60, Color8Bit::MagentaA);
+	if (ColorM != Color8Bit(255, 0, 255, 0))
 	{
-		JumpVector = JumpPowerMove;
-		StateAniChange(EActorState::Jump);
-		return;
+		if (
+			true == UEngineInput::IsDown('S')
+			)
+		{
+			JumpVector = JumpPowerIdle;
+			StateAniChange(EActorState::Jump);
+			return;
+		}
 	}
 
 
@@ -1653,11 +1669,17 @@ void AKirby_Player::Run(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('S'))
+	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 60, Color8Bit::MagentaA);
+	if (ColorM != Color8Bit(255, 0, 255, 0))
 	{
-		JumpVector = JumpPowerMove;
-		StateAniChange(EActorState::Jump);
-		return;
+		if (
+			true == UEngineInput::IsDown('S')
+			)
+		{
+			JumpVector = JumpPowerIdle;
+			StateAniChange(EActorState::Jump);
+			return;
+		}
 	}
 
 	MoveUpdate(_DeltaTime, MovePos);

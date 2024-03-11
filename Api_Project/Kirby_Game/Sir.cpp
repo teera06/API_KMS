@@ -222,6 +222,10 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->Destroy(0.3f);
 			StartDir = StartDir * FVector::Left;
 		}
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) || true == SirCollision->CollisionCheck(ECollisionOrder::SubBoss, Result) || true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result))
+		{
+			StartDir = StartDir * FVector::Left;
+        }
 		
 		
 		
