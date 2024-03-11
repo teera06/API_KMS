@@ -34,6 +34,6 @@ private:
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 
-	AIceBox* NewIceBox[3] = { nullptr,nullptr,nullptr };
+	AIceBox* NewIceBox[5] = { nullptr,nullptr,nullptr,nullptr };
 };
 

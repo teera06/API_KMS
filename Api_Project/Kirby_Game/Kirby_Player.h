@@ -170,6 +170,7 @@ private:
 	UImageRenderer* SoundRenderer = nullptr; // 커비 랜더링 (이미지)
 	
 	UCollision* KirbyCollision = nullptr; // 커비 콜리전 (충돌)
+	UCollision* BoxCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* FireCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* MikeCollision = nullptr; // 커비 콜리전 (충돌)
 	UCollision* HammerCollision = nullptr; // 커비 콜리전 (충돌)

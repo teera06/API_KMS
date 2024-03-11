@@ -78,18 +78,22 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,300 });
 	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
 	SpawnActor<ABox>()->SetActorLocation({ 2000,100 });
+
 	NewIceBox[0] = SpawnActor<AIceBox>();
-	NewIceBox[0]->SetActorLocation({ 1200,400 });
+	NewIceBox[0]->SetActorLocation({ 800,400 });
 
 	NewIceBox[1] = SpawnActor<AIceBox>();
-	NewIceBox[1]->SetActorLocation({ 1200,100 });
+	NewIceBox[1]->SetActorLocation({ 1200,400 });
 
 	NewIceBox[2] = SpawnActor<AIceBox>();
-	NewIceBox[2]->SetActorLocation({ 1200,50 });
-	NewIceBox[2]->SetIsItem(true);
+	NewIceBox[2]->SetActorLocation({ 1200,100 });
+
+	NewIceBox[3] = SpawnActor<AIceBox>();
+	NewIceBox[3]->SetActorLocation({ 1200,50 });
+	NewIceBox[3]->SetIsItem(true);
 	GEngine->CreateLevel<ULastBoss_Level>("LastBoss_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 

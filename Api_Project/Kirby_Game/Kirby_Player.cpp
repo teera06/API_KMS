@@ -76,6 +76,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
 		KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
 	}
 
 	{
@@ -116,6 +117,10 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyCollision = CreateCollision(ECollisionOrder::kirby); 
 		KirbyCollision->SetScale({ 60, 60 });
 		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
+
+		BoxCollision = CreateCollision(ECollisionOrder::kirby);
+		BoxCollision->SetScale({ 60, 60 });
+		BoxCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
 	}
 
 	{
@@ -532,7 +537,7 @@ void AKirby_Player::CalGravityVector(float _DeltaTime)
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == KirbyCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // ColMapImage에서 빨간색과 일치하는 경우
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}
@@ -587,7 +592,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	Color8Bit ColorBend = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlackA);
 
 	std::vector<UCollision*> Result;
-	if (true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos*FVector::Right) || true == KirbyCollision->CollisionCheck(ECollisionOrder::Box, Result, MovePos * FVector::Right))
+	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos*FVector::Right) || true == BoxCollision->CollisionCheck(ECollisionOrder::Box, Result, MovePos * FVector::Right))
 	{
 		return;
 	}
@@ -1259,7 +1264,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	// 콜리전 
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == KirbyCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // 픽셀 충돌 -> 점프 후 착지할때
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true ==BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
 		JumpVector = FVector::Zero; // 점프력 힘은 0
 
@@ -1469,7 +1474,7 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	// 추락해서 바닥과 충돌할 경우
 	std::vector<UCollision*> Result;
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == KirbyCollision->CollisionCheck(ECollisionOrder::BoxTop, Result))
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result))
 	{
 		JumpVector = FVector::Zero;
 		RunState = false;
@@ -1501,6 +1506,7 @@ void AKirby_Player::hit(float _DeltaTime)
 
 	KirbyRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	FVector Move = FVector::Zero;
+	FVector Gravit = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
 	JumpVector = FVector::Zero; // 점프 도중에 충돌할 경우 -> 점프력 0
 
 	
@@ -1523,14 +1529,23 @@ void AKirby_Player::hit(float _DeltaTime)
 		Move = FVector::Zero;
 	}
 
-	if (ColorR == Color8Bit(255, 0, 0, 0)) // 3스테이지 특정 이벤트 한정 벽 추가
+	std::vector<UCollision*> Result;
+	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
+		Gravit = FVector::Zero;
 		Move = FVector::Zero;
 	}
 
+	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) || true == BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result))
+	{
+		Gravit = FVector::Zero;
+		Move = FVector::Zero;
+	}
+	
+
 	// 커비 충돌 시 이동 제어
 	AddActorLocation(Move);
-	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
+	AddActorLocation(Gravit); // 공중에서 충돌할 수 있기에 중력 작용
 	FlyState = false; // 날다가 추락할 경우
 	SkillOn = false;
 	FireRenderer1->ActiveOff();

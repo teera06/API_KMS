@@ -179,6 +179,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		}
 
 		item->SetIsDelete(true);
+		Destroy();
 	}
 
 
