@@ -118,7 +118,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		KirbyCollision->SetScale({ 60, 60 });
 		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
 
-		BoxCollision = CreateCollision(ECollisionOrder::kirby);
+		BoxCollision = CreateCollision(ECollisionOrder::kirbyBox);
 		BoxCollision->SetScale({ 60, 60 });
 		BoxCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
 	}

@@ -87,6 +87,7 @@ enum class ECollisionOrder
 	SirAttack,
 	MikeAttack,
 	AllStar,
+	kirbyBox,
 	kirby
 };
 
