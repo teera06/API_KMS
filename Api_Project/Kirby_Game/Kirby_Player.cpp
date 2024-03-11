@@ -86,9 +86,13 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 	}
 
 	{
-		FireRenderer= CreateImageRenderer(ERenderOrder::Fire);
-		FireRenderer->SetImage("Fire_Right.png"); // 이미지 Set//
-		FireRenderer->ActiveOff();
+		FireRenderer1= CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer1->SetImage("Fire_Right.png"); // 이미지 Set//
+		FireRenderer1->ActiveOff();
+
+		FireRenderer2 = CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer2->SetImage("Fire_Right.png"); // 이미지 Set//
+		FireRenderer2->ActiveOff();
 	}
 
 	if (StageCheck >= 3)
@@ -145,8 +149,10 @@ void AKirby_Player::Tick(float _DeltaTime)
 void AKirby_Player::AniCreate()
 {
 	effectRenderer->CreateAnimation("effect", "Effects.png", { 6,7,6,7,6,7 }, false);
-	FireRenderer->CreateAnimation("Fire_Right", "Fire_Right.png", 140, 156,0.06f, true);
-	FireRenderer->CreateAnimation("Fire_Left", "Fire_Left.png", 140, 156, 0.06f, true);
+	FireRenderer1->CreateAnimation("Fire_Right", "Fire_Right.png", 145, 148,0.1f, true);
+	FireRenderer1->CreateAnimation("Fire_Left", "Fire_Left.png", 145, 148, 0.1f, true);
+	FireRenderer2->CreateAnimation("Fire_Right", "Fire_Right.png", {149,150,151,152,153,155,156}, 0.1f, true);
+	FireRenderer2->CreateAnimation("Fire_Left", "Fire_Left.png", { 149,150,151,152,153,155,156 }, 0.1f, true);
 	// (오른쪽, 왼쪽)
 	// (1) Base
 	// 기본 서있는 모션(완)
@@ -1500,7 +1506,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	AddActorLocation(GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime)); // 공중에서 충돌할 수 있기에 중력 작용
 	FlyState = false; // 날다가 추락할 경우
 	SkillOn = false;
-	FireRenderer->ActiveOff();
+	FireRenderer1->ActiveOff();
 	FireCollision->ActiveOff();
 
 	if (StageCheck == 3)
@@ -1973,17 +1979,22 @@ void AKirby_Player::FireReady(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd()) //  해당 애니메이션 종료 후
 	{
-		FireRenderer->ActiveOn();
+		FireRenderer1->ActiveOn();
+		FireRenderer2->ActiveOn();
 		FireCollision->ActiveOn();
 		if (DirState == EActorDir::Left)
 		{
-			FireRenderer->ChangeAnimation("Fire_Left");
-			FireRenderer->SetTransform({ { -140, 5}, { 64 * 6,64 * 4 } });
+			FireRenderer1->ChangeAnimation("Fire_Left");
+			FireRenderer2->ChangeAnimation("Fire_Left");
+			FireRenderer1->SetTransform({ { -140, 5}, { 64 * 6,64 * 4 } });
+			FireRenderer2->SetTransform({ { -155, 5}, { 64 * 6,64 * 4 } });
 			FireCollision->SetTransform({ {-140,-5},{100,70} });
 		}
 		else {
-			FireRenderer->ChangeAnimation("Fire_RIght");
-			FireRenderer->SetTransform({ { 140,5}, { 64 * 6,64 * 4} });
+			FireRenderer1->ChangeAnimation("Fire_Right");
+			FireRenderer2->ChangeAnimation("Fire_Right");
+			FireRenderer1->SetTransform({ { 140,5}, { 64 * 6,64 * 4} });
+			FireRenderer2->SetTransform({ { 155, 5}, { 64 * 6,64 * 4 } });
 			FireCollision->SetTransform({ {140,-5},{100,70} });
 		}
 		StateAniChange(EActorState::FireAttack); // 날기로 전환
@@ -2056,7 +2067,8 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
-		FireRenderer->ActiveOff();
+		FireRenderer1->ActiveOff();
+		FireRenderer2->ActiveOff();
 		FireCollision->ActiveOff();
 		StateAniChange(EActorState::Idle);
 		return;
