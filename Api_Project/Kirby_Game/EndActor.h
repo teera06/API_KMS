@@ -1,5 +1,8 @@
 #pragma once
-class EndActor
+#include <EngineCore\Actor.h>
+#include<EngineCore/EngineCore.h>
+
+class EndActor : public AActor
 {
 public:
 	// constrcuter destructer
@@ -13,7 +16,11 @@ public:
 	EndActor& operator=(EndActor&& _Other) noexcept = delete;
 
 protected:
-
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 private:
+	UImageRenderer* EndRenderer = nullptr;
+	FVector windowScale = GEngine->MainWindow.GetWindowScale();
+
 };
 
