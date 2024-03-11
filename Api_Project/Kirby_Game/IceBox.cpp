@@ -67,6 +67,10 @@ void AIceBox::Tick(float _DeltaTime)
 		Destroy();
 	}
 
+	if (true == CollisionItem->IsActive())
+	{
+		ItemCollisiongather();
+	}
 
 	Collisiongather(_DeltaTime);
 
@@ -102,6 +106,16 @@ void AIceBox::Collisiongather(float _DeltaTime)
 	}
 
 	AddActorLocation(GravityVector);
+}
+
+void AIceBox::ItemCollisiongather()
+{
+	std::vector<UCollision*> Result;
+	if (true == CollisionItem->CollisionCheck(ECollisionOrder::kirby, Result, GravityVector)) // ColMapImage에서 빨간색과 일치하는 경우
+	{
+		MainPlayer->SetHp(100);
+		Destroy();
+	}
 }
 
 
