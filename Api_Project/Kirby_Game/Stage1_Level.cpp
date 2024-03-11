@@ -99,7 +99,6 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 	// 맵 생성
 	NewMap = SpawnActor<AStage1_MAP>();
 	NewMap->SetMapImage("stage1_map.png");
-	//Map->SetMapImage("stage2_map.png");
 	NewMap->SetColMapImage("cor_map.png");
 	NewMap->SwitchDebug();
 
@@ -124,11 +123,12 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 		NewIce[i]->SetActorLocation({ 1100 + i * 800,800 });
 	}
 
-	for (int i = 0; i < Firesize; i++)
-	{
-		NewFire[i] = SpawnActor<AMonster_Fire>();
-		NewFire[i]->SetActorLocation({ 1000 + i * 1000,600 + i * -150 });
-	}
+	NewFire[0] = SpawnActor<AMonster_Fire>();
+	NewFire[0]->SetActorLocation({ 1000,600 });
+
+	NewFire[1] = SpawnActor<AMonster_Fire>();
+	NewFire[1]->SetActorLocation({ 3000,400 });
+	
 	
 	GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage2_Level 다음 레벨 미리 준비
 }
