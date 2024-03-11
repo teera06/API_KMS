@@ -56,6 +56,7 @@ void UStage1_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("effect_Right.png", 8, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("effect_Left.png", 8, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Effects2_Right.png", 10, 4);
+	UEngineResourcesManager::GetInst().CuttingImage("Effects2_Left.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Right.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Left.png", 10, 4);
 	UEngineResourcesManager::GetInst().CuttingImage("changeHUD.png", 5, 2);
