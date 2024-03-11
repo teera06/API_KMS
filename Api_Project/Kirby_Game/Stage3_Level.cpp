@@ -9,6 +9,7 @@
 #include "Monster_Fire.h"
 #include "pengi_Ice.h"
 #include "IceBox.h"
+#include "Box.h"
 
 #include "SubBoss.h"
 
@@ -80,6 +81,7 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 700,300 });
 	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
+	SpawnActor<ABox>()->SetActorLocation({ 2000,100 });
 	NewIceBox[0] = SpawnActor<AIceBox>();
 	NewIceBox[0]->SetActorLocation({ 1200,400 });
 

@@ -92,6 +92,9 @@
     <ClCompile Include="IceBox.cpp">
       <Filter>Stage_Actor\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Stage_Actor\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -184,6 +187,9 @@
       <Filter>Title_End_Actor</Filter>
     </ClInclude>
     <ClInclude Include="IceBox.h">
+      <Filter>Stage_Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
       <Filter>Stage_Actor\Object</Filter>
     </ClInclude>
   </ItemGroup>

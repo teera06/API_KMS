@@ -75,6 +75,8 @@ enum class ECollisionOrder
 	Hammer,
 	IceBox,
 	IceBoxTop,
+	Box,
+	BoxTop,
 	Item,
 	SubBoss,
 	MainBoss,
