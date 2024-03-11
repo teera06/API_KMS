@@ -138,7 +138,7 @@ void AMonster_Fire::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Flamer_Right.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("die_Left", "Flamer_Left.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
-	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)

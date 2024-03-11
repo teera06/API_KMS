@@ -80,7 +80,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	{
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
-		effectRenderer->SetImage("Effects.png"); // 이미지 Set//
+		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
 		effectRenderer->ActiveOff();
 	}
@@ -152,7 +152,7 @@ void AKirby_Player::Tick(float _DeltaTime)
 // 애니메이션 생성 관리
 void AKirby_Player::AniCreate()
 {
-	effectRenderer->CreateAnimation("effect", "Effects.png", { 6,7,6,7,6,7 }, false);
+	effectRenderer->CreateAnimation("effect", "Effects2_Right.png", { 6,7,6,7,6,7 }, false);
 	FireRenderer1->CreateAnimation("Fire_Right", "Fire_Right.png", 145, 148,0.1f, true);
 	FireRenderer1->CreateAnimation("Fire_Left", "Fire_Left.png", 145, 148, 0.1f, true);
 	FireRenderer2->CreateAnimation("Fire_Right", "Fire_Right.png", {149,150,151,152,153,155,156}, 0.15f, true);

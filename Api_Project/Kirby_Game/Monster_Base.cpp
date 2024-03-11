@@ -88,7 +88,7 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
 void AMonster_Base::IceToMonster(float _DeltaTime) // 얼음인 상태에서 다른 몬스터와의 충돌 관리

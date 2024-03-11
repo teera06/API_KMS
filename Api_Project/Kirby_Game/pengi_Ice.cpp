@@ -68,7 +68,7 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Pengi_Left.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
-	MonsterRenderer->CreateAnimation("Effect", "Effects.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
 void Apengi_Ice::IceToMonster(float _DeltaTime)
