@@ -195,7 +195,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		}
 		else {
 			CalDir(_DeltaTime);
-			//Collisiongather(_DeltaTime);
+			Collisiongather(_DeltaTime);
 			CalResult(_DeltaTime);
 		}
 	}
