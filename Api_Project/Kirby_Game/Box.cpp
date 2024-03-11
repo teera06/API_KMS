@@ -22,11 +22,11 @@ void ABox::BeginPlay()
 
 	// ÄÝ¸®Àü
 	{
-		CollisionTop = CreateCollision(ECollisionOrder::IceBoxTop);
+		CollisionTop = CreateCollision(ECollisionOrder::BoxTop);
 		CollisionTop->SetTransform({ { 0,-100},{100,20} });
 		CollisionTop->SetColType(ECollisionType::Rect);
 
-		CollisionBody = CreateCollision(ECollisionOrder::IceBox);
+		CollisionBody = CreateCollision(ECollisionOrder::Box);
 		CollisionBody->SetTransform({ { 0,-35},{140,100} });
 		CollisionBody->SetColType(ECollisionType::Rect);
 
