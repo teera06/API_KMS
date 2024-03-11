@@ -1607,7 +1607,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
-			JumpVector = JumpPowerIdle;
+			JumpVector = JumpPowerMove;
 			StateAniChange(EActorState::Jump);
 			return;
 		}
@@ -1676,7 +1676,7 @@ void AKirby_Player::Run(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
-			JumpVector = JumpPowerIdle;
+			JumpVector = JumpPowerMove;
 			StateAniChange(EActorState::Jump);
 			return;
 		}
