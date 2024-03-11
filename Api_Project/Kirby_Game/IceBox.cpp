@@ -16,7 +16,7 @@ void AIceBox::BeginPlay()
 	// 랜더링
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
-		Renderer->SetImage("Ice_Right.png"); // 이미지 Set
+		Renderer->SetImage("item.png"); // 이미지 Set
 		Renderer->SetTransform({ {0,40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
@@ -27,7 +27,7 @@ void AIceBox::BeginPlay()
 		Collision->SetColType(ECollisionType::Rect);
 	}
 
-	Renderer->CreateAnimation("IceBox", "Ice_Right.png", 108, 108, true);
+	Renderer->CreateAnimation("IceBox", "item.png", 1, 1, true);
 	Renderer->ChangeAnimation("IceBox");
 }
 
