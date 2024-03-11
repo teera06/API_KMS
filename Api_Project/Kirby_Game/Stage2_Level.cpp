@@ -7,6 +7,7 @@
 #include "Monster_Base.h"
 #include "Monster_Fire.h"
 #include "Monster_Sir.h"
+#include "Box.h"
 
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
@@ -47,6 +48,7 @@ void UStage2_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Sir_Left.png", 10, 10);
 	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Right.png", 5, 5);
 	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Left.png", 5, 5);
+	UEngineResourcesManager::GetInst().CuttingImage("item.png", 3, 1);
 }
 
 void UStage2_Level::Tick(float _DeltaTime)
@@ -70,7 +72,6 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 	NewPlayer->SetActorLocation({ 500,1200 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
-
 
 	NewBase[0] = SpawnActor<AMonster_Base>();
 	NewBase[0]->SetActorLocation({ 700,1000 });
@@ -97,6 +98,7 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 	NewSir[1] = SpawnActor<AMonster_Sir>();
 	NewSir[1]->SetActorLocation({ 4800,1000 });
 	
+	SpawnActor<ABox>()->SetActorLocation({ 3370,1000 });;
 	GEngine->CreateLevel<UStage3_Level>("Stage3_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 

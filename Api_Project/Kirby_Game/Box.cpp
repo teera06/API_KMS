@@ -12,22 +12,22 @@ void ABox::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	scale = 5; // 평소 크기
+	scale = 3; // 평소 크기
 	// 랜더링
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
 		Renderer->SetImage("item.png"); // 이미지 Set
-		Renderer->SetTransform({ {0,-40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		Renderer->SetTransform({ {0,-20}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
 	// 콜리전
 	{
 		CollisionTop = CreateCollision(ECollisionOrder::BoxTop);
-		CollisionTop->SetTransform({ { 0,-100},{100,20} });
+		CollisionTop->SetTransform({ { 0,-55},{100,20} });
 		CollisionTop->SetColType(ECollisionType::Rect);
 
 		CollisionBody = CreateCollision(ECollisionOrder::Box);
-		CollisionBody->SetTransform({ { 0,-35},{140,100} });
+		CollisionBody->SetTransform({ { 0,-10},{100,80} });
 		CollisionBody->SetColType(ECollisionType::Rect);
 
 		CollisionItem = CreateCollision(ECollisionOrder::Item);
