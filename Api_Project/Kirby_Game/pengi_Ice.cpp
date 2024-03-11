@@ -238,6 +238,11 @@ void Apengi_Ice::CalResult(float _DeltaTime)
 	else {
 		if (false == IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
 		{
+			std::vector<UCollision*> Result;
+			if (true == MonsterCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos * FVector::Right))
+			{
+				return;
+			}
 			AddActorLocation(MovePos);
 		}
 		else {
