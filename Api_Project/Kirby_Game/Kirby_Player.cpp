@@ -1836,16 +1836,16 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		AActor* Ptr = Collision->GetOwner();
 		AMainBoss* Monster = dynamic_cast<AMainBoss*>(Ptr);
 
-		Monster->SetIshit(true);
-
 		if (nullptr == Monster)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
-		//Monster->SetIshit(true);
 
-	
 		Monster->AddHP(HammerAtt);
+		if (HammerAtt == -30)
+		{
+			Monster->SetIshit(true);
+		}
 		//Monster->GetMonsterCollision()->ActiveOff();
 		HammerCollision->ActiveOff();
 		//Monster->GetMonsterRenderer()->SetAlpha(0.5f);
