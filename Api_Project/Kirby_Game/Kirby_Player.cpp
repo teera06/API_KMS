@@ -2197,10 +2197,20 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 		if (DirState == EActorDir::Left)
 		{
 			Move=FVector::Left * checkSpeed * _DeltaTime;
+			hitwallx = -20;
 		}
 		else {
 			Move = FVector::Right * checkSpeed * _DeltaTime;
+			hitwallx = 20;
 		}
+
+		Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + hitwallx, GetActorLocation().iY() - 20, Color8Bit::RedA);
+
+		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽(Red)랑 충돌인 경우 -> 움직이는 값 0
+		{
+			Move = FVector::Zero;
+		}
+
 		AddActorLocation(Move);
 	}
 
