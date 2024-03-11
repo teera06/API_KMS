@@ -592,7 +592,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 	Color8Bit ColorBend = UActorCommon::ColMapImage->GetColor(CamCheckPos.iX(), CamCheckPos.iY(), Color8Bit::BlackA);
 
 	std::vector<UCollision*> Result;
-	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos*FVector::Right) || true == BoxCollision->CollisionCheck(ECollisionOrder::Box, Result, MovePos * FVector::Right))
+	if (true == BoxCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos) || true == BoxCollision->CollisionCheck(ECollisionOrder::Box, Result, MovePos))
 	{
 		return;
 	}
