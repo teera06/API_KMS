@@ -18,6 +18,12 @@ void ABox::BeginPlay()
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
 		Renderer->SetImage("item.png"); // 이미지 Set
 		Renderer->SetTransform({ {0,-20}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		hitRenderer = CreateImageRenderer(ERenderOrder::effect); // 이미지 랜더 생성
+		hitRenderer->SetImage("Effects2_Right.png"); // 이미지 Set
+		hitRenderer->SetTransform({ {0,-20}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
+		hitRenderer->CreateAnimation("Effect", "Effects2_Right.png", {27,26,25},0.1f, true);
+		hitRenderer->ActiveOff();
 	}
 
 	// 콜리전
@@ -50,6 +56,10 @@ void ABox::Tick(float _DeltaTime)
 	if (true == IsItem && true == IsDelete)
 	{
 		ItemDrop();
+		if (true == hitRenderer->IsCurAnimationEnd())
+		{
+			hitRenderer->ActiveOff();
+		}
 	}
 	else if (false == IsItem && true == IsDelete)
 	{
@@ -109,6 +119,8 @@ void ABox::ItemCollisiongather()
 
 void ABox::ItemDrop()
 {
+	hitRenderer->ActiveOn();
+	hitRenderer->ChangeAnimation("Effect");
 	scale = 2;
 	Renderer->ChangeAnimation("Item");
 	Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 

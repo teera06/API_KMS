@@ -240,6 +240,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			}
 
 			item->SetIsDelete(true);
+			StartDir = StartDir * FVector::Left;
 		}
 		
 		

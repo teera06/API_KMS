@@ -35,6 +35,7 @@ private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* Renderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* hitRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* CollisionTop = nullptr;
 	UCollision* CollisionBody = nullptr;
 	UCollision* CollisionItem = nullptr;
