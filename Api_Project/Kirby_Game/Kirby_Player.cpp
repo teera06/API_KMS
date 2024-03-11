@@ -1841,15 +1841,11 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 
+		Monster->SetIshit(true);
 		Monster->AddHP(HammerAtt);
-		if (HammerAtt == -30)
-		{
-			Monster->SetIshit(true);
-		}
-		//Monster->GetMonsterCollision()->ActiveOff();
+		
+		
 		HammerCollision->ActiveOff();
-		Monster->GetMonsterRenderer()->SetAlpha(0.5f);
-		//Monster->GetMonsterCollision()->ActiveOff();
 	}
 }
 

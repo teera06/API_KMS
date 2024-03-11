@@ -81,7 +81,6 @@ void AMainBoss::Tick(float _DeltaTime)
 	{
 		if (false == Ishit) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
 		{
-			MonsterRenderer->SetAlpha(1.0f);
 			MoveUpdate(_DeltaTime);
 		}
 		else {
@@ -124,20 +123,20 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		if (true == Att4Ready)
 		{
 			MonsterCollision->ActiveOn();
-			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
-			{
-				MonsterRenderer->ChangeAnimation("Att4_Left");
-			}
-			else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
-				MonsterRenderer->ChangeAnimation("Att4_Right");
-			}
+				if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
+				{
+					MonsterRenderer->ChangeAnimation("Att4_Left");
+				}
+				else if (MonsterDirNormal.iX() == 1) { // 오른쪽 방향
+					MonsterRenderer->ChangeAnimation("Att4_Right");
+				}
 
-			if (true == MonsterRenderer->IsCurAnimationEnd())
-			{
-				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
-				IsIce = false;
-				Att4Ready = false;;
-			}
+				if (true == MonsterRenderer->IsCurAnimationEnd())
+				{
+					RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
+					IsIce = false;
+					Att4Ready = false;;
+				}
 		}
 		else if (true == Att3Delay)
 		{
@@ -338,7 +337,7 @@ void AMainBoss::Att2()
 		}
 		Att2Renderer->ActiveOn();
 		IsAtt = false;
-		skillcooldowntime = 7.0f;
+		skillcooldowntime = 5.5f;
 		Att2Delay = true;
 	}
 	
@@ -378,7 +377,7 @@ void AMainBoss::Att3(float _DeltaTime)
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		IsAtt = false;
-		skillcooldowntime = 7.0f;
+		skillcooldowntime = 5.5f;
 		Att3Delay = true;
 		MonsterCollision->ActiveOn();
 		Att3Collision->ActiveOff();
