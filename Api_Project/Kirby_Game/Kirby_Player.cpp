@@ -532,7 +532,7 @@ void AKirby_Player::CalGravityVector(float _DeltaTime)
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result)) // ColMapImage에서 빨간색과 일치하는 경우
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}
@@ -1250,7 +1250,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	// 콜리전 
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result)) // 픽셀 충돌 -> 점프 후 착지할때
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
 		JumpVector = FVector::Zero; // 점프력 힘은 0
 
@@ -1459,7 +1459,7 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	// 추락해서 바닥과 충돌할 경우
 	std::vector<UCollision*> Result;
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBox, Result))
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == KirbyCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result))
 	{
 		JumpVector = FVector::Zero;
 		RunState = false;

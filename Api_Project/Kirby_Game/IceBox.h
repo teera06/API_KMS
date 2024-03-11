@@ -24,7 +24,8 @@ protected:
 private:
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* Renderer = nullptr; // 커비 랜더링 (이미지)
-	UCollision* Collision = nullptr;
+	UCollision* CollisionTop = nullptr;
+	UCollision* CollisionBody = nullptr;
 	FVector GravityVector = FVector::Zero; // 중력값 받기
 
 	void GroundUp();

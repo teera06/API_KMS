@@ -22,9 +22,13 @@ void AIceBox::BeginPlay()
 
 	// 콜리전
 	{
-		Collision = CreateCollision(ECollisionOrder::IceBox);
-		Collision->SetTransform({ { 0,-35},{140,140} });
-		Collision->SetColType(ECollisionType::Rect);
+		CollisionTop = CreateCollision(ECollisionOrder::IceBoxTop);
+		CollisionTop->SetTransform({ { 0,-100},{100,20} });
+		CollisionTop->SetColType(ECollisionType::Rect);
+
+		CollisionBody = CreateCollision(ECollisionOrder::IceBox);
+		CollisionBody->SetTransform({ { 0,-35},{140,100} });
+		CollisionBody->SetColType(ECollisionType::Rect);
 	}
 
 	Renderer->CreateAnimation("IceBox", "item.png", 1, 1, true);
@@ -40,7 +44,7 @@ void AIceBox::Tick(float _DeltaTime)
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == Collision->CollisionCheck(ECollisionOrder::IceBox, Result)) // ColMapImage에서 빨간색과 일치하는 경우
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == CollisionBody->CollisionCheck(ECollisionOrder::IceBoxTop, Result, GravityVector)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}

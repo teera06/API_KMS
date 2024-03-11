@@ -73,6 +73,7 @@ enum class ECollisionOrder
 	SirMonster,
 	MikeMonster,
 	Hammer,
+	IceBoxTop,
 	IceBox,
 	SubBoss,
 	MainBoss,
