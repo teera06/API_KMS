@@ -36,6 +36,11 @@ public:
 		return Hp;
 	}
 
+	bool GetEndingChange() const
+	{
+		return EndingChange;
+	}
+
 	void AddHP(const int& _Value)
 	{
 		Hp += _Value;
@@ -82,6 +87,8 @@ private:
 	bool Att3Delay = false;
 	bool Att2Delay = false;
 	bool Att4Ready = false;
+
+	bool EndingChange = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 

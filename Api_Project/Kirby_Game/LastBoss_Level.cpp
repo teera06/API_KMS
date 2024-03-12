@@ -62,6 +62,12 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 		NewMainBoss->SetActorLocation({ 900,150 });
 		NewMainBoss->ActiveOn();
 	}
+
+	if (NewMainBoss->GetHp() <= 0 && true == NewMainBoss->GetEndingChange() && false == LevelChange)
+	{
+		LevelChange = true;
+		GEngine->ChangeLevel("Ending_Level");
+	}
 }
 
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)

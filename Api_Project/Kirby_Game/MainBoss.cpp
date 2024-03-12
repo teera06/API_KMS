@@ -75,6 +75,7 @@ void AMainBoss::Tick(float _DeltaTime)
 		if (true == MonsterRenderer->IsCurAnimationEnd())
 		{
 			MonsterCollision->ActiveOff();
+			EndingChange = true;
 		}
 	}
 	else 

@@ -2311,7 +2311,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 			}
 			else { // 보스와 전투 끝난후 -> 카메라 셋팅
 				MainBossActive = false;
-				//GetWorld()->SetCameraPos({ GetWorld()->GetCameraPos().iX() - 500,0 });
 			}
 		}
 

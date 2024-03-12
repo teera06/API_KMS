@@ -37,5 +37,6 @@ private:
 	ABossHpBar* NewBossHpBar = nullptr;
 
 	bool EventCheck = false;
+	bool LevelChange = false;
 };
 
