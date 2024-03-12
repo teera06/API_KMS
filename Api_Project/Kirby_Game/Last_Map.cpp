@@ -51,6 +51,20 @@ void ALast_Map::BeginPlay()
 	MapRenderer = CreateImageRenderer(ERenderOrder::Last_Map); // 이미지 랜더 생성
 	MapColRenderer = CreateImageRenderer(ERenderOrder::Last_Map); // 이미지 랜더 생성
 	MapRenderer->ActiveOff();
+
+	
+	//EventRenderer->SetImage("test.png");
+	EventRenderer1 = CreateImageRenderer(ERenderOrder::Last_Map);
+	
+	EventRenderer1->SetTransform({ {600,300}, {1200,800} });
+	EventRenderer1->CreateAnimation("EndingMap1", "EndingMap.png", 0, 6, 1.0f, false); // 걷기
+	EventRenderer1->ActiveOff();
+
+	EventRenderer2 = CreateImageRenderer(ERenderOrder::EventMap);
+
+	EventRenderer2->SetTransform({ {600,300}, {1200,800} });
+	EventRenderer2->CreateAnimation("EndingMap2", "EndingMap.png", 4, 6, 1.0f, false); // 걷기
+	EventRenderer2->ActiveOff();
 }
 
 void ALast_Map::Tick(float _DeltaTime)

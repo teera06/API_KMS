@@ -20,6 +20,15 @@ public:
 
 	void SwitchDebug();
 
+	UImageRenderer* GetEventRenderer1()
+	{
+		return EventRenderer1;
+	}
+
+	UImageRenderer* GetEventRenderer2()
+	{
+		return EventRenderer2;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -29,5 +38,8 @@ private:
 
 	UImageRenderer* MapRenderer = nullptr; // ·»´õ¸µ
 	UImageRenderer* MapColRenderer = nullptr; // ÄÝ¸®Àü -> ÇÈ¼¿ Ãæµ¹
+
+	UImageRenderer* EventRenderer1 = nullptr; // ·»´õ¸µ
+	UImageRenderer* EventRenderer2 = nullptr; // ·»´õ¸µ
 };
 

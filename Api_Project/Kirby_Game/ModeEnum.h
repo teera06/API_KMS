@@ -63,6 +63,7 @@ enum class ERenderOrder
 	HPgauge,
 	State,
 	effect,
+	EventMap
 };
 
 enum class ECollisionOrder

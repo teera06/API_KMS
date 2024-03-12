@@ -49,6 +49,7 @@ void ULastBoss_Level::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Hammer_Left.png", 10, 13);
 	UEngineResourcesManager::GetInst().CuttingImage("King_Right.png", 10, 8);
 	UEngineResourcesManager::GetInst().CuttingImage("King_Left.png", 10, 8);
+	UEngineResourcesManager::GetInst().CuttingImage("EndingMap.png", 3, 3);
 }
 
 void ULastBoss_Level::Tick(float _DeltaTime)
@@ -65,8 +66,20 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 
 	if (NewMainBoss->GetHp() <= 0 && true == NewMainBoss->GetEndingChange() && false == LevelChange)
 	{
-		LevelChange = true;
-		GEngine->ChangeLevel("Ending_Level");
+		NewMap->GetEventRenderer1()->ActiveOn();
+		NewMap->GetEventRenderer1()->ChangeAnimation("EndingMap1");
+		if (true == NewMap->GetEventRenderer1()->IsCurAnimationEnd())
+		{
+			GEngine->ChangeLevel("Ending_Level");
+			LevelChange = true;
+		}
+
+		if (false == AniEnd)
+		{
+			AniEnd = true;
+			NewMap->GetEventRenderer2()->SetActive(true, 4.0f);
+			NewMap->GetEventRenderer2()->ChangeAnimation("EndingMap2");
+		}
 	}
 }
 
