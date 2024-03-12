@@ -24,9 +24,14 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
-	float Speed = 500.0f;
 	UImageRenderer* AllStarRenderer = nullptr;
 	UCollision* AllStarCollision = nullptr;
+
+	FVector Move = FVector::Zero;
+	float Speed = 500.0f;
+
+	bool hit = false;
+	bool hit2 = false;
 
 	void Collisiongather(float _DeltaTime);
 	void CalDir();

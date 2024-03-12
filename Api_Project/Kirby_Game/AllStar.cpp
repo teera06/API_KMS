@@ -20,10 +20,21 @@ AAllStar::~AAllStar()
 void AAllStar::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-	AddActorLocation(GetDir() * Speed * _DeltaTime);
 
-	CalDir();
-	Collisiongather(_DeltaTime);
+	Move = GetDir() * Speed * _DeltaTime;
+	if (true == hit && false==hit2)
+	{
+		hit2 = true;
+		Move = FVector::Zero;
+		AllStarRenderer->ChangeAnimation("Effect");
+		Destroy(0.1f);
+	}
+	else if (false == hit2)
+	{
+		CalDir();
+		Collisiongather(_DeltaTime);
+		AddActorLocation(Move);
+	}
 }
 
 void AAllStar::BeginPlay()
@@ -36,6 +47,7 @@ void AAllStar::BeginPlay()
 		AllStarRenderer->SetActive(true, 0.1f);
 
 		AllStarRenderer->CreateAnimation("AllAttack_Right", "kirby2_Right.png", 54, 57, 0.1f, true);
+		AllStarRenderer->CreateAnimation("Effect", "Effects2_Left.png", 11, 11, true);
 
 		AllStarRenderer->ChangeAnimation("AllAttack_Right");
 	}
@@ -79,7 +91,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -106,7 +118,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -133,7 +145,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 	{
@@ -160,7 +172,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
-		Destroy();
+		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) 
 		|| true == AllStarCollision->CollisionCheck(ECollisionOrder::SubBoss, Result)
@@ -168,7 +180,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		|| true == AllStarCollision->CollisionCheck(ECollisionOrder::MainBoss, Result)
 		)
 	{
-		Destroy();
+		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Box, Result))
 	{
@@ -183,7 +195,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		}
 
 		item->SetIsDelete(true);
-		Destroy();
+		hit = true;
 	}
 
 
@@ -193,7 +205,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
-		Destroy();
+		hit = true;
 	}
 }
 
