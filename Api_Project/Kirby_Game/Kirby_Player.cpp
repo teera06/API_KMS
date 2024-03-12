@@ -2303,18 +2303,16 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 	{
 		SkillOn = false;
 		HammerCollisiongather(_DeltaTime);
-		if (true == MainBossActive)
+		if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
 		{
-			if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
-			{
-				AMainBoss::GetMainBoss()->GetMonsterCollision()->ActiveOn(); // 콜리전이 꺼져 있는 경우 다시 콜리전 온
-			}
-			else { // 보스와 전투 끝난후 -> 카메라 셋팅
-				MainBossActive = false;
-				EatState = false;
-				SetModeName("Base_");
-				SetMode(EAMode::Base);
-			}
+			AMainBoss::GetMainBoss()->GetMonsterCollision()->ActiveOn(); // 콜리전이 꺼져 있는 경우 다시 콜리전 온
+		}
+		else { // 보스와 전투 끝난후 -> 카메라 셋팅
+			EatState = false;
+			SetModeName("Base_");
+			SetMode(EAMode::Base);
+			scale = 3;
+			KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 		}
 
 		if (HammerAttOrder == 3)

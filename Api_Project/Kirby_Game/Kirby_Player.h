@@ -232,7 +232,6 @@ private:
 	bool SuBBossActive = false;
 
 	bool MainBossEvent = false;
-	bool MainBossActive = false;
 	// 특정 상태별 bool 값
 	bool FlyState = false; // 나는 상태
 	bool hitState = false; // 충돌 상태
