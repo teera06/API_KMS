@@ -32,6 +32,11 @@ void AMonster_Fire::BeginPlay()
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("Flamer_Right.png"); // 이미지 Set
 		MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
+		MonsterDieRenderer = CreateImageRenderer(ERenderOrder::effect); // 이미지 랜더 생성
+		MonsterDieRenderer->SetImage("Effects2_Left.png"); // 이미지 Set
+		MonsterDieRenderer->SetTransform({ {0,1}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		MonsterDieRenderer->ActiveOff();
 	}
 
 	// 콜리전
@@ -104,23 +109,11 @@ void AMonster_Fire::BaseMove(float _DeltaTime)
 
 		if (ColorR == Color8Bit(255, 0, 0, 0)) // 벽 픽셀 충돌
 		{
-			if (true == IsIce) // 얼음 상태일 경우
-			{
-				IceMove = FVector::Zero; // 움직임 0
-				Destroy(); // 죽음
-			}
-			else { // 아닌 경우는 방향 전환
-				StartDir.X *= -1;
-				checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
-			}
+			StartDir.X *= -1;
+			checkLocation = false; // 몬스터가 벽에 닿으면 방향전환과 동시에 다시 위치 지정
 		}
 		else { // 충돌하지 않은 경우
 			Move += StartDir * _DeltaTime * MoveSpeed;
-		}
-
-		if (true == IsIce) // 얼음 상태일 경우 기존 얼지 않은 상태의 움직임을 해서는 안된다.
-		{
-			Move = FVector::Zero;
 		}
 
 		AddActorLocation(Move); // 최종 움직임 계산
@@ -239,7 +232,7 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		if (true == GetBaseOnOff()) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
+		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
 		}
