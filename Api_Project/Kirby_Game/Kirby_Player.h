@@ -200,6 +200,8 @@ private:
 
 	FVector HitDir = FVector::Zero;
 
+	FVector MoveY = FVector::Zero;
+
 	// 행동별 속도 정리
 	float checkSpeed = 0.0f; // 최종 스피드
 
@@ -226,6 +228,9 @@ private:
 	int HammerAttCombo = 0;
 	int hitwallx = 0;
 	int AllAttcheck = 0;
+
+	// 2스테이지 한정 변수
+	bool fall = false;
 
 	// 3스테이지 한정 변수
 	bool SubBossEvent = false;

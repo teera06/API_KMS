@@ -61,7 +61,6 @@ void AKirby_Player::CamYMove() // 카메라 Y축 이동 담당
 		// 계산 후
 		CurY = GetActorLocation(); // 커비의 현재 위치 갱신
 	}
-	
 }
 
 void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
@@ -647,7 +646,7 @@ void AKirby_Player::MoveLastMoveVector(float _DeltaTime, const FVector& _MovePos
 
 	if (ColorBend == Color8Bit(0, 0, 0, 0) && StageCheck==2) 
 	{
-		GetWorld()->SetCameraPos({ 0,585 }); // 카메라 위치 설정
+		fall = true;
 		SetActorLocation({ 500,1200 });
 	}
 }
@@ -919,6 +918,12 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
+
+	if(true == fall && StageCheck == 2)
+	{
+		fall = false;
+		GetWorld()->SetCameraPos({ 0,585}); // 카메라 위치 설정
+	}
 	
 	if (HammerAttCombo > 2)
 	{
