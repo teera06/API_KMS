@@ -20,6 +20,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 private:
 	UImageRenderer* EndRenderer = nullptr;
+	UImageRenderer* KirbyRenderer = nullptr;
 	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 
 };
