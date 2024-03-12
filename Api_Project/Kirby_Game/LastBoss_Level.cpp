@@ -56,9 +56,9 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 	if (true == NewPlayer->GetMainBossEvent() && false == EventCheck)
 	{
 		EventCheck = true;
-		NewBossHpBar->SetActive(true, 1.0f);
-		NewMainBoss->SetActorLocation({ 900,100 });
-		NewMainBoss->SetActive(true, 1.0f);
+		NewBossHpBar->ActiveOn();
+		NewMainBoss->SetActorLocation({ 900,150 });
+		NewMainBoss->ActiveOn();
 	}
 }
 
