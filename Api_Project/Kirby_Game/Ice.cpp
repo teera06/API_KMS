@@ -68,8 +68,8 @@ void AIce::SkillDir()
 
 	if (Owner == EIceOwner::Boss)
 	{
-		IceCollision->SetPosition({ GetDir().iX() * 210,70 });
-		IceRenderer->SetPosition({ GetDir().iX() * 200,70 });
+		IceCollision->SetPosition({ GetDir().iX() * 210,80 });
+		IceRenderer->SetPosition({ GetDir().iX() * 200,80 });
 		IceRenderer->SetScale({128 * 5, 128 * 3} ); // 랜더의 위치 크기 
 		IceCollision->SetScale({ 300,200 });
 	}
