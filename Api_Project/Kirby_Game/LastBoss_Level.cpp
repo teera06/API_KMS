@@ -1,5 +1,7 @@
 #include "LastBoss_Level.h"
 
+#include "EndingLevel.h"
+
 #include "Last_Map.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
@@ -86,6 +88,8 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 	NewMainBoss->ActiveOff();
 	NewBossHpBar=SpawnActor<ABossHpBar>();
 	NewBossHpBar->ActiveOff();
+
+	GEngine->CreateLevel<UEndingLevel>("Ending_Level"); // stage2_Level 다음 레벨 미리 준비
 }
 
 void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)

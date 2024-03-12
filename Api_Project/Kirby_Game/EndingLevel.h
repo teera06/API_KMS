@@ -1,4 +1,6 @@
 #pragma once
+
+#include <EngineCore/EngineCore.h>
 #include <EngineCore/Level.h>
 
 class UEndingLevel : public ULevel
@@ -18,8 +20,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void LevelStart(ULevel* _Level) override;
-	void LevelEnd(ULevel* _Level) override;
+	void LevelStart(ULevel* _PrevLevel)override;
+	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
 };
 
