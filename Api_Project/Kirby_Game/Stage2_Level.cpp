@@ -26,29 +26,34 @@ void UStage2_Level::BeginPlay()
 {
 	ULevel::BeginPlay();
 
-	UEngineDirectory NewPath; // 현재 파일 경로
-
-	NewPath.MoveToSearchChild("GameResources");
-	NewPath.Move("Stage"); // 폴더 이동
-	NewPath.Move("stage2");
-	// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
-	std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
-	// png, bmp 파일 
-	// true -> 폴더 안의 폴더안에 이미지도 재귀함수로 체크
-
-	for (UEngineFile& File : AllFileList)
+	if (false == LoadCheck)
 	{
-		std::string FullPath = File.GetFullPath(); // 파일의 전체 경로
-		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
-		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
-	}
+		LoadCheck = true;
 
-	// 이미지 컷팅 -> 커비 관련 이미지
-	UEngineResourcesManager::GetInst().CuttingImage("Sir_Right.png", 10, 10);
-	UEngineResourcesManager::GetInst().CuttingImage("Sir_Left.png", 10, 10);
-	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Right.png", 5, 5);
-	UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Left.png", 5, 5);
-	UEngineResourcesManager::GetInst().CuttingImage("item.png", 3, 1);
+		UEngineDirectory NewPath; // 현재 파일 경로
+
+		NewPath.MoveToSearchChild("GameResources");
+		NewPath.Move("Stage"); // 폴더 이동
+		NewPath.Move("stage2");
+		// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
+		std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
+		// png, bmp 파일 
+		// true -> 폴더 안의 폴더안에 이미지도 재귀함수로 체크
+
+		for (UEngineFile& File : AllFileList)
+		{
+			std::string FullPath = File.GetFullPath(); // 파일의 전체 경로
+			// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
+			UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
+		}
+
+		// 이미지 컷팅 -> 커비 관련 이미지
+		UEngineResourcesManager::GetInst().CuttingImage("Sir_Right.png", 10, 10);
+		UEngineResourcesManager::GetInst().CuttingImage("Sir_Left.png", 10, 10);
+		UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Right.png", 5, 5);
+		UEngineResourcesManager::GetInst().CuttingImage("SirMonster_Left.png", 5, 5);
+		UEngineResourcesManager::GetInst().CuttingImage("item.png", 3, 1);
+	}
 }
 
 void UStage2_Level::Tick(float _DeltaTime)

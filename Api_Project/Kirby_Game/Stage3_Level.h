@@ -37,5 +37,7 @@ private:
 
 	AIceBox* NewIceBox[5] = { nullptr,nullptr,nullptr,nullptr };
 	ABox* NewBox[4] = { nullptr,nullptr,nullptr};
+
+	bool LoadCheck = false;
 };
 

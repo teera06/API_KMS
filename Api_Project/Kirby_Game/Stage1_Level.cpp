@@ -27,62 +27,66 @@ void UStage1_Level::BeginPlay()
 {
 	ULevel::BeginPlay();
 
-	UEngineDirectory NewPath; // 현재 파일 경로
-
-	NewPath.MoveToSearchChild("GameResources");
-	NewPath.Move("Stage"); // 폴더 이동
-	NewPath.Move("stage1");
-	// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
-	std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
-	// png, bmp 파일 
-	// true -> 폴더 안의 폴더안에 이미지도 재귀함수로 체크
-
-	for (UEngineFile& File : AllFileList)
+	if (false == LoadCheck)
 	{
-		std::string FullPath = File.GetFullPath(); // 파일의 전체 경로
-		// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
-		UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
+		LoadCheck = true;
+		UEngineDirectory NewPath; // 현재 파일 경로
+
+		NewPath.MoveToSearchChild("GameResources");
+		NewPath.Move("Stage"); // 폴더 이동
+		NewPath.Move("stage1");
+		// 확장자도 마찬가지 대소문자 구분을 무조건 대문자로 바꿔서 찾을것이다..
+		std::list<UEngineFile> AllFileList = NewPath.AllFile({ ".png", ".bmp" }, true);
+		// png, bmp 파일 
+		// true -> 폴더 안의 폴더안에 이미지도 재귀함수로 체크
+
+		for (UEngineFile& File : AllFileList)
+		{
+			std::string FullPath = File.GetFullPath(); // 파일의 전체 경로
+			// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
+			UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
+		}
+
+		// 이미지 컷팅 -> 커비 관련 이미지
+		UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
+		UEngineResourcesManager::GetInst().CuttingImage("kirby_Left.png", 10, 7);
+		UEngineResourcesManager::GetInst().CuttingImage("kirby2_Right.png", 10, 6);
+		UEngineResourcesManager::GetInst().CuttingImage("kirby2_Left.png", 10, 6);
+		UEngineResourcesManager::GetInst().CuttingImage("Ice_Right.png", 10, 12);
+		UEngineResourcesManager::GetInst().CuttingImage("Ice_Left.png", 10, 12);
+		UEngineResourcesManager::GetInst().CuttingImage("Fire_Right.png", 10, 16);
+		UEngineResourcesManager::GetInst().CuttingImage("Fire_Left.png", 10, 16);
+		UEngineResourcesManager::GetInst().CuttingImage("effect_Right.png", 8, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("effect_Left.png", 8, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("Effects2_Right.png", 10, 4);
+		UEngineResourcesManager::GetInst().CuttingImage("Effects2_Left.png", 10, 4);
+		UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Right.png", 10, 4);
+		UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Left.png", 10, 4);
+		UEngineResourcesManager::GetInst().CuttingImage("changeHUD.png", 5, 2);
+
+		// 이미지 컷팅 -> 몬스터 관련 이미지
+		UEngineResourcesManager::GetInst().CuttingImage("Dee_Left.png", 5, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
+		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Right.png", 5, 4);
+		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Left.png", 5, 4);
+
+		//NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
+		//NewPath.Move("sound"); // 폴더 이동
+
+		std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+		for (UEngineFile& File : testList)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
+
+		//BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
+		//BGMPlayer.Loop();
+		// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
+		// BGMPlayer.Off();
 	}
-
-	// 이미지 컷팅 -> 커비 관련 이미지
-	UEngineResourcesManager::GetInst().CuttingImage("kirby_Right.png", 10, 7);
-	UEngineResourcesManager::GetInst().CuttingImage("kirby_Left.png", 10, 7);
-	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Right.png", 10, 6);
-	UEngineResourcesManager::GetInst().CuttingImage("kirby2_Left.png", 10, 6);
-	UEngineResourcesManager::GetInst().CuttingImage("Ice_Right.png", 10, 12);
-	UEngineResourcesManager::GetInst().CuttingImage("Ice_Left.png", 10, 12);
-	UEngineResourcesManager::GetInst().CuttingImage("Fire_Right.png", 10, 16);
-	UEngineResourcesManager::GetInst().CuttingImage("Fire_Left.png", 10, 16);
-	UEngineResourcesManager::GetInst().CuttingImage("effect_Right.png", 8, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("effect_Left.png", 8, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("Effects2_Right.png", 10, 4);
-	UEngineResourcesManager::GetInst().CuttingImage("Effects2_Left.png", 10, 4);
-	UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Right.png", 10, 4);
-	UEngineResourcesManager::GetInst().CuttingImage("hitkirby_Left.png", 10, 4);
-	UEngineResourcesManager::GetInst().CuttingImage("changeHUD.png", 5, 2);
-
-	// 이미지 컷팅 -> 몬스터 관련 이미지
-	UEngineResourcesManager::GetInst().CuttingImage("Dee_Left.png", 5, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("Dee_Right.png", 5, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Right.png", 5, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("Pengi_Left.png", 5, 2);
-	UEngineResourcesManager::GetInst().CuttingImage("Flamer_Right.png", 5, 4);
-	UEngineResourcesManager::GetInst().CuttingImage("Flamer_Left.png", 5, 4);
-
-	//NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
-	//NewPath.Move("sound"); // 폴더 이동
-
-	std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
-	// 엔진만의 규칙을 정할거냐.
-	for (UEngineFile& File : testList)
-	{
-		UEngineSound::Load(File.GetFullPath());
-	}
-
-	//BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
-	//BGMPlayer.Loop();
-	// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
-	// BGMPlayer.Off();
 }
 
 void UStage1_Level::Tick(float _DeltaTime)

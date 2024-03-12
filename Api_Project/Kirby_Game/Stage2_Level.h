@@ -41,5 +41,7 @@ private:
 	const int Firesize = 4;
 	const int Sirsize = 3;
 
+	bool LoadCheck = false;
+
 };
 

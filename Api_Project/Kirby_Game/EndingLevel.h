@@ -24,5 +24,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
+
+	bool LoadCheck = false;
 };
 

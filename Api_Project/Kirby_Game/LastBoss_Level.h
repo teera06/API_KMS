@@ -39,5 +39,7 @@ private:
 	bool EventCheck = false;
 	bool AniEnd = false;
 	bool LevelChange = false;
+
+	bool LoadCheck = false;
 };
 
