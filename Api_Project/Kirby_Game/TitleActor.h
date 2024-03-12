@@ -23,6 +23,7 @@ protected:
 private:
 	UImageRenderer* TitleRenderer = nullptr;
 	UImageRenderer* LogRenderer = nullptr;
+	UImageRenderer* StartRenderer = nullptr;
 	FVector windowScale = GEngine->MainWindow.GetWindowScale();
 };
 

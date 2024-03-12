@@ -21,9 +21,16 @@ void ATitleActor::BeginPlay()
 	LogRenderer = CreateImageRenderer(ERenderOrder::Log); // 이미지 랜더 생성
 	LogRenderer->SetImage("Log.png"); // 이미지 Set
 	LogRenderer->SetTransform({ { 0,50 }, windowScale });
+
+	StartRenderer = CreateImageRenderer(ERenderOrder::Log); // 이미지 랜더 생성
+	StartRenderer->SetImage("Text.png"); // 이미지 Set
+	StartRenderer->SetTransform({ { 200,250 }, {64*10, 64*8} });
 	
 	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true); // 오른쪽 서 있기
 	TitleRenderer->ChangeAnimation("Mapback");
+
+	StartRenderer->CreateAnimation("Ready", "Text.png", 0, 10, 0.5f, false); // 오른쪽 서 있기
+	StartRenderer->ChangeAnimation("Ready");
 }
 
 void ATitleActor::Tick(float _DeltaTime)

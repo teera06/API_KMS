@@ -41,6 +41,7 @@ void UTitleLevel::BeginPlay()
 			UEngineResourcesManager::GetInst().LoadImg(FullPath); // ·Îµù -> Map(Iamges)
 		}
 		UEngineResourcesManager::GetInst().CuttingImage("Mapback.png", 5, 1);
+		UEngineResourcesManager::GetInst().CuttingImage("Text.png", 3, 4);
 	}
 }
 
