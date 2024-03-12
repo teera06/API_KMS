@@ -49,3 +49,11 @@ void UTitleLevel::Tick(float _DeltaTime)
 		GEngine->ChangeLevel("Stage1_Level");
 	}
 }
+
+void UTitleLevel::LevelStart(ULevel* _PrevLevel)
+{
+}
+
+void UTitleLevel::LevelEnd(ULevel* _NextLevel)
+{
+}
