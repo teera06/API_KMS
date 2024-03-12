@@ -53,7 +53,7 @@ void AMainBoss::BeginPlay()
 
 	{
 		Att3Collision = CreateCollision(ECollisionOrder::MainBossAtt);
-		Att3Collision->SetTransform({ {0,50}, {300, 120} });
+		Att3Collision->SetTransform({ {0,50}, {350, 350} });
 		Att3Collision->SetColType(ECollisionType::CirCle);
 		Att3Collision->ActiveOff();
 	}
