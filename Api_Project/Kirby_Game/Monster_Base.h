@@ -49,6 +49,7 @@ private:
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr; // 몬스터 콜리전
 
 	FVector StartDir = FVector::Right; // 몬스터 초반 이동 방향
@@ -70,6 +71,7 @@ private:
 	bool IsDie = false; // 죽은 상태 인지 확인
 	bool IsIce = false; // 얼음 상태인지 확인
 	bool checkLocation = false; // 현재 위치 체크
+	bool Iseffect = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 	void BaseMove(float _DeltaTime); // 몬스터 기본 움직임
