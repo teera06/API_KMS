@@ -225,6 +225,7 @@ private:
 	int HammerAtt = 0;
 	int HammerAttCombo = 0;
 	int hitwallx = 0;
+	int AllAttcheck = 0;
 
 	// 3스테이지 한정 변수
 	bool SubBossEvent = false;

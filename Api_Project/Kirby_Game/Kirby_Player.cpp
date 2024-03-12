@@ -1196,6 +1196,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		&& KirbyMode != EAMode::Hammer
 		)
 	{
+		AllAttcheck = 1;
 		scale = 3;
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 		StateAniChange(EActorState::All_Attack);
@@ -1230,6 +1231,30 @@ void AKirby_Player::Jump(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		MovePos += FVector::Right * checkSpeed * _DeltaTime;
+	}
+
+
+	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
+	if (
+		true == UEngineInput::IsDown('A') && (true == EatState || KirbyMode != EAMode::Base) && false == SirUse
+		&& KirbyMode != EAMode::Hammer
+		)
+	{
+		AllAttcheck = 2;
+		scale = 3;
+		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		StateAniChange(EActorState::All_Attack);
+		AAllStar* NewStar = GetWorld()->SpawnActor<AAllStar>();
+		NewStar->SetActorLocation(this->GetActorLocation());
+
+		if (DirState == EActorDir::Left)
+		{
+			NewStar->SetDir(FVector::Left);
+		}
+		else {
+			NewStar->SetDir(FVector::Right);
+		}
+		return;
 	}
 
 	// 점프 도중 Fly
@@ -1750,7 +1775,14 @@ void AKirby_Player::All_Attack(float _DeltaTime)
 		EatState = false;
 		SetModeName("Base_");
 		SetMode(EAMode::Base);
-		StateAniChange(EActorState::Idle);
+
+		if (AllAttcheck == 1)
+		{
+			StateAniChange(EActorState::Idle);
+		}
+		else if(AllAttcheck==2){
+			StateAniChange(EActorState::Flyfall);
+		}
 		return;
 	}
 

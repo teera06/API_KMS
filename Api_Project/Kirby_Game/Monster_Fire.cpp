@@ -129,7 +129,7 @@ void AMonster_Fire::BaseMove(float _DeltaTime)
 void AMonster_Fire::AniCreate()
 {
 	// 晦獄 務朝 賅暮
-	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, false); // 務晦
+	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, true); // 務晦
 
 	MonsterRenderer->CreateAnimation("Move_Right", "Flamer_Right.png", 0, 3, 0.1f, true); // 務晦
 	MonsterRenderer->CreateAnimation("Move_Left", "Flamer_Left.png", 0, 3, 0.1f, true); // 務晦

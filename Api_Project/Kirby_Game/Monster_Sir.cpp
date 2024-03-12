@@ -154,7 +154,7 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 void AMonster_Sir::AniCreate()
 {
 	// 晦獄 務朝 賅暮
-	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, false); // 務晦
+	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, true); // 務晦
 
 	MonsterRenderer->CreateAnimation("Move_Right", "SirMonster_Right.png", 4, 8, 0.1f, true); // 務晦
 	MonsterRenderer->CreateAnimation("Move_Left", "SirMonster_Left.png", 4, 8, 0.1f, true); // 務晦
