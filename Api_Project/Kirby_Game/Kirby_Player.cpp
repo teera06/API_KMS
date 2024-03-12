@@ -1617,15 +1617,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime*checkSpeed;
 	}
 
-	if (
-		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // Å×½ºÆ®
-		)
-	{
-		HammerAttOrder = 3;
-		SkillOn = true;
-		StateAniChange(EActorState::HammerAttack);
-		return;
-	}
+	
 
 	Color8Bit ColorM = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 60, Color8Bit::MagentaA);
 	if (ColorM != Color8Bit(255, 0, 255, 0))
