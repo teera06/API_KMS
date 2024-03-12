@@ -70,6 +70,12 @@ void AMonster_Fire::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe°¡ trueÀÌ¸é MoveUpdate´Â ¿¬¼Ó ½ÇÇàÀÌ ¾ÈµÊ -> Destroy(0.3f) ÀÛµ¿
+		if (false == Iseffect)
+		{
+			Iseffect = true;
+			MonsterDieRenderer->SetActive(true, 0.15f);
+			MonsterDieRenderer->ChangeAnimation("effect");
+		}
 		AddActorLocation(DiePos); // Á×À¸¸é¼­ ÀÌµ¿
 	}
 }
@@ -123,6 +129,7 @@ void AMonster_Fire::BaseMove(float _DeltaTime)
 void AMonster_Fire::AniCreate()
 {
 	// ±âº» °È´Â ¸ð¼Ç
+	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, false); // °È±â
 
 	MonsterRenderer->CreateAnimation("Move_Right", "Flamer_Right.png", 0, 3, 0.1f, true); // °È±â
 	MonsterRenderer->CreateAnimation("Move_Left", "Flamer_Left.png", 0, 3, 0.1f, true); // °È±â
