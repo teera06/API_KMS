@@ -81,13 +81,13 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,300 });
 	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
 	NewBox[0] = SpawnActor<ABox>();
-	NewBox[0]->SetActorLocation({3500,100});
+	NewBox[0]->SetActorLocation({3800,100});
 
 	NewBox[1] = SpawnActor<ABox>();
-	NewBox[1]->SetActorLocation({ 3500,300 });
+	NewBox[1]->SetActorLocation({ 3800,300 });
 
 	NewBox[2] = SpawnActor<ABox>();
-	NewBox[2]->SetActorLocation({ 3800,100 });
+	NewBox[2]->SetActorLocation({ 4200,100 });
 
 	NewIceBox[0] = SpawnActor<AIceBox>();
 	NewIceBox[0]->SetActorLocation({ 800,400 });
