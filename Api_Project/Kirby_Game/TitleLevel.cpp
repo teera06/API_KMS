@@ -53,6 +53,11 @@ void UTitleLevel::Tick(float _DeltaTime)
 	{   
 		GEngine->ChangeLevel("Stage1_Level");
 	}
+
+	if (true == UEngineInput::IsDown(VK_ESCAPE))
+	{
+		GEngine->MainWindow.Off();
+	}
 }
 
 void UTitleLevel::LevelStart(ULevel* _PrevLevel)
