@@ -43,6 +43,8 @@ private:
 
 	FVector DelX = FVector::Zero; // 커비가 받아내지 못하는 경우 대비 -> 범위 계산을 위한 플레이어 위치 저장 용
 	
+	FVector Move = FVector::Zero;
+
 	float RangeX = 450.0f; // 던지는 방향의 이동 범위
 
 	bool skillOn = false; // 스킬 On/Off 구분

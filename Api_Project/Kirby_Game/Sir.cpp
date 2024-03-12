@@ -66,7 +66,6 @@ void ASir::CalDir()
 
 void ASir::SkillDir(float _DeltaTime)
 {
-	FVector Move = FVector::Zero;
 	FVector CurX = GetActorLocation() * FVector::Right;
 	FVector RangeXL = StartPos + (FVector::Left * RangeX); // 부메랑의 던지 방향의 이동 범위 계산 (왼쪽으로 던질 경우)
 	FVector RangeXR = StartPos + (FVector::Right * RangeX); // (오른쪽으로 던질 경우)
@@ -107,8 +106,8 @@ void ASir::SkillDir(float _DeltaTime)
 		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); 
 		return;
 	}
-	
-	AddActorLocation(StartDir * 500.0f * _DeltaTime);
+	Move = StartDir * 500.0f * _DeltaTime;
+	AddActorLocation(Move);
 }
 
 void ASir::Collisiongather(float _DeltaTime)
@@ -223,10 +222,10 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->Destroy(0.3f);
 			StartDir = StartDir * FVector::Left;
 		}
-		else if (true == SirCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) 
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::SubBoss, Result) 
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result)
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::IceBox, Result))
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result, Move)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::SubBoss, Result, Move)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result, Move)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::IceBox, Result, Move))
 		{
 			StartDir = StartDir * FVector::Left;
         }
