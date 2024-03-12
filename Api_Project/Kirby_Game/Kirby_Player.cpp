@@ -1192,7 +1192,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 
 	// 별 뱉기 공격 (모든 커비모드에서 사용 가능)
 	if (
-		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base) && false==SirUse
+		true == UEngineInput::IsDown('A') && (true==EatState || KirbyMode != EAMode::Base) && false==SirUse 
+		&& KirbyMode != EAMode::Hammer
 		)
 	{
 		scale = 3;
