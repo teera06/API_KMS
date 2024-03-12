@@ -29,9 +29,6 @@ public:
 	}
 
 protected:
-	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
-
-	
 	int GetAtt()const
 	{
 		return Att;
@@ -56,15 +53,15 @@ protected:
 	{
 		KirbyMode = _KirbyMode;
 	}
-	static bool EatState;
-	static EAMode KirbyMode; // Kirby 모드
-
 	// 우선 Set, Get으로 만들지 말지를 정하기
+	FVector GetGravity(int _X, int _Y, float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 	FVector MonsterDirNormal = FVector::Zero; // 플레이어 추격 방향
 
 	int scale = 0; // 캐릭터들 이미지 크기 -> 스케일 관련 함수가 많아 헷갈리수  있기에 그냥 변수로 둠
+
+	static bool EatState;
+	static EAMode KirbyMode; // Kirby 모드
 private:
-	float Gravity = 700.0f;
 	FVector GravityValue = FVector::Zero;
 	FVector Dir = FVector::Zero;
 	
@@ -73,6 +70,7 @@ private:
 	// static 변수
 	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 
+	float Gravity = 700.0f;
 	int Att = -10;
 };
 
