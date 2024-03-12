@@ -12,18 +12,18 @@ void AHammer::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	scale = 5; // 평소 크기
+	scale = 7; // 평소 크기
 	// 랜더링
 	{
 		Renderer = CreateImageRenderer(ERenderOrder::Object); // 이미지 랜더 생성
 		Renderer->SetImage("Hammer.png"); // 이미지 Set
-		Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+		Renderer->SetTransform({ {0,-40}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 	}
 
 	// 콜리전
 	{
 		Collision = CreateCollision(ECollisionOrder::Hammer);
-		Collision->SetTransform({ { -10,20},{100,100} });
+		Collision->SetTransform({ { -10,50},{100,150} });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 }

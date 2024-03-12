@@ -80,11 +80,10 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<AHammer>()->SetActorLocation({580,350});
+	SpawnActor<AHammer>()->SetActorLocation({610,350});
 	
 	NewMainBoss = SpawnActor<AMainBoss>();
 	NewMainBoss->ActiveOff();
-		//->SetActorLocation({ 700,350 });
 	NewBossHpBar=SpawnActor<ABossHpBar>();
 	NewBossHpBar->ActiveOff();
 }
