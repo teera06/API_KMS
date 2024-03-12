@@ -19,7 +19,7 @@ void AEndActor::BeginPlay()
 
 	KirbyRenderer = CreateImageRenderer(ERenderOrder::Log); // 이미지 랜더 생성
 	KirbyRenderer->SetImage("Kirby_Right.png"); // 이미지 Set
-	KirbyRenderer->SetTransform({ { 0,0 }, {64 * 3,64 * 3} });
+	KirbyRenderer->SetTransform({ { 0,200 }, {64 * 3,64 * 3} });
 	KirbyRenderer->CreateAnimation("Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
 	
 	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
@@ -33,4 +33,5 @@ void AEndActor::BeginPlay()
 
 void AEndActor::Tick(float _DeltaTime)
 {
+	AActor::Tick(_DeltaTime);
 }

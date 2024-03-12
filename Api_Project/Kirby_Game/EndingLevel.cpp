@@ -24,6 +24,7 @@ void UEndingLevel::Tick(float _DeltaTime)
 void UEndingLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+	SetCameraPos({ 0,50 }); // 카메라 위치 설정
 	SpawnActor<AEndActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
 }
 
