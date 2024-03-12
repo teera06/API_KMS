@@ -28,10 +28,12 @@ private:
 
 	UImageRenderer* bulletRenderer = nullptr;
 	UCollision* bulletCollision = nullptr;
-
-	int scale = 7;
+	
 	float Speed = 500.0f;
+	int scale = 7;
+
 	bool hit = false;
+
 	void AniCreate(); // 局聪皋捞记 包府
 
 	void SkillDir(float _DeltaTime);
