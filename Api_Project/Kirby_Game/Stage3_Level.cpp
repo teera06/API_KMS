@@ -89,6 +89,7 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 	SpawnActor<AMonster_Sir>()->SetActorLocation({ 3420,100 });
 	NewBox[0] = SpawnActor<ABox>();
 	NewBox[0]->SetActorLocation({3800,100});
+	NewBox[0]->SetIsItem(true);
 
 	NewBox[1] = SpawnActor<ABox>();
 	NewBox[1]->SetActorLocation({ 3800,300 });
