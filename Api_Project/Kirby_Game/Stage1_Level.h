@@ -42,7 +42,7 @@ private:
 	const int Basesize = 4;
 	const int Icesize = 4;
 
-	bool LoadCheck = false;
+	static bool LoadCheck;
 
 };
 

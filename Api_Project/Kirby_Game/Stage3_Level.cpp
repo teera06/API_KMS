@@ -18,6 +18,8 @@
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
 
+bool UStage3_Level::LoadCheck = false;
+
 UStage3_Level::UStage3_Level()
 {
 }

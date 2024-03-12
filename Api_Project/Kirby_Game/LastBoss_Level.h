@@ -40,6 +40,6 @@ private:
 	bool AniEnd = false;
 	bool LevelChange = false;
 
-	bool LoadCheck = false;
+	static bool LoadCheck;
 };
 

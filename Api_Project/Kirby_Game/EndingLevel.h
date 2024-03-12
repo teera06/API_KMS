@@ -25,6 +25,6 @@ protected:
 private:
 	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
 
-	bool LoadCheck = false;
+	static bool LoadCheck;
 };
 

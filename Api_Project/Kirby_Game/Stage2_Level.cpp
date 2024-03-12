@@ -14,6 +14,8 @@
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
 
+bool UStage2_Level::LoadCheck = false;
+
 UStage2_Level::UStage2_Level()
 {
 }

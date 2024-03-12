@@ -15,6 +15,8 @@
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
+
+bool ULastBoss_Level::LoadCheck = false;
 ULastBoss_Level::ULastBoss_Level()
 {
 }
