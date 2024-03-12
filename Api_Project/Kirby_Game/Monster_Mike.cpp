@@ -15,14 +15,6 @@ AMonster_Mike::~AMonster_Mike()
 {
 }
 
-void AMonster_Mike::IceState()
-{
-	scale = 2;
-	MonsterRenderer->ChangeAnimation("MonsterIce");
-	MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
-	IsIce = true;
-}
-
 void AMonster_Mike::BeginPlay()
 {
 	AActor::BeginPlay();
@@ -93,12 +85,12 @@ void AMonster_Mike::BaseMove(float _DeltaTime)
 	}
 	else
 	{
-		if (StartDir.iX() == -1 && IsIce == false) // 왼쪽 방향에 얼지 않은 상태
+		if (StartDir.iX() == -1) // 왼쪽 방향에 얼지 않은 상태
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");
 			WallX = -20;
 		}
-		else if (StartDir.iX() == 1 && IsIce == false) { // 오른쪽 방향에 얼지 않은 상태
+		else if (StartDir.iX() == 1) { // 오른쪽 방향에 얼지 않은 상태
 			MonsterRenderer->ChangeAnimation("Move_Right");
 			WallX = 20;
 		}
@@ -121,112 +113,17 @@ void AMonster_Mike::BaseMove(float _DeltaTime)
 void AMonster_Mike::AniCreate()
 {
 	// 기본 걷는 모션
-
 	MonsterRenderer->CreateAnimation("Move_Right", "MikeMonster_Right.png", { 0,1,2,5,6 }, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("Move_Left", "MikeMonster_Left.png", {0,1,2,5,6}, 0.1f, true); // 걷기
-	MonsterRenderer->CreateAnimation("MonsterIce", "MikeMonster_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("die_Right", "MikeMonster_Right.png", 4, 4, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("die_Left", "MikeMonster_Left.png", 4, 4, 0.2f, false); // 죽는 애니메이션
-	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
-}
-
-void AMonster_Mike::IceToMonster(float _DeltaTime)
-{
-	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
-	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Base* Monster = dynamic_cast<AMonster_Base*>(Ptr);
-
-		// 방어코드
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
-		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-		Monster->SetIsDie(true);
-		Monster->SetDiePos(DiePos);
-		Monster->Destroy(0.3f);
-		MonsterRenderer->ChangeAnimation("Effect");
-		IsDie = true;
-	}
-	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
-	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		Apengi_Ice* Monster = dynamic_cast<Apengi_Ice*>(Ptr);
-
-		// 방어코드
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
-		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-		Monster->SetIsDie(true);
-		Monster->SetDiePos(DiePos);
-		Monster->Destroy(0.3f);
-		MonsterRenderer->ChangeAnimation("Effect");
-		IsDie = true;
-	}
-	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
-	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);
-
-		// 방어코드
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
-		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-		Monster->SetIsDie(true);
-		Monster->SetDiePos(DiePos);
-		Monster->Destroy(0.3f);
-		MonsterRenderer->ChangeAnimation("Effect");
-		IsDie = true;
-	}
-	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
-	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
-		UCollision* Collision = Result[0];
-		AActor* Ptr = Collision->GetOwner();
-		AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
-
-		// 방어코드
-
-		if (nullptr == Monster)
-		{
-			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
-		}
-
-		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
-		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
-		Monster->SetIsDie(true);
-		Monster->SetDiePos(DiePos);
-		Monster->Destroy(0.3f);
-		MonsterRenderer->ChangeAnimation("Effect");
-		IsDie = true;
-	}
 }
 
 void AMonster_Mike::Collisiongather(float _DeltaTime)
 {
 	// 콜리전 
 	std::vector<UCollision*> Result;
-	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
+	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result)) // 얼지 않은 상태에서 플레이어와 충돌
 	{
 		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
@@ -251,19 +148,6 @@ void AMonster_Mike::Collisiongather(float _DeltaTime)
 			IsDie = true; // 죽음 체크
 		}
 	}
-	else if ((true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == true)) { // 얼음 상태로 커비와 충돌 하는 경우
-		// 얼음 상태 일때 움직임 계산
-		if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
-		{
-			WallX = 20;
-			IceMove = FVector::Right * IceSpeed * _DeltaTime;
-
-		}
-		else {
-			WallX = -20;
-			IceMove = FVector::Left * IceSpeed * _DeltaTime;
-		}
-	}
 }
 
 void AMonster_Mike::CalDir()
@@ -277,35 +161,13 @@ void AMonster_Mike::CalDir()
 
 void AMonster_Mike::CalResult(float _DeltaTime)
 {
-	if (true == IsIce)
-	{
-		IceToMonster(_DeltaTime);
-	}
-
-	// 얼음 상태에서 벽에 충돌시 바로 삭제 -> 추후 이펙트 남길지 고민
-	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
-	if (ColorR == Color8Bit(255, 0, 0, 0))
-	{
-		if (true == IsIce)
-		{
-			IceMove = FVector::Zero;
-			MonsterRenderer->ChangeAnimation("Effect");
-			IsDie = true;
-		}
-	}
-
+	
 	if (true == IsDie) // 죽으면
 	{
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {
-		if (false == IsIce) // 죽거나, 얼음상태가 아니면 일반 행동
-		{
-			BaseMove(_DeltaTime);
-		}
-		else {
-			AddActorLocation(IceMove);
-		}
+		BaseMove(_DeltaTime);
 	}
 }
 
