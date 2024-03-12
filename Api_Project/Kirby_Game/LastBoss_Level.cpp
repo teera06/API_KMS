@@ -31,6 +31,7 @@ void ULastBoss_Level::BeginPlay()
 
 	if (false == LoadCheck)
 	{
+		LoadCheck = true;
 		UEngineDirectory NewPath; // 현재 파일 경로
 
 		NewPath.MoveToSearchChild("GameResources");

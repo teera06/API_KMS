@@ -22,7 +22,7 @@ public:
 
 
 	static AKirby_Player* GetMainPlayer(); // 몬스터나 상태창이 플레이어에 대한 정보를 알아야 할 때 사용
-	
+
 	UImageRenderer* GetKirbyRender()
 	{
 		return KirbyRenderer;
@@ -80,6 +80,11 @@ public:
 	static int GetStageCheck()
 	{
 		return StageCheck;
+	}
+
+	static void SetStageCheck(const int& _StageCheck)
+	{
+		StageCheck = _StageCheck;
 	}
 
 protected:
