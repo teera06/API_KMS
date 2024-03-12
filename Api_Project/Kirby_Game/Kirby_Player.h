@@ -57,6 +57,11 @@ public:
 		return SirUse;
 	}
 
+	bool GetMainBossEvent() const
+	{
+		return MainBossEvent;
+	}
+
 	static void SetHp(const int& _Hp)
 	{
 		Hp = _Hp;
@@ -221,6 +226,7 @@ private:
 	bool BossEventWall = false;
 	bool SuBBossActive = false;
 
+	bool MainBossEvent = false;
 	bool MainBossActive = false;
 	// 특정 상태별 bool 값
 	bool FlyState = false; // 나는 상태

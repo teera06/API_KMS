@@ -8,6 +8,7 @@
 #include "BossHpBar.h"
 
 
+
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
@@ -51,6 +52,14 @@ void ULastBoss_Level::BeginPlay()
 void ULastBoss_Level::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
+
+	if (true == NewPlayer->GetMainBossEvent() && false == EventCheck)
+	{
+		EventCheck = true;
+		NewBossHpBar->SetActive(true, 1.0f);
+		NewMainBoss->SetActorLocation({ 900,100 });
+		NewMainBoss->SetActive(true, 1.0f);
+	}
 }
 
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
@@ -72,8 +81,12 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
 	SpawnActor<AHammer>()->SetActorLocation({580,350});
-	SpawnActor<AMainBoss>()->SetActorLocation({ 700,350 });
-	SpawnActor<ABossHpBar>();
+	
+	NewMainBoss = SpawnActor<AMainBoss>();
+	NewMainBoss->ActiveOff();
+		//->SetActorLocation({ 700,350 });
+	NewBossHpBar=SpawnActor<ABossHpBar>();
+	NewBossHpBar->ActiveOff();
 }
 
 void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)

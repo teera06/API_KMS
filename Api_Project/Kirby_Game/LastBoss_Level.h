@@ -5,7 +5,8 @@
 class ALast_Map;
 class AKirby_Player;
 class AKirby_HpBar;
-
+class AMainBoss;
+class ABossHpBar;
 
 class ULastBoss_Level :public ULevel
 {
@@ -31,5 +32,10 @@ private:
 	ALast_Map* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
+
+	AMainBoss* NewMainBoss = nullptr;
+	ABossHpBar* NewBossHpBar = nullptr;
+
+	bool EventCheck = false;
 };
 

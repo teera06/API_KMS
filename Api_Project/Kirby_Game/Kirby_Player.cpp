@@ -503,6 +503,7 @@ void AKirby_Player::KirbyModeCheck()
 		}
 		else if (std::string(GetModeName()) == "Hammer_") // 소드 문자열이면
 		{
+			MainBossEvent = true;
 			scale = 5;
 			SetMode(EAMode::Hammer); // 해머 형태로
 		}
