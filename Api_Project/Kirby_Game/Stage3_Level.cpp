@@ -5,7 +5,7 @@
 #include "LastBoss_Level.h"
 #include "Kirby_Player.h" 
 #include "Kirby_HpBar.h"
-#include "Monster_Base.h"
+#include "Monster_Sir.h"
 #include "Monster_Fire.h"
 #include "pengi_Ice.h"
 #include "IceBox.h"
@@ -74,12 +74,13 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	// 目厚客 目厚 惑怕芒 Actor 积己
 	NewPlayer = SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,300 });
+	NewPlayer->SetActorLocation({ 500,480 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,300 });
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,100 });
 	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
+	SpawnActor<AMonster_Sir>()->SetActorLocation({ 3420,100 });
 	NewBox[0] = SpawnActor<ABox>();
 	NewBox[0]->SetActorLocation({3800,100});
 
