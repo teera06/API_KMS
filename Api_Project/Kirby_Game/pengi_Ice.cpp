@@ -31,6 +31,11 @@ void Apengi_Ice::BeginPlay()
 		MonsterRenderer = CreateImageRenderer(ERenderOrder::Monster); // 이미지 랜더 생성
 		MonsterRenderer->SetImage("pengi_Right.png"); // 이미지 Set
 		MonsterRenderer->SetTransform({ {0,0}, {64*scale, 64*scale} }); // 랜더의 위치 크기 
+
+		MonsterDieRenderer = CreateImageRenderer(ERenderOrder::effect); // 이미지 랜더 생성
+		MonsterDieRenderer->SetImage("Effects2_Left.png"); // 이미지 Set
+		MonsterDieRenderer->SetTransform({ {0,1}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		MonsterDieRenderer->ActiveOff();
 	}
 
 	{
@@ -52,12 +57,20 @@ void Apengi_Ice::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		if (false == Iseffect)
+		{
+			Iseffect = true;
+			MonsterDieRenderer->SetActive(true, 0.15f);
+			MonsterDieRenderer->ChangeAnimation("effect");
+		}
 		AddActorLocation(DiePos); // 죽으면서 이동
 	}
 }
 
 void Apengi_Ice::AniCreate()
 {
+	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, false); // 걷기
+
 	MonsterRenderer->CreateAnimation("Idle_Right", "Pengi_Right.png", 0, 0, 0.3f, true);  
 	MonsterRenderer->CreateAnimation("Idle_Left", "Pengi_Left.png", 0, 0, 0.3f, true); 
 	MonsterRenderer->CreateAnimation("Move_Right", "Pengi_Right.png", 1, 3, 0.3f, true); 

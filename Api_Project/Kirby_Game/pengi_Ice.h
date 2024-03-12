@@ -45,6 +45,7 @@ private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
+	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
 
 	FVector StartDir = FVector::Left; // 몬스터 초반 이동 방향
@@ -67,6 +68,7 @@ private:
 	bool IsIce = false; // 얼음 상태인지 확인
 	bool IsAtt = false;
 	bool IceAttcheck = false;
+	bool Iseffect = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 

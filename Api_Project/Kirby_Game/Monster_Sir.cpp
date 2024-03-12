@@ -43,6 +43,11 @@ void AMonster_Sir::BeginPlay()
 		MonsterCollision = CreateCollision(ECollisionOrder::SirMonster);
 		MonsterCollision->SetScale({ 60, 60 });
 		MonsterCollision->SetColType(ECollisionType::Rect);
+
+		MonsterDieRenderer = CreateImageRenderer(ERenderOrder::effect); // 이미지 랜더 생성
+		MonsterDieRenderer->SetImage("Effects2_Left.png"); // 이미지 Set
+		MonsterDieRenderer->SetTransform({ {0,1}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		MonsterDieRenderer->ActiveOff();
 	}
 
 	// 애니메이션 만들기
@@ -69,6 +74,12 @@ void AMonster_Sir::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		if (false == Iseffect)
+		{
+			Iseffect = true;
+			MonsterDieRenderer->SetActive(true, 0.15f);
+			MonsterDieRenderer->ChangeAnimation("effect");
+		}
 		AddActorLocation(DiePos); // 죽으면서 이동
 	}
 }
@@ -143,6 +154,7 @@ void AMonster_Sir::BaseMove(float _DeltaTime)
 void AMonster_Sir::AniCreate()
 {
 	// 기본 걷는 모션
+	MonsterDieRenderer->CreateAnimation("effect", "Effects2_Left.png", 21, 24, 0.1f, false); // 걷기
 
 	MonsterRenderer->CreateAnimation("Move_Right", "SirMonster_Right.png", 4, 8, 0.1f, true); // 걷기
 	MonsterRenderer->CreateAnimation("Move_Left", "SirMonster_Left.png", 4, 8, 0.1f, true); // 걷기
