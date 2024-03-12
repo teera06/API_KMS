@@ -20,11 +20,8 @@ void ATitleActor::BeginPlay()
 
 	LogRenderer = CreateImageRenderer(ERenderOrder::Log); // 이미지 랜더 생성
 	LogRenderer->SetImage("Log.png"); // 이미지 Set
-	LogRenderer->SetTransform({ { 0,0 }, windowScale });
-	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
-	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
-	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
-
+	LogRenderer->SetTransform({ { 0,50 }, windowScale });
+	
 	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true); // 오른쪽 서 있기
 	TitleRenderer->ChangeAnimation("Mapback");
 }

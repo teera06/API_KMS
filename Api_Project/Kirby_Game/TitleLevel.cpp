@@ -48,7 +48,7 @@ void UTitleLevel::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
 
-	if (true == UEngineInput::IsDown('Q'))
+	if (true == UEngineInput::IsDown(VK_RETURN))
 	{   
 		GEngine->ChangeLevel("Stage1_Level");
 	}
