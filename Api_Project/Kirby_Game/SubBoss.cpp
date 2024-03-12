@@ -172,7 +172,7 @@ void ASubBoss::AttCollisiongather(float _DeltaTime)
 		Player->SetHitDir(MonsterDirNormal * FVector::Right);
 		Player->GetKirbyRender()->SetAlpha(0.5f);
 		Player->GetKirbyCollision()->ActiveOff();
-		Player->AddHP(-20);
+		Player->AddHP(GetAtt());
 		Player->HitStart(); // hit 상태 스타트
 			
 		//IsDie = true; // 죽음 체크
@@ -201,7 +201,7 @@ void ASubBoss::Collisiongather(float _DeltaTime)
 		Player->SetHitDir(MonsterDirNormal * FVector::Right);
 		Player->GetKirbyRender()->SetAlpha(0.5f);
 		Player->GetKirbyCollision()->ActiveOff();
-		Player->AddHP(-20);
+		Player->AddHP(GetAtt());
 		Player->HitStart(); // hit 상태 스타트
 
 		//IsDie = true; // 죽음 체크

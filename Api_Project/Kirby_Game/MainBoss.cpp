@@ -446,7 +446,7 @@ void AMainBoss::Att1Collisiongather(float _DeltaTime)
 		MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 		MainPlayer->GetKirbyCollision()->ActiveOff();
-		MainPlayer->AddHP(-10);
+		MainPlayer->AddHP(GetAtt());
 		MainPlayer->HitStart(); // hit 상태 스타트
 		Att1Collision->ActiveOff();
 	}
@@ -461,7 +461,7 @@ void AMainBoss::Att3Collisiongather(float _DeltaTime)
 		MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 		MainPlayer->GetKirbyCollision()->ActiveOff();
-		MainPlayer->AddHP(-10);
+		MainPlayer->AddHP(GetAtt());
 		MainPlayer->HitStart(); // hit 상태 스타트
 	}
 }
@@ -476,7 +476,7 @@ void AMainBoss::Collisiongather(float _DeltaTime)
 		MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 		MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 		MainPlayer->GetKirbyCollision()->ActiveOff();
-		MainPlayer->AddHP(-10);
+		MainPlayer->AddHP(GetAtt());
 		MainPlayer->HitStart(); // hit 상태 스타트
 
 		//IsDie = true; // 죽음 체크

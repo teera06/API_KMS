@@ -91,7 +91,7 @@ void ABullet::Collisiongather(float _DeltaTime)
 		MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 		MainPlayer->SetHitDir(GetDir());
 		MainPlayer->GetKirbyCollision()->ActiveOff();
-		MainPlayer->AddHP(-20);
+		MainPlayer->AddHP(GetAtt());
 		hit = true;
 		bulletCollision->ActiveOff();
 		MainPlayer->hothitStart();

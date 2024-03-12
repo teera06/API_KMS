@@ -31,13 +31,8 @@ public:
 protected:
 	FVector GetGravity(int _X, int _Y,float _DeltaTime); // 중력 부분 공통적으로 쓰일 부분
 
-	void SetAtt(const int& _Att)
-	{
-		Att = _Att;
-	}
-
 	
-	inline int GetAtt()const
+	int GetAtt()const
 	{
 		return Att;
 	}
@@ -78,6 +73,6 @@ private:
 	// static 변수
 	static std::string ModeName; // Kirby 모드별 애니메이션 이름 체인지
 
-	int Att = 0;
+	int Att = -10;
 };
 

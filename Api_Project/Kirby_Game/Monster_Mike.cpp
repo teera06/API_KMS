@@ -237,7 +237,7 @@ void AMonster_Mike::Collisiongather(float _DeltaTime)
 			MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
-			MainPlayer->AddHP(-20);
+			MainPlayer->AddHP(GetAtt());
 			MainPlayer->HitStart(); // hit 상태 스타트
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{

@@ -178,7 +178,7 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 		else {// 일반적인 플레이와의 충돌
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(MonsterDirNormal*FVector::Right);
-			MainPlayer->AddHP(-20);
+			MainPlayer->AddHP(GetAtt());
 			MainPlayer->HitStart(); // hit 상태 스타트
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
 			MainPlayer->GetKirbyCollision()->ActiveOff();

@@ -151,7 +151,7 @@ void AIce::Collisiongather(float _DeltaTime)
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(GetDir());
 			MainPlayer->GetKirbyCollision()->ActiveOff();
-			MainPlayer->AddHP(-20);
+			MainPlayer->AddHP(GetAtt());
 			MainPlayer->IcehitStart(); // hit 상태 스타트
 
 			IceCollision->Destroy();
@@ -165,7 +165,7 @@ void AIce::Collisiongather(float _DeltaTime)
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(GetDir());
 			MainPlayer->GetKirbyCollision()->ActiveOff();
-			MainPlayer->AddHP(-20);
+			MainPlayer->AddHP(GetAtt());
 			MainPlayer->IcehitStart(); // hit 상태 스타트
 
 			IceCollision->Destroy();

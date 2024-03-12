@@ -247,7 +247,7 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(MonsterDirNormal*FVector::Right);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
-			MainPlayer->AddHP(-20);
+			MainPlayer->AddHP(GetAtt());
 			MainPlayer->hothitStart(); // hit 상태 스타트
 			if (MonsterDirNormal.iX() == -1) // 몬스터가 플레이어를 향하는 방향의 반대 방향으로 힘이 작용
 			{
