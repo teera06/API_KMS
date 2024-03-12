@@ -48,7 +48,39 @@ void UEndingLevel::BeginPlay()
 void UEndingLevel::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
-	if (true == UEngineInput::IsDown('Q'))
+
+	time1 -= _DeltaTime;
+	time2 -= _DeltaTime;
+	time3 -= _DeltaTime;
+	time4 -= _DeltaTime;
+	if (time1 < 0 && false==text1check)
+	{
+		text1check = true;
+		NewEndActor->Gettext1Renderer()->ActiveOn();
+	}
+
+	if (time2 < 0 && false == text2check)
+	{
+		text2check = true;
+		NewEndActor->Gettext1Renderer()->ActiveOff();
+		NewEndActor->Gettext2Renderer()->ActiveOn();
+	}
+
+	if (time3 < 0)
+	{
+		NewEndActor->Gettext2Renderer()->ActiveOff();
+		NewEndActor->GetKirbyRenderer()->AddPosition(FVector::Right * 200.0f * _DeltaTime);
+	}
+
+	if (time4 < 0 && false == check4)
+	{
+		check4 = true;
+		NewEndActor->GetKirbyRenderer()->ActiveOff();
+		GEngine->ChangeLevel("TitleLevel");
+	}
+
+
+	if (true == UEngineInput::IsDown(VK_RETURN))
 	{
 		GEngine->ChangeLevel("TitleLevel");
 	}
@@ -58,7 +90,8 @@ void UEndingLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정
-	SpawnActor<AEndActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
+	NewEndActor = SpawnActor<AEndActor>();
+	NewEndActor->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
 	GEngine->CreateLevel<UTitleLevel>("TitleLevel"); // stage2_Level 다음 레벨 미리 준비
 }
 

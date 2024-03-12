@@ -8,6 +8,7 @@
 #include "Ice.h"
 #include "Sir.h" // 테스트
 
+
 // 특정 이벤트 때 커비가 만들어줘야 하는것들
 #include "BossHpBar.h"
 #include "SubBoss.h"
@@ -957,22 +958,26 @@ void AKirby_Player::Idle(float _DeltaTime)
 		GEngine->ChangeLevel("LastBoss_Level");
 	}
 
-	if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 1)
+	if (true == UEngineInput::IsDown(VK_RETURN) && StageCheck == 1)
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
 		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
 	}
-	else if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 2)
+	else if (true == UEngineInput::IsDown(VK_RETURN) && StageCheck == 2)
 	{
 		StageCheck = 3;
 		GEngine->ChangeLevel("Stage3_Level");
 	}
-	else if (true == UEngineInput::IsDown(VK_SPACE) && StageCheck == 3)
+	else if (true == UEngineInput::IsDown(VK_RETURN) && StageCheck == 3)
 	{
 		StageCheck = 4;
 		BossEventWall = true;
 		GEngine->ChangeLevel("LastBoss_Level");
+	}
+	else if (true == UEngineInput::IsDown(VK_RETURN) && StageCheck == 4)
+	{
+		GEngine->ChangeLevel("Ending_Level");
 	}
 
 	if (true == UEngineInput::IsDown('2'))

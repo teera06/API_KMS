@@ -3,6 +3,8 @@
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/Level.h>
 
+class AEndActor;
+
 class UEndingLevel : public ULevel
 {
 public:
@@ -25,6 +27,17 @@ protected:
 private:
 	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
 
+	AEndActor* NewEndActor = nullptr;
+
+	float time1 = 2.5f;
+	float time2 = 5.0f;
+	float time3 = 7.5f;
+	float time4 = 10.0f;
+
 	static bool LoadCheck;
+
+	bool text1check = false;
+	bool text2check = false;
+	bool check4 = false;
 };
 
