@@ -22,13 +22,10 @@ void AEndActor::BeginPlay()
 	KirbyRenderer->SetTransform({ { 0,200 }, {64 * 3,64 * 3} });
 	KirbyRenderer->CreateAnimation("Fly_Right", "kirby_Right.png", 58, 65, 0.1f, true);
 	
-	//TitleRenderer->SetImageCuttingTransform({ {0,0}, {450,339} }); // 버퍼가 SetImageCuttingTransform 기준으로 그려줌
-	// GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, ThisTrans, ImageCuttingTransform); -> ImageRenderer
-	// GEngine->MainWindow.GetWindowImage()->BitCopy(Image, ThisTrans); -> 이전 코드
-
 	EndRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true); // 오른쪽 서 있기
 	EndRenderer->ChangeAnimation("Mapback");
 	KirbyRenderer->ChangeAnimation("Fly_Right");
+
 }
 
 void AEndActor::Tick(float _DeltaTime)
