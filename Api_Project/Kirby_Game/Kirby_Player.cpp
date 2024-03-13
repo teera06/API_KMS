@@ -584,10 +584,14 @@ void AKirby_Player::SoundCreate()
 		SHammer1.SetVolume(0.6f);
 		SHammer1.Off();
 
-		SHammer2 = UEngineSound::SoundPlay("PullHammer.wav");
-		SHammer2.SetVolume(1.0f);
-		SHammer2.Loop();
-		SHammer2.Off();
+		SChargeHammer2 = UEngineSound::SoundPlay("PullHammer.wav");
+		SChargeHammer2.SetVolume(1.0f);
+		SChargeHammer2.Loop();
+		SChargeHammer2.Off();
+
+		SHammer3 = UEngineSound::SoundPlay("Hammer3.wav");
+		SHammer3.SetVolume(0.6f);
+		SHammer3.Off();
 	}
 }
 
@@ -634,8 +638,13 @@ void AKirby_Player::SoundReset()
 		SHammer1.Replay();
 		SHammer1.Off();
 
-		SHammer2.Replay();
-		SHammer2.Off();
+		SChargeHammer2.Replay();
+		SChargeHammer2.Off();
+
+		
+		SHammer3.Replay();
+		SHammer3.Loop();
+		SHammer3.Off();
 	}
 }
 
@@ -2183,13 +2192,14 @@ void AKirby_Player::HammerAttStart2()
 	DirCheck();
 	HammerAtt = -30;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att2"));
-	SHammer2.On();
+	SChargeHammer2.On();
 }
 
 void AKirby_Player::HammerAttStart3()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att3"));
+	SHammer3.On();
 }
 
 
@@ -2615,8 +2625,10 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SHammer2.Replay();
-		SHammer2.Off();
+		SChargeHammer2.Replay();
+		SChargeHammer2.Off();
+		SHammer3.Replay();
+		SHammer3.Off();
 		SkillOn = false;
 		HammerCollisiongather(_DeltaTime);
 		if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
