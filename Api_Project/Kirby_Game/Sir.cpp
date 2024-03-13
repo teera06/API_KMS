@@ -37,13 +37,13 @@ void ASir::BeginPlay()
 		SirRenderer = CreateImageRenderer(ERenderOrder::Sir); // 이미지 랜더 생성
 		SirRenderer->SetImage("Sir_Right.png"); // 이미지 Set
 		SirRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
-		//SirRenderer->SetActive(true, 0.1f);
+		SirRenderer->SetActive(true, 0.1f);
 	}
 	{
 		SirCollision = CreateCollision(ECollisionOrder::SirAttack);
 		SirCollision->SetScale({ 100,70 });
 		SirCollision->SetColType(ECollisionType::CirCle);
-		SirCollision->SetActive(true, 0.3f);
+		SirCollision->SetActive(true, 0.2f);
 	}
 
 	AniCreate();
@@ -106,8 +106,8 @@ void ASir::SkillDir(float _DeltaTime)
 		AddActorLocation(StartDir * FVector::Right * _DeltaTime * 1000.0f); 
 		return;
 	}
-	Move = StartDir * 500.0f * _DeltaTime;
-	AddActorLocation(Move);
+	Move = StartDir * 500.0f;
+	AddActorLocation(Move*_DeltaTime);
 }
 
 void ASir::Collisiongather(float _DeltaTime)
@@ -222,10 +222,10 @@ void ASir::Collisiongather(float _DeltaTime)
 			Monster->Destroy(0.3f);
 			StartDir = StartDir * FVector::Left;
 		}
-		else if (true == SirCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result, Move)
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::SubBoss, Result, Move)
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result, Move)
-			|| true == SirCollision->CollisionCheck(ECollisionOrder::IceBox, Result, Move))
+		else if (true == SirCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result, Move*0.01f)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::SubBoss, Result, Move* 0.01f)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result, Move* 0.01f)
+			|| true == SirCollision->CollisionCheck(ECollisionOrder::IceBox, Result, Move* 0.01f))
 		{
 			StartDir = StartDir * FVector::Left;
         }
