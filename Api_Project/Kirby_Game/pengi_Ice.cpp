@@ -133,7 +133,6 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
-		//MonsterRenderer->SetAlpha(0.5f+nf);
 		UCollision* Collision = Result[0];
 		AActor* Ptr = Collision->GetOwner();
 		AMonster_Fire* Monster = dynamic_cast<AMonster_Fire*>(Ptr);

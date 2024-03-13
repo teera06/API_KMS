@@ -81,7 +81,7 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
 	NewBase[0] = SpawnActor<AMonster_Base>();
-	NewBase[0]->SetActorLocation({ 700,1000 });
+	NewBase[0]->SetActorLocation({ 750,1050 });
 
 	NewBase[1] = SpawnActor<AMonster_Base>();
 	NewBase[1]->SetActorLocation({1800,1000});

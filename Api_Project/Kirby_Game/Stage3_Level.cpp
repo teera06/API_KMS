@@ -84,8 +84,8 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,100 });
-	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,100 });
+	SpawnActor<Apengi_Ice>()->SetActorLocation({ 1000,400 });
+	SpawnActor<AMonster_Fire>()->SetActorLocation({ 900,200 });
 	SpawnActor<AMonster_Sir>()->SetActorLocation({ 3420,100 });
 	NewBox[0] = SpawnActor<ABox>();
 	NewBox[0]->SetActorLocation({3800,100});

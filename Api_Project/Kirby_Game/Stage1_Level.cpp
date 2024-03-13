@@ -119,11 +119,13 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 
 	// 몬스터 Actor 생성
 
-	for (int i = 0; i < Basesize; i++)
+	NewBase[0] = SpawnActor<AMonster_Base>();
+	NewBase[0]->SetActorLocation({ 800,900 });
+
+	for (int i = 1; i < Basesize; i++)
 	{
 		NewBase[i] = SpawnActor<AMonster_Base>();
 		NewBase[i]->SetActorLocation({ 800 + i * 800,700 });
-
 	}
 
 	for (int i = 0; i < Icesize; i++)
