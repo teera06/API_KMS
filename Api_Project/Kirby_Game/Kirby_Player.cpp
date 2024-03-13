@@ -109,7 +109,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 		SoundRenderer->ActiveOff();
 	}
-
+	SoundCreate();
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -475,6 +475,20 @@ void AKirby_Player::AniCreate()
 
 
 }
+
+void AKirby_Player::SoundCreate()
+{
+	Base = UEngineSound::SoundPlay("Base.wav");
+	Base.SetVolume(0.6f);
+	Base.Loop();
+	Base.Off();
+}
+
+void AKirby_Player::SoundReset()
+{
+	Base.Replay();
+}
+
 
 // 커비 모드 체인지 관리
 void AKirby_Player::KirbyModeCheck()
@@ -918,7 +932,8 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
-
+	SoundReset();
+	
 	if(true == fall && StageCheck == 2)
 	{
 		fall = false;
@@ -1762,12 +1777,13 @@ void AKirby_Player::Stop(float _DeltaTime)
 
 void AKirby_Player::Absorption(float _DeltaTime)
 {
-	
+	Base.On();
 	DirCheck();
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
+		Base.Off();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -2068,7 +2084,6 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 	switch (KirbyMode)
 	{
 	case EAMode::Base:
-		//SetNamechange("Base_");
 		Absorption(_DeltaTime);
 		break;
 	case EAMode::Ice:
