@@ -48,7 +48,7 @@ void AMonster_Base::BeginPlay()
 
 	// 애니메이션 만들기
 	AniCreate();
-
+	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
@@ -71,13 +71,19 @@ void AMonster_Base::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		HitDietime -= _DeltaTime;
+		if (HitDietime < 0)
+		{
+			SHitDie.On();
+		}
+		
 		if (false == Iseffect)
 		{
 			Iseffect = true;
 			MonsterDieRenderer->SetActive(true, 0.15f);
 			MonsterDieRenderer->ChangeAnimation("effect");
 		}
-		AddActorLocation(DiePos); // 죽으면서 이동
+		AddActorLocation(DiePos); 
 	}
 }
 
@@ -101,6 +107,16 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Right", "Dee_Right.png", 5, 5,0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("die_Left", "Dee_Left.png", 5, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+}
+
+void AMonster_Base::SoundCreate()
+{
+	{
+		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
+		SHitDie.SetVolume(0.6f);
+		//SHitDie.SetLoop();
+		SHitDie.Off();
+	}
 }
 
 void AMonster_Base::IceToMonster(float _DeltaTime) // 얼음인 상태에서 다른 몬스터와의 충돌 관리
