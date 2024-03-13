@@ -177,6 +177,7 @@ private:
 
 	UEngineSoundPlayer SJump;
 	UEngineSoundPlayer SFly;
+	UEngineSoundPlayer SFlyFall;
 	UEngineSoundPlayer SModeChange;
 	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
@@ -216,6 +217,7 @@ private:
 	float SJumptime = 0.3f;
 	float SFiretime = 0.3f;
 	float SFlytime = 0.2f;
+	float SFlyFalltime = 0.2f;
 
 	float checkSpeed = 0.0f; // 최종 스피드
 
