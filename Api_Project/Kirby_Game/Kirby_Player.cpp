@@ -584,6 +584,11 @@ void AKirby_Player::SoundCreate()
 		SHammer1.SetVolume(0.6f);
 		SHammer1.Off();
 
+		SHammer2 = UEngineSound::SoundPlay("Hammer2.wav");
+		SHammer2.SetVolume(1.0f);
+		SHammer2.Loop();
+		SHammer2.Off();
+
 		SChargeHammer2 = UEngineSound::SoundPlay("PullHammer.wav");
 		SChargeHammer2.SetVolume(1.0f);
 		SChargeHammer2.Loop();
@@ -637,6 +642,9 @@ void AKirby_Player::SoundReset()
 	{
 		SHammer1.Replay();
 		SHammer1.Off();
+
+		//SHammer2.Replay();
+		//SHammer2.Off();
 
 		SChargeHammer2.Replay();
 		SChargeHammer2.Off();
@@ -2205,6 +2213,7 @@ void AKirby_Player::HammerAttStart3()
 
 void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 {
+
 	std::vector<UCollision*> Result;
 	if (true == HammerCollision->CollisionCheck(ECollisionOrder::MainBoss, Result))
 	{
@@ -2218,6 +2227,10 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 			MsgBoxAssert("터져야겠지....");
 		}
 		++HammerAttCombo;
+		if (HammerAtt == -30)
+		{
+			SHammer2.On();
+		}
 		Monster->SetIshit(true);
 		Monster->AddHP(HammerAtt);
 		
