@@ -33,6 +33,8 @@ public:
 		return KirbyCollision;
 	}
 
+	void ReStartState();
+
 	void SetHitDir(const FVector& _HitDir)
 	{
 		HitDir = _HitDir;

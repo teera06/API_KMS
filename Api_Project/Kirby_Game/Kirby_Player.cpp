@@ -1837,6 +1837,14 @@ void AKirby_Player::HeavyJumpStart()
 	KirbyRenderer->ChangeAnimation(GetAnimationName("HeavyJump"));
 }
 
+void AKirby_Player::ReStartState()
+{
+	EatState = false;
+	SetModeName("Base_");
+	SetMode(EAMode::Base);
+	KirbyRenderer->ChangeAnimation("Base_Idle_Right");
+}
+
 void AKirby_Player::HitStart()
 {
 	DirCheck();
