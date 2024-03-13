@@ -77,7 +77,7 @@ void UStage3_Level::Tick(float _DeltaTime)
 void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	BGMPlayer = UEngineSound::SoundPlay("Stage1BGM.mp3");
+	BGMPlayer = UEngineSound::SoundPlay("Stage3BGM.mp3");
 	BGMPlayer.SetVolume(0.3f);
 	BGMPlayer.Loop();
 

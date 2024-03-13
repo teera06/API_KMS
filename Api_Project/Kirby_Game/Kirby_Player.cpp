@@ -1730,6 +1730,18 @@ void AKirby_Player::hit(float _DeltaTime)
 {
 	DirCheck();
 	SoundReset();
+
+	if (StageCheck >= 3)
+	{
+		SMike1.Replay();
+		SMike2.Replay();
+		SMike3.Replay();
+
+		SMike1.Off();
+		SMike2.Off();
+		SMike3.Off();
+	}
+
 	KirbyRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	FVector Move = FVector::Zero;
 	FVector Gravit = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
