@@ -175,6 +175,7 @@ protected:
 private:
 	static AKirby_Player* MainPlayer;
 
+	UEngineSoundPlayer SBaseHit;
 	UEngineSoundPlayer SJump;
 	UEngineSoundPlayer SFly;
 	UEngineSoundPlayer SFlyFall;
