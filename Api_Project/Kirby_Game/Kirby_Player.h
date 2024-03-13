@@ -176,6 +176,7 @@ private:
 	static AKirby_Player* MainPlayer;
 
 	UEngineSoundPlayer SJump;
+	UEngineSoundPlayer SFly;
 	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
 	UEngineSoundPlayer SFire;
@@ -213,6 +214,7 @@ private:
 	// 행동별 속도 정리
 	float SJumptime = 0.3f;
 	float SFiretime = 0.3f;
+	float SFlytime = 0.2f;
 
 	float checkSpeed = 0.0f; // 최종 스피드
 

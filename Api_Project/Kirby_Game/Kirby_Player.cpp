@@ -506,6 +506,13 @@ void AKirby_Player::SoundCreate()
 		SJump.Loop();
 		SJump.Off();
 	}
+
+	{
+		SFly = UEngineSound::SoundPlay("Fly.wav");
+		SFly.SetVolume(0.6f);
+		SFly.Loop();
+		SFly.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -514,10 +521,12 @@ void AKirby_Player::SoundReset()
 	SFire.Replay();
 	SAllstar.Replay();
 	SJump.Replay();
+	SFly.Replay();
 	SBase.Off();
 	SFire.Off();
 	SAllstar.Off();
 	SJump.Off();
+	SFly.Off();
 }
 
 
@@ -1324,6 +1333,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 	// 점프 도중 Fly
 	if (UEngineInput::IsDown('S'))
 	{
+		SFly.On();
 		switch (KirbyMode)
 		{
 		case EAMode::Base:
@@ -1470,6 +1480,13 @@ void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
 
+	SFlytime -= _DeltaTime;
+	if (SFlytime < 0)
+	{
+		SFlytime = 0.2f;
+		SFly.Replay();
+		SFly.Off();
+	}
 	// 나는 도중 X키 누를 경우 -> 떨어짐
 	if (UEngineInput::IsDown('X'))
 	{
