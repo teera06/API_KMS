@@ -74,7 +74,14 @@ void UEngineCore::CoreTick()
 
 		AllLevel.erase(DestroyLevelName[i]);
 
+		if (Level == CurLevel)
+		{
+			CurLevel = nullptr;
+		}
+
 		Level->End();
+
+		
 
 		if (nullptr != Level)
 		{
