@@ -541,6 +541,14 @@ void AKirby_Player::SoundCreate()
 		SBaseHit.Loop();
 		SBaseHit.Off();
 	}
+
+	if (StageCheck >= 2)
+	{
+		SSir = UEngineSound::SoundPlay("Sir.wav");
+		SSir.SetVolume(1.0f);
+		SSir.Loop();
+		SSir.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -553,7 +561,7 @@ void AKirby_Player::SoundReset()
 	SModeChange.Replay();
 	SFlyFall.Replay();
 	SIce.Replay();
-	//SBaseHit.Replay();
+	
 	SBase.Off();
 	SFire.Off();
 	SAllstar.Off();
@@ -562,7 +570,12 @@ void AKirby_Player::SoundReset()
 	SModeChange.Off();
 	SFlyFall.Off();
 	SIce.Off();
-	//SBaseHit.Off();
+
+	if (StageCheck >= 2)
+	{
+		SSir.Replay();
+		SSir.Off();
+	}
 }
 
 
@@ -2379,6 +2392,13 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 void AKirby_Player::SirKirby(float _DeltaTime)
 {
 	DirCheck();
+	SSir.On();
+	SSirtime -= _DeltaTime;
+	if (SSirtime < 0)
+	{
+		SSir.Replay();
+		SSirtime = 0.3f;
+	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
