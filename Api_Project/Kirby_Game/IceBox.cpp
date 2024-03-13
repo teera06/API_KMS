@@ -43,7 +43,7 @@ void AIceBox::BeginPlay()
 	// ÄÝ¸®Àü
 	{
 		CollisionTop = CreateCollision(ECollisionOrder::IceBoxTop);
-		CollisionTop->SetTransform({ { 0,-100},{100,20} });
+		CollisionTop->SetTransform({ { 0,-100},{130,20} });
 		CollisionTop->SetColType(ECollisionType::Rect);
 
 		CollisionBody = CreateCollision(ECollisionOrder::IceBox);
