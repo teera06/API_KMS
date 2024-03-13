@@ -562,6 +562,21 @@ void AKirby_Player::SoundCreate()
 		SSir.Loop();
 		SSir.Off();
 	}
+
+	if (StageCheck >= 3)
+	{
+		SMike1 = UEngineSound::SoundPlay("Mike1.wav");
+		SMike1.SetVolume(1.0f);
+		SMike1.Off();
+
+		SMike2 = UEngineSound::SoundPlay("Mike2.wav");
+		SMike2.SetVolume(1.0f);
+		SMike2.Off();
+
+		SMike3 = UEngineSound::SoundPlay("Mike3.wav");
+		SMike3.SetVolume(1.0f);
+		SMike3.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -588,6 +603,18 @@ void AKirby_Player::SoundReset()
 	{
 		SSir.Replay();
 		SSir.Off();
+	}
+
+	if (StageCheck >= 3 && true== MikeSoundReset)
+	{
+		SMike1.Replay();
+		SMike2.Replay();
+		SMike3.Replay();
+
+		SMike1.Off();
+		SMike2.Off();
+		SMike3.Off();
+		MikeSoundReset = false;
 	}
 }
 
@@ -2210,14 +2237,21 @@ void AKirby_Player::MikeAttackStart()
 	if (MikeOrder == 1)
 	{
 		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack1"));
+		SMike1.On();
 	}
 	else if (MikeOrder == 2)
 	{
 		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack2"));
+		SMike1.Off();
+		SMike1.Replay();
+		SMike2.On();
 	}
 	else if (MikeOrder == 3)
 	{
 		KirbyRenderer->ChangeAnimation(GetAnimationName("MikeAttack3"));
+		SMike3.On();
+		SMike2.Off();
+		SMike2.Replay();
 	}
 }
 
@@ -2448,7 +2482,6 @@ void AKirby_Player::SirKirby(float _DeltaTime)
 void AKirby_Player::MikeKirby(float _DeltaTime)
 {
 	DirCheck();
-
 	if (DirState == EActorDir::Left)
 	{
 		
@@ -2471,6 +2504,7 @@ void AKirby_Player::MikeKirby(float _DeltaTime)
 			SetModeName("Base_");
 			SetMode(EAMode::Base);
 			MikeOrder = 1;
+			MikeSoundReset = true;
 		}
 
 		SoundCollisiongather(_DeltaTime); // 사운드 콜리전 -> 사운드 공격은 사운드 몬스터에게만 통한다.

@@ -187,6 +187,9 @@ private:
 	UEngineSoundPlayer SSir;
 	UEngineSoundPlayer SFireHit;
 	UEngineSoundPlayer SIceHit;
+	UEngineSoundPlayer SMike1;
+	UEngineSoundPlayer SMike2;
+	UEngineSoundPlayer SMike3;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -266,6 +269,7 @@ private:
 	bool hitState = false; // 충돌 상태
 	bool SkillOn = false; // 스킬 사용 중인 상태
 	bool SirUse = false; // Sir Kirby 한정
+	bool MikeSoundReset = false;
 
 	bool transform = false;
 	bool RunState = false;

@@ -59,6 +59,13 @@ void UStage3_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().CuttingImage("MikeMonster_Left.png", 5, 3);
 		UEngineResourcesManager::GetInst().CuttingImage("Tock_Right.png", 10, 3);
 		UEngineResourcesManager::GetInst().CuttingImage("Tock_Left.png", 10, 3);
+
+		std::list<UEngineFile> SoundList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+		for (UEngineFile& File : SoundList)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
 	}
 }
 
