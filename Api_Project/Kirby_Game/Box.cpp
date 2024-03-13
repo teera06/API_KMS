@@ -29,7 +29,7 @@ void ABox::BeginPlay()
 	// 콜리전
 	{
 		CollisionTop = CreateCollision(ECollisionOrder::BoxTop);
-		CollisionTop->SetTransform({ { 0,-50},{100,20} });
+		CollisionTop->SetTransform({ { 0,-50},{90,20} });
 		CollisionTop->SetColType(ECollisionType::Rect);
 
 		CollisionBody = CreateCollision(ECollisionOrder::Box);
@@ -123,7 +123,7 @@ void ABox::ItemDrop()
 	hitRenderer->ChangeAnimation("Effect");
 	scale = 2;
 	Renderer->ChangeAnimation("Item");
-	Renderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+	Renderer->SetTransform({ {0,10}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
 
 	CollisionTop->ActiveOff();
 	CollisionBody->ActiveOff();
