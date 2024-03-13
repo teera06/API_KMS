@@ -527,6 +527,13 @@ void AKirby_Player::SoundCreate()
 		SFlyFall.Loop();
 		SFlyFall.Off();
 	}
+
+	{
+		SIce = UEngineSound::SoundPlay("Ice.wav");
+		SIce.SetVolume(0.6f);
+		SIce.Loop();
+		SIce.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -538,6 +545,7 @@ void AKirby_Player::SoundReset()
 	SFly.Replay();
 	SModeChange.Replay();
 	SFlyFall.Replay();
+	SIce.Replay();
 	SBase.Off();
 	SFire.Off();
 	SAllstar.Off();
@@ -545,6 +553,7 @@ void AKirby_Player::SoundReset()
 	SFly.Off();
 	SModeChange.Off();
 	SFlyFall.Off();
+	SIce.Off();
 }
 
 
@@ -2336,9 +2345,17 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 void AKirby_Player::IceKirby(float _DeltaTime)
 {
 	DirCheck();
+	SIce.On();
+	SIcetime -= _DeltaTime;
+	if (SIcetime < 0)
+	{
+		SIce.Replay();
+		SIcetime = 0.3f;
+	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
+		SIce.Off();
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;

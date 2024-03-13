@@ -182,6 +182,7 @@ private:
 	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
 	UEngineSoundPlayer SFire;
+	UEngineSoundPlayer SIce;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -216,6 +217,7 @@ private:
 	// 행동별 속도 정리
 	float SJumptime = 0.3f;
 	float SFiretime = 0.3f;
+	float SIcetime = 0.3f;
 	float SFlytime = 0.2f;
 	float SFlyFalltime = 0.2f;
 
