@@ -499,6 +499,13 @@ void AKirby_Player::SoundCreate()
 		SAllstar.Loop();
 		SAllstar.Off();
 	}
+
+	{
+		SJump = UEngineSound::SoundPlay("Jump.wav");
+		SJump.SetVolume(0.6f);
+		SJump.Loop();
+		SJump.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -506,6 +513,7 @@ void AKirby_Player::SoundReset()
 	SBase.Replay();
 	SFire.Replay();
 	SAllstar.Replay();
+	SJump.Replay();
 }
 
 
@@ -1116,6 +1124,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
+			SJump.On();
 			JumpVector = JumpPowerIdle;
 			StateAniChange(EActorState::Jump);
 			return;
@@ -1264,8 +1273,15 @@ void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck(); // 방향 체크
 
-	FVector MovePos;
+	time -= _DeltaTime;
 
+	if (time < 0)
+	{
+		time = 0.5f;
+		SJump.Off();
+	}
+	FVector MovePos;
+	
 	// 점프 도중 X축 이동
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
@@ -1339,6 +1355,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 		|| true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) 
 		|| true ==BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
+		SJump.Loop();
 		JumpVector = FVector::Zero; // 점프력 힘은 0
 
 		if (true == RunState)

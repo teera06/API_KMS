@@ -175,6 +175,7 @@ protected:
 private:
 	static AKirby_Player* MainPlayer;
 
+	UEngineSoundPlayer SJump;
 	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
 	UEngineSoundPlayer SFire;
@@ -210,6 +211,7 @@ private:
 	FVector MoveY = FVector::Zero;
 
 	// 행동별 속도 정리
+	float time = 0.5f;
 	float checkSpeed = 0.0f; // 최종 스피드
 
 	float WalkSpeed = 200.0f; // 걷는 속도
