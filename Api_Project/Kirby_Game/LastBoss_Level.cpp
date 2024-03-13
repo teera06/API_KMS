@@ -55,6 +55,13 @@ void ULastBoss_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().CuttingImage("King_Right.png", 10, 8);
 		UEngineResourcesManager::GetInst().CuttingImage("King_Left.png", 10, 8);
 		UEngineResourcesManager::GetInst().CuttingImage("EndingMap.png", 3, 3);
+
+		std::list<UEngineFile> SoundList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+		for (UEngineFile& File : SoundList)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
 	}
 }
 
@@ -92,6 +99,9 @@ void ULastBoss_Level::Tick(float _DeltaTime)
 void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+	BGMPlayer = UEngineSound::SoundPlay("LastBGM.mp3");
+	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.Loop();
 	SetCameraPos({100,-40 }); // 카메라 위치 설정
 
 	// 맵 생성
@@ -120,6 +130,6 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 void ULastBoss_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
-
+	BGMPlayer.Off();
 	GEngine->DestroyLevel("LastBoss_Level"); // Level 정리
 }
