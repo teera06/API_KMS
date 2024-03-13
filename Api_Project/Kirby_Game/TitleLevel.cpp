@@ -50,8 +50,6 @@ void UTitleLevel::BeginPlay()
 		{
 			UEngineSound::Load(File.GetFullPath());
 		}
-		//BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
-		//BGMPlayer.Off();
 	}
 }
 

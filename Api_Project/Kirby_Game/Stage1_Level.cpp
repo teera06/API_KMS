@@ -95,8 +95,11 @@ void UStage1_Level::Tick(float _DeltaTime)
 
 void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 {
-
 	ULevel::LevelStart(_PrevLevel);
+	BGMPlayer = UEngineSound::SoundPlay("Stage1BGM.mp3");
+	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.Loop();
+	
 	SetCameraPos({ 0,400 }); // 카메라 위치 설정
 
 	// 맵 생성
