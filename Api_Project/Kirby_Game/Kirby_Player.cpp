@@ -514,6 +514,10 @@ void AKirby_Player::SoundReset()
 	SFire.Replay();
 	SAllstar.Replay();
 	SJump.Replay();
+	SBase.Off();
+	SFire.Off();
+	SAllstar.Off();
+	SJump.Off();
 }
 
 
@@ -1272,12 +1276,12 @@ void AKirby_Player::Idle(float _DeltaTime)
 void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck(); // 방향 체크
+	SJumptime -= _DeltaTime;
 
-	time -= _DeltaTime;
-
-	if (time < 0)
+	if (SJumptime < 0)
 	{
-		time = 0.5f;
+		SJumptime = 0.3f;
+		SJump.Replay();
 		SJump.Off();
 	}
 	FVector MovePos;
@@ -1596,7 +1600,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 void AKirby_Player::hit(float _DeltaTime)
 {
 	DirCheck();
-
+	SoundReset();
 	KirbyRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	FVector Move = FVector::Zero;
 	FVector Gravit = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
@@ -1719,6 +1723,7 @@ void AKirby_Player::Walk(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
+			SJump.On();
 			JumpVector = JumpPowerMove;
 			StateAniChange(EActorState::Jump);
 			return;
@@ -1788,6 +1793,7 @@ void AKirby_Player::Run(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
+			SJump.On();
 			JumpVector = JumpPowerMove;
 			StateAniChange(EActorState::Jump);
 			return;
@@ -2261,9 +2267,17 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
 	SFire.On();
+	SFiretime -= _DeltaTime;
+	if (SFiretime < 0)
+	{
+		SFire.Replay();
+		SFiretime = 0.3f;
+	}
+
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
+		SFire.Off();
 		SkillOn = false;
 		FireRenderer1->ActiveOff();
 		FireRenderer2->ActiveOff();
