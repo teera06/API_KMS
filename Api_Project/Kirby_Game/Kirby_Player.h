@@ -175,8 +175,9 @@ protected:
 private:
 	static AKirby_Player* MainPlayer;
 
-	UEngineSoundPlayer Base;
-	UEngineSoundPlayer Fire;
+	UEngineSoundPlayer SAllstar;
+	UEngineSoundPlayer SBase;
+	UEngineSoundPlayer SFire;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)

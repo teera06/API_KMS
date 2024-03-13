@@ -479,24 +479,33 @@ void AKirby_Player::AniCreate()
 void AKirby_Player::SoundCreate()
 {
 	{
-		Base = UEngineSound::SoundPlay("Base.wav");
-		Base.SetVolume(0.6f);
-		Base.Loop();
-		Base.Off();
+		SBase = UEngineSound::SoundPlay("Base.wav");
+		SBase.SetVolume(0.6f);
+		SBase.Loop();
+		SBase.Off();
 	}
 
 	{
-		Fire = UEngineSound::SoundPlay("Fire.wav");
-		Fire.SetVolume(0.6f);
-		Fire.Loop();
-		Fire.Off();
+		SFire = UEngineSound::SoundPlay("Fire.wav");
+		SFire.SetVolume(0.6f);
+		SFire.Loop();
+		SFire.Off();
+	}
+
+
+	{
+		SAllstar = UEngineSound::SoundPlay("Allstar.wav");
+		SAllstar.SetVolume(0.6f);
+		SAllstar.Loop();
+		SAllstar.Off();
 	}
 }
 
 void AKirby_Player::SoundReset()
 {
-	Base.Replay();
-	Fire.Replay();
+	SBase.Replay();
+	SFire.Replay();
+	SAllstar.Replay();
 }
 
 
@@ -1787,13 +1796,13 @@ void AKirby_Player::Stop(float _DeltaTime)
 
 void AKirby_Player::Absorption(float _DeltaTime)
 {
-	Base.On();
+	SBase.On();
 	DirCheck();
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
-		Base.Off();
+		SBase.Off();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
@@ -1804,9 +1813,10 @@ void AKirby_Player::Absorption(float _DeltaTime)
 void AKirby_Player::All_Attack(float _DeltaTime)
 {
 	DirCheck();
-	
+	SAllstar.On();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
+		SAllstar.Off();
 		SkillOn = false;
 		EatState = false;
 		SetModeName("Base_");
@@ -2233,7 +2243,7 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
-	Fire.On();
+	SFire.On();
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
