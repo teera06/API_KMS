@@ -1,5 +1,5 @@
 #pragma once
-
+#include <EnginePlatform\EngineSound.h>
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/Level.h>
 
@@ -25,6 +25,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel)override;
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	UEngineSoundPlayer BGMPlayer;
 	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
 
 	AEndActor* NewEndActor = nullptr;

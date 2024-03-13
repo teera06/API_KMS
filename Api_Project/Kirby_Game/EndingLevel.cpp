@@ -89,6 +89,9 @@ void UEndingLevel::Tick(float _DeltaTime)
 void UEndingLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3");
+	BGMPlayer.SetVolume(0.7f);
+	BGMPlayer.Loop();
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정
 	NewEndActor = SpawnActor<AEndActor>();
 	NewEndActor->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
@@ -98,6 +101,6 @@ void UEndingLevel::LevelStart(ULevel* _PrevLevel)
 void UEndingLevel::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
-
+	BGMPlayer.Off();
 	GEngine->DestroyLevel("Ending_Level"); // Level 정리
 }

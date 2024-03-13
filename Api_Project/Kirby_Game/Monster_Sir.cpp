@@ -19,6 +19,7 @@ AMonster_Sir::~AMonster_Sir()
 
 void AMonster_Sir::IceState()
 {
+	SirUse = false;
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
 	MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
