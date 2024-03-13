@@ -513,6 +513,13 @@ void AKirby_Player::SoundCreate()
 		SFly.Loop();
 		SFly.Off();
 	}
+
+	{
+		SModeChange = UEngineSound::SoundPlay("ModeChange.wav");
+		SModeChange.SetVolume(0.6f);
+		SModeChange.Loop();
+		SModeChange.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
@@ -522,11 +529,13 @@ void AKirby_Player::SoundReset()
 	SAllstar.Replay();
 	SJump.Replay();
 	SFly.Replay();
+	SModeChange.Replay();
 	SBase.Off();
 	SFire.Off();
 	SAllstar.Off();
 	SJump.Off();
 	SFly.Off();
+	SModeChange.Off();
 }
 
 
@@ -1156,6 +1165,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		else if (true == EatState &&  GetModeName()!="Base_") {
 			transform = true;
 			EatState = false;
+			SModeChange.On();
 			effectRenderer->ActiveOn();
 			effectRenderer->ChangeAnimation("effect");
 			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);

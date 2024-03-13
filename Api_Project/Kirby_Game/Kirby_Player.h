@@ -177,6 +177,7 @@ private:
 
 	UEngineSoundPlayer SJump;
 	UEngineSoundPlayer SFly;
+	UEngineSoundPlayer SModeChange;
 	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
 	UEngineSoundPlayer SFire;
