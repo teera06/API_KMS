@@ -44,9 +44,9 @@ void UTitleLevel::BeginPlay()
 		UEngineResourcesManager::GetInst().CuttingImage("Text.png", 3, 4);
 
 
-		std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		std::list<UEngineFile> SoundList = NewPath.AllFile({ ".wav", ".mp3" }, true);
 		// 엔진만의 규칙을 정할거냐.
-		for (UEngineFile& File : testList)
+		for (UEngineFile& File : SoundList)
 		{
 			UEngineSound::Load(File.GetFullPath());
 		}

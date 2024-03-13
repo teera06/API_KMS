@@ -66,6 +66,10 @@ void UStage2_Level::Tick(float _DeltaTime)
 void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+	BGMPlayer = UEngineSound::SoundPlay("Stage1BGM.mp3");
+	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.Loop();
+
 	SetCameraPos({ 0,585}); // 카메라 위치 설정
 
 	// 맵 생성
@@ -117,6 +121,6 @@ void UStage2_Level::LevelStart(ULevel* _PrevLevel)
 void UStage2_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
-
+	BGMPlayer.Off();
 	GEngine->DestroyLevel("Stage2_Level");
 }

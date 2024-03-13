@@ -29,6 +29,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel)override;
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	UEngineSoundPlayer BGMPlayer;
 	AStage2_Map* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;

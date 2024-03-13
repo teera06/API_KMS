@@ -74,17 +74,12 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Right.png", 5, 4);
 		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Left.png", 5, 4);
 
-		std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		std::list<UEngineFile> SoundList = NewPath.AllFile({ ".wav", ".mp3" }, true);
 		// 엔진만의 규칙을 정할거냐.
-		for (UEngineFile& File : testList)
+		for (UEngineFile& File : SoundList)
 		{
 			UEngineSound::Load(File.GetFullPath());
 		}
-
-		//BGMPlayer = UEngineSound::SoundPlay("Foot_1_1.wav");
-		//BGMPlayer.Loop();
-		// BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
-		// BGMPlayer.Off();
 	}
 }
 
@@ -147,7 +142,7 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 void UStage1_Level::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
-
+	BGMPlayer.Off();
 	GEngine->DestroyLevel("Stage1_Level"); // Level 정리
 
 }
