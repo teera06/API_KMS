@@ -542,6 +542,12 @@ void AKirby_Player::SoundCreate()
 		SBaseHit.Off();
 	}
 
+	{
+		SFireHit = UEngineSound::SoundPlay("FireHit.wav");
+		SFireHit.SetVolume(1.0f);
+		SFireHit.Off();
+	}
+
 	if (StageCheck >= 2)
 	{
 		SSir = UEngineSound::SoundPlay("Sir.wav");
@@ -1766,6 +1772,8 @@ void AKirby_Player::hit(float _DeltaTime)
 	{
 		SBaseHit.Off();
 		SBaseHit.Replay();
+		SFireHit.Off();
+		SFireHit.Replay();
 		hitState = false;
 		RunState = false;
 		KirbyRenderer->SetAlpha(1.0f);
@@ -2020,6 +2028,7 @@ void AKirby_Player::hothitStart()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("hothit"));
+	SFireHit.On();
 }
 
 void AKirby_Player::FlyReadyStart()

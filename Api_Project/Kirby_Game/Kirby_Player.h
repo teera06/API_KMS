@@ -185,6 +185,7 @@ private:
 	UEngineSoundPlayer SFire;
 	UEngineSoundPlayer SIce;
 	UEngineSoundPlayer SSir;
+	UEngineSoundPlayer SFireHit;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
