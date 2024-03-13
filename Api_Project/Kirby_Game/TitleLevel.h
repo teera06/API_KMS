@@ -2,6 +2,7 @@
 
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/Level.h>
+#include <EnginePlatform\EngineSound.h>
 
 class UTitleLevel : public ULevel
 {
@@ -23,6 +24,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel)override;
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	UEngineSoundPlayer BGMPlayer;
 	FVector windowscale = GEngine->MainWindow.GetWindowScale(); // 윈도우창 크기 Get
 
 	static bool LoadCheck;

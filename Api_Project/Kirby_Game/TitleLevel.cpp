@@ -42,6 +42,16 @@ void UTitleLevel::BeginPlay()
 		}
 		UEngineResourcesManager::GetInst().CuttingImage("Mapback.png", 5, 1);
 		UEngineResourcesManager::GetInst().CuttingImage("Text.png", 3, 4);
+
+
+		std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+		for (UEngineFile& File : testList)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
+		//BGMPlayer = UEngineSound::SoundPlay("anipang_ingame_wav.wav");
+		//BGMPlayer.Off();
 	}
 }
 
@@ -63,6 +73,11 @@ void UTitleLevel::Tick(float _DeltaTime)
 void UTitleLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+
+	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3");
+	BGMPlayer.SetVolume(0.7f);
+	BGMPlayer.Loop();
+
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정
 
 	SpawnActor<ATitleActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
@@ -74,5 +89,6 @@ void UTitleLevel::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
+	BGMPlayer.Off();
 	GEngine->DestroyLevel("TitleLevel");
 }

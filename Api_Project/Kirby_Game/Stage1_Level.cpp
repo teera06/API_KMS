@@ -74,9 +74,6 @@ void UStage1_Level::BeginPlay()
 		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Right.png", 5, 4);
 		UEngineResourcesManager::GetInst().CuttingImage("Flamer_Left.png", 5, 4);
 
-		//NewPath.Move("GameResources"); // 현재 폴더에서 다른 폴더로 이동
-		//NewPath.Move("sound"); // 폴더 이동
-
 		std::list<UEngineFile> testList = NewPath.AllFile({ ".wav", ".mp3" }, true);
 		// 엔진만의 규칙을 정할거냐.
 		for (UEngineFile& File : testList)
