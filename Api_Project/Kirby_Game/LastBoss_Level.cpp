@@ -103,11 +103,11 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 
 	// 目厚客 目厚 惑怕芒 Actor 积己
 	NewPlayer = SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 400,400 });
+	NewPlayer->SetActorLocation({ 400,500 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
-	SpawnActor<AHammer>()->SetActorLocation({610,350});
+	SpawnActor<AHammer>()->SetActorLocation({610,370});
 	
 	NewMainBoss = SpawnActor<AMainBoss>();
 	NewMainBoss->ActiveOff();

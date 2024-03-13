@@ -80,7 +80,7 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 
 	// 目厚客 目厚 惑怕芒 Actor 积己
 	NewPlayer = SpawnActor<AKirby_Player>();
-	NewPlayer->SetActorLocation({ 500,480 });
+	NewPlayer->SetActorLocation({ 500,520 });
 
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
