@@ -571,7 +571,7 @@ void AKirby_Player::SoundReset()
 	SFlyFall.Off();
 	SIce.Off();
 
-	if (StageCheck >= 2)
+	if (StageCheck >= 2 && false==SirUse)
 	{
 		SSir.Replay();
 		SSir.Off();
@@ -1343,6 +1343,12 @@ void AKirby_Player::Jump(float _DeltaTime)
 		SJump.Replay();
 		SJump.Off();
 	}
+
+	if (StageCheck >= 2 && false == SirUse)
+	{
+		SSir.Replay();
+		SSir.Off();
+	}
 	FVector MovePos;
 	
 	// 점프 도중 X축 이동
@@ -1458,7 +1464,11 @@ void AKirby_Player::Jump(float _DeltaTime)
 void AKirby_Player::SirJump(float _DeltaTime)
 {
 	DirCheck();
-
+	if (StageCheck >= 2 && false == SirUse)
+	{
+		SSir.Replay();
+		SSir.Off();
+	}
 	FVector MovePos = FVector::Zero;
 
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -1529,7 +1539,11 @@ void AKirby_Player::FlyReady(float _DeltaTime)
 void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
-
+	if (StageCheck >= 2 && false == SirUse)
+	{
+		SSir.Replay();
+		SSir.Off();
+	}
 	SFlytime -= _DeltaTime;
 	if (SFlytime < 0)
 	{
