@@ -478,15 +478,25 @@ void AKirby_Player::AniCreate()
 
 void AKirby_Player::SoundCreate()
 {
-	Base = UEngineSound::SoundPlay("Base.wav");
-	Base.SetVolume(0.6f);
-	Base.Loop();
-	Base.Off();
+	{
+		Base = UEngineSound::SoundPlay("Base.wav");
+		Base.SetVolume(0.6f);
+		Base.Loop();
+		Base.Off();
+	}
+
+	{
+		Fire = UEngineSound::SoundPlay("Fire.wav");
+		Fire.SetVolume(0.6f);
+		Fire.Loop();
+		Fire.Off();
+	}
 }
 
 void AKirby_Player::SoundReset()
 {
 	Base.Replay();
+	Fire.Replay();
 }
 
 
@@ -2223,7 +2233,7 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
-
+	Fire.On();
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
