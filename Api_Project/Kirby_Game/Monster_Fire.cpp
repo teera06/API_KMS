@@ -16,7 +16,6 @@ AMonster_Fire::~AMonster_Fire()
 
 void AMonster_Fire::IceState()
 {
-	SFireAtt.Off();
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
 	MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
@@ -49,7 +48,6 @@ void AMonster_Fire::BeginPlay()
 
 	// 애니메이션 만들기
 	AniCreate();
-	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
@@ -71,17 +69,6 @@ void AMonster_Fire::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-		
-		HitDietime -= _DeltaTime;
-		if (HitDietime < 0 && false == IsIce)
-		{
-			SHitDie.On();
-		}
-		else if (HitDietime < 0 && true == IsIce)
-		{
-			SIceDie.On();
-		}
-
 		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
@@ -153,31 +140,9 @@ void AMonster_Fire::AniCreate()
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
 }
 
-void AMonster_Fire::SoundCreate()
-{
-	{
-		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
-		SHitDie.SetVolume(0.6f);
-		SHitDie.Off();
-	}
-
-	{
-		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
-		SIceDie.SetVolume(0.6f);
-		SIceDie.Off();
-	}
-
-	{
-		SFireAtt = UEngineSound::SoundPlay("FireAtt.wav");
-		SFireAtt.SetVolume(1.0f);
-		SFireAtt.Loop();
-		SFireAtt.Off();
-	}
-}
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)
 {
-	SFireAtt.Off();
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
 	{
@@ -199,6 +164,7 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -221,6 +187,7 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -243,6 +210,7 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 	{
@@ -265,6 +233,7 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 }
 
@@ -274,7 +243,7 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		SFireAtt.Off();
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
@@ -331,7 +300,6 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
 		IsAtt = true;
-		SFireAtt.On();
 		MoveSpeed = 100.0f;
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
@@ -347,8 +315,6 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 	else {
 		//MovePos = FVector::Zero;
 		IsAtt = false;
-		SFireAtt.Replay();
-		SFireAtt.Off();
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");
@@ -377,12 +343,12 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 			IceMove = FVector::Zero;
 			MonsterRenderer->ChangeAnimation("Effect");
 			IsDie = true;
+			UEngineSound::SoundPlay("MonsterIceDie.wav");
 		}
 	}
 
 	if (true == IsDie) // 죽으면
 	{
-		SFireAtt.Off();
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {
@@ -390,6 +356,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 		{
 			if (true == IsAtt)
 			{
+				//UEngineSound::SoundPlay("FireAtt.wav");
 				CurLocation = GetActorLocation() * FVector::Right;
 				RangeXL = CurLocation + (FVector::Left * RangeX);
 				RangeXR = CurLocation + (FVector::Right * RangeX);
