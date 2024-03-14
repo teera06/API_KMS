@@ -19,8 +19,7 @@ void ASir::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
-
-	if (GetDir().iX() != FVector::Zero.iX())
+	if (Owner == ESirOwner::kirby)
 	{
 		SSirtime -= _DeltaTime;
 		if (SSirtime < 0)
@@ -28,7 +27,18 @@ void ASir::Tick(float _DeltaTime)
 			UEngineSound::SoundPlay("Sir.wav");
 			SSirtime = 3.0f;
 		}
+	}
+	else if(Owner==ESirOwner::SirMonster){
+		SSirtime -= _DeltaTime;
+		if (SSirtime < 0)
+		{
+			UEngineSound::SoundPlay("Sir.wav").SetVolume(0.1f);
+			SSirtime = 3.0f;
+		}
+	}
 
+	if (GetDir().iX() != FVector::Zero.iX())
+	{
 		CalDir();
 		SkillDir(_DeltaTime);
 
