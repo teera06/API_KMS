@@ -25,7 +25,7 @@ void ASir::Tick(float _DeltaTime)
 		if (SSirtime < 0)
 		{
 			UEngineSound::SoundPlay("Sir.wav");
-			SSirtime = 3.0f;
+			SSirtime = 2.0f;
 		}
 	}
 	else if(Owner==ESirOwner::SirMonster){
@@ -33,7 +33,7 @@ void ASir::Tick(float _DeltaTime)
 		if (SSirtime < 0)
 		{
 			UEngineSound::SoundPlay("Sir.wav").SetVolume(0.1f);
-			SSirtime = 3.0f;
+			SSirtime = 2.0f;
 		}
 	}
 
