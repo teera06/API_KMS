@@ -270,8 +270,6 @@ void ASir::Collisiongather(float _DeltaTime)
 			StartDir = StartDir * FVector::Left;
 		}
 		
-		
-		
 		// 부메랑을 받지 못하고 범위가 크게 벗어날때
 		FVector XL = DelX + FVector::Left * 500.0f; // 몬스터 왼쪽 플레이어 인식 시야 X축
 		FVector XR = DelX + FVector::Right * 500.0f; // 몬스터 오른쪽 플레이어 인식 시야 X축
