@@ -478,11 +478,7 @@ void AKirby_Player::AniCreate()
 
 void AKirby_Player::SoundCreate()
 {
-	{
-		SBase = UEngineSound::SoundPlay("Base.wav");
-		SBase.SetVolume(0.6f);
-		SBase.Off();
-	}
+	
 
 	{
 		SFire = UEngineSound::SoundPlay("Fire.wav");
@@ -553,7 +549,7 @@ void AKirby_Player::SoundCreate()
 
 void AKirby_Player::SoundReset()
 {
-	SBase.Replay();
+	
 	SFire.Replay();
 	
 	
@@ -561,7 +557,7 @@ void AKirby_Player::SoundReset()
 	
 	SIce.Replay();
 	
-	SBase.Off();
+	
 	SFire.Off();
 	
 	
@@ -1241,6 +1237,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress('X') && false == EatState && KirbyMode == EAMode::Base
 		)
 	{
+		UEngineSound::SoundPlay("Base.wav");
 		SkillOn = true;
 		StateAniChange(EActorState::Absorption);
 		ABase* NewBase = GetWorld()->SpawnActor<ABase>();
@@ -1921,13 +1918,11 @@ void AKirby_Player::Stop(float _DeltaTime)
 
 void AKirby_Player::Absorption(float _DeltaTime)
 {
-	SBase.On();
 	DirCheck();
 	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
-		SBase.Off();
 		StateAniChange(EActorState::Idle);
 		return;
 	}
