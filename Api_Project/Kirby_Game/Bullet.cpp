@@ -63,6 +63,12 @@ void ABullet::SkillDir(float _DeltaTime)
 		}
 		AddActorLocation(FVector::Zero);
 
+		if (false == hitSound)
+		{
+			hitSound = true;
+			UEngineSound::SoundPlay("Bullet.wav");
+		}
+
 		if (true == bulletRenderer->IsCurAnimationEnd())
 		{
 			Destroy();

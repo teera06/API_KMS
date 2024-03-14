@@ -33,6 +33,7 @@ private:
 	int scale = 7;
 
 	bool hit = false;
+	bool hitSound = false;
 
 	void AniCreate(); // 局聪皋捞记 包府
 
