@@ -424,6 +424,7 @@ void AMainBoss::Att4(float _DeltaTime)
 	{
 		if (false == IsIce)
 		{
+			UEngineSound::SoundPlay("Ice.wav");
 			IsIce = true;
 			AIce* NewIce = GetWorld()->SpawnActor<AIce>();
 			NewIce->SetOwner(EIceOwner::Boss);
