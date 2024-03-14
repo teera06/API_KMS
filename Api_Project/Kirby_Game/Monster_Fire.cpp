@@ -16,6 +16,7 @@ AMonster_Fire::~AMonster_Fire()
 
 void AMonster_Fire::IceState()
 {
+	SFireAtt.Off();
 	scale = 2;
 	MonsterRenderer->ChangeAnimation("MonsterIce");
 	MonsterRenderer->SetTransform({ {0,1}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
@@ -176,6 +177,7 @@ void AMonster_Fire::SoundCreate()
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)
 {
+	SFireAtt.Off();
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::Monster, Result)) // 얼지 않은 상태에서 플레이어와 충돌
 	{
@@ -380,6 +382,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 
 	if (true == IsDie) // 죽으면
 	{
+		SFireAtt.Off();
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {

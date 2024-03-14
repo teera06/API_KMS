@@ -74,6 +74,7 @@ void Apengi_Ice::Tick(float _DeltaTime)
 			MonsterDieRenderer->SetActive(true, 0.15f);
 			MonsterDieRenderer->ChangeAnimation("effect");
 		}
+		SIceAtt.Off();
 		AddActorLocation(DiePos); // 죽으면서 이동
 	}
 }
