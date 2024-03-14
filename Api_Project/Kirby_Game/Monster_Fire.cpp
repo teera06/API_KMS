@@ -245,12 +245,13 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
-		UEngineSound::SoundPlay("MonsterDie.wav");
 		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
+			SAtt.Off();
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
+			UEngineSound::SoundPlay("MonsterDie.wav");
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(MonsterDirNormal*FVector::Right);
 			MainPlayer->GetKirbyCollision()->ActiveOff();
@@ -351,6 +352,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 
 	if (true == IsDie) // 죽으면
 	{
+		SAtt.Off();
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {

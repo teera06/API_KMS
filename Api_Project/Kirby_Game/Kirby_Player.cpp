@@ -2168,6 +2168,7 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 		{
 			MsgBoxAssert("터져야겠지....");
 		}
+		Monster->SetIsDie(true);
 		Monster->Destroy();
 	}
 	else if (true == FireCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
@@ -2233,12 +2234,13 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 	SFiretime -= _DeltaTime;
 	if (SFiretime < 0)
 	{
-		UEngineSound::SoundPlay("Fire.wav");
+		SFire = UEngineSound::SoundPlay("Fire.wav");
 		SFiretime = 2.0f;
 	}
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
+		SFire.Off();
 		SkillOn = false;
 		FireRenderer1->ActiveOff();
 		FireRenderer2->ActiveOff();

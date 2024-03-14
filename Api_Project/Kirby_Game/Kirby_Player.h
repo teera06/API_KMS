@@ -1,6 +1,7 @@
 #pragma once
 
 // 상속
+#include <EnginePlatform\EngineSound.h>
 #include <EngineCore/Actor.h> 
 #include "ActorCommon.h"
 
@@ -173,6 +174,8 @@ protected:
 	
 private:
 	static AKirby_Player* MainPlayer;
+
+	UEngineSoundPlayer SFire;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
