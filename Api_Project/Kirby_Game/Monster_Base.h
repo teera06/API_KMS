@@ -49,6 +49,7 @@ private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
 	UEngineSoundPlayer SHitDie;
+	UEngineSoundPlayer SIceDie;
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)

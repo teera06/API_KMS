@@ -76,6 +76,10 @@ void AMonster_Base::Tick(float _DeltaTime)
 		{
 			SHitDie.On();
 		}
+		else if (HitDietime < 0 && true == IsIce)
+		{
+			SIceDie.On();
+		}
 		
 		if (false == Iseffect && false==IsIce)
 		{
@@ -115,6 +119,12 @@ void AMonster_Base::SoundCreate()
 		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
 		SHitDie.SetVolume(0.6f);
 		SHitDie.Off();
+	}
+
+	{
+		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
+		SIceDie.SetVolume(0.6f);
+		SIceDie.Off();
 	}
 }
 
