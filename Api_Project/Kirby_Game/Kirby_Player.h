@@ -218,11 +218,9 @@ private:
 
 	// 행동별 속도 정리
 	float SJumptime = 0.3f;
-	float SFiretime = 0.3f;
+	float SFiretime = 0.0f;
 	float SIcetime = 0.3f;
 	float SSirtime = 0.3f;
-	float SFlytime = 0.2f;
-	float SFlyFalltime = 0.2f;
 
 	float checkSpeed = 0.0f; // 최종 스피드
 

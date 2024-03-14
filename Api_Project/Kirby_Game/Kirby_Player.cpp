@@ -1258,7 +1258,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
-		UEngineSound::SoundPlay("Fire.wav").Replay();
 		SkillOn = true;
 		StateAniChange(EActorState::FireReady);
 		return;
@@ -2366,6 +2365,12 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
+	SFiretime -= _DeltaTime;
+	if (SFiretime < 0)
+	{
+		UEngineSound::SoundPlay("Fire.wav");
+		SFiretime = 2.0f;
+	}
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
