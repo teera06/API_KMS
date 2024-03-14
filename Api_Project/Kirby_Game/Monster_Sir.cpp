@@ -228,6 +228,7 @@ void AMonster_Sir::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -250,6 +251,7 @@ void AMonster_Sir::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -272,6 +274,30 @@ void AMonster_Sir::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
+	}
+	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
+	{
+		//MonsterRenderer->SetAlpha(0.5f+nf);
+		UCollision* Collision = Result[0];
+		AActor* Ptr = Collision->GetOwner();
+		AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
+
+		// 방어코드
+
+		if (nullptr == Monster)
+		{
+			MsgBoxAssert("몬스터베이스 플레이어 인식 못함");
+		}
+
+		Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
+		DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
+		Monster->SetIsDie(true);
+		Monster->SetDiePos(DiePos);
+		Monster->Destroy(0.3f);
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 }
 
@@ -341,6 +367,7 @@ void AMonster_Sir::CalResult(float _DeltaTime)
 	{
 		if (true == IsIce)
 		{
+			UEngineSound::SoundPlay("MonsterIceDie.wav");
 			IceMove = FVector::Zero;
 			MonsterRenderer->ChangeAnimation("Effect");
 			IsDie = true;
@@ -349,6 +376,7 @@ void AMonster_Sir::CalResult(float _DeltaTime)
 
 	if (true == IsDie) // 죽으면
 	{
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {
