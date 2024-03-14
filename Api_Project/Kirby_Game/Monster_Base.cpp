@@ -72,12 +72,12 @@ void AMonster_Base::Tick(float _DeltaTime)
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
 		HitDietime -= _DeltaTime;
-		if (HitDietime < 0)
+		if (HitDietime < 0 && false == IsIce)
 		{
 			SHitDie.On();
 		}
 		
-		if (false == Iseffect)
+		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
 			MonsterDieRenderer->SetActive(true, 0.15f);
