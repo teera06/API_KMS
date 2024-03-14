@@ -492,15 +492,6 @@ void AKirby_Player::SoundCreate()
 	}
 
 
-	
-
-
-	{
-		SModeChange = UEngineSound::SoundPlay("ModeChange.wav");
-		SModeChange.SetVolume(0.6f);
-		SModeChange.Loop();
-		SModeChange.Off();
-	}
 
 	{
 		SIce = UEngineSound::SoundPlay("Ice.wav");
@@ -566,7 +557,7 @@ void AKirby_Player::SoundReset()
 	SFire.Replay();
 	
 	
-	SModeChange.Replay();
+	
 	
 	SIce.Replay();
 	
@@ -574,7 +565,6 @@ void AKirby_Player::SoundReset()
 	SFire.Off();
 	
 	
-	SModeChange.Off();
 	
 	SIce.Off();
 
@@ -1237,7 +1227,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		else if (true == EatState &&  GetModeName()!="Base_") {
 			transform = true;
 			EatState = false;
-			SModeChange.On();
+			UEngineSound::SoundPlay("ModeChange.wav");
 			effectRenderer->ActiveOn();
 			effectRenderer->ChangeAnimation("effect");
 			GetWorld()->SetOtherTimeScale(ERenderOrder::kirby, 0.0f);
@@ -1391,6 +1381,7 @@ void AKirby_Player::Jump(float _DeltaTime)
 		&& KirbyMode != EAMode::Hammer
 		)
 	{
+		UEngineSound::SoundPlay("Allstar.wav");
 		AllAttcheck = 2;
 		scale = 3;
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
