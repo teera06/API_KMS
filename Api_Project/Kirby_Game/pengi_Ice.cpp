@@ -74,6 +74,7 @@ void Apengi_Ice::Tick(float _DeltaTime)
 			MonsterDieRenderer->SetActive(true, 0.15f);
 			MonsterDieRenderer->ChangeAnimation("effect");
 		}
+		SIceAtt.Replay();
 		SIceAtt.Off();
 		AddActorLocation(DiePos); // 죽으면서 이동
 	}
@@ -113,6 +114,7 @@ void Apengi_Ice::SoundCreate()
 	{
 		SIceAtt = UEngineSound::SoundPlay("Ice.wav");
 		SIceAtt.SetVolume(0.6f);
+		SIceAtt.Replay();
 		SIceAtt.Loop();
 		SIceAtt.Off();
 	}
