@@ -1555,7 +1555,7 @@ void AKirby_Player::HeadDown(float _DeltaTime)
 void AKirby_Player::hit(float _DeltaTime)
 {
 	DirCheck();
-
+	SFire.Off();
 	KirbyRenderer->SetTransform({ {0,0}, {64 * 3, 64 * 3} }); // 랜더의 위치 크기 
 	FVector Move = FVector::Zero;
 	FVector Gravit = GetGravity(GetActorLocation().iX(), GetActorLocation().iY(), _DeltaTime);
