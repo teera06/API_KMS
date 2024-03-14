@@ -517,14 +517,6 @@ void AKirby_Player::SoundCreate()
 		SHammer1.SetVolume(0.6f);
 		SHammer1.Off();
 
-		SHammer2 = UEngineSound::SoundPlay("Hammer2.wav");
-		SHammer2.SetVolume(1.0f);
-		SHammer2.Off();
-
-		SChargeHammer2 = UEngineSound::SoundPlay("PullHammer.wav");
-		SChargeHammer2.SetVolume(1.0f);
-		SChargeHammer2.Loop();
-		SChargeHammer2.Off();
 
 		SHammer3 = UEngineSound::SoundPlay("Hammer3.wav");
 		SHammer3.SetVolume(0.6f);
@@ -534,20 +526,7 @@ void AKirby_Player::SoundCreate()
 
 void AKirby_Player::SoundReset()
 {
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
 	if (StageCheck >= 2 && false==SirUse)
 	{
 		SSir.Replay();
@@ -571,8 +550,6 @@ void AKirby_Player::SoundReset()
 		SHammer1.Replay();
 		SHammer1.Off();
 
-		SChargeHammer2.Replay();
-		SChargeHammer2.Off();
 
 		SHammer3.Replay();
 		SHammer3.Loop();
@@ -1294,6 +1271,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Hammer  && HammerAttCombo==2// Å×½ºÆ®
 		)
 	{
+		UEngineSound::SoundPlay("PullHammer.wav");
 		HammerAttOrder = 2;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
@@ -2095,7 +2073,6 @@ void AKirby_Player::HammerAttStart2()
 	DirCheck();
 	HammerAtt = -30;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att2"));
-	SChargeHammer2.On();
 }
 
 void AKirby_Player::HammerAttStart3()
@@ -2124,7 +2101,7 @@ void AKirby_Player::HammerCollisiongather(float _DeltaTime)
 		++HammerAttCombo;
 		if (HammerAtt == -30)
 		{
-			SHammer2.On();
+			UEngineSound::SoundPlay("Hammer2.wav");
 		}
 		Monster->SetIshit(true);
 		Monster->AddHP(HammerAtt);
@@ -2526,8 +2503,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SChargeHammer2.Replay();
-		SChargeHammer2.Off();
 		SHammer3.Replay();
 		SHammer3.Off();
 		SkillOn = false;

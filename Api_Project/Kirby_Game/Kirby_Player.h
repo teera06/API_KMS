@@ -175,15 +175,12 @@ protected:
 private:
 	static AKirby_Player* MainPlayer;
 
-	UEngineSoundPlayer SFire;
 	UEngineSoundPlayer SSir;
 	UEngineSoundPlayer SIceHit;
 	UEngineSoundPlayer SMike1;
 	UEngineSoundPlayer SMike2;
 	UEngineSoundPlayer SMike3;
 	UEngineSoundPlayer SHammer1;
-	UEngineSoundPlayer SChargeHammer2;
-	UEngineSoundPlayer SHammer2;
 	UEngineSoundPlayer SHammer3;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
