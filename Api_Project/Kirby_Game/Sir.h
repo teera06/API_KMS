@@ -51,6 +51,7 @@ private:
 	float RangeX = 450.0f; // 던지는 방향의 이동 범위
 	float SSirtime = 0.0f;
 	float SSMirtime = 0.0f;
+	float SMDie = 3.5f;
 
 	bool skillOn = false; // 스킬 On/Off 구분
 	bool LRCheck = false; // false::Left, true=right -> 부메랑이 돌아오는 방향

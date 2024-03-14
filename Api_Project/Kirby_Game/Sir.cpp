@@ -37,6 +37,12 @@ void ASir::Tick(float _DeltaTime)
 			SMSir.SetVolume(0.1f);
 			SSMirtime = 2.0f;
 		}
+
+		SMDie -= _DeltaTime;
+		if (SMDie < 0)
+		{
+			SMSir.Off();
+		}
 	}
 
 	if (GetDir().iX() != FVector::Zero.iX())
