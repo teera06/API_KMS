@@ -260,14 +260,26 @@ void ASubBoss::MoveUpdate(float _DeltaTime)
 		if (RandomAtt == 1)
 		{
 			Att1(_DeltaTime);
+			if (false == Sound1 && skillcooldowntime < 0.0f)
+			{
+				UEngineSound::SoundPlay("SubBoss1.wav");
+				Sound1 = true;
+			}
 		}
 		
 		if (RandomAtt == 2 or RandomAtt == 0)
 		{
 			Att2();
+			if (false == Sound2 && skillcooldowntime < 0.0f)
+			{
+				UEngineSound::SoundPlay("SubBoss2.wav");
+				Sound2 = true;
+			}
 		}
 	}
 	else {
+		Sound1 = false;
+		Sound2 = false;
 		AttRenderer->ActiveOff();
 		CalDir(_DeltaTime);
 		Collisiongather(_DeltaTime);

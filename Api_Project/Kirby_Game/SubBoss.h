@@ -72,6 +72,8 @@ private:
 	int Hp = 100;
 
 	bool Ishit = false; // 죽은 상태 인지 확인
+	bool Sound1 = false;
+	bool Sound2 = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
