@@ -507,13 +507,6 @@ void AKirby_Player::SoundCreate()
 	}
 
 	{
-		SFlyFall = UEngineSound::SoundPlay("FlyFall.wav");
-		SFlyFall.SetVolume(0.6f);
-		SFlyFall.Loop();
-		SFlyFall.Off();
-	}
-
-	{
 		SIce = UEngineSound::SoundPlay("Ice.wav");
 		SIce.SetVolume(0.6f);
 		SIce.Loop();
@@ -591,7 +584,7 @@ void AKirby_Player::SoundReset()
 	SAllstar.Replay();
 	
 	SModeChange.Replay();
-	SFlyFall.Replay();
+	
 	SIce.Replay();
 	
 	SBase.Off();
@@ -599,7 +592,7 @@ void AKirby_Player::SoundReset()
 	SAllstar.Off();
 	
 	SModeChange.Off();
-	SFlyFall.Off();
+	
 	SIce.Off();
 
 	if (StageCheck >= 2 && false==SirUse)
@@ -1592,7 +1585,7 @@ void AKirby_Player::Fly(float _DeltaTime)
 	// 나는 도중 X키 누를 경우 -> 떨어짐
 	if (UEngineInput::IsDown('X'))
 	{
-		SFlyFall.On();
+		UEngineSound::SoundPlay("FlyFall.wav");
 		FlyState = false;
 		RunState = false;
 		StateAniChange(EActorState::Flyfall);
@@ -1652,13 +1645,6 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 	
 	DirCheck();
 	
-	SFlyFalltime -= _DeltaTime;
-	if (SFlyFalltime < 0)
-	{
-		SFlyFalltime = 0.2f;
-		SFlyFall.Replay();
-		SFlyFall.Off();
-	}
 	FVector MovePos = FVector::Zero;
 
 	if (UEngineInput::IsPress(VK_LEFT))
