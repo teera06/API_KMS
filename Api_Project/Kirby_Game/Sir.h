@@ -33,6 +33,9 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
+	UEngineSoundPlayer SSir;
+	UEngineSoundPlayer SMSir;
+
 	UImageRenderer* SirRenderer = nullptr;
 	UCollision* SirCollision = nullptr;
 
@@ -47,6 +50,7 @@ private:
 
 	float RangeX = 450.0f; // 던지는 방향의 이동 범위
 	float SSirtime = 0.0f;
+	float SSMirtime = 0.0f;
 
 	bool skillOn = false; // 스킬 On/Off 구분
 	bool LRCheck = false; // false::Left, true=right -> 부메랑이 돌아오는 방향

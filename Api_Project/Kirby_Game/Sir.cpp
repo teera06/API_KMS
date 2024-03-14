@@ -24,16 +24,18 @@ void ASir::Tick(float _DeltaTime)
 		SSirtime -= _DeltaTime;
 		if (SSirtime < 0)
 		{
-			UEngineSound::SoundPlay("Sir.wav").SetVolume(0.6f);
+			SSir = UEngineSound::SoundPlay("Sir.wav");
+			SSir.SetVolume(0.6f);
 			SSirtime = 2.0f;
 		}
 	}
 	else if(Owner==ESirOwner::SirMonster){
-		SSirtime -= _DeltaTime;
-		if (SSirtime < 0)
+		SSMirtime -= _DeltaTime;
+		if (SSMirtime < 0)
 		{
-			UEngineSound::SoundPlay("Sir.wav").SetVolume(0.1f);
-			SSirtime = 2.0f;
+			SMSir = UEngineSound::SoundPlay("Sir.wav");
+			SMSir.SetVolume(0.1f);
+			SSMirtime = 2.0f;
 		}
 	}
 
@@ -271,11 +273,13 @@ void ASir::Collisiongather(float _DeltaTime)
 		if (true==LRCheck && XR.iX()<GetActorLocation().iX()) // 돌아오는 방향은 오른쪽 -> 부메랑이 오른쪽 방향으로 설정한 범위보다 커질때 동작
 		{
 			MainPlayer->SetSirUse(false); 
+			SSir.Off();
 			Destroy();
 		}
 		else if (false==LRCheck &&  XL.iX()>GetActorLocation().iX()) // 돌아오는 방향은 왼쪽 -> 부메랑이 왼쪽 방향으로 설정한 범위보다 작을 때 동작
 		{
 			MainPlayer->SetSirUse(false);
+			SSir.Off();
 			Destroy();
 		}
 		
@@ -283,6 +287,7 @@ void ASir::Collisiongather(float _DeltaTime)
 		if (true == SirCollision->CollisionCheck(ECollisionOrder::kirby, Result))
 		{
 			MainPlayer->SetSirUse(false);
+			SSir.Off();
 			Destroy();
 				
 		}
@@ -321,6 +326,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			AMonster_Sir* Monster = dynamic_cast<AMonster_Sir*>(Ptr);
 
 			Monster->SetSirUse(false);
+			SMSir.Off();
 			Destroy();
 		}
 
