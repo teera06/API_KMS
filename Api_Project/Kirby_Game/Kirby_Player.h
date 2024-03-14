@@ -175,8 +175,6 @@ protected:
 private:
 	static AKirby_Player* MainPlayer;
 
-	UEngineSoundPlayer SSir;
-
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* FireRenderer1 = nullptr; // 커비 랜더링 (이미지)
@@ -260,8 +258,6 @@ private:
 	EActorDir RunRL = EActorDir::None;
 
 	void AniCreate(); // 애니메이션 생성
-	void SoundCreate();
-	void SoundReset();
 	void KirbyModeCheck(); // 커비 모드 체인지
 	void GroundUp();
 

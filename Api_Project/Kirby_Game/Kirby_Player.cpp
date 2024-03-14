@@ -109,7 +109,6 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 		SoundRenderer->ActiveOff();
 	}
-	SoundCreate();
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -475,30 +474,6 @@ void AKirby_Player::AniCreate()
 
 
 }
-
-void AKirby_Player::SoundCreate()
-{
-	if (StageCheck >= 2)
-	{
-		SSir = UEngineSound::SoundPlay("Sir.wav");
-		SSir.SetVolume(1.0f);
-		SSir.Loop();
-		SSir.Off();
-	}
-
-	
-}
-
-void AKirby_Player::SoundReset()
-{
-
-	if (StageCheck >= 2 && false==SirUse)
-	{
-		SSir.Replay();
-		SSir.Off();
-	}
-}
-
 
 // 커비 모드 체인지 관리
 void AKirby_Player::KirbyModeCheck()
@@ -942,7 +917,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
-	SoundReset();
 	
 	if(true == fall && StageCheck == 2)
 	{
@@ -1379,11 +1353,6 @@ void AKirby_Player::Jump(float _DeltaTime)
 void AKirby_Player::SirJump(float _DeltaTime)
 {
 	DirCheck();
-	if (StageCheck >= 2 && false == SirUse)
-	{
-		SSir.Replay();
-		SSir.Off();
-	}
 	FVector MovePos = FVector::Zero;
 
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -1455,11 +1424,6 @@ void AKirby_Player::FlyReady(float _DeltaTime)
 void AKirby_Player::Fly(float _DeltaTime)
 {
 	DirCheck();
-	if (StageCheck >= 2 && false == SirUse)
-	{
-		SSir.Replay();
-		SSir.Off();
-	}
 	// 나는 도중 X키 누를 경우 -> 떨어짐
 	if (UEngineInput::IsDown('X'))
 	{
@@ -2308,14 +2272,7 @@ void AKirby_Player::IceKirby(float _DeltaTime)
 void AKirby_Player::SirKirby(float _DeltaTime)
 {
 	DirCheck();
-	SSir.On();
-	SSirtime -= _DeltaTime;
-	if (SSirtime < 0)
-	{
-		SSir.Replay();
-		SSirtime = 0.3f;
-	}
-
+	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
