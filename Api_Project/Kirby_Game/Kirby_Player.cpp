@@ -510,18 +510,6 @@ void AKirby_Player::SoundCreate()
 		SMike3.SetVolume(1.0f);
 		SMike3.Off();
 	}
-
-	if (StageCheck >= 4)
-	{
-		SHammer1 = UEngineSound::SoundPlay("Hammer.wav");
-		SHammer1.SetVolume(0.6f);
-		SHammer1.Off();
-
-
-		SHammer3 = UEngineSound::SoundPlay("Hammer3.wav");
-		SHammer3.SetVolume(0.6f);
-		SHammer3.Off();
-	}
 }
 
 void AKirby_Player::SoundReset()
@@ -543,17 +531,6 @@ void AKirby_Player::SoundReset()
 		SMike2.Off();
 		SMike3.Off();
 		MikeSoundReset = false;
-	}
-
-	if (StageCheck >= 4)
-	{
-		SHammer1.Replay();
-		SHammer1.Off();
-
-
-		SHammer3.Replay();
-		SHammer3.Loop();
-		SHammer3.Off();
 	}
 }
 
@@ -1281,6 +1258,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
+		UEngineSound::SoundPlay("Hammer.wav");
 		HammerAttOrder = 1;
 		SkillOn = true;
 		StateAniChange(EActorState::HammerAttack);
@@ -1821,6 +1799,7 @@ void AKirby_Player::Run(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // 테스트
 		)
 	{
+		UEngineSound::SoundPlay("Hammer3.wav");
 		RunState = false;
 		HammerAttOrder = 3;
 		SkillOn = true;
@@ -2065,7 +2044,6 @@ void AKirby_Player::HammerAttStart1()
 	DirCheck();
 	HammerAtt = -10;
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att1"));
-	SHammer1.On();
 }
 
 void AKirby_Player::HammerAttStart2()
@@ -2079,7 +2057,6 @@ void AKirby_Player::HammerAttStart3()
 {
 	DirCheck();
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Att3"));
-	SHammer3.On();
 }
 
 
@@ -2503,8 +2480,6 @@ void AKirby_Player::HammerKirby(float _DeltaTime)
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SHammer3.Replay();
-		SHammer3.Off();
 		SkillOn = false;
 		HammerCollisiongather(_DeltaTime);
 		if (AMainBoss::GetMainBoss()->GetHp() > 0) // 보스피가 0보다 크다 생존중일때 
