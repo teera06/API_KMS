@@ -55,6 +55,7 @@ void AMonster_Fire::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	GroundUp();
+
 	if (false == checkLocation) // 첫 업데이트와, 벽에 충돌시에만 실행
 	{
 		// 이동 범위 지정
@@ -69,6 +70,7 @@ void AMonster_Fire::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		SAtt.Off();
 		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
@@ -356,13 +358,20 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 		{
 			if (true == IsAtt)
 			{
-				//UEngineSound::SoundPlay("FireAtt.wav");
+				if (false == SAttIs)
+				{
+					SAtt = UEngineSound::SoundPlay("FireAtt.wav");
+					SAtt.Loop();
+					SAttIs = true;
+				}
 				CurLocation = GetActorLocation() * FVector::Right;
 				RangeXL = CurLocation + (FVector::Left * RangeX);
 				RangeXR = CurLocation + (FVector::Right * RangeX);
 				AddActorLocation(MovePos);
 			}
 			else {
+				SAttIs = false;
+				SAtt.Off();
 				BaseMove(_DeltaTime);
 			}
 		}

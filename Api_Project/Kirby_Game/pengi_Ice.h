@@ -45,10 +45,6 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
-	UEngineSoundPlayer SHitDie;
-	UEngineSoundPlayer SIceDie;
-	UEngineSoundPlayer SIceAtt;
-
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
@@ -79,7 +75,6 @@ private:
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
 	void AniCreate(); // 애니메이션 관리
-	void SoundCreate();
 
 	void IceToMonster(float _DeltaTime);
 

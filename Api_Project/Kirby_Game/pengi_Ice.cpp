@@ -45,7 +45,6 @@ void Apengi_Ice::BeginPlay()
 	}
 
 	AniCreate();
-	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Idle_Left");
 }
 
@@ -58,24 +57,13 @@ void Apengi_Ice::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-		HitDietime -= _DeltaTime;
-		if (HitDietime < 0 && false==IsIce)
-		{
-			SHitDie.On();
-		}
-		else if (HitDietime < 0 && true == IsIce)
-		{
-			SIceDie.On();
-		}
-
+		
 		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
 			MonsterDieRenderer->SetActive(true, 0.15f);
 			MonsterDieRenderer->ChangeAnimation("effect");
 		}
-		SIceAtt.Replay();
-		SIceAtt.Off();
 		AddActorLocation(DiePos); // 죽으면서 이동
 	}
 }
@@ -95,29 +83,6 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
-}
-
-void Apengi_Ice::SoundCreate()
-{
-	{
-		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
-		SHitDie.SetVolume(0.6f);
-		SHitDie.Off();
-	}
-
-	{
-		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
-		SIceDie.SetVolume(0.6f);
-		SIceDie.Off();
-	}
-
-	{
-		SIceAtt = UEngineSound::SoundPlay("Ice.wav");
-		SIceAtt.SetVolume(0.6f);
-		SIceAtt.Replay();
-		SIceAtt.Loop();
-		SIceAtt.Off();
-	}
 }
 
 void Apengi_Ice::IceToMonster(float _DeltaTime)
@@ -144,6 +109,7 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -166,6 +132,7 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -187,6 +154,7 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 	{
@@ -209,6 +177,7 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		Monster->Destroy(0.3f);
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 }
 
@@ -224,6 +193,7 @@ void Apengi_Ice::Collisiongather(float _DeltaTime)
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
+			UEngineSound::SoundPlay("MonsterDie.wav");
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(MonsterDirNormal*FVector::Right);
 			MainPlayer->AddHP(GetAtt());
@@ -374,6 +344,7 @@ void Apengi_Ice::IceAtt()
 	{
 		IsAtt = false;
 		skillcooldowntime = 6.0f;
+		UEngineSound::SoundPlay("Ice.wav");
 	}
 }
 
@@ -401,12 +372,9 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	if (true == IsAtt && skillcooldowntime<0.0f && false == BaseOn && false==IsIce)
 	{
 		MovePos = FVector::Zero;
-		SIceAtt.On();
 		IceAtt();
 	}
 	else {
-		SIceAtt.Replay();
-		SIceAtt.Off();
 		IceAttcheck = false;
 		CalDir(_DeltaTime);
 		Collisiongather(_DeltaTime);

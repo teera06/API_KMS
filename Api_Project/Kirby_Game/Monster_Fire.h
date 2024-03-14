@@ -53,6 +53,7 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
+	UEngineSoundPlayer SAtt;
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -73,7 +74,6 @@ private:
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	float RangeX = 100.0f; // 이동 단위
-	float HitDietime = 0.2f;
 
 	const float sight = 250.0f; // 몬스터 시야
 	const float AttRange = 150.0f; // 몬스터 공격 범위
@@ -86,6 +86,7 @@ private:
 	bool checkLocation = false; // 현재 위치 체크
 	bool IsAtt = false;
 	bool Iseffect = false;
+	bool SAttIs = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 	void BaseMove(float _DeltaTime); // 몬스터 기본 움직임

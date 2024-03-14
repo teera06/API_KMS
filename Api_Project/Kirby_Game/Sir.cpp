@@ -24,7 +24,7 @@ void ASir::Tick(float _DeltaTime)
 		SSirtime -= _DeltaTime;
 		if (SSirtime < 0)
 		{
-			UEngineSound::SoundPlay("Sir.wav");
+			UEngineSound::SoundPlay("Sir.wav").SetVolume(0.6f);
 			SSirtime = 2.0f;
 		}
 	}

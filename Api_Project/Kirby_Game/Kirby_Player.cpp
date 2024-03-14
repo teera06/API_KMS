@@ -1151,6 +1151,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
+		SFiretime = 0.0f;
 		SkillOn = true;
 		StateAniChange(EActorState::FireReady);
 		return;
