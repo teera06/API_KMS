@@ -586,7 +586,6 @@ void AKirby_Player::SoundCreate()
 
 		SHammer2 = UEngineSound::SoundPlay("Hammer2.wav");
 		SHammer2.SetVolume(1.0f);
-		SHammer2.Loop();
 		SHammer2.Off();
 
 		SChargeHammer2 = UEngineSound::SoundPlay("PullHammer.wav");
@@ -643,13 +642,9 @@ void AKirby_Player::SoundReset()
 		SHammer1.Replay();
 		SHammer1.Off();
 
-		//SHammer2.Replay();
-		//SHammer2.Off();
-
 		SChargeHammer2.Replay();
 		SChargeHammer2.Off();
 
-		
 		SHammer3.Replay();
 		SHammer3.Loop();
 		SHammer3.Off();
