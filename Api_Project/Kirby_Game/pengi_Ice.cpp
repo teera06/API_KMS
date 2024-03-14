@@ -64,7 +64,7 @@ void Apengi_Ice::Tick(float _DeltaTime)
 			SHitDie.On();
 		}
 
-		if (false == Iseffect)
+		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
 			MonsterDieRenderer->SetActive(true, 0.15f);
