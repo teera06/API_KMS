@@ -22,6 +22,13 @@ void ASir::Tick(float _DeltaTime)
 
 	if (GetDir().iX() != FVector::Zero.iX())
 	{
+		SSirtime -= _DeltaTime;
+		if (SSirtime < 0)
+		{
+			UEngineSound::SoundPlay("Sir.wav");
+			SSirtime = 3.0f;
+		}
+
 		CalDir();
 		SkillDir(_DeltaTime);
 

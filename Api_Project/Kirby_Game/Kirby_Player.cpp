@@ -1235,7 +1235,6 @@ void AKirby_Player::Idle(float _DeltaTime)
 void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck(); // 방향 체크
-	SJumptime -= _DeltaTime;
 
 	
 	FVector MovePos;
@@ -2253,12 +2252,7 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 void AKirby_Player::IceKirby(float _DeltaTime)
 {
 	DirCheck();
-	SIcetime -= _DeltaTime;
-	if (SIcetime < 0)
-	{
-		SIcetime = 0.3f;
-	}
-
+	
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
 		SkillOn = false;
