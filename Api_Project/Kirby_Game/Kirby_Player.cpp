@@ -488,14 +488,6 @@ void AKirby_Player::SoundCreate()
 	}
 
 
-
-	{
-		SIce = UEngineSound::SoundPlay("Ice.wav");
-		SIce.SetVolume(0.6f);
-		SIce.Loop();
-		SIce.Off();
-	}
-
 	{
 		SIceHit = UEngineSound::SoundPlay("IceHit.wav");
 		SIceHit.SetVolume(1.0f);
@@ -555,15 +547,14 @@ void AKirby_Player::SoundReset()
 	
 	
 	
-	SIce.Replay();
+
 	
 	
 	SFire.Off();
 	
 	
 	
-	SIce.Off();
-
+	
 	if (StageCheck >= 2 && false==SirUse)
 	{
 		SSir.Replay();
@@ -1253,6 +1244,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if(true == UEngineInput::IsPress('X') && KirbyMode==EAMode::Ice ){
+		UEngineSound::SoundPlay("Ice.wav");
 		SkillOn = true;
 		StateAniChange(EActorState::IceAttack);
 		AIce* NewIce = GetWorld()->SpawnActor<AIce>();
@@ -2407,17 +2399,14 @@ void AKirby_Player::FireKirby(float _DeltaTime)
 void AKirby_Player::IceKirby(float _DeltaTime)
 {
 	DirCheck();
-	SIce.On();
 	SIcetime -= _DeltaTime;
 	if (SIcetime < 0)
 	{
-		SIce.Replay();
 		SIcetime = 0.3f;
 	}
 
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SIce.Off();
 		SkillOn = false;
 		StateAniChange(EActorState::Idle);
 		return;
