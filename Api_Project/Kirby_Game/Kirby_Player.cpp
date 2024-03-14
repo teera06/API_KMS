@@ -492,11 +492,7 @@ void AKirby_Player::SoundCreate()
 	}
 
 
-	{
-		SAllstar = UEngineSound::SoundPlay("Allstar.wav");
-		SAllstar.SetVolume(0.6f);
-		SAllstar.Off();
-	}
+	
 
 
 	{
@@ -568,7 +564,7 @@ void AKirby_Player::SoundReset()
 {
 	SBase.Replay();
 	SFire.Replay();
-	SAllstar.Replay();
+	
 	
 	SModeChange.Replay();
 	
@@ -576,7 +572,7 @@ void AKirby_Player::SoundReset()
 	
 	SBase.Off();
 	SFire.Off();
-	SAllstar.Off();
+	
 	
 	SModeChange.Off();
 	
@@ -1348,6 +1344,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		&& KirbyMode != EAMode::Hammer
 		)
 	{
+		UEngineSound::SoundPlay("Allstar.wav");
 		AllAttcheck = 1;
 		scale = 3;
 		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
@@ -1950,10 +1947,8 @@ void AKirby_Player::Absorption(float _DeltaTime)
 void AKirby_Player::All_Attack(float _DeltaTime)
 {
 	DirCheck();
-	SAllstar.On();
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SAllstar.Off();
 		SkillOn = false;
 		EatState = false;
 		SetModeName("Base_");

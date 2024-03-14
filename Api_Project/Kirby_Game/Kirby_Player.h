@@ -176,7 +176,6 @@ private:
 	static AKirby_Player* MainPlayer;
 
 	UEngineSoundPlayer SModeChange;
-	UEngineSoundPlayer SAllstar;
 	UEngineSoundPlayer SBase;
 	UEngineSoundPlayer SFire;
 	UEngineSoundPlayer SIce;
