@@ -187,8 +187,15 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 				MonsterRenderer->ChangeAnimation("Att1_Right");
 			}
 
+			if (false == Att1Sound)
+			{
+				UEngineSound::SoundPlay("Hammer.wav");
+				Att1Sound = true;
+			}
+
 			if (true == MonsterRenderer->IsCurAnimationEnd())
 			{
+				Att1Sound = false;
 				RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 4);
 				Att1Collision->ActiveOff();
 				Att1Ready = false;;

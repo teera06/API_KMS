@@ -88,6 +88,8 @@ private:
 	bool Att2Delay = false;
 	bool Att4Ready = false;
 
+	bool Att1Sound = false;
+
 	bool EndingChange = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
