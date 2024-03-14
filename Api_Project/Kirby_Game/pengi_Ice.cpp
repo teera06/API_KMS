@@ -45,6 +45,7 @@ void Apengi_Ice::BeginPlay()
 	}
 
 	AniCreate();
+	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Idle_Left");
 }
 
@@ -57,6 +58,12 @@ void Apengi_Ice::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
+		HitDietime -= _DeltaTime;
+		if (HitDietime < 0)
+		{
+			SHitDie.On();
+		}
+
 		if (false == Iseffect)
 		{
 			Iseffect = true;
@@ -82,6 +89,15 @@ void Apengi_Ice::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Left", "Pengi_Right.png", 7, 8, 0.3f, true); // 죽음 
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+}
+
+void Apengi_Ice::SoundCreate()
+{
+	{
+		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
+		SHitDie.SetVolume(0.6f);
+		SHitDie.Off();
+	}
 }
 
 void Apengi_Ice::IceToMonster(float _DeltaTime)

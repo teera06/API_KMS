@@ -114,7 +114,6 @@ void AMonster_Base::SoundCreate()
 	{
 		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
 		SHitDie.SetVolume(0.6f);
-		//SHitDie.SetLoop();
 		SHitDie.Off();
 	}
 }

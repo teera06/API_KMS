@@ -1,4 +1,5 @@
 #pragma once
+#include <EnginePlatform\EngineSound.h>
 #include <EngineCore\Actor.h>
 #include "ActorCommon.h"
 
@@ -44,6 +45,8 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
+	UEngineSoundPlayer SHitDie;
+
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
 	UCollision* MonsterCollision = nullptr;
@@ -60,7 +63,8 @@ private:
 	
 	float skillcooldowntime = 0.0f;
 	float MoveSpeed = 50.0f; // 몬스터 스피드
-	
+	float HitDietime = 0.2f;
+
 	int WallX = 0; // 벽에 충돌할때 X축 범위
 
 	bool BaseOn = false; // 커비에게 흡수 당할 때 확인 
@@ -73,6 +77,7 @@ private:
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
 	void AniCreate(); // 애니메이션 관리
+	void SoundCreate();
 
 	void IceToMonster(float _DeltaTime);
 
