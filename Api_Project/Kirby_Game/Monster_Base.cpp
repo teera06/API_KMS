@@ -213,7 +213,6 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
-			UEngineSound::SoundPlay("MonsterDie.wav");
 			MainPlayer->Sethitstate(true); // 플레이어 충돌 체크
 			MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
@@ -275,6 +274,7 @@ void AMonster_Base::CalResult(float _DeltaTime)
 
 	if (true == IsDie) // 죽으면
 	{
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {

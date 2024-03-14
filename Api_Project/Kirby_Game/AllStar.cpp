@@ -91,6 +91,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
@@ -118,6 +119,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
@@ -145,6 +147,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
@@ -172,6 +175,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		Monster->SetIsDie(true);
 		Monster->SetDiePos(DiePos);
 		Monster->Destroy(0.3f);
+		UEngineSound::SoundPlay("MonsterDie.wav");
 		hit = true;
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::MikeMonster, Result) 
