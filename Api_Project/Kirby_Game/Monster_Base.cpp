@@ -48,7 +48,6 @@ void AMonster_Base::BeginPlay()
 
 	// ¾Ö´Ï¸ÞÀÌ¼Ç ¸¸µé±â
 	AniCreate();
-	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
@@ -71,16 +70,6 @@ void AMonster_Base::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe°¡ trueÀÌ¸é MoveUpdate´Â ¿¬¼Ó ½ÇÇàÀÌ ¾ÈµÊ -> Destroy(0.3f) ÀÛµ¿
-		HitDietime -= _DeltaTime;
-		if (HitDietime < 0 && false == IsIce)
-		{
-			SHitDie.On();
-		}
-		else if (HitDietime < 0 && true == IsIce)
-		{
-			SIceDie.On();
-		}
-		
 		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
@@ -113,21 +102,6 @@ void AMonster_Base::AniCreate()
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 }
 
-void AMonster_Base::SoundCreate()
-{
-	{
-		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
-		SHitDie.SetVolume(0.6f);
-		SHitDie.Off();
-	}
-
-	{
-		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
-		SIceDie.SetVolume(0.6f);
-		SIceDie.Off();
-	}
-}
-
 void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅÍ¿ÍÀÇ Ãæµ¹ °ü¸®
 {
 	std::vector<UCollision*> Result;
@@ -152,6 +126,7 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::iceMonster, Result))
 	{
@@ -175,6 +150,7 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::FireMonster, Result))
 	{
@@ -198,6 +174,7 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 	else if (true == MonsterCollision->CollisionCheck(ECollisionOrder::SirMonster, Result))
 	{
@@ -221,6 +198,7 @@ void AMonster_Base::IceToMonster(float _DeltaTime) // ¾óÀ½ÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ¸ó½ºÅ
 		
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 	}
 }
 
@@ -235,6 +213,7 @@ void AMonster_Base::Collisiongather(float _DeltaTime)
 			Destroy();
 		}
 		else {// ÀÏ¹ÝÀûÀÎ ÇÃ·¹ÀÌ¿ÍÀÇ Ãæµ¹
+			UEngineSound::SoundPlay("MonsterDie.wav");
 			MainPlayer->Sethitstate(true); // ÇÃ·¹ÀÌ¾î Ãæµ¹ Ã¼Å©
 			MainPlayer->SetHitDir(MonsterDirNormal * FVector::Right);
 			MainPlayer->GetKirbyRender()->SetAlpha(0.5f);
@@ -288,6 +267,7 @@ void AMonster_Base::CalResult(float _DeltaTime)
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX() + WallX, GetActorLocation().iY() - 30, Color8Bit::RedA);
 	if (ColorR == Color8Bit(255, 0, 0, 0) && true==IsIce)
 	{
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
 		IceMove = FVector::Zero;
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;

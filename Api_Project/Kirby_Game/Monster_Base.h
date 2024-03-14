@@ -47,9 +47,6 @@ protected:
 
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
-
-	UEngineSoundPlayer SHitDie;
-	UEngineSoundPlayer SIceDie;
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -81,7 +78,6 @@ private:
 	void BaseMove(float _DeltaTime); // 몬스터 기본 움직임
 
 	void AniCreate(); // 애니메이션 관리
-	void SoundCreate();
 
 	void IceToMonster(float _DeltaTime); // 얼음 상태일 때 충돌 관리
 	void Collisiongather(float _DeltaTime); // 얼지 않은 상태일때 충돌 관리
