@@ -480,13 +480,6 @@ void AKirby_Player::SoundCreate()
 {
 	
 
-	{
-		SFire = UEngineSound::SoundPlay("Fire.wav");
-		SFire.SetVolume(0.6f);
-		SFire.Loop();
-		SFire.Off();
-	}
-
 
 	{
 		SIceHit = UEngineSound::SoundPlay("IceHit.wav");
@@ -542,7 +535,7 @@ void AKirby_Player::SoundCreate()
 void AKirby_Player::SoundReset()
 {
 	
-	SFire.Replay();
+	
 	
 	
 	
@@ -550,7 +543,7 @@ void AKirby_Player::SoundReset()
 
 	
 	
-	SFire.Off();
+	
 	
 	
 	
@@ -1265,6 +1258,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		return;
 	}
 	else if (true == UEngineInput::IsPress('X') && KirbyMode == EAMode::Fire) {
+		UEngineSound::SoundPlay("Fire.wav").Replay();
 		SkillOn = true;
 		StateAniChange(EActorState::FireReady);
 		return;
@@ -2259,7 +2253,6 @@ void AKirby_Player::ModeInputTick(float _DeltaTime) // 커비 속성 별 할 것들
 void AKirby_Player::FireReady(float _DeltaTime)
 {
 	DirCheck();
-
 	if (true == UEngineInput::IsUp('X'))
 	{
 		SkillOn = false;
@@ -2373,18 +2366,9 @@ void AKirby_Player::FireCollisiongather(float _DeltaTime)
 void AKirby_Player::FireKirby(float _DeltaTime)
 {
 	DirCheck();
-	SFire.On();
-	SFiretime -= _DeltaTime;
-	if (SFiretime < 0)
-	{
-		SFire.Replay();
-		SFiretime = 0.3f;
-	}
-
 	FireCollisiongather(_DeltaTime);
 	if (true == UEngineInput::IsUp('X'))
 	{
-		SFire.Off();
 		SkillOn = false;
 		FireRenderer1->ActiveOff();
 		FireRenderer2->ActiveOff();
