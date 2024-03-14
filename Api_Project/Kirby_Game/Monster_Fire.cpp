@@ -165,6 +165,13 @@ void AMonster_Fire::SoundCreate()
 		SIceDie.SetVolume(0.6f);
 		SIceDie.Off();
 	}
+
+	{
+		SFireAtt = UEngineSound::SoundPlay("FireAtt.wav");
+		SFireAtt.SetVolume(1.0f);
+		SFireAtt.Loop();
+		SFireAtt.Off();
+	}
 }
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)
@@ -265,6 +272,7 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == MonsterCollision->CollisionCheck(ECollisionOrder::kirby, Result) && IsIce == false) // 얼지 않은 상태에서 플레이어와 충돌
 	{
+		SFireAtt.Off();
 		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
 			Destroy();
@@ -321,6 +329,7 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 	if (MosterXL.iX() < PlayerX.iX() && MosterXR.iX() > PlayerX.iX()) // 몬스터 시야에 포착된 경우 X축 기준 왼쪽, 오른쪽
 	{
 		IsAtt = true;
+		SFireAtt.On();
 		MoveSpeed = 100.0f;
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
@@ -336,6 +345,8 @@ void AMonster_Fire::CalDir(float _DeltaTime)
 	else {
 		//MovePos = FVector::Zero;
 		IsAtt = false;
+		SFireAtt.Replay();
+		SFireAtt.Off();
 		if (MonsterDirNormal.iX() == -1 && IsIce == false) // 왼쪽 방향
 		{
 			MonsterRenderer->ChangeAnimation("Move_Left");

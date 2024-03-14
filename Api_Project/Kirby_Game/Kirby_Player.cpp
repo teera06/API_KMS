@@ -481,7 +481,6 @@ void AKirby_Player::SoundCreate()
 	{
 		SBase = UEngineSound::SoundPlay("Base.wav");
 		SBase.SetVolume(0.6f);
-		SBase.Loop();
 		SBase.Off();
 	}
 
@@ -496,7 +495,6 @@ void AKirby_Player::SoundCreate()
 	{
 		SAllstar = UEngineSound::SoundPlay("Allstar.wav");
 		SAllstar.SetVolume(0.6f);
-		SAllstar.Loop();
 		SAllstar.Off();
 	}
 

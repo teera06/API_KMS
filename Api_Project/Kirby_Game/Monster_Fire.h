@@ -55,7 +55,7 @@ private:
 
 	UEngineSoundPlayer SHitDie;
 	UEngineSoundPlayer SIceDie;
-	UEngineSoundPlayer SIceAtt;
+	UEngineSoundPlayer SFireAtt;
 
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
