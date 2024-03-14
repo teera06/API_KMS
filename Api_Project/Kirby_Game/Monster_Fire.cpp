@@ -48,7 +48,7 @@ void AMonster_Fire::BeginPlay()
 
 	// 애니메이션 만들기
 	AniCreate();
-
+	SoundCreate();
 	MonsterRenderer->ChangeAnimation("Move_Left");
 }
 
@@ -70,7 +70,18 @@ void AMonster_Fire::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-		if (false == Iseffect)
+		
+		HitDietime -= _DeltaTime;
+		if (HitDietime < 0 && false == IsIce)
+		{
+			SHitDie.On();
+		}
+		else if (HitDietime < 0 && true == IsIce)
+		{
+			SIceDie.On();
+		}
+
+		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
 			MonsterDieRenderer->SetActive(true, 0.15f);
@@ -139,6 +150,21 @@ void AMonster_Fire::AniCreate()
 	MonsterRenderer->CreateAnimation("die_Left", "Flamer_Left.png", 4, 5, 0.2f, false); // 죽는 애니메이션
 	MonsterRenderer->CreateAnimation("MonsterIce", "Ice_Right.png", 108, 108, false); // 얼음
 	MonsterRenderer->CreateAnimation("Effect", "Effects2_RIght.png", 29, 30, 0.1f, true); // 죽는 애니메이션
+}
+
+void AMonster_Fire::SoundCreate()
+{
+	{
+		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
+		SHitDie.SetVolume(0.6f);
+		SHitDie.Off();
+	}
+
+	{
+		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
+		SIceDie.SetVolume(0.6f);
+		SIceDie.Off();
+	}
 }
 
 void AMonster_Fire::IceToMonster(float _DeltaTime)

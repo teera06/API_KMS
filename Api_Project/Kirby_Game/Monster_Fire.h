@@ -1,4 +1,5 @@
 #pragma once
+#include <EnginePlatform\EngineSound.h>
 #include <EngineCore\Actor.h>
 #include "ActorCommon.h"
 
@@ -52,6 +53,10 @@ protected:
 private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer(); // 몬스터는 플레이어를 알고 있어야함
 
+	UEngineSoundPlayer SHitDie;
+	UEngineSoundPlayer SIceDie;
+	UEngineSoundPlayer SIceAtt;
+
 	// 몬스터 랜더링, 콜리전
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
@@ -72,6 +77,7 @@ private:
 	const float IceSpeed = 350.0f; // 얼음(얼려진 후) 이동 스피드
 
 	float RangeX = 100.0f; // 이동 단위
+	float HitDietime = 0.2f;
 
 	const float sight = 250.0f; // 몬스터 시야
 	const float AttRange = 150.0f; // 몬스터 공격 범위
@@ -89,6 +95,7 @@ private:
 	void BaseMove(float _DeltaTime); // 몬스터 기본 움직임
 
 	void AniCreate(); // 애니메이션 관리
+	void SoundCreate();
 
 	void IceToMonster(float _DeltaTime);
 	void Collisiongather(float _DeltaTime);
