@@ -59,9 +59,13 @@ void Apengi_Ice::Tick(float _DeltaTime)
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
 		HitDietime -= _DeltaTime;
-		if (HitDietime < 0)
+		if (HitDietime < 0 && false==IsIce)
 		{
 			SHitDie.On();
+		}
+		else if (HitDietime < 0 && true == IsIce)
+		{
+			SIceDie.On();
 		}
 
 		if (false == Iseffect && false==IsIce)
@@ -97,6 +101,12 @@ void Apengi_Ice::SoundCreate()
 		SHitDie = UEngineSound::SoundPlay("MonsterDie.wav");
 		SHitDie.SetVolume(0.6f);
 		SHitDie.Off();
+	}
+
+	{
+		SIceDie = UEngineSound::SoundPlay("MonsterIceDie.wav");
+		SIceDie.SetVolume(0.6f);
+		SIceDie.Off();
 	}
 }
 

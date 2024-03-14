@@ -46,6 +46,7 @@ private:
 	AKirby_Player* MainPlayer = AKirby_Player::GetMainPlayer();
 
 	UEngineSoundPlayer SHitDie;
+	UEngineSoundPlayer SIceDie;
 
 	UImageRenderer* MonsterRenderer = nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* MonsterDieRenderer = nullptr; // 커비 랜더링 (이미지)
