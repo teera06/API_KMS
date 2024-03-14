@@ -112,6 +112,7 @@ void Apengi_Ice::SoundCreate()
 	{
 		SIceAtt = UEngineSound::SoundPlay("Ice.wav");
 		SIceAtt.SetVolume(0.6f);
+		SIceAtt.Loop();
 		SIceAtt.Off();
 	}
 }
