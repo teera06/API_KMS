@@ -176,9 +176,6 @@ private:
 	static AKirby_Player* MainPlayer;
 
 	UEngineSoundPlayer SSir;
-	UEngineSoundPlayer SMike1;
-	UEngineSoundPlayer SMike2;
-	UEngineSoundPlayer SMike3;
 
 	UImageRenderer* KirbyRenderer=nullptr; // 커비 랜더링 (이미지)
 	UImageRenderer* effectRenderer = nullptr; // 커비 랜더링 (이미지)
