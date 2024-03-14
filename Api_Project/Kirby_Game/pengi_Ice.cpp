@@ -108,6 +108,12 @@ void Apengi_Ice::SoundCreate()
 		SIceDie.SetVolume(0.6f);
 		SIceDie.Off();
 	}
+
+	{
+		SIceAtt = UEngineSound::SoundPlay("Ice.wav");
+		SIceAtt.SetVolume(0.6f);
+		SIceAtt.Off();
+	}
 }
 
 void Apengi_Ice::IceToMonster(float _DeltaTime)
@@ -391,9 +397,12 @@ void Apengi_Ice::MoveUpdate(float _DeltaTime)
 	if (true == IsAtt && skillcooldowntime<0.0f && false == BaseOn && false==IsIce)
 	{
 		MovePos = FVector::Zero;
+		SIceAtt.On();
 		IceAtt();
 	}
 	else {
+		SIceAtt.Replay();
+		SIceAtt.Off();
 		IceAttcheck = false;
 		CalDir(_DeltaTime);
 		Collisiongather(_DeltaTime);
