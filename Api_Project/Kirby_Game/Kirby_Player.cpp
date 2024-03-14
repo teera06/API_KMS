@@ -478,16 +478,6 @@ void AKirby_Player::AniCreate()
 
 void AKirby_Player::SoundCreate()
 {
-	
-
-
-	{
-		SIceHit = UEngineSound::SoundPlay("IceHit.wav");
-		SIceHit.SetVolume(1.0f);
-		SIceHit.Off();
-	}
-
-
 	if (StageCheck >= 2)
 	{
 		SSir = UEngineSound::SoundPlay("Sir.wav");
@@ -1713,8 +1703,6 @@ void AKirby_Player::hit(float _DeltaTime)
 	// 애니메이션 종료 시 다시 원래 상태로 돌아감
 	if (true == KirbyRenderer->IsCurAnimationEnd())
 	{
-		SIceHit.Off();
-		SIceHit.Replay();
 		hitState = false;
 		RunState = false;
 		KirbyRenderer->SetAlpha(1.0f);
@@ -1962,7 +1950,7 @@ void AKirby_Player::IcehitStart()
 	
 	KirbyRenderer->ChangeAnimation(GetAnimationName("Icehit"));
 
-	SIceHit.On();
+	UEngineSound::SoundPlay("IceHit.wav");
 }
 
 void AKirby_Player::hothitStart()
