@@ -182,7 +182,6 @@ private:
 	UEngineSoundPlayer SFire;
 	UEngineSoundPlayer SIce;
 	UEngineSoundPlayer SSir;
-	UEngineSoundPlayer SFireHit;
 	UEngineSoundPlayer SIceHit;
 	UEngineSoundPlayer SMike1;
 	UEngineSoundPlayer SMike2;
