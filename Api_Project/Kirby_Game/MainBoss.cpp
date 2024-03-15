@@ -123,11 +123,17 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		if (RandomAtt == 4)
 		{
 			Att4(_DeltaTime); // 디테일 부족
+			if (false == Att4Sound && skillcooldowntime < 0.0f)
+			{
+				UEngineSound::SoundPlay("Jump.wav");
+				Att4Sound = true;
+			}
 		}
 	}
 	else {
 		if (true == Att4Ready)
 		{
+			Att4Sound = false;
 			MonsterCollision->ActiveOn();
 				if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 				{
