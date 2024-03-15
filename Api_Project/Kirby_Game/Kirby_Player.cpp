@@ -263,8 +263,9 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_Stop_Left", "Fire_Right.png", 60, 61, 0.1f, true);
 
 	// 파이어 점프 모션
-	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30}, 0.05f, true);
-	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", { 22,21,22,21,22,21,22,23,24,25,26,27,28,29,30}, 0.07f, false);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.07f, false);
+	//KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.05f, false);
 
 	// 파이어 나는 모션
 	KirbyRenderer->CreateAnimation("Fire_FlyReady_Right", "Fire_Right.png", 65, 69, 0.08f, false);
@@ -309,8 +310,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Ice_Stop_Left", "Ice_Right.png", 50, 50, 0.1f, true);
 
 	// 아이스 점프 모션
-	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", 80, 90, 0.06f, true);
-	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png", 80, 90, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Ice_Jump_Right", "Ice_Right.png", {22,22,22,22,23,24,25,26,27,28,29}, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Ice_Jump_Left", "Ice_Left.png", { 22,22,22,22,23,24,25,26,27,28,29 }, 0.06f, true);
 
 	// 아이스 나는 모션
 	KirbyRenderer->CreateAnimation("Ice_FlyReady_Right", "Ice_Right.png", 54, 58, 0.08f, false);
