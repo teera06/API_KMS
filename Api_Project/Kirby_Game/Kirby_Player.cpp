@@ -1055,6 +1055,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		true == UEngineInput::IsDoubleClick(VK_RIGHT,0.2f)
 		)
 	{
+		UEngineSound::SoundPlay("run.wav");
 		RunState = true;
 		StateAniChange(EActorState::Run);
 		return;
