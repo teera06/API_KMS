@@ -79,7 +79,12 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	}
 
+	
 	{
+		RunRenderer = CreateImageRenderer(ERenderOrder::effect);
+		RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		RunRenderer->ActiveOff();
+
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
 		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
@@ -156,6 +161,11 @@ void AKirby_Player::Tick(float _DeltaTime)
 // 애니메이션 생성 관리
 void AKirby_Player::AniCreate()
 {
+
+	{
+		RunRenderer->CreateAnimation("run_Right", "Effects2_Right.png", 15,18,0.1f, true);
+		RunRenderer->CreateAnimation("run_Left", "Effects2_Left.png", 15,18, 0.1f, true);
+	}
 	effectRenderer->CreateAnimation("effect", "Effects2_Right.png", { 6,7,6,7,6,7 }, false);
 	FireRenderer1->CreateAnimation("Fire_Right", "Fire_Right.png", 145, 148,0.1f, true);
 	FireRenderer1->CreateAnimation("Fire_Left", "Fire_Left.png", 145, 148, 0.1f, true);
@@ -1612,7 +1622,7 @@ void AKirby_Player::hit(float _DeltaTime)
 	FireCollision->ActiveOff();
 	FireRenderer2->ActiveOff();
 	FireRenderer3->ActiveOff();
-	
+	RunRenderer->ActiveOff();
 
 	if (StageCheck == 3)
 	{
@@ -1709,6 +1719,7 @@ void AKirby_Player::Run(float _DeltaTime)
 
 	if (UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
+		RunRenderer->ActiveOff();
 		RunState = false;
 		StateAniChange(EActorState::Idle);
 		return;
@@ -1731,11 +1742,17 @@ void AKirby_Player::Run(float _DeltaTime)
 	
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
+		RunRenderer->ActiveOn();
+		RunRenderer->SetTransform({ { 60,20 }, { 64*2,64*2 } });
+		RunRenderer->ChangeAnimation("run_Left");
 		MovePos += FVector::Left * _DeltaTime * checkSpeed;
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
+		RunRenderer->ActiveOn();
+		RunRenderer->SetTransform({ { -60,20 }, { 64*2,64*2 } });
+		RunRenderer->ChangeAnimation("run_Right");
 		MovePos += FVector::Right * _DeltaTime * checkSpeed;
 	}
 
@@ -1754,6 +1771,7 @@ void AKirby_Player::Run(float _DeltaTime)
 			true == UEngineInput::IsDown('S')
 			)
 		{
+			RunRenderer->ActiveOff();
 			UEngineSound::SoundPlay("Jump.wav");
 			JumpVector = JumpPowerMove;
 			StateAniChange(EActorState::Jump);
