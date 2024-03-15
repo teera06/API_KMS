@@ -85,6 +85,10 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		RunRenderer->ActiveOff();
 
+		//FlyfallRenderer = CreateImageRenderer(ERenderOrder::effect);
+		//RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		//RunRenderer->ActiveOff();
+
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
 		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
@@ -793,6 +797,7 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			FlyStart();
 			break;
 		case EActorState::Flyfall:
+			UEngineSound::SoundPlay("FlyFall.wav");
 			FlyFallStart();
 			break;
 		case EActorState::Absorption:
@@ -1441,7 +1446,6 @@ void AKirby_Player::Fly(float _DeltaTime)
 	// 나는 도중 X키 누를 경우 -> 떨어짐
 	if (UEngineInput::IsDown('X'))
 	{
-		UEngineSound::SoundPlay("FlyFall.wav");
 		FlyState = false;
 		RunState = false;
 		StateAniChange(EActorState::Flyfall);
