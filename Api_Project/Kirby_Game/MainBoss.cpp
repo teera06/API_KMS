@@ -70,7 +70,14 @@ void AMainBoss::Tick(float _DeltaTime)
 
 	if (Hp <= 0) // Á×À¸¸é
 	{
-		MonsterRenderer->ChangeAnimation("die_Right");
+		if (MonsterDirNormal.iX() == 1)
+		{
+			MonsterRenderer->ChangeAnimation("die_Right");
+		}
+		else
+		{
+			MonsterRenderer->ChangeAnimation("die_Left");
+		}
 
 		if (true == MonsterRenderer->IsCurAnimationEnd())
 		{
