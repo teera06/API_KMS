@@ -22,6 +22,11 @@ public:
 	{
 		return MonsterRenderer;
 	}
+
+	UCollision* GetMonsterCollision() // Get ·£´õ
+	{
+		return MonsterCollision;
+	}
 	
 	void IceState();
 	void SetBaseOnOff(const bool& _BaseOn)

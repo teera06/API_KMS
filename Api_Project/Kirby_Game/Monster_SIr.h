@@ -20,6 +20,11 @@ public:
 	{
 		return MonsterRenderer;
 	}
+
+	UCollision* GetMonsterCollision() // Get ·£´õ
+	{
+		return MonsterCollision;
+	}
 	
 	void IceState();
 

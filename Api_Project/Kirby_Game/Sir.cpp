@@ -161,6 +161,8 @@ void ASir::Collisiongather(float _DeltaTime)
 			else {
 				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			}
+			Monster->GetMonsterCollision()->ActiveOff();
+			UEngineSound::SoundPlay("BaseHit.wav");
 			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
@@ -188,6 +190,8 @@ void ASir::Collisiongather(float _DeltaTime)
 			else {
 				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			}
+			Monster->GetMonsterCollision()->ActiveOff();
+			UEngineSound::SoundPlay("BaseHit.wav");
 			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
@@ -215,6 +219,8 @@ void ASir::Collisiongather(float _DeltaTime)
 			else {
 				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			}
+			Monster->GetMonsterCollision()->ActiveOff();
+			UEngineSound::SoundPlay("BaseHit.wav");
 			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);
@@ -241,6 +247,8 @@ void ASir::Collisiongather(float _DeltaTime)
 			else {
 				Monster->GetMonsterRenderer()->ChangeAnimation("die_Right"); // 죽는 애니메이션
 			}
+			Monster->GetMonsterCollision()->ActiveOff();
+			UEngineSound::SoundPlay("BaseHit.wav");
 			FVector DiePos = MonsterDirNormal * -200.0f * _DeltaTime * FVector::Right; // 죽으면서 이동하는 위치 계산
 			Monster->SetIsDie(true);
 			Monster->SetDiePos(DiePos);

@@ -30,6 +30,11 @@ public:
 		return MonsterRenderer;
 	}
 
+	UCollision* GetMonsterCollision() // Get ·£´õ
+	{
+		return MonsterCollision;
+	}
+
 	void SetIsDie(const bool& _IsDie)
 	{
 		IsDie = _IsDie;
