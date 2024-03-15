@@ -85,9 +85,9 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		RunRenderer->ActiveOff();
 
-		//FlyfallRenderer = CreateImageRenderer(ERenderOrder::effect);
-		//RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
-		//RunRenderer->ActiveOff();
+		FlyfallRenderer = CreateImageRenderer(ERenderOrder::effect);
+		FlyfallRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		FlyfallRenderer->ActiveOff();
 
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
 		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
@@ -169,6 +169,9 @@ void AKirby_Player::AniCreate()
 	{
 		RunRenderer->CreateAnimation("run_Right", "Effects2_Right.png", 15,18,0.1f, true);
 		RunRenderer->CreateAnimation("run_Left", "Effects2_Left.png", 15,18, 0.1f, true);
+
+		FlyfallRenderer->CreateAnimation("fall_Right", "Effects2_Right.png", 0, 5, 0.08f, true);
+		FlyfallRenderer->CreateAnimation("fall_Left", "Effects2_Left.png", 0, 5, 0.08f, true);
 	}
 	effectRenderer->CreateAnimation("effect", "Effects2_Right.png", { 6,7,6,7,6,7 }, false);
 	FireRenderer1->CreateAnimation("Fire_Right", "Fire_Right.png", 145, 148,0.1f, true);
@@ -798,6 +801,17 @@ void AKirby_Player::StateAniChange(EActorState _State)
 			break;
 		case EActorState::Flyfall:
 			UEngineSound::SoundPlay("FlyFall.wav");
+			if (DirState == EActorDir::Left)
+			{
+				FlyfallRenderer->ActiveOn();
+				FlyfallRenderer->SetTransform({ { -60,0 }, { 64 * 2,64 * 2 } });
+				FlyfallRenderer->ChangeAnimation("fall_Left");
+			}
+			else {
+				FlyfallRenderer->ActiveOn();
+				FlyfallRenderer->SetTransform({ { 60,0 }, { 64 * 2,64 * 2 } });
+				FlyfallRenderer->ChangeAnimation("fall_Right");
+			}
 			FlyFallStart();
 			break;
 		case EActorState::Absorption:
@@ -1504,7 +1518,10 @@ void AKirby_Player::Flyfall(float _DeltaTime)
 {
 	
 	DirCheck();
-	
+	if (true == FlyfallRenderer->IsCurAnimationEnd())
+	{
+		FlyfallRenderer->ActiveOff();
+	}
 	FVector MovePos = FVector::Zero;
 
 	if (UEngineInput::IsPress(VK_LEFT))
