@@ -449,8 +449,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Hammer_Stop_Left", "Hammer_Right.png", 25, 25, 0.1f, true);
 
 		// 기본 점프 모션(완)
-		KirbyRenderer->CreateAnimation("Hammer_Jump_Right", "Hammer_Right.png", 26, 34, 0.1f, true);
-		KirbyRenderer->CreateAnimation("Hammer_Jump_Left", "Hammer_Left.png", 26, 34, 0.1f, true);
+		KirbyRenderer->CreateAnimation("Hammer_Jump_Right", "Hammer_Right.png", {26,26,26,26,26,26,27,28,29,30,31,32,33,34}, 0.07f, false);
+		KirbyRenderer->CreateAnimation("Hammer_Jump_Left", "Hammer_Left.png", { 26,26,26,26,26,26,27,28,29,30,31,32,33,34 }, 0.07f, false);
 
 		// 기본 나는 모션
 		KirbyRenderer->CreateAnimation("Hammer_FlyReady_Right", "Hammer_Right.png", {40,41,42,48}, 0.08f, false);
