@@ -89,6 +89,10 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 		FlyfallRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		FlyfallRenderer->ActiveOff();
 
+		JumpEndRenderer = CreateImageRenderer(ERenderOrder::effect);
+		JumpEndRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		JumpEndRenderer->ActiveOff();
+
 		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
 		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
 		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
@@ -169,6 +173,9 @@ void AKirby_Player::AniCreate()
 	{
 		RunRenderer->CreateAnimation("run_Right", "Effects2_Right.png", 15,18,0.1f, true);
 		RunRenderer->CreateAnimation("run_Left", "Effects2_Left.png", 15,18, 0.1f, true);
+
+		JumpEndRenderer->CreateAnimation("jump_Right", "Effects2_Right.png", 19, 20, 0.1f, true);
+		JumpEndRenderer->CreateAnimation("jump_Left", "Effects2_Left.png", 19, 20, 0.1f, true);
 
 		FlyfallRenderer->CreateAnimation("fall_Right", "Effects2_Right.png", 0, 5, 0.1f, true);
 		FlyfallRenderer->CreateAnimation("fall_Left", "Effects2_Left.png", 0, 5, 0.1f, true);
@@ -972,6 +979,14 @@ void AKirby_Player::Idle(float _DeltaTime)
 		HammerCollision->ActiveOff();
 	}
 
+	if (true == JumpEndRenderer->IsActive())
+	{
+		if (true == JumpEndRenderer->IsCurAnimationEnd())
+		{
+			JumpEndRenderer->ActiveOff();
+		}
+	}
+	
 	// 테스트 모드
 	Color8Bit ColorB = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-30, Color8Bit::BlueA);
 	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1 && ColorB == Color8Bit(0, 0, 255, 0))
@@ -1270,7 +1285,13 @@ void AKirby_Player::Idle(float _DeltaTime)
 void AKirby_Player::Jump(float _DeltaTime)
 {
 	DirCheck(); // 방향 체크
-
+	if (true == JumpEndRenderer->IsActive())
+	{
+		if (true == JumpEndRenderer->IsCurAnimationEnd())
+		{
+			JumpEndRenderer->ActiveOff();
+		}
+	}
 	
 	FVector MovePos;
 	
@@ -1349,6 +1370,17 @@ void AKirby_Player::Jump(float _DeltaTime)
 		|| true == BoxCollision->CollisionCheck(ECollisionOrder::IceBoxTop, Result) 
 		|| true ==BoxCollision->CollisionCheck(ECollisionOrder::BoxTop, Result)) // 픽셀 충돌 -> 점프 후 착지할때
 	{
+		if (DirState == EActorDir::Left)
+		{
+			JumpEndRenderer->ActiveOn();
+			JumpEndRenderer->SetTransform({ { 40,20 }, { 64 ,64 } });
+			JumpEndRenderer->ChangeAnimation("jump_Left");
+		}
+		else {
+			JumpEndRenderer->ActiveOn();
+			JumpEndRenderer->SetTransform({ { -40,20 }, { 64 ,64} });
+			JumpEndRenderer->ChangeAnimation("jump_Right");
+		}
 		JumpVector = FVector::Zero; // 점프력 힘은 0
 
 		if (true == RunState)
@@ -1358,7 +1390,6 @@ void AKirby_Player::Jump(float _DeltaTime)
 		else {
 			StateAniChange(EActorState::Idle); // Idle 변화
 		}
-		
 		return;
 	}
 
@@ -1646,6 +1677,14 @@ void AKirby_Player::hit(float _DeltaTime)
 	FireRenderer3->ActiveOff();
 	RunRenderer->ActiveOff();
 
+	if (true == JumpEndRenderer->IsActive())
+	{
+		if (true == JumpEndRenderer->IsCurAnimationEnd())
+		{
+			JumpEndRenderer->ActiveOff();
+		}
+	}
+
 	if (StageCheck == 3)
 	{
 		MikeCollision->ActiveOff();
@@ -1685,7 +1724,13 @@ void AKirby_Player::hit(float _DeltaTime)
 void AKirby_Player::Walk(float _DeltaTime)
 {
 	DirCheck();
-	
+	if (true == JumpEndRenderer->IsActive())
+	{
+		if (true == JumpEndRenderer->IsCurAnimationEnd())
+		{
+			JumpEndRenderer->ActiveOff();
+		}
+	}
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
@@ -1738,7 +1783,13 @@ void AKirby_Player::Run(float _DeltaTime)
 
 	DirCheck();
 
-
+	if (true == JumpEndRenderer->IsActive())
+	{
+		if (true == JumpEndRenderer->IsCurAnimationEnd())
+		{
+			JumpEndRenderer->ActiveOff();
+		}
+	}
 	if (UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		RunRenderer->ActiveOff();
