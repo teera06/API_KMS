@@ -947,16 +947,19 @@ void AKirby_Player::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 1 && ColorB == Color8Bit(0, 0, 255, 0))
 	{
 		// && ColorB != Color8Bit(0, 0, 255, 0)
+		UEngineSound::SoundPlay("LevelChange.wav");
 		StageCheck = 2;
 		GEngine->ChangeLevel("Stage2_Level");
 	}
 	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 2 &&ColorB == Color8Bit(0, 0, 255, 0))
 	{
+		UEngineSound::SoundPlay("LevelChange.wav");
 		StageCheck = 3;
 		GEngine->ChangeLevel("Stage3_Level");
 	}
 	else if (true == UEngineInput::IsDown(VK_UP) && StageCheck == 3 && ColorB == Color8Bit(0, 0, 255, 0))
 	{
+		UEngineSound::SoundPlay("LevelChange.wav");
 		StageCheck = 4;
 		BossEventWall = true;
 		GEngine->ChangeLevel("LastBoss_Level");
