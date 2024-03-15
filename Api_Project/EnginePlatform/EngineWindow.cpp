@@ -51,7 +51,6 @@ UEngineWindow::~UEngineWindow()
 		delete WindowImage;
 		WindowImage = nullptr;
 	}
-	
 }
 
 void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view _IconPath /*= ""*/)
@@ -258,4 +257,9 @@ void UEngineWindow::ScreenUpdate()
 void UEngineWindow::SetWindowSmallIcon()
 {
 	
+}
+
+void UEngineWindow::CursorOff()
+{
+	ShowCursor(FALSE);
 }
