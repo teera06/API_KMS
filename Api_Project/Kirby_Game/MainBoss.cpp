@@ -390,6 +390,7 @@ void AMainBoss::Att3(float _DeltaTime)
 	Att3Collisiongather(_DeltaTime);
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
+		UEngineSound::SoundPlay("Delay3.wav");
 		IsAtt = false;
 		skillcooldowntime = 5.5f;
 		Att3Delay = true;
