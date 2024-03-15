@@ -263,8 +263,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Fire_Stop_Left", "Fire_Right.png", 60, 61, 0.1f, true);
 
 	// 파이어 점프 모션
-	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", 21, 31, 0.07f, true);
-	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png",21, 31, 0.07f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30}, 0.05f, true);
+	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.05f, true);
 
 	// 파이어 나는 모션
 	KirbyRenderer->CreateAnimation("Fire_FlyReady_Right", "Fire_Right.png", 65, 69, 0.08f, false);
