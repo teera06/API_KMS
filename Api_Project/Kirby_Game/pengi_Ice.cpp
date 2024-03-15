@@ -178,7 +178,7 @@ void Apengi_Ice::IceToMonster(float _DeltaTime)
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 		UEngineSound::SoundPlay("MonsterIceDie.wav");
-	}if (true == MonsterCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos * FVector::Right))
+	}if (true == MonsterCollision->CollisionCheck(ECollisionOrder::IceBox, Result, MovePos * FVector::Right) || true == MonsterCollision->CollisionCheck(ECollisionOrder::Box, Result, MovePos * FVector::Right))
 	{
 		UEngineSound::SoundPlay("MonsterIceDie.wav");
 		IceMove = FVector::Zero;

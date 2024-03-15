@@ -236,6 +236,12 @@ void AMonster_Fire::IceToMonster(float _DeltaTime)
 		MonsterRenderer->ChangeAnimation("Effect");
 		IsDie = true;
 		UEngineSound::SoundPlay("MonsterIceDie.wav");
+	}if (true == MonsterCollision->CollisionCheck(ECollisionOrder::IceBox, Result) || true == MonsterCollision->CollisionCheck(ECollisionOrder::Box, Result))
+	{
+		UEngineSound::SoundPlay("MonsterIceDie.wav");
+		IceMove = FVector::Zero;
+		MonsterRenderer->ChangeAnimation("Effect");
+		IsDie = true;
 	}
 }
 
