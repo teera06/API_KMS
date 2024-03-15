@@ -70,7 +70,6 @@ void AMonster_Fire::Tick(float _DeltaTime)
 		MoveUpdate(_DeltaTime);
 	}
 	else { // IsDIe가 true이면 MoveUpdate는 연속 실행이 안됨 -> Destroy(0.3f) 작동
-		SAtt.Off();
 		if (false == Iseffect && false==IsIce)
 		{
 			Iseffect = true;
@@ -253,7 +252,6 @@ void AMonster_Fire::Collisiongather(float _DeltaTime)
 	{
 		if (true == BaseOn) // 흡수할 때의 몬스터 충돌 -> 몬스터는 플레이어와 충돌할 경우 바로 죽음
 		{
-			SAtt.Off();
 			Destroy();
 		}
 		else {// 일반적인 플레이와의 충돌
@@ -358,7 +356,6 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 	if (true == IsDie) // 죽으면
 	{
 		UEngineSound::SoundPlay("MonsterDie.wav");
-		SAtt.Off();
 		Destroy(0.3f); // 0.3f 뒤에 삭제
 	}
 	else {
@@ -368,8 +365,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 			{
 				if (false == SAttIs)
 				{
-					SAtt = UEngineSound::SoundPlay("FireAtt.wav");
-					SAtt.Loop();
+					UEngineSound::SoundPlay("FireAtt.wav");
 					SAttIs = true;
 				}
 				CurLocation = GetActorLocation() * FVector::Right;
@@ -379,7 +375,6 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 			}
 			else {
 				SAttIs = false;
-				SAtt.Off();
 				BaseMove(_DeltaTime);
 			}
 		}
