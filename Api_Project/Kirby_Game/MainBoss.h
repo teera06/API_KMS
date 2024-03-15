@@ -92,6 +92,9 @@ private:
 	bool Att3Sound = false;
 	bool Att4Sound = false;
 
+	bool hitSound = false;
+
+
 	bool EndingChange = false;
 
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어

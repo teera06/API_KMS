@@ -82,10 +82,16 @@ void AMainBoss::Tick(float _DeltaTime)
 	{
 		if (false == Ishit) // Destroy(0.3f); -> 조건없이 계속 move업데이트 되면서 0.3f도 똑같이 유지 (한번만 실행해야함)
 		{
+			hitSound = false;
 			MoveUpdate(_DeltaTime);
 		}
 		else {
 			hitEvent();
+			if (false == hitSound)
+			{
+				UEngineSound::SoundPlay("BaseHit.wav");
+				hitSound = true;
+			}
 		}
 	}
 }
