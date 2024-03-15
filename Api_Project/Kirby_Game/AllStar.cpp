@@ -201,7 +201,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 
 		item->SetIsDelete(true);
 		hit = true;
-		UEngineSound::SoundPlay("Allstardel.wav");
+		UEngineSound::SoundPlay("box.wav");
 	}
 
 
