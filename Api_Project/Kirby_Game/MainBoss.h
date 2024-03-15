@@ -89,6 +89,7 @@ private:
 	bool Att4Ready = false;
 
 	bool Att1Sound = false;
+	bool Att3Sound = false;
 
 	bool EndingChange = false;
 

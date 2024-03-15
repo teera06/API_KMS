@@ -113,6 +113,11 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		if (RandomAtt == 3)
 		{
 			Att3(_DeltaTime);
+			if (false == Att3Sound && skillcooldowntime < 0.0f)
+			{
+				UEngineSound::SoundPlay("HammerSpin.wav");
+				Att3Sound = true;
+			}
 		}
 
 		if (RandomAtt == 4)
@@ -141,6 +146,7 @@ void AMainBoss::MoveUpdate(float _DeltaTime)
 		}
 		else if (true == Att3Delay)
 		{
+			Att3Sound = false;
 			if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 哭率 规氢
 			{
 				MonsterRenderer->ChangeAnimation("Delay3_Left");
@@ -357,7 +363,6 @@ void AMainBoss::Att2()
 void AMainBoss::Att3(float _DeltaTime)
 {
 	MonsterCollision->ActiveOff();
-
 	FVector Move = FVector::Zero;
 
 	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 哭率 规氢
