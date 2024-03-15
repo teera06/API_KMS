@@ -1741,6 +1741,7 @@ void AKirby_Player::Run(float _DeltaTime)
 
 	if (RunRL != DirState)
 	{
+		UEngineSound::SoundPlay("stop.wav");
 		MovePos = FVector::Zero;
 		StateAniChange(EActorState::Stop);
 		return;
