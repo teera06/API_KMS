@@ -369,7 +369,6 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 				if (false == SAttIs)
 				{
 					SAtt = UEngineSound::SoundPlay("FireAtt.wav");
-					SAtt.SetVolume(0.5f);
 					SAtt.Loop();
 					SAttIs = true;
 				}
