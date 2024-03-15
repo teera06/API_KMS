@@ -67,6 +67,7 @@ void ASubBoss::Tick(float _DeltaTime)
 
 		if (true == MonsterRenderer->IsCurAnimationEnd())
 		{
+			UEngineSound::SoundPlay("SubBossDie.wav");
 			Destroy(); // 0.3f 뒤에 삭제
 		}
 	}
