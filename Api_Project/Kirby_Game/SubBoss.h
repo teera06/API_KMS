@@ -75,6 +75,8 @@ private:
 	bool Sound1 = false;
 	bool Sound2 = false;
 
+	bool hitSound = false;
+
 	void MoveUpdate(float _DeltaTime); // 몬스터 최종 움직임 제어
 
 	void AniCreate(); // 애니메이션 관리
