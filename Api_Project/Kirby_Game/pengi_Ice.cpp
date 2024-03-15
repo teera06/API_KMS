@@ -239,6 +239,7 @@ void Apengi_Ice::CalResult(float _DeltaTime)
 	{
 		if (true == IsIce)
 		{
+			UEngineSound::SoundPlay("MonsterIceDie.wav");
 			IceMove = FVector::Zero;
 			MonsterRenderer->ChangeAnimation("Effect");
 			IsDie = true;
