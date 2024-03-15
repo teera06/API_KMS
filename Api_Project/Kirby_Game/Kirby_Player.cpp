@@ -197,8 +197,8 @@ void AKirby_Player::AniCreate()
 	KirbyRenderer->CreateAnimation("Base_Stop_Left", "kirby_Right.png", 28, 28, 0.1f, true);
 
 	// 기본 점프 모션(완)
-	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", 38, 51, 0.06f, true);
-	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", 38, 51, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Right", "kirby_Right.png", {29,29,29,29,30,31,32,33,34,35,36}, 0.06f, true);
+	KirbyRenderer->CreateAnimation("Base_Jump_Left", "kirby_Left.png", { 29,29,29,29,30,31,32,33,34,35,36 }, 0.06f, true);
 
 	// 기본 나는 모션
 	KirbyRenderer->CreateAnimation("Base_FlyReady_Right", "kirby_Right.png", 53, 57, 0.08f, false);
