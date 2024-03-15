@@ -170,8 +170,8 @@ void AKirby_Player::AniCreate()
 		RunRenderer->CreateAnimation("run_Right", "Effects2_Right.png", 15,18,0.1f, true);
 		RunRenderer->CreateAnimation("run_Left", "Effects2_Left.png", 15,18, 0.1f, true);
 
-		FlyfallRenderer->CreateAnimation("fall_Right", "Effects2_Right.png", 0, 5, 0.08f, true);
-		FlyfallRenderer->CreateAnimation("fall_Left", "Effects2_Left.png", 0, 5, 0.08f, true);
+		FlyfallRenderer->CreateAnimation("fall_Right", "Effects2_Right.png", 0, 5, 0.1f, true);
+		FlyfallRenderer->CreateAnimation("fall_Left", "Effects2_Left.png", 0, 5, 0.1f, true);
 	}
 	effectRenderer->CreateAnimation("effect", "Effects2_Right.png", { 6,7,6,7,6,7 }, false);
 	FireRenderer1->CreateAnimation("Fire_Right", "Fire_Right.png", 145, 148,0.1f, true);
@@ -947,6 +947,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
 	CurY = GetActorLocation(); // 카메라 Y축 계산을 위한 현재 커비 위치를 저장
 	
+	FlyfallRenderer->ActiveOff();
 	if(true == fall && StageCheck == 2)
 	{
 		fall = false;
