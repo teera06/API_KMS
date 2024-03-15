@@ -1802,6 +1802,7 @@ void AKirby_Player::Run(float _DeltaTime)
 		true == UEngineInput::IsDown('X') && KirbyMode == EAMode::Hammer  // Å×½ºÆ®
 		)
 	{
+		RunRenderer->ActiveOff();
 		UEngineSound::SoundPlay("Hammer3.wav");
 		RunState = false;
 		HammerAttOrder = 3;
