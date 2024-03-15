@@ -1145,6 +1145,7 @@ void AKirby_Player::Idle(float _DeltaTime)
 		if (true==EatState && GetModeName() == "Base_")
 		{
 			EatState = false;
+			UEngineSound::SoundPlay("NoMode.wav");
 		}
 		else if (true == EatState &&  GetModeName()!="Base_") {
 			transform = true;
