@@ -265,7 +265,6 @@ void AKirby_Player::AniCreate()
 	// 파이어 점프 모션
 	KirbyRenderer->CreateAnimation("Fire_Jump_Right", "Fire_Right.png", { 22,21,22,21,22,21,22,23,24,25,26,27,28,29,30}, 0.07f, false);
 	KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.07f, false);
-	//KirbyRenderer->CreateAnimation("Fire_Jump_Left", "Fire_Left.png", { 22,21,22,21,22,23,24,25,26,27,28,29,30 }, 0.05f, false);
 
 	// 파이어 나는 모션
 	KirbyRenderer->CreateAnimation("Fire_FlyReady_Right", "Fire_Right.png", 65, 69, 0.08f, false);
@@ -355,8 +354,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Sir_Stop_Right", "Sir_Left.png", 48, 48, 0.1f, true); // 오른쪽 서 있기
 		KirbyRenderer->CreateAnimation("Sir_Stop_Left", "Sir_Right.png", 48, 48, 0.1f, true); // 왼쪽 서있기
 
-		KirbyRenderer->CreateAnimation("Sir_Jump_Right", "Sir_Right.png", 20, 26, 0.06f, true); // 오른쪽 서 있기
-		KirbyRenderer->CreateAnimation("Sir_Jump_Left", "Sir_Left.png", 20, 26, 0.06f, true); // 왼쪽 서있기
+		KirbyRenderer->CreateAnimation("Sir_Jump_Right", "Sir_Right.png", {20,20,20,20,20,20,21,22,23,24,25,26,27}, 0.08f, false); // 오른쪽 서 있기
+		KirbyRenderer->CreateAnimation("Sir_Jump_Left", "Sir_Left.png", { 20,20,20,20,20,20,21,22,23,24,25,26,27 }, 0.08f, false); // 왼쪽 서있기
 
 		KirbyRenderer->CreateAnimation("Sir_FlyReady_Right", "Sir_Right.png", {39,38,37,82}, 0.08f, false);
 		KirbyRenderer->CreateAnimation("Sir_FlyReady_Left", "Sir_Left.png", { 39,38,37,82 }, 0.08f, false);
@@ -398,8 +397,8 @@ void AKirby_Player::AniCreate()
 		KirbyRenderer->CreateAnimation("Mike_Stop_Left", "kirby_Right.png", 28, 28, 0.1f, true);
 
 		// 기본 점프 모션(완)
-		KirbyRenderer->CreateAnimation("Mike_Jump_Right", "kirby_Right.png", 38, 51, 0.06f, true);
-		KirbyRenderer->CreateAnimation("Mike_Jump_Left", "kirby_Left.png", 38, 51, 0.06f, true);
+		KirbyRenderer->CreateAnimation("Mike_Jump_Right", "kirby_Right.png", { 29,29,29,29,29,29,30,31,32,33,34,35,36 }, 0.08f, false);
+		KirbyRenderer->CreateAnimation("Mike_Jump_Left", "kirby_Left.png", { 29,29,29,29,29,29,30,31,32,33,34,35,36 }, 0.08f, false);
 
 		// 기본 나는 모션
 		KirbyRenderer->CreateAnimation("Mike_FlyReady_Right", "kirby_Right.png", 53, 57, 0.08f, false);
