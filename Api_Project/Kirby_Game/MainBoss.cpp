@@ -332,6 +332,7 @@ void AMainBoss::Att2()
 	{
 		if (false == IsBullet)
 		{
+			UEngineSound::SoundPlay("BulletReady.wav");
 			IsBullet = true;
 			ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>();
 			NewBullet->SetActorLocation(this->GetActorLocation());
