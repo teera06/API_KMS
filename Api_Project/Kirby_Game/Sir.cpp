@@ -265,7 +265,7 @@ void ASir::Collisiongather(float _DeltaTime)
 			{
 				MsgBoxAssert("터져야겠지....");
 			}
-
+			UEngineSound::SoundPlay("box.wav");
 			item->SetIsDelete(true);
 			StartDir = StartDir * FVector::Left;
 		}
