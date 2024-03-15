@@ -41,6 +41,13 @@ void UEndingLevel::BeginPlay()
 			// 싱글톤 잊지 말라고 일부러 GetInst를 사용하겠습니다.
 			UEngineResourcesManager::GetInst().LoadImg(FullPath); // 로딩 -> Map(Iamges)
 		}
+
+		std::list<UEngineFile> SoundList = NewPath.AllFile({ ".wav", ".mp3" }, true);
+		// 엔진만의 규칙을 정할거냐.
+		for (UEngineFile& File : SoundList)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
 	}
 	
 }
@@ -89,7 +96,7 @@ void UEndingLevel::Tick(float _DeltaTime)
 void UEndingLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
-	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3");
+	BGMPlayer = UEngineSound::SoundPlay("end.mp3");
 	BGMPlayer.SetVolume(0.7f);
 	BGMPlayer.Loop();
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정
