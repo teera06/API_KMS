@@ -19,6 +19,7 @@ void UGame_Core::BeginPlay()
 
 	MainWindow.SetWindowPosition({ positionX,positionY }); // 윈도우창이 뜨는 위치 Set
 	MainWindow.SetWindowScale({ windowX, windowY}); // 윈도우창 크기 Set
+	MainWindow.SetWindowTitle("Kirby Star");
 
 	//SetFrame(60); //-> 프로그래머가 컴퓨터 프레임을 고정시킬수 있다.
 
