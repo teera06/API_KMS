@@ -112,6 +112,7 @@ void ABox::ItemCollisiongather()
 	std::vector<UCollision*> Result;
 	if (true == CollisionItem->CollisionCheck(ECollisionOrder::kirby, Result, GravityVector)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
+		UEngineSound::SoundPlay("HpEat.wav");
 		MainPlayer->SetHp(100);
 		Destroy();
 	}
