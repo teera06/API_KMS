@@ -99,7 +99,8 @@ void ABox::Collisiongather(float _DeltaTime)
 
 	Color8Bit ColorR = UActorCommon::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::RedA);
 	std::vector<UCollision*> Result;
-	if (ColorR == Color8Bit(255, 0, 0, 0) || true == CollisionBody->CollisionCheck(ECollisionOrder::BoxTop, Result, GravityVector)) // ColMapImage에서 빨간색과 일치하는 경우
+	if (ColorR == Color8Bit(255, 0, 0, 0) || true == CollisionBody->CollisionCheck(ECollisionOrder::BoxTop, Result, GravityVector) 
+		|| true == CollisionItem->CollisionCheck(ECollisionOrder::BoxTop, Result, GravityVector*10.0f)) // ColMapImage에서 빨간색과 일치하는 경우
 	{
 		GravityVector = FVector::Zero; // 중력의 힘은 0으로
 	}
