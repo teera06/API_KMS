@@ -185,6 +185,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 		)
 	{
 		hit = true;
+		UEngineSound::SoundPlay("Allstardel.wav");
 	}
 	else if (true == AllStarCollision->CollisionCheck(ECollisionOrder::Box, Result))
 	{
@@ -200,6 +201,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 
 		item->SetIsDelete(true);
 		hit = true;
+		UEngineSound::SoundPlay("Allstardel.wav");
 	}
 
 
@@ -210,6 +212,7 @@ void AAllStar::Collisiongather(float _DeltaTime)
 	if (ColorR == Color8Bit(255, 0, 0, 0))
 	{
 		hit = true;
+		UEngineSound::SoundPlay("Allstardel.wav");
 	}
 }
 
