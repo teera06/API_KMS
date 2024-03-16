@@ -1,5 +1,5 @@
 #include "TitleActor.h"
-#include <EnginePlatform\EngineInput.h> // 마우스 왼쪽 버튼 누를 경우 레벨 체인지
+
 #include "ModeEnum.h"
 
 ATitleActor::ATitleActor()
@@ -26,10 +26,13 @@ void ATitleActor::BeginPlay()
 	StartRenderer->SetImage("Text.png"); // 이미지 Set
 	StartRenderer->SetTransform({ { 200,250 }, {64*10, 64*8} });
 	
-	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true); // 오른쪽 서 있기
+	// 애니메이션 생성 및 실행
+	// 배경 애니메이션
+	TitleRenderer->CreateAnimation("Mapback", "Mapback.png", 0, 4, 3.0f, true);
 	TitleRenderer->ChangeAnimation("Mapback");
 
-	StartRenderer->CreateAnimation("Ready", "Text.png", 0, 10, 0.5f, false); // 오른쪽 서 있기
+	// Ready 애니메이션
+	StartRenderer->CreateAnimation("Ready", "Text.png", 0, 10, 0.5f, false);
 	StartRenderer->ChangeAnimation("Ready");
 }
 
