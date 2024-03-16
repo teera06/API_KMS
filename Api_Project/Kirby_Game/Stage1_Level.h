@@ -1,13 +1,14 @@
 #pragma once
-#include <EngineCore\Level.h> // 상속
 #include <EnginePlatform\EngineSound.h>
+#include <EngineCore\Level.h> // 상속
 
-class AKirby_Player;
-class AKirby_HpBar;
-class AMonster_Base;
-class Apengi_Ice;
-class AMonster_Fire;
-class AStage1_MAP;
+// 전방 선언 
+class AKirby_Player; // 커비
+class AKirby_HpBar; // 커비 HP바
+class AMonster_Base; // 기본 몬스터
+class Apengi_Ice; // 아이스 몬스터
+class AMonster_Fire; // 불 몬스터
+class AStage1_MAP; // 맵1
 
 class UStage1_Level:public ULevel
 {
@@ -28,21 +29,22 @@ protected:
 	void LevelStart(ULevel* _PrevLevel)override;
 	void LevelEnd(ULevel* _NextLevel) override;
 private:
+	// 사운드
 	UEngineSoundPlayer BGMPlayer;
 
+	// 액터 관리
 	AStage1_MAP* NewMap = nullptr;
 	AKirby_Player* NewPlayer = nullptr;
 	AKirby_HpBar* NewHpBar = nullptr;
 	
-	AMonster_Base* NewBase[5] = { nullptr,nullptr,nullptr,nullptr };
-	Apengi_Ice* NewIce[5] = { nullptr,nullptr,nullptr,nullptr };
-	AMonster_Fire* NewFire[3] = { nullptr,nullptr};
+	AMonster_Base* NewBase[5] = { nullptr,nullptr,nullptr,nullptr,nullptr };
+	Apengi_Ice* NewIce[5] = { nullptr,nullptr,nullptr,nullptr,nullptr };
+	AMonster_Fire* NewFire[3] = { nullptr,nullptr,nullptr};
 
-
+	// 몬스터 수 
 	const int Basesize = 4;
 	const int Icesize = 4;
 
 	static bool LoadCheck;
-
 };
 
