@@ -29,6 +29,5 @@ private:
 	// 윈도우창 위치 (X,Y)
 	int positionX = 200;
 	int positionY = 100;
-
 };
 
