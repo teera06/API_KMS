@@ -1,10 +1,10 @@
 #include "TitleLevel.h"
-#include "TitleActor.h"
 
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
 #include <EngineBase\EngineFile.h> // Level0 EngineFile
 
+#include "TitleActor.h"
 #include "Stage1_Level.h"
 
 
@@ -75,21 +75,21 @@ void UTitleLevel::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
 
-	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3");
-	BGMPlayer.SetVolume(0.7f);
-	BGMPlayer.Loop();
+	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3"); // 사운드 플레이
+	BGMPlayer.SetVolume(0.7f); // 사운드 볼륨 조절
+	BGMPlayer.Loop(); // 무한 재생
 
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정
 
 	SpawnActor<ATitleActor>()->SetActorLocation(windowscale.Half2D()); // 윈도우창 중간지점으로 TitleActor 위치 Set
 
-	GEngine->CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level 생성
+	GEngine->CreateLevel<UStage1_Level>("Stage1_Level"); // stage1_Level 생성 -> 다음 이동할 레벨 준비
 }
 
 void UTitleLevel::LevelEnd(ULevel* _NextLevel)
 {
 	ULevel::LevelEnd(_NextLevel);
 
-	BGMPlayer.Off();
-	GEngine->DestroyLevel("TitleLevel");
+	BGMPlayer.Off(); // 재생되던 사운드 끄기
+	GEngine->DestroyLevel("TitleLevel"); // 종료되는 시점 레벨 삭제 (그 안의 액터 같이 삭제 정리)
 }
