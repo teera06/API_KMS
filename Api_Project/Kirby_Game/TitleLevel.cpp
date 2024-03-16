@@ -60,12 +60,12 @@ void UTitleLevel::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
 
-	if (true == UEngineInput::IsDown(VK_RETURN))
+	if (true == UEngineInput::IsDown(VK_RETURN)) // Enter 입력시 다음 레벨 변경
 	{   
 		GEngine->ChangeLevel("Stage1_Level");
 	}
 
-	if (true == UEngineInput::IsDown(VK_ESCAPE))
+	if (true == UEngineInput::IsDown(VK_ESCAPE)) // ESC 입력시 프로그램 종료
 	{
 		GEngine->MainWindow.Off();
 	}
