@@ -71,35 +71,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	RenderCreate();
 	AniCreate(); // 애니메이션 종합 관리
-
-	// 콜리전 설정
-	{
-		KirbyCollision = CreateCollision(ECollisionOrder::kirby); 
-		KirbyCollision->SetScale({ 60, 60 });
-		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
-
-		BoxCollision = CreateCollision(ECollisionOrder::kirbyBox);
-		BoxCollision->SetScale({ 60, 60 });
-		BoxCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
-	}
-
-	{
-		FireCollision= CreateCollision(ECollisionOrder::FireAttack);
-		FireCollision->SetColType(ECollisionType::Rect);
-		FireCollision->ActiveOff();
-	}
-
-	{
-		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
-		MikeCollision->SetColType(ECollisionType::Rect);
-		MikeCollision->ActiveOff();
-	}
-
-	{
-		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
-		HammerCollision->SetColType(ECollisionType::Rect);
-		HammerCollision->ActiveOff();
-	}
+	CollsionCreate();
 
 	StateAniChange(EActorState::Idle); // 시작 애니메이션
 
@@ -502,6 +474,38 @@ void AKirby_Player::AniCreate()
 
 
 
+}
+
+void AKirby_Player::CollsionCreate()
+{
+	// 콜리전 설정
+	{
+		KirbyCollision = CreateCollision(ECollisionOrder::kirby);
+		KirbyCollision->SetScale({ 60, 60 });
+		KirbyCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
+
+		BoxCollision = CreateCollision(ECollisionOrder::kirbyBox);
+		BoxCollision->SetScale({ 60, 60 });
+		BoxCollision->SetColType(ECollisionType::Rect); // 콜리전 타입은 사각형 충돌
+	}
+
+	{
+		FireCollision = CreateCollision(ECollisionOrder::FireAttack);
+		FireCollision->SetColType(ECollisionType::Rect);
+		FireCollision->ActiveOff();
+	}
+
+	{
+		MikeCollision = CreateCollision(ECollisionOrder::MikeAttack);
+		MikeCollision->SetColType(ECollisionType::Rect);
+		MikeCollision->ActiveOff();
+	}
+
+	{
+		HammerCollision = CreateCollision(ECollisionOrder::Hammer);
+		HammerCollision->SetColType(ECollisionType::Rect);
+		HammerCollision->ActiveOff();
+	}
 }
 
 // 커비 모드 체인지 관리
