@@ -259,6 +259,7 @@ private:
 	bool RunState = false;
 	EActorDir RunRL = EActorDir::None;
 
+	void RenderCreate();
 	void AniCreate(); // 애니메이션 생성
 	void KirbyModeCheck(); // 커비 모드 체인지
 	void GroundUp();

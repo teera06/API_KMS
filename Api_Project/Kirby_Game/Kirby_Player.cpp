@@ -69,59 +69,7 @@ void AKirby_Player::BeginPlay() // 실행했을때 준비되어야 할것들 Set
 
 	MainPlayer = this; // 다른 클래스가 사용하기 위해 본인을 넣는다.
 
-	scale = 3; // ActorCommon -> 랜더링 크기 설정
-
-	// 랜더링 설정
-	{
-		KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
-		KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
-		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
-
-	}
-
-	
-	{
-		RunRenderer = CreateImageRenderer(ERenderOrder::effect);
-		RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
-		RunRenderer->ActiveOff();
-
-		FlyfallRenderer = CreateImageRenderer(ERenderOrder::effect);
-		FlyfallRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
-		FlyfallRenderer->ActiveOff();
-
-		JumpEndRenderer = CreateImageRenderer(ERenderOrder::effect);
-		JumpEndRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
-		JumpEndRenderer->ActiveOff();
-
-		effectRenderer= CreateImageRenderer(ERenderOrder::effect);
-		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
-		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
-		effectRenderer->ActiveOff();
-	}
-
-	{
-		FireRenderer1= CreateImageRenderer(ERenderOrder::Fire);
-		FireRenderer1->SetImage("Fire_Right.png"); // 이미지 Set//
-		FireRenderer1->ActiveOff();
-
-		FireRenderer2 = CreateImageRenderer(ERenderOrder::Fire);
-		FireRenderer2->SetImage("Fire_Right.png"); // 이미지 Set//
-		FireRenderer2->ActiveOff();
-
-		FireRenderer3 = CreateImageRenderer(ERenderOrder::Fire);
-		FireRenderer3->SetImage("Fire_Right.png"); // 이미지 Set//
-		FireRenderer3->ActiveOff();
-	}
-
-	if (StageCheck >= 3)
-	{
-		
-		SoundRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
-		SoundRenderer->SetImage("Tock_Right.png"); // 이미지 Set
-		SoundRenderer->SetTransform({ {0,0}, {64 * 8, 64 * 8} }); // 랜더의 위치 크기 
-
-		SoundRenderer->ActiveOff();
-	}
+	RenderCreate();
 	AniCreate(); // 애니메이션 종합 관리
 
 	// 콜리전 설정
@@ -164,6 +112,63 @@ void AKirby_Player::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	StateUpdate(_DeltaTime);
+}
+
+void AKirby_Player::RenderCreate()
+{
+	scale = 3; // ActorCommon -> 랜더링 크기 설정
+
+	// 랜더링 설정
+	{
+		KirbyRenderer = CreateImageRenderer(ERenderOrder::kirby); // 이미지 랜더 생성
+		KirbyRenderer->SetImage("kirby_Right.png"); // 이미지 Set
+		KirbyRenderer->SetTransform({ {0,0}, {64 * scale, 64 * scale} }); // 랜더의 위치 크기 
+
+	}
+
+
+	{
+		RunRenderer = CreateImageRenderer(ERenderOrder::effect);
+		RunRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		RunRenderer->ActiveOff();
+
+		FlyfallRenderer = CreateImageRenderer(ERenderOrder::effect);
+		FlyfallRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		FlyfallRenderer->ActiveOff();
+
+		JumpEndRenderer = CreateImageRenderer(ERenderOrder::effect);
+		JumpEndRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		JumpEndRenderer->ActiveOff();
+
+		effectRenderer = CreateImageRenderer(ERenderOrder::effect);
+		effectRenderer->SetImage("Effects2_Right.png"); // 이미지 Set//
+		effectRenderer->SetTransform({ {0,20}, {64 * 2, 64 * 2} }); // 랜더의 위치 크기 
+		effectRenderer->ActiveOff();
+	}
+
+	{
+		FireRenderer1 = CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer1->SetImage("Fire_Right.png"); // 이미지 Set//
+		FireRenderer1->ActiveOff();
+
+		FireRenderer2 = CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer2->SetImage("Fire_Right.png"); // 이미지 Set//
+		FireRenderer2->ActiveOff();
+
+		FireRenderer3 = CreateImageRenderer(ERenderOrder::Fire);
+		FireRenderer3->SetImage("Fire_Right.png"); // 이미지 Set//
+		FireRenderer3->ActiveOff();
+	}
+
+	if (StageCheck >= 3)
+	{
+
+		SoundRenderer = CreateImageRenderer(ERenderOrder::Sound); // 이미지 랜더 생성
+		SoundRenderer->SetImage("Tock_Right.png"); // 이미지 Set
+		SoundRenderer->SetTransform({ {0,0}, {64 * 8, 64 * 8} }); // 랜더의 위치 크기 
+
+		SoundRenderer->ActiveOff();
+	}
 }
 
 // 애니메이션 생성 관리
