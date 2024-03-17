@@ -1,5 +1,7 @@
 #include "Stage1_MAP.h"
 
+#include <EnginePlatform\EngineInput.h> // Level1 -> 입력 담당(조작)
+
 #include "ModeEnum.h" // Enum 모음집
 
 #include "ActorCommon.h" // ActorCommon::ColMapImage = Image; -> 픽셀 충돌할 맵 이미지 설정

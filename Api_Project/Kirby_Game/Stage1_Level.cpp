@@ -1,5 +1,6 @@
 #include "Stage1_Level.h"
 
+#include <EngineCore/EngineCore.h> // GetWorld 사용 -> Level 정보 이용
 // 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
 #include <EngineCore\EngineResourcesManager.h>
 #include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
