@@ -1,5 +1,10 @@
 #include "Stage1_Level.h"
 
+// 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
+#include <EngineCore\EngineResourcesManager.h>
+#include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
+#include <EngineBase\EngineFile.h> // Level0 EngineFile
+
 // Actor
 #include "Stage1_MAP.h" 
 #include "Stage2_Level.h"
@@ -9,11 +14,6 @@
 #include "pengi_Ice.h"
 #include "Monster_Fire.h"
 #include "Kirby_HpBar.h"
-
-// 리소스 (이미지, 사운드) 로드하기 위해 필요한 헤더
-#include <EngineCore\EngineResourcesManager.h>
-#include <EngineBase\EngineDirectory.h> // Level 0 EngineDirectory
-#include <EngineBase\EngineFile.h> // Level0 EngineFile
 
 bool UStage1_Level::LoadCheck = false;
 
@@ -91,10 +91,12 @@ void UStage1_Level::Tick(float _DeltaTime)
 void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
+	// 사운드
 	BGMPlayer = UEngineSound::SoundPlay("Stage1BGM.mp3");
 	BGMPlayer.SetVolume(0.3f);
 	BGMPlayer.Loop();
 	
+	// 카메랑 위치
 	SetCameraPos({ 0,400 }); // 카메라 위치 설정
 
 	// 맵 생성
@@ -113,7 +115,6 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 	NewHpBar = SpawnActor<AKirby_HpBar>();
 
 	// 몬스터 Actor 생성
-
 	NewBase[0] = SpawnActor<AMonster_Base>();
 	NewBase[0]->SetActorLocation({ 800,900 });
 
@@ -134,7 +135,6 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 
 	NewFire[1] = SpawnActor<AMonster_Fire>();
 	NewFire[1]->SetActorLocation({ 3000,400 });
-	
 	
 	GEngine->CreateLevel<UStage2_Level>("Stage2_Level"); // stage2_Level 다음 레벨 미리 준비
 }
