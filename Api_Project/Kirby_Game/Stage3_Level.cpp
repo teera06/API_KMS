@@ -78,7 +78,7 @@ void UStage3_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
 	BGMPlayer = UEngineSound::SoundPlay("Stage3BGM.mp3");
-	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.SetVolume(0.7f);
 	BGMPlayer.Loop();
 
 	SetCameraPos({ 0,0 }); // 카메라 위치 설정

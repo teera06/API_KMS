@@ -94,7 +94,7 @@ void UStage1_Level::LevelStart(ULevel* _PrevLevel)
 	ULevel::LevelStart(_PrevLevel);
 	// 사운드
 	BGMPlayer = UEngineSound::SoundPlay("Stage1BGM.mp3");
-	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.SetVolume(0.7f);
 	BGMPlayer.Loop();
 	
 	// 카메랑 위치

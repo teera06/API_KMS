@@ -100,7 +100,7 @@ void ULastBoss_Level::LevelStart(ULevel* _PrevLevel)
 {
 	ULevel::LevelStart(_PrevLevel);
 	BGMPlayer = UEngineSound::SoundPlay("LastBGM.mp3");
-	BGMPlayer.SetVolume(0.3f);
+	BGMPlayer.SetVolume(0.7f);
 	BGMPlayer.Loop();
 	SetCameraPos({100,-40 }); // 카메라 위치 설정
 
