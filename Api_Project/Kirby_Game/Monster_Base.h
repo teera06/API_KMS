@@ -1,6 +1,5 @@
 #pragma once
 // »ó¼Ó
-#include <EnginePlatform\EngineSound.h>
 #include <EngineCore\Actor.h>
 #include "ActorCommon.h"
 
