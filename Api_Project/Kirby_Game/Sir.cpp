@@ -260,7 +260,9 @@ void ASir::Collisiongather(float _DeltaTime)
 			|| true == SirCollision->CollisionCheck(ECollisionOrder::MainBoss, Result, Move* 0.01f)
 			|| true == SirCollision->CollisionCheck(ECollisionOrder::IceBox, Result, Move* 0.01f))
 		{
-			StartDir = StartDir * FVector::Left;
+			MainPlayer->SetSirUse(false);
+			SSir.Off();
+			Destroy();
         }
 		else if (true == SirCollision->CollisionCheck(ECollisionOrder::Box, Result))
 		{
