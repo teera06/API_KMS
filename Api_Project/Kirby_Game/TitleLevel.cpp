@@ -76,7 +76,6 @@ void UTitleLevel::LevelStart(ULevel* _PrevLevel)
 	ULevel::LevelStart(_PrevLevel);
 
 	BGMPlayer = UEngineSound::SoundPlay("titleSound.mp3"); // 사운드 플레이
-	BGMPlayer.SetVolume(0.7f); // 사운드 볼륨 조절
 	BGMPlayer.Loop(); // 무한 재생
 
 	SetCameraPos({ 0,50 }); // 카메라 위치 설정

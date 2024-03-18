@@ -365,7 +365,7 @@ void AMonster_Fire::CalResult(float _DeltaTime)
 			{
 				if (false == SAttIs)
 				{
-					UEngineSound::SoundPlay("FireAtt.wav");
+					UEngineSound::SoundPlay("FireAtt.wav").SetVolume(0.5f);
 					SAttIs = true;
 				}
 				CurLocation = GetActorLocation() * FVector::Right;
