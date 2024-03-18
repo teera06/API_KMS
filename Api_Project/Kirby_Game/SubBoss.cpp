@@ -98,7 +98,7 @@ void ASubBoss::CalDir(float _DeltaTime)
 
 	MovePos = FVector::Zero; // 플레이어 추격 시 이동
 
-	if (MonsterDirNormal.iX() == -1 or MonsterDirNormal.iX() == 0) // 왼쪽 방향
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Move_Left");
 		WallX = -20;
@@ -136,7 +136,7 @@ void ASubBoss::Att1(float _DeltaTime)
 
 void ASubBoss::Att2()
 {
-	if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+	if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 	{
 		MonsterRenderer->ChangeAnimation("Att2_Left");
 	}
@@ -146,7 +146,7 @@ void ASubBoss::Att2()
 	if (true == MonsterRenderer->IsCurAnimationEnd())
 	{
 		RandomAtt = UEngineRandom::MainRandom.RandomInt(1, 2);
-		if (MonsterDirNormal.iX() == -1) // 왼쪽 방향
+		if (MonsterDirNormal.iX() == -1 || MonsterDirNormal.iX() == 0) // 왼쪽 방향
 		{
 			GetWorld()->SpawnActor<AMonster_Mike>()->SetActorLocation({ GetActorLocation().iX()-100,200 });
 		}
